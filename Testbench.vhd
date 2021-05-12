@@ -4,12 +4,12 @@ use ieee.std_logic_arith.CONV_STD_LOGIC_VECTOR;
 use work.HermesPackage.all;
 use work.standards.all;
 
-entity topNoC is
+entity Testbench is
     generic(X_ROUTERS: integer := 2;
     	    Y_ROUTERS: integer := 2 );
 end;
 
-architecture topNoC of topNoC is
+architecture TB of Testbench is
 
 	signal clock : std_logic_vector( (X_ROUTERS*Y_ROUTERS-1) downto 0) := (others=>'0');
 	signal reset : std_logic;
@@ -88,4 +88,4 @@ begin
 	-- TODO: injection process 
 
 
-end topNoC;
+end TB;

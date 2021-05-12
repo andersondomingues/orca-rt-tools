@@ -3,15 +3,15 @@ if {[file isdirectory work]} { vdel -all -lib work }
 vlib work
 vmap work work
 
-vcom -work work -93 -explicit NOC/Hermes_package.vhd
-vcom -work work -93 -explicit NOC/Hermes_buffer.vhd
-vcom -work work -93 -explicit NOC/Hermes_switchcontrol.vhd
-vcom -work work -93 -explicit NOC/Hermes_crossbar.vhd
-vcom -work work -93 -explicit NOC/RouterCC.vhd
-vcom -work work -93 -explicit NOC/NOC.vhd
-vcom -work work -93 -explicit topNoC.vhd
+vcom -work work -93 -explicit hermes/Hermes_package.vhd
+vcom -work work -93 -explicit hermes/Hermes_buffer.vhd
+vcom -work work -93 -explicit hermes/Hermes_switchcontrol.vhd
+vcom -work work -93 -explicit hermes/Hermes_crossbar.vhd
+vcom -work work -93 -explicit hermes/RouterCC.vhd
+vcom -work work -93 -explicit hermes/TopNOC.vhd
+vcom -work work -93 -explicit Testbench.vhd
 
-vsim -t 10ps work.topNoC
+vsim -t 10ps work.Testbench
 
 set StdArithNoWarnings 1
 set StdVitalGlitchNoWarnings 1
