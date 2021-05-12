@@ -26,13 +26,12 @@ architecture TB of Testbench is
 	constant NUM_PACKETS : integer := 5;
 
     -- vector of integer (one entry per packet)
-	type ivector is array(NUM_PACKETS-1 downto 0) of INTEGER
+	type ivector is array(0 to NUM_PACKETS-1) of INTEGER
 		range 0 to 255;
 
 	-- packet transmission state machine states 
 	type pckstate_t is (WAITING, HEADER, SIZE, PAYLOAD, DONE);
-	type pckstate is array(NUM_PACKETS-1 downto 0) of pckstate_t
-		range WAITING to DONE;
+	type pckstate is array(0 to NUM_PACKETS-1) of pckstate_t;
 
 	signal pkt_state : pckstate;
 
@@ -46,7 +45,7 @@ begin
 	reset <= '1', '0' after 15 ns;
 
     clocks_router: for i in 0 to NB_ROUTERS-1 generate
-          clock(i) <= not clock(i) after 10 ns;
+          clock(i) <= not clock(i) after 0.5 ns; -- TODO: freq definition
     end generate clocks_router;
 
 	noc1: Entity work.NOC
@@ -76,16 +75,16 @@ begin
 	end process;
 
 	-- reset packet states 
-	-- TODO: replace nanoseconds by cycles
+	-- TODO: replace nanoseconds by cycles if freq != 0.5 ns
     reset_pkt_states: for i in 0 to NUM_PACKETS-1 generate
 		pkt_state(i) <= WAITING, 
 			HEADER  after (pkt_start(i) + 1) * 1 ns,
 			SIZE    after (pkt_start(i) + 2) * 1 ns, 
 			PAYLOAD after (pkt_start(i) + 3) * 1 ns,
-			DONE    after (pkt_start(i) + pkt_size(i)) * 1 ns;
+			DONE    after (pkt_start(i) + 3 + pkt_size(i)) * 1 ns;
     end generate reset_pkt_states;
 
 	-- TODO: injection process 
-
+	
 
 end TB;
