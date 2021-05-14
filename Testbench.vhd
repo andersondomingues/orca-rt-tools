@@ -38,8 +38,11 @@ architecture TB of Testbench is
 	-- release time of each packet   F1  F2  F3  F4  F5
 	-- (minizinc output) and packet
 	-- size (minizinc input)
-  	constant pkt_start : ivector := (26,  0,  0, 26, 0);
-  	constant pkt_size  : ivector := ( 6, 14,  7,  9, 5);
+  	constant pkt_start  : ivector := (26,  0,  0, 26, 0);
+  	constant pkt_size   : ivector := ( 6, 14,  7,  9, 5);
+	constant pkt_source : ivector := ( 0,  0,  2,  2, 3);
+	constant pkt_target : ivector := ( 1,  0,  3,  1, 0);
+	-- constant pkt_deadline TODO: automate deadline checking
 
 begin
 	reset <= '1', '0' after 15 ns;
@@ -84,7 +87,31 @@ begin
 			DONE    after (pkt_start(i) + 3 + pkt_size(i)) * 1 ns;
     end generate reset_pkt_states;
 
-	-- TODO: injection process 
+	-- TODO: injection process
+	inject_pkt: for i in 0 to NUM_PACKETS-1 generate
+	process (clock(0), reset) begin
+		if rising_edge(clock(0)) and reset = '0' then
+			if pkt_state(i) = WAITING then 
+				tx(pkt_source(i)) <= '0';
+			
+			else if pkt_state(i) = HEADER then 
+				tx(pkt_source(i)) <= '1';
+				data_out(pkt_source(i)) <= pkt_target(i);
+
+			else if pkt_state(i) = SIZE then
+				tx(pkt_source(i)) <= '1';
+				data_out(pkt_source(i)) <= pkt_size(i);
+
+			else if pkt_state(i) = PAYLOAD then
+				tx(pkt_source(i)) <= '1';
+				data_out(pkt_source(i)) <= cycles;
+
+			else -- DONE 			
+				tx(pkt_source(i)) <= '0';
+			end if;
+		end if;
+	end process;
+	end generate inject_pkt;
 	
 
 end TB;
