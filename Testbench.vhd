@@ -3,6 +3,8 @@ use IEEE.std_logic_1164.all;
 use ieee.std_logic_arith.CONV_STD_LOGIC_VECTOR;
 use work.HermesPackage.all;
 use work.standards.all;
+use ieee.numeric_std.all;
+use ieee.numeric_std_unsigned.all;
 
 entity Testbench is
     generic(X_ROUTERS: integer := 2;
@@ -11,13 +13,26 @@ end;
 
 architecture TB of Testbench is
 
-	signal clock : std_logic_vector( (X_ROUTERS*Y_ROUTERS-1) downto 0) := (others=>'0');
-	signal reset : std_logic;
-	signal clock_rx, rx, credit_o: std_logic_vector( (X_ROUTERS*Y_ROUTERS-1) downto 0);
-	signal clock_tx, tx, credit_i: std_logic_vector( (X_ROUTERS*Y_ROUTERS-1) downto 0);
-	signal data_in, data_out : arrayNrot_regflit( (X_ROUTERS*Y_ROUTERS-1) downto 0 );
+	constant NUM_ROUTERS : integer :=  X_ROUTERS * Y_ROUTERS;
 
-	constant NB_ROUTERS : integer :=  X_ROUTERS * Y_ROUTERS;
+	-- TODO: put it into a package
+	function RouterAddress(router: integer) return std_logic_vector is
+		variable pos_x, pos_y : regquartoflit; 
+		variable addr : regmetadeflit; 
+		variable aux  : integer;
+	begin 
+		aux := (router/X_ROUTERS);
+		pos_x := conv_std_logic_vector((router mod X_ROUTERS),QUARTOFLIT);
+		pos_y := conv_std_logic_vector(aux,QUARTOFLIT); 
+		addr := pos_x & pos_y;
+		return addr;
+	end RouterAddress;
+
+	signal clock : std_logic_vector((NUM_ROUTERS-1) downto 0) := (others=>'0');
+	signal reset : std_logic;
+	signal clock_rx, rx, credit_o: std_logic_vector((NUM_ROUTERS-1) downto 0);
+	signal clock_tx, tx, credit_i: std_logic_vector((NUM_ROUTERS-1) downto 0);
+	signal data_in, data_out : arrayNrot_regflit((NUM_ROUTERS-1) downto 0);
 
 	-- delta cycles
 	signal cycles : integer := 0;
@@ -34,21 +49,21 @@ architecture TB of Testbench is
 	type pckstate is array(0 to NUM_PACKETS-1) of pckstate_t;
 
 	signal pkt_state : pckstate;
+	signal pkt_test  : std_logic_vector(NUM_PACKETS-1 downto 0);
 
-	-- release time of each packet   F1  F2  F3  F4  F5
-	-- (minizinc output) and packet
-	-- size (minizinc input)
-  	constant pkt_start  : ivector := (26,  0,  0, 26, 0);
-  	constant pkt_size   : ivector := ( 6, 14,  7,  9, 5);
-	constant pkt_source : ivector := ( 0,  0,  2,  2, 3);
-	constant pkt_target : ivector := ( 1,  0,  3,  1, 0);
-	-- constant pkt_deadline TODO: automate deadline checking
+	--                                  F1  F2  F3  F4  F5
+  	constant pkt_start    : ivector := (26,  0,  0, 26,  0); -- release cycle
+  	constant pkt_size     : ivector := ( 6, 14,  7,  9,  5); -- payload size
+	constant pkt_source   : ivector := ( 0,  0,  2,  2,  3); -- source router #
+	constant pkt_target   : ivector := ( 1,  0,  3,  1,  0); -- target router #
+	constant pkt_deadline : ivector := (55, 55, 55, 55, 55); -- max tx tolerance
 
 begin
-	reset <= '1', '0' after 15 ns;
+	reset <= '1', '0' after 5 ns;
 
-    clocks_router: for i in 0 to NB_ROUTERS-1 generate
-          clock(i) <= not clock(i) after 0.5 ns; -- TODO: freq definition
+	-- TODO: ??
+    clocks_router: for i in 0 to NUM_ROUTERS-1 generate
+          clock(i) <= not clock(i) after 0.5 ns; -- 500 ps
     end generate clocks_router;
 
 	noc1: Entity work.NOC
@@ -66,52 +81,94 @@ begin
 		data_outLocal => data_out,
 		credit_iLocal => credit_i);
 
-    clock_rx(0) <= clock(0); 
+    clock_tx <= clock; -- TODO: !?
+	clock_rx <= clock; 
 
-    reset <= '1', '0' after 15 ns;
-
-	-- delta cycles impl.
+	-- cycle counter process
 	cycle_counter : process (clock(0), reset) begin
-		if rising_edge(clock(0)) and reset = '0' then 
-			cycles <= cycles + 1;
-		end if;
-	end process;
-
-	-- reset packet states 
-	-- TODO: replace nanoseconds by cycles if freq != 0.5 ns
-    reset_pkt_states: for i in 0 to NUM_PACKETS-1 generate
-		pkt_state(i) <= WAITING, 
-			HEADER  after (pkt_start(i) + 1) * 1 ns,
-			SIZE    after (pkt_start(i) + 2) * 1 ns, 
-			PAYLOAD after (pkt_start(i) + 3) * 1 ns,
-			DONE    after (pkt_start(i) + 3 + pkt_size(i)) * 1 ns;
-    end generate reset_pkt_states;
-
-	-- TODO: injection process
-	inject_pkt: for i in 0 to NUM_PACKETS-1 generate
-	process (clock(0), reset) begin
-		if rising_edge(clock(0)) and reset = '0' then
-			if pkt_state(i) = WAITING then 
-				tx(pkt_source(i)) <= '0';
-			
-			else if pkt_state(i) = HEADER then 
-				tx(pkt_source(i)) <= '1';
-				data_out(pkt_source(i)) <= pkt_target(i);
-
-			else if pkt_state(i) = SIZE then
-				tx(pkt_source(i)) <= '1';
-				data_out(pkt_source(i)) <= pkt_size(i);
-
-			else if pkt_state(i) = PAYLOAD then
-				tx(pkt_source(i)) <= '1';
-				data_out(pkt_source(i)) <= cycles;
-
-			else -- DONE 			
-				tx(pkt_source(i)) <= '0';
+		if rising_edge(clock(0)) then
+			if reset = '0' then 
+				cycles <= cycles + 1;
+			else 
+				cycles <= 0;
 			end if;
 		end if;
 	end process;
-	end generate inject_pkt;
+
+	-- packet state machine processes
+    reset_pkt_states: for i in 0 to NUM_PACKETS-1 generate
+	process (clock(0), reset) begin
+		if rising_edge(clock(0)) and reset = '0' then
+			if cycles < pkt_start(i) then
+				pkt_state(i) <= WAITING;			
+			elsif cycles = pkt_start(i) then
+				pkt_state(i) <= HEADER;
+			elsif pkt_state(i) = HEADER then
+				pkt_state(i) <= SIZE;
+			elsif pkt_state(i) = SIZE then
+				pkt_state(i) <= PAYLOAD;
+			elsif pkt_state(i) = PAYLOAD 
+				and cycles >= (pkt_start(i) + 3 + pkt_size(i)) then
+					pkt_state(i) <= DONE;
+			end if;
+		end if;
+	end process;
+    end generate reset_pkt_states;
+
+	-- TODO: !?
+	rx <= (others => '1');
+
+	-- data injection
+    rx_procs: for i in 0 to NUM_ROUTERS-1 generate
+	process (clock(0), reset) 
+		variable is_transmitting : boolean;
+	begin	
+		if rising_edge(clock(0)) and reset = '0' then
+
+			is_transmitting := false;
+
+			for k in 0 to NUM_PACKETS-1 loop
+				if pkt_source(k) = i then -- pkt source is the current router
+					case pkt_state(k) is
+					when HEADER => 
+						data_in(i) <= (data_in(0)'range => '0') 
+							+ RouterAddress(pkt_target(i));
+						is_transmitting := true;
+					when SIZE =>
+						data_in(i) <= std_logic_vector(
+							to_unsigned(pkt_size(k), 
+								data_in(pkt_size(k))'length));
+						is_transmitting := true;
+					when PAYLOAD =>
+						data_in(i) <= conv_std_logic_vector(
+							cycles, data_in(i)'length);				
+						is_transmitting := true;
+					when others => -- intentionally left empty
+					end case;
+				end if;
+			end loop;
+
+			if is_transmitting then
+				tx(i) <= '1';				
+			else 
+				tx(i) <= '0';				
+				data_in(i) <= (others => 'Z');
+			end if;
+
+		end if;
+	end process;
+    end generate rx_procs;
 	
+	-- deadline assertion 
+	deadline_checking: for i in 0 to NUM_PACKETS-1 generate
+	process (clock(0), reset) begin	
+		if rising_edge(clock(0)) and reset = '0' then
+			if pkt_state(i) = DONE then
+				-- TODO: fix conditional assert
+				assert pkt_state(i) = WAITING report "DEADLINE MISSED" severity warning;
+			end if;
+		end if;
+	end process;
+	end generate deadline_checking;
 
 end TB;
