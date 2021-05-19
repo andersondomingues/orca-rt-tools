@@ -66,6 +66,8 @@ begin
           clock(i) <= not clock(i) after 0.5 ns; -- 500 ps
     end generate clocks_router;
 
+	credit_o <= (others => '1');
+
 	noc1: Entity work.NOC
 	generic map(  X_ROUTERS => X_ROUTERS,
 		          Y_ROUTERS => Y_ROUTERS)
@@ -81,7 +83,6 @@ begin
 		data_outLocal => data_out,
 		credit_iLocal => credit_i);
 
-    clock_tx <= clock; -- TODO: !?
 	clock_rx <= clock; 
 
 	-- cycle counter process
@@ -115,9 +116,6 @@ begin
 	end process;
     end generate reset_pkt_states;
 
-	-- TODO: !?
-	rx <= (others => '1');
-
 	-- data injection
     rx_procs: for i in 0 to NUM_ROUTERS-1 generate
 	process (clock(0), reset) 
@@ -148,10 +146,10 @@ begin
 				end if;
 			end loop;
 
-			if is_transmitting then
-				tx(i) <= '1';				
+			if is_transmitting and credit_o(i) = '1' then
+				rx(i) <= '1';				
 			else 
-				tx(i) <= '0';				
+				rx(i) <= '0';
 				data_in(i) <= (others => 'Z');
 			end if;
 
