@@ -11,11 +11,11 @@ vcom -work work -93 -explicit hermes/RouterCC.vhd
 vcom -work work -93 -explicit hermes/TopNOC.vhd
 vcom -work work -93 -explicit Testbench.vhd
 
-vsim -voptargs=+acc=lprn -t ns work.Testbench
+vsim -voptargs=+acc=lprn -t ps work.Testbench
 
 set StdArithNoWarnings 1
 set StdVitalGlitchNoWarnings 1
 
 do wave.do
-run 100 ns
+run 140 ns
 
