@@ -235,7 +235,7 @@ begin
     if rising_edge(clock_rx(0)) and reset = '0' then
       if pkt_state(i) = DONE then
         -- TODO: fix conditional assert
-        assert pkt_state(i) = WAITING report "DEADLINE MISSED" severity warning;
+        -- assert pkt_state(i) = WAITING report "DEADLINE MISSED" severity warning;
       end if;
     end if;
   end process;
