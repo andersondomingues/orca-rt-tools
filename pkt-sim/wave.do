@@ -34,7 +34,6 @@ add wave -noupdate /testbench/data_out(3)
 add wave -noupdate /testbench/tx(3)
 add wave -noupdate /testbench/credit_i(3)
 add wave -noupdate -divider <NULL>
-add wave -noupdate -childformat {{/testbench/count_size(0) -radix unsigned} {/testbench/count_size(1) -radix unsigned} {/testbench/count_size(2) -radix unsigned} {/testbench/count_size(3) -radix unsigned} {/testbench/count_size(4) -radix unsigned}} -expand -subitemconfig {/testbench/count_size(0) {-height 17 -radix unsigned} /testbench/count_size(1) {-height 17 -radix unsigned} /testbench/count_size(2) {-height 17 -radix unsigned} /testbench/count_size(3) {-height 17 -radix unsigned} /testbench/count_size(4) {-height 17 -radix unsigned}} /testbench/count_size
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {6 ns} 0}
 quietly wave cursor active 1
