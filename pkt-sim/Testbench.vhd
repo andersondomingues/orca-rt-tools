@@ -7,17 +7,18 @@ use work.standards.all;
 use STD.TEXTIO.all;
 
 entity Testbench is
-  generic(X_ROUTERS: integer := 2;
+  generic(X_ROUTERS: integer := 3;
           Y_ROUTERS: integer := 2 );
 end;
 
 architecture TB of Testbench is
 
   constant NUM_ROUTERS : integer :=  X_ROUTERS * Y_ROUTERS;
+  constant MAX_INT : integer := 100000; -- prevent huge simulations from crashing 
 
   function RouterAddress(router: integer) return std_logic_vector is
     variable pos_x, pos_y : regquartoflit; 
-    variable addr : regmetadeflit; 
+    variable addr : regmetadeflit;
     variable aux  : integer;
   begin 
     aux := (router/X_ROUTERS);
@@ -63,22 +64,33 @@ architecture TB of Testbench is
 
   -- Notes:
   -- (a) a source cannot send packets to itself
-  -- (b) TODO: TIME MUST BE MONOTONIC (not sure now)
+  -- (b) TODO: TIME MUST BE MONOTONIC (not sure yet)
   type packet is record 
-    start, size, src, tgt, deadline :  integer range 0 to 255; --TODO: range up to hyperiod
+    start, size, src, tgt, deadline :  integer range 0 to MAX_INT; --TODO: range up to hyperiod
   end record;
     
   type tpacket is array(natural range <>) of packet;
 
-  constant tp : tpacket := (
+  --constant tp : tpacket := (
   -- start  size  src tgt deadline 
-    ( 0,    14,    0,  1,    55),  
-    ( 0,     7,    2,  3,    55),  
-    ( 0,     5,    3,  0,    55),  
-    (12,     8,    1,  0,    55),  
-    (26,     9,    2,  1,    55),  
-    (26,     6,    0,  1,    55),  
-    (30,    20,    0,  3,    55)
+  --  ( 0,    14,    0,  1,    55),  
+  --  ( 0,     7,    2,  3,    55),  
+  --  ( 0,     5,    3,  0,    55),  
+  --  (12,     8,    1,  0,    55),  
+  --  (26,     9,    2,  1,    55),  
+  --  (26,     6,    0,  1,    55),  
+  --  (30,    20,    0,  3,    55)
+  --);
+	
+  constant tp : tpacket := (
+  --  start  size  src tgt deadline 
+    ( 36480, 130,    0,  2,    55), -- P1
+    ( 37203, 130,    3,  2,    55), -- P2
+    ( 37489, 130,    3,  1,    55), -- P6
+    ( 53378, 130,    2,  4,    55), -- P3
+    ( 53905, 130,    1,  5,    55), -- P7
+    ( 69553,   4,    4,  5,    55), -- P4
+    ( 70400, 256,    5,  3,    55)  -- P5
   );
 
   -- packet transmission - one FSM per packet
@@ -87,7 +99,7 @@ architecture TB of Testbench is
   signal pkt_state : pckstate;
 
   -- vector of integers (one entry per packet)
-  type ivector is array(0 to tp'high) of INTEGER range 0 to 255;
+  type ivector is array(0 to tp'high) of INTEGER range 0 to MAX_INT;
   signal pkt_used, pkt_cont: ivector;
 
   -- for debug purposes - output file ------------------------------------------
