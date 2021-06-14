@@ -1,9 +1,9 @@
-#ifndef DOT_TO_ZINC_HPP
-#define DOT_TO_ZINC_HPP
+#ifndef _DOT_TO_ZINC_HPP
+#define _DOT_TO_ZINC_HPP
 
-void dotToZinc(int argc, char** argv){
+#include <vector>
+#include <string>
 
+void dotToZinc(std::vector<std::string>* argv);
 
-}
-
-#endif
+#endif  // _DOT_TO_ZINC_HPP

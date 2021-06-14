@@ -1,12 +1,8 @@
 /******************************************************************************
- * This file is part of project ORCA. More information on the project
+ * This file is part of project ORCA RT Tools. More information on the project
  * can be found at the following repositories at GitHub's website.
  *
- * http://https://github.com/andersondomingues/orca-sim
- * http://https://github.com/andersondomingues/orca-software
- * http://https://github.com/andersondomingues/orca-mpsoc
- * http://https://github.com/andersondomingues/orca-tools
- * http://https://github.com/andersondomingues/orca-modeling
+ * http://https://github.com/andersondomingues/orca-rt-tools
  *
  * Copyright (C) 2018-2021 Anderson Domingues, <ti.andersondomingues@gmail.com>
  *
@@ -25,13 +21,16 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA. 
 ******************************************************************************/
 #include <iostream>
-#include "main.hpp"
+#include <vector>
+#include "Main.hpp"
 #include "DotToZinc.hpp"
+#include "DotToRecord.hpp"
 
 void printUsage(){
-	std::cout << "Usage: rt-tools.exe <cmd> <params>" << std::endl;
+	std::cout << "Usage: rt-tools.exe <command> <params>" << std::endl;
 	std::cout << "Available commands:" << std::endl;
-	std::cout << "\t dot2zinc Generate minizinc file from .dot graph" << std::endl;
+	std::cout << "\t \"z\" Generate minizinc file from .dot graph" << std::endl;
+	std::cout << "\t \"r\" Generate vhdl record from .dot graph" << std::endl;
 	std::cout << std::endl << std::endl;
 }
 
@@ -41,10 +40,15 @@ int main(int argc, char** argv){
 		printUsage();
 		return 0;
 	}
-	
-	if(strcmp(argv[1], "-d2z"){
-		dotToZinc(argc, &argv[2]);
-	}else{
-		printUsage();
+
+	std::vector<std::string>* argvector = new std::vector<std::string>();
+
+	for(int i = 0; i < argc; i++)
+		*argvector->push_back(std::string(argv[i]));
+
+	switch(argv[1]){
+		case 'z': dotToZinc(argvector); break;
+		case 'r': dotToRecord(argvector); break;
+		default: printUsage();
 	}
 }
