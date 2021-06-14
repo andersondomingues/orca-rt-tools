@@ -1,5 +1,5 @@
 digraph D {
-	graph [fontname = "helvetica"];
+	graph [fontname = "helvetica", label = "STR2RTS-DCT-verify (dependent tasks)"];
 	node [fontname = "helvetica"];
 	edge [fontname = "helvetica"];
 
@@ -34,9 +34,17 @@ digraph D {
     </table>
 	>];
 
-	0:A -> 1:B [ label = "f1(55, 160, 55)"];
-	0:A -> 3:D [ label = "f2(55, 416, 55)"];
-	2:C -> 3:D [ label = "f3(55, 192, 55)"];
-	2:C -> 1:B [ label = "f4(55, 256, 55)"];
-	3:D -> 0:A [ label = "f5(55, 128, 55)"];
+	5 [ label=<
+	<table  border="0" cellborder="1" cellspacing="0">
+		<tr><td port="JOIN">JOIN</td><td>78651</td><td>768</td><td>78651</td></tr>
+    </table>
+	>];
+
+	0:AFA  -> 3:SPL  [ label = "f1(55, 4096, 55)"];
+	3:SPL  -> 2:DCT  [ label = "f2(55, 4096, 55)"];
+	3:SPL  -> 1:IDNT [ label = "f6(55, 4096, 55)"];
+	2:DCT  -> 4:IDC  [ label = "f3(55, 4096, 55)"];
+	4:IDC  -> 5:JOIN [ label = "f4(55, 4096, 55)"];
+	1:IDNT -> 5:JOIN [ label = "f7(55, 4096, 55)"];	
+	5:JOIN -> 3:AFB  [ label = "f5(55, 8192, 55)"];
 }

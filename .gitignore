@@ -2,3 +2,5 @@ modelsim.ini
 transcript
 work/
 *.wlf
+pkt-sim/rcp_packet.txt
+
