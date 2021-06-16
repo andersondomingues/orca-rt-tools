@@ -7,7 +7,7 @@ digraph D {
 	<table port="A" border="0" cellborder="1" cellspacing="0">
 		<tr><td>Task A</td><td>55</td><td>20</td><td>55</td></tr>
     </table>
-	>, fillcolor = "red"];
+	>];
  
 	1 [ label=<
 	<table port="B" border="0" cellborder="1" cellspacing="0">

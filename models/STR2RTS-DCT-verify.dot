@@ -7,7 +7,7 @@ digraph D {
 	<table port="AFA" border="0" cellborder="1" cellspacing="0">
 		<tr><td>AFA</td><td>78651</td><td>36480</td><td>78651</td></tr>
     </table>
-	>, fillcolor = "yellow"];
+	>];
  
 	1 [ label=<
 	<table port="IDNT" border="0" cellborder="1" cellspacing="0">
