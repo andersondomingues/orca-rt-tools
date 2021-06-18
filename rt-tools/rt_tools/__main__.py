@@ -7,6 +7,8 @@ import routing
 from routing import XY
 import export
 from export import export
+import mapping
+from mapping import parseMap
 
 def main():
   # programa requires at least one command 
@@ -38,11 +40,18 @@ def main():
   elif sys.argv[1] == 'route':
 
     if len(sys.argv) != 5:
-      print(sys.argv)
       print("command <route> requires <infile>, <source>, and <target> arguments")
       exit(0)
 
     XY(sys.argv[2], sys.argv[3], sys.argv[4])
+  
+  elif sys.argv[1] == 'map':
+
+    if len(sys.argv) != 3:
+      print("command <map> requires <infile> argument")
+      exit(0)
+
+    parseMap(sys.argv[2])
 
   # invalid case
   else:
