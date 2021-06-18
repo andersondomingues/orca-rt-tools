@@ -4,6 +4,30 @@ import os.path
 from os import path
 import pygraphviz
 
+# return an object edge from the graph with given soruce and target nodes
+def getEdge(source, target, graph):
+  for e in graph.edges.items():
+    edge, data = e
+    if edge[0] == source["node"] and edge[1] == target["node"]:
+      return {"edge": {"source": edge[0], "target": edge[1]}, "data": data}
+  return None
+
+# return an object node from the graph with given X and Y coordinates
+def getNodeByXY(x, y, graph):
+  for n in graph.nodes.items():
+    node, data = n
+    if data["X"] == x and data["Y"] == y:
+      return {"node": node, "data": data}
+  return None
+
+# return an object node from the graph with given id
+def getNodeById(nodeid, graph):
+  for n in graph.nodes.items():
+    node, data = n
+    if node == nodeid:
+      return {"node": node, "data": data}
+  return None
+
 # returns a list of paths from 
 def XY(topology, source, target):
 
@@ -15,8 +39,13 @@ def XY(topology, source, target):
   paths = []
 
   # locate source and target nodes within the graph
-  sourceNode = (x for x in graph.nodes(data=True) if x["id"] == source)
-  targetNode = (x for x in graph.nodes(data=True) if x["id"] == target)
+  sourceNode = getNodeById(source, graph)
+  targetNode = getNodeById(target, graph)
+  
+  print("source")
+  print(sourceNode)
+  print("target")
+  print(targetNode)
 
   # starting search
   currentNode = sourceNode
@@ -24,31 +53,30 @@ def XY(topology, source, target):
   #apply routing until reaching target destination
   while currentNode != targetNode:
 
-    if currentNode["X"] == targetNode["X"]:
-      if currentNode["Y"] > targetNode["Y"]:
-        nextNode = (x for x in graph.nodes(data=True) 
-          if x["Y"] == currentNode["Y"] -1 and x["X"] == currentNode["X"])
-      elif currentNode["Y"] < targetNode["Y"]:
-        nextNode = (x for x in graph.nodes(data=True) 
-          if x["Y"] == currentNode["Y"] +1 and x["X"] == currentNode["X"])
+    # X coordinate is aligned
+    if currentNode["data"]["X"] == targetNode["data"]["X"]:
+      if currentNode["data"]["Y"] > targetNode["data"]["Y"]:
+        nextNode = getNodeByXY(currentNode["data"]["X"], currentNode["data"]["Y"] -1, graph)
+      elif currentNode["data"]["Y"] < targetNode["data"]["Y"]:
+        nextNode = getNodeByXY(currentNode["data"]["X"], currentNode["data"]["Y"] +1, graph)
+      else:
+        nextNode = targetNode
 
-    elif currentNode["X"] > targetNode["X"]:
-      nextNode = (x for x in graph.nodes(data=True) 
-        if x["Y"] == currentNode["Y"] and x["X"] -1 == currentNode["X"])
+    # X coordinate is not aligned yet, move left
+    elif currentNode["data"]["X"] > targetNode["data"]["X"]:
+      nextNode = getNodeByXY(currentNode["data"]["X"] -1, currentNode["data"]["Y"], graph)
 
+    # X coordinate is not aligned yet, move right
     else:
-      nextNode = (x for x in graph.nodes(data=True) 
-        if x["Y"] == currentNode["Y"] and x["X"] +1 == currentNode["X"])
+      nextNode = getNodeByXY(currentNode["data"]["X"] +1, currentNode["data"]["Y"], graph)
     
-    print(nextNode)
-
-    # get edge (path)
-    edge = (x for x in graph.edges(data=True) 
-      if x["source"] == currentNode and x["target"] == nextNode)
+    # get edge (path), adds path to the output list
+    edge = getEdge(currentNode, nextNode, graph)
+    paths.append(edge)
     
-    print(edge)
-    paths[-1] = edge
-
+    # hops one node towards target
     currentNode = nextNode
 
-  print(paths)
+  print("path")
+  for p in paths:
+    print(p)
