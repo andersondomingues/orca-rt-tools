@@ -9,6 +9,8 @@ import export
 from export import export
 import mapping
 from mapping import parseMap
+import occupancy
+from occupancy import generateOccupancy
 
 def main():
   # programa requires at least one command 
@@ -52,6 +54,15 @@ def main():
       exit(0)
 
     parseMap(sys.argv[2])
+
+  elif sys.argv[1] == 'occupancy':
+
+    if len(sys.argv) != 5:
+      print("command <occupancy> requires <appfile>, <mapfile> and <archfile> arguments")
+      exit(0)
+
+    generateOccupancy(sys.argv[2], sys.argv[3], sys.argv[4])
+
 
   # invalid case
   else:

@@ -4,7 +4,7 @@ import os.path
 from os import path
 import pygraphviz
 
-# return an object edge from the graph with given soruce and target nodes
+# parses a list of entries from the given mapping file
 def parseMap(sourceFile):
     
   if not path.exists(sourceFile):

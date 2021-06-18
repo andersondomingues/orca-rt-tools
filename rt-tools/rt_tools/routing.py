@@ -28,7 +28,7 @@ def getNodeById(nodeid, graph):
       return {"node": node, "data": data}
   return None
 
-# returns a list of paths from 
+# returns a list of paths from source to target node on a given topology
 def XY(topology, source, target):
 
   if not path.exists(topology):
@@ -36,7 +36,6 @@ def XY(topology, source, target):
     exit(0)
 
   graph = nx.read_gml(topology)
-  paths = []
 
   # locate source and target nodes within the graph
   sourceNode = getNodeById(source, graph)
@@ -51,6 +50,7 @@ def XY(topology, source, target):
   currentNode = sourceNode
 
   #apply routing until reaching target destination
+  paths = []
   while currentNode != targetNode:
 
     # X coordinate is aligned
