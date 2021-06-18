@@ -14,16 +14,11 @@ def parseMap(sourceFile):
   with open(sourceFile) as f:
     lines = f.read().splitlines() 
 
-  split = []
-
+  entries = []
+  
   for line in lines:
-    split.append(line.split(':'))
+    split = line.split(':')
+    entries.append({"node" : split[0], "tasks" : split[1].split(',')})
 
-  fixsplit = []
-
-  for s in split:
-    fixsplit.append({"node" : s[0], "tasks" : s[1].split(',')})
-
-  print(fixsplit)
-
-  return fixsplit
+  print(entries)
+  return entries
