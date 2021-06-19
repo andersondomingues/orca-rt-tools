@@ -2,7 +2,6 @@ import networkx as nx
 import sys
 import os.path
 from os import path
-import pygraphviz
 import mapping
 from mapping import parseMap
 

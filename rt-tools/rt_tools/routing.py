@@ -2,7 +2,6 @@ import networkx as nx
 import sys
 import os.path
 from os import path
-import pygraphviz
 
 # return an object edge from the graph with given soruce and target nodes
 def getEdge(source, target, graph):

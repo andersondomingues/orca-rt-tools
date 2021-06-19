@@ -2,7 +2,6 @@ import networkx as nx
 import sys
 import os.path
 from os import path
-import pygraphviz
 
 # parses a list of entries from the given mapping file
 def parseMap(sourceFile):

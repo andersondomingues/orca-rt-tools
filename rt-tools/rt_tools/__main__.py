@@ -2,11 +2,10 @@ import networkx as nx
 import sys
 import os.path
 from os import path
-import pygraphviz
 import routing
 from routing import XY
-import export
-from export import export
+#import export
+#from export import export
 import mapping
 from mapping import parseMap
 import occupancy
