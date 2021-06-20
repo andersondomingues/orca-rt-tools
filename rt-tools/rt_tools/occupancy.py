@@ -4,6 +4,9 @@ import os.path
 from os import path
 import mapping
 from mapping import parseMap
+from mapping import getMap
+import routing
+from routing import XY
 
 # returns a list of paths from 
 def generateOccupancy(appfile, mapfile, archfile):
@@ -30,16 +33,37 @@ def generateOccupancy(appfile, mapfile, archfile):
   for e in app.edges.items():
     edge, data = e
     flow = ({"name" : data["label"], "source" : edge[0], "target" : edge[1], 
-      "period" : data["period"], "datasize" : data["datasize"], "deadline" : data["deadline"] })
+      "period" : data["period"], "datasize" : data["datasize"], 
+      "deadline" : data["deadline"] })
     flows.append(flow)
 
+  # sort flows by lable (usually f1, f2, ...)
   flows.sort(key=lambda x : x["name"], reverse=False)
-  print(flows)
 
-  # for each flow, locate source and target nodes,
-#   for f in flows:
-    
-  # and generate paths using topology
+  print("================== Flows")
+  for f in flows:
+    print(f)
+
+  # get mapping
+  print("================== Extracted Map")
+  mapp = {}
+  for f in flows:
+    source = f["source"]
+    mapp[source] = getMap(source, mapping)
+    target = f["target"]
+    mapp[target] = getMap(target, mapping)
+  
+  print(mapp)
+
+  print("================== Flow paths")   
+  # for each flow, locate source and target nodes
+  fpaths = []
+  for f in flows:
+    fpath = XY(mapp[f["source"]], mapp[f["target"]], arch)
+    fpaths.append(fpath)
+
+  for f in fpaths:
+    print(f)
 
   # create min_start table using app data
 

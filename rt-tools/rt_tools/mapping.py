@@ -3,9 +3,18 @@ import sys
 import os.path
 from os import path
 
+
+def getMap(task, mapping):
+  for m in mapping:
+    for t in m["tasks"]:
+      if t == task:
+        return m["node"]
+
 # parses a list of entries from the given mapping file
 def parseMap(sourceFile):
-    
+ 
+  print("================== Mapping")
+
   if not path.exists(sourceFile):
     print("unable to read mapping file")
     exit(0)
@@ -19,5 +28,7 @@ def parseMap(sourceFile):
     split = line.split(':')
     entries.append({"node" : split[0], "tasks" : split[1].split(',')})
 
-  print(entries)
+  for f in entries:
+    print(f)
+
   return entries

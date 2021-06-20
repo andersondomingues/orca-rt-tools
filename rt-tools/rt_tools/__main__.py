@@ -44,7 +44,7 @@ def main():
       print("command <route> requires <infile>, <source>, and <target> arguments")
       exit(0)
 
-    XY(sys.argv[2], sys.argv[3], sys.argv[4])
+    parse_XY(sys.argv[2], sys.argv[3], sys.argv[4])
   
   elif sys.argv[1] == 'map':
 

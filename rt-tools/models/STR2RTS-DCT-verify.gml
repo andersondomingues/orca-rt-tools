@@ -2,8 +2,8 @@ graph [
   directed 1
   node [
     id 0
-    label "AnonFilterA"
-    alias "AFA"
+    label "AFA"
+    alias "AnonFilterA"
     period 78651
     capacity 36480
     deadline 78651

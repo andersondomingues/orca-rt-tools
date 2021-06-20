@@ -28,22 +28,23 @@ def getNodeById(nodeid, graph):
   return None
 
 # returns a list of paths from source to target node on a given topology
-def XY(topology, source, target):
+def parse_XY(source, target, topology):
 
   if not path.exists(topology):
     print("unable to read input file")
     exit(0)
 
   graph = nx.read_gml(topology)
+  XY(source, target, graph)
+
+
+def XY(source, target, graph):
 
   # locate source and target nodes within the graph
   sourceNode = getNodeById(source, graph)
   targetNode = getNodeById(target, graph)
   
-  print("source")
-  print(sourceNode)
-  print("target")
-  print(targetNode)
+  print("source:", sourceNode["node"], " | target: ", targetNode["node"], " | path")
 
   # starting search
   currentNode = sourceNode
@@ -76,6 +77,9 @@ def XY(topology, source, target):
     # hops one node towards target
     currentNode = nextNode
 
-  print("path")
   for p in paths:
     print(p)
+
+  return paths
+
+
