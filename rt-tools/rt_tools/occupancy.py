@@ -7,6 +7,8 @@ from mapping import parseMap
 from mapping import getMap
 import routing
 from routing import XY
+from routing import getNumFlits
+from routing import manhattan
 
 def mcopy(matin):
   m = []
@@ -121,6 +123,21 @@ def generateOccupancy(appfile, mapfile, archfile):
       j += 1 
     i += 1
 
+  # generate occupancy matrix
+  # !! occupancy is (data_size / bus_width) + 1 + manhattan (source/target) 
+  i = 0
+  for l in nlinks:
+    j = 0
+    for f in flows:
+      print(f)
+      if occupancy[i][j] != -1:
+        source = f["source"]
+        target = f["target"]
+        occupancy[i][j] = ((getNumFlits(f["datasize"]) -1) +
+          manhattan(source, target, arch) * getRoutingTime()) 
+      j += 1 
+    i += 1
+
   # generate deadline matrix
   i = 0
   for l in nlinks:
@@ -128,18 +145,6 @@ def generateOccupancy(appfile, mapfile, archfile):
     for f in flows:
       if deadline[i][j] != -1:
         #!! deadline is the beggining of the next task
-        #deadline[i][j] = f["dealine"]
-        print(f)
-      j += 1 
-    i += 1
-
-  # generate occupancy matrix
-  i = 0
-  for l in nlinks:
-    j = 0
-    for f in flows:
-      if deadline[i][j] != -1:
-        #!! occupancy is (data_size / bus_width) + 1 + manhattan (source/target) 
         #deadline[i][j] = f["dealine"]
         print(f)
       j += 1 
@@ -156,6 +161,10 @@ def generateOccupancy(appfile, mapfile, archfile):
         print(f)
       j += 1 
     i += 1
+
+  print("================== Mapping")
+  for entry in mapping:
+    print(entry)
 
   print("================== Flow paths")   
   for f in flows:

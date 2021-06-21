@@ -3,6 +3,26 @@ import sys
 import os.path
 from os import path
 
+#!cycles
+def getRoutingTime():
+  return 4
+
+#!bits
+def getNumFlits(datasize):
+  BUS_WIDTH = 32
+  return (datasize / BUS_WIDTH) + 2
+
+def manhattan(source, target, graph):
+  sourceNode = getNodeById(source, graph)
+  targetNode = getNodeById(target, graph)
+  x1 = sourceNode["X"]
+  x2 = targetNode["X"]
+  y1 = sourceNode["Y"]
+  y2 = targetNode["Y"]
+  dx = x2 - x1
+  dy = y2 - y1
+  return abs(dx) + abs(dy)
+
 # return an object edge from the graph with given soruce and target nodes
 def getEdge(source, target, graph):
   for e in graph.edges.items():

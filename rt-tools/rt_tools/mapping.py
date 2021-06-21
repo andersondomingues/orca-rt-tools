@@ -10,11 +10,15 @@ def getMap(task, mapping):
       if t == task:
         return m["node"]
 
+def parse_Map(sourceFile):
+  print("================== Mapping")
+  m = parseMap(sourceFile)
+
+  for f in entries:
+    print(f)
+
 # parses a list of entries from the given mapping file
 def parseMap(sourceFile):
- 
-  print("================== Mapping")
-
   if not path.exists(sourceFile):
     print("unable to read mapping file")
     exit(0)
@@ -27,8 +31,5 @@ def parseMap(sourceFile):
   for line in lines:
     split = line.split(':')
     entries.append({"node" : split[0], "tasks" : split[1].split(',')})
-
-  for f in entries:
-    print(f)
 
   return entries
