@@ -8,6 +8,15 @@ from mapping import getMap
 import routing
 from routing import XY
 
+def mcopy(matin):
+  m = []
+  for i in matin:
+    n = []
+    for j in i:
+      n.append(j)
+    m.append(n)
+  return m
+
 # returns a list of paths from 
 def generateOccupancy(appfile, mapfile, archfile):
 
@@ -23,13 +32,12 @@ def generateOccupancy(appfile, mapfile, archfile):
     print("unable to read architecture file")
     exit(0)
 
-  arch = nx.read_gml(archfile)
-  mapping = parseMap(mapfile)
-  app = nx.read_gml(appfile)
+  arch = nx.read_gml(archfile) # read topology file (architecture)
+  mapping = parseMap(mapfile)  # read mapping file (node-to-tasks)
+  app = nx.read_gml(appfile)   # read application model
   
-  flows = []
-
   # locate flows within application
+  flows = []
   for e in app.edges.items():
     edge, data = e
     flow = ({"name" : data["label"], "source" : edge[0], "target" : edge[1], 
@@ -40,33 +48,140 @@ def generateOccupancy(appfile, mapfile, archfile):
   # sort flows by lable (usually f1, f2, ...)
   flows.sort(key=lambda x : x["name"], reverse=False)
 
-  print("================== Flows")
-  for f in flows:
-    print(f)
-
   # get mapping
-  print("================== Extracted Map")
   mapp = {}
   for f in flows:
     source = f["source"]
     mapp[source] = getMap(source, mapping)
     target = f["target"]
     mapp[target] = getMap(target, mapping)
-  
-  print(mapp)
 
-  print("================== Flow paths")   
-  # for each flow, locate source and target nodes
+  # for each flow, get paths 
   fpaths = []
   for f in flows:
     fpath = XY(mapp[f["source"]], mapp[f["target"]], arch)
     fpaths.append(fpath)
 
-  for f in fpaths:
+  # enumerate network links
+  nlinks = []
+  for e in arch.edges.items():
+    nlinks.append(e)
+
+  # generate occupancy matrix
+  occupancy = [[0 for j in range(len(fpaths))] for i in range(len(nlinks))]
+   
+  ic = 0
+  kc = 0
+  OCCUPANCY_MARK = 'x'
+
+  # fill occupancy for node-to-node links
+  for i in fpaths:  
+    for j in i:
+      dj = j["data"]
+      ik = 0
+      for k in nlinks:
+        ek, dk = k
+        if dj["label"] == dk["label"]:
+          occupancy[ik][ic] = OCCUPANCY_MARK
+        ik += 1
+    ic += 1
+
+  # fill occupancy for node-to-pe and pe-to-node links
+  i = len(nlinks)
+  for node in arch.nodes.items():
+    n, d = node
+    nlinks.append([(n, 'L'), {'label': n + "-L"}])
+    nlinks.append([('L', n), {'label': "L-" + n}])
+    occupancy.append([0 for j in range(len(fpaths))])
+    occupancy.append([0 for j in range(len(fpaths))])
+    j = 0
+    for f in flows:
+      source = getMap(f["source"], mapping)
+      if source == n:
+        occupancy[i][j] = OCCUPANCY_MARK
+      target = getMap(f["target"], mapping)
+      if target == n:
+        occupancy[i+1][j] = OCCUPANCY_MARK
+      j += 1
+    i += 2
+
+  # generate occupancy matrices
+  min_start = mcopy(occupancy)
+  deadline = mcopy(occupancy)
+
+  #fix sparse representation for all matrices
+  i = 0
+  for ii in min_start:
+    j = 0
+    for jj in ii:
+      if occupancy[i][j] == 0:
+        occupancy[i][j] = -1
+        deadline[i][j] = -1
+        min_start[i][j] = -1
+      j += 1 
+    i += 1
+
+  # generate deadline matrix
+  i = 0
+  for l in nlinks:
+    j = 0
+    for f in flows:
+      if deadline[i][j] != -1:
+        #!! deadline is the beggining of the next task
+        #deadline[i][j] = f["dealine"]
+        print(f)
+      j += 1 
+    i += 1
+
+  # generate occupancy matrix
+  i = 0
+  for l in nlinks:
+    j = 0
+    for f in flows:
+      if deadline[i][j] != -1:
+        #!! occupancy is (data_size / bus_width) + 1 + manhattan (source/target) 
+        #deadline[i][j] = f["dealine"]
+        print(f)
+      j += 1 
+    i += 1
+
+  # generate min_start matrix
+  i = 0
+  for l in nlinks:
+    j = 0
+    for f in flows:
+      if deadline[i][j] != -1:
+        #!! min_start is the end of the source task
+        #deadline[i][j] = f["dealine"]
+        print(f)
+      j += 1 
+    i += 1
+
+  print("================== Flow paths")   
+  for f in flows:
     print(f)
 
-  # create min_start table using app data
+  print("================== Reverse Map")
+  print(mapp)
 
-  # calculate flow times using topology info (hardcoded?)
+  print("================== Flows")
+  for f in flows:
+    print(f)
 
-  # calculate deadline using app data
+  print("================== Network links")
+  for l in nlinks:
+    print(l)    
+
+  print("================== Occupancy")
+  for i in occupancy:
+    print(i)
+
+  print("================== Min_Start")
+  for i in min_start:
+    print(i)
+
+  print("================== Deadline")
+  for i in deadline:
+    print(i)
+
+

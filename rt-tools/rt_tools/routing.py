@@ -37,14 +37,14 @@ def parse_XY(source, target, topology):
   graph = nx.read_gml(topology)
   XY(source, target, graph)
 
+  for p in paths:
+    print(p)
 
 def XY(source, target, graph):
 
   # locate source and target nodes within the graph
   sourceNode = getNodeById(source, graph)
   targetNode = getNodeById(target, graph)
-  
-  print("source:", sourceNode["node"], " | target: ", targetNode["node"], " | path")
 
   # starting search
   currentNode = sourceNode
@@ -76,9 +76,6 @@ def XY(source, target, graph):
     
     # hops one node towards target
     currentNode = nextNode
-
-  for p in paths:
-    print(p)
 
   return paths
 
