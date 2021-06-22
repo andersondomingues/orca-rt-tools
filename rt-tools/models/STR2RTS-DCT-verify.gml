@@ -60,56 +60,56 @@ graph [
     source 0
     target 3
     label "f1"
-    period 55
+    period 78651
     datasize 4096
-    deadline 55
+    deadline 36627
   ]
   edge [
     source 1
     target 5
     label "f7"
-    period 55
+    period 78651
     datasize 4096
-    deadline 55
+    deadline 70253
   ]
   edge [
     source 3
     target 2
     label "f2"
-    period 55
+    period 78651
     datasize 4096
-    deadline 55
+    deadline 37346
   ]
   edge [
     source 3
     target 1
     label "f6"
-    period 55
+    period 78651
     datasize 4096
-    deadline 55
+    deadline 53521
   ]
   edge [
     source 2
     target 4
     label "f3"
-    period 55
+    period 78651
     datasize 4096
-    deadline 55
+    deadline 53521
   ]
   edge [
     source 4
     target 5
     label "f4"
-    period 55
+    period 78651
     datasize 64
-    deadline 55
+    deadline 69632
   ]
   edge [
     source 5
     target 6
     label "f5"
-    period 55
+    period 78651
     datasize 8192
-    deadline 55
+    deadline 78607
   ]
 ]

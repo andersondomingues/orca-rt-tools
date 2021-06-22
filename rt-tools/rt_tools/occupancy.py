@@ -125,12 +125,12 @@ def generateOccupancy(appfile, mapfile, archfile):
     i += 1
 
   # generate occupancy matrix
-  # !! occupancy is (data_size / bus_width) + 1 + manhattan (source/target) 
+  # occupancy is (data_size / bus_width) + 1 + manhattan (source/target) 
+  # manhattan is for mesh-only nets
   i = 0
   for l in nlinks:
     j = 0
     for f in flows:
-      print(f)
       if occupancy[i][j] != -1:
         source = getMap(f["source"], mapping)
         target = getMap(f["target"], mapping)
@@ -139,59 +139,90 @@ def generateOccupancy(appfile, mapfile, archfile):
       j += 1 
     i += 1
 
-  # generate deadline matrix
+  # generate deadline matrix (explicit in model)
   i = 0
   for l in nlinks:
     j = 0
     for f in flows:
       if deadline[i][j] != -1:
-        #!! deadline is the beggining of the next task
-        #deadline[i][j] = f["dealine"]
-        print(f)
-      j += 1 
+        deadline[i][j] = f["deadline"]
+      j += 1
     i += 1
 
-  # generate min_start matrix
+  # generate min_start matrix (deadline of source task)
   i = 0
   for l in nlinks:
     j = 0
     for f in flows:
-      if deadline[i][j] != -1:
-        #!! min_start is the end of the source task
-        #deadline[i][j] = f["dealine"]
-        print(f)
+      if min_start[i][j] != -1:
+        sourceTask = None        
+        for n in app.nodes.items():
+          node, data = n
+          if node == f["source"]:
+            sourceTask = data
+            break
+        min_start[i][j] = sourceTask["deadline"]
       j += 1 
     i += 1
 
-  print("================== Mapping")
-  for entry in mapping:
-    print(entry)
+  #print("================== Mapping")
+  #for entry in mapping:
+  #  print(entry)
 
-  print("================== Flow paths")   
+  #print("================== Flow paths")   
+  #for f in flows:
+  #  print(f)
+
+  #print("================== Reverse Map")
+  #print(mapp)
+
+  #print("================== Flows")
+  #for f in flows:
+  #  print(f)
+
+  #print("================== Network links")
+  #for l in nlinks:
+  #  print(l)
+
+  # generate header 
+  header = ""
   for f in flows:
-    print(f)
+    header = header + f["name"] + " "
 
-  print("================== Reverse Map")
-  print(mapp)
 
-  print("================== Flows")
-  for f in flows:
-    print(f)
-
-  print("================== Network links")
-  for l in nlinks:
-    print(l)    
-
-  print("================== Occupancy")
+  print("occupancy = [")
+  print("% ", header)
+  c = 0
   for i in occupancy:
-    print(i)
+    print("| ", end = '')
+    for j in i:
+      print("%5d, " % j, end = '')
+    print("  %", nlinks[c][1]["label"])
+    c = c + 1
+  print("|]")
 
-  print("================== Min_Start")
+  print()
+  print("min_start = [")
+  print("% ", header)
+  c = 0
   for i in min_start:
-    print(i)
+    print("| ", end = '')
+    for j in i:
+      print("%5d, " % j, end = '')
+    print("  %", nlinks[c][1]["label"])
+    c = c + 1
+  print("|]")
 
-  print("================== Deadline")
+  print()
+  print("deadline = [")
+  print("% ", header)
+  c = 0
   for i in deadline:
-    print(i)
+    print("| ", end = '')
+    for j in i:
+      print("%5d, " % j, end = '')
+    print("  %", nlinks[c][1]["label"])
+    c = c + 1
+  print("|]")
 
 

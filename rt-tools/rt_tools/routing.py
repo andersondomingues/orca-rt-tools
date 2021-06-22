@@ -10,7 +10,11 @@ def getRoutingTime():
 #!bits
 def getNumFlits(datasize):
   BUS_WIDTH = 32
-  return (datasize / BUS_WIDTH) + 2
+
+  if datasize % BUS_WIDTH == 0:
+    return (int)((datasize / BUS_WIDTH) + 2)
+  else:
+    return (int)((datasize / BUS_WIDTH) + 3)
 
 def manhattan(source, target, graph):
   src = getNodeById(source, graph)
@@ -45,7 +49,6 @@ def getNodeById(nodeid, graph):
     node, data = n
     x = data["X"]
     y = data["Y"]
-    print(data)
     if node == nodeid:
       return {"node": node, "data": { 'X' : x, 'Y' : y} }
   return None
