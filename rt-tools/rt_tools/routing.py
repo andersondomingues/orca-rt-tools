@@ -13,12 +13,12 @@ def getNumFlits(datasize):
   return (datasize / BUS_WIDTH) + 2
 
 def manhattan(source, target, graph):
-  sourceNode = getNodeById(source, graph)
-  targetNode = getNodeById(target, graph)
-  x1 = sourceNode["X"]
-  x2 = targetNode["X"]
-  y1 = sourceNode["Y"]
-  y2 = targetNode["Y"]
+  src = getNodeById(source, graph)
+  trg = getNodeById(target, graph)
+  x1 = src["data"]["X"]
+  x2 = trg["data"]["X"]
+  y1 = src["data"]["Y"]
+  y2 = trg["data"]["Y"]
   dx = x2 - x1
   dy = y2 - y1
   return abs(dx) + abs(dy)
@@ -43,8 +43,11 @@ def getNodeByXY(x, y, graph):
 def getNodeById(nodeid, graph):
   for n in graph.nodes.items():
     node, data = n
+    x = data["X"]
+    y = data["Y"]
+    print(data)
     if node == nodeid:
-      return {"node": node, "data": data}
+      return {"node": node, "data": { 'X' : x, 'Y' : y} }
   return None
 
 # returns a list of paths from source to target node on a given topology

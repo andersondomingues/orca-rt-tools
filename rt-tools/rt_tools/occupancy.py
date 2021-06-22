@@ -9,6 +9,7 @@ import routing
 from routing import XY
 from routing import getNumFlits
 from routing import manhattan
+from routing import getRoutingTime
 
 def mcopy(matin):
   m = []
@@ -131,8 +132,8 @@ def generateOccupancy(appfile, mapfile, archfile):
     for f in flows:
       print(f)
       if occupancy[i][j] != -1:
-        source = f["source"]
-        target = f["target"]
+        source = getMap(f["source"], mapping)
+        target = getMap(f["target"], mapping)
         occupancy[i][j] = ((getNumFlits(f["datasize"]) -1) +
           manhattan(source, target, arch) * getRoutingTime()) 
       j += 1 
