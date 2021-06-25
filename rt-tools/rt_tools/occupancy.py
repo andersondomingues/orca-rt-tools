@@ -278,10 +278,12 @@ def generateOccupancy(appfile, mapfile, archfile):
   #  ( 69553,   4,    4,  5,    55), -- P4
   #  ( 70400, 256,    5,  3,    55)  -- P5
     if i != len(flows) - 1:
-      print("),")
+      print("),", end = '')
     else:
-      print(")")
-    # print alias here 
+      print(")", end = '')
+
+    # packet alias
+    print("    -- " + f["name"])
     i = i + 1
   print(");")
 
