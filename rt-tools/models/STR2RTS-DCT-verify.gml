@@ -6,15 +6,15 @@ graph [
     alias "AnonFilterA"
     period 78651
     capacity 36480
-    deadline 78651
-  ] 
+    deadline 36480
+  ]
   node [
     id 1
     label "IDNT"
     alias "Identity"
     period 78651
     capacity 384
-    deadline 78651
+    deadline 53905
   ]
   node [
     id 2
@@ -22,7 +22,7 @@ graph [
     alias "DCT_2D"
     period 78651
     capacity 16032
-    deadline 78651
+    deadline 53378
   ]
   node [
     id 3
@@ -30,7 +30,7 @@ graph [
     alias "Splitter"
     period 78651
     capacity 576
-    deadline 78651
+    deadline 37203
   ]
   node [
     id 4
@@ -38,7 +38,7 @@ graph [
     alias "iDCT_2D"
     period 78651
     capacity 16032
-    deadline 78651
+    deadline 69553
   ]
   node [
     id 5
@@ -46,7 +46,7 @@ graph [
     alias "Joiner"
     period 78651
     capacity 768
-    deadline 78651
+    deadline 70400
   ]
   node [
     id 6

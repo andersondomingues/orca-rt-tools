@@ -11,6 +11,11 @@ from routing import getNumFlits
 from routing import manhattan
 from routing import getRoutingTime
 
+def generateHyperperiod(flows):
+  return 78651
+  # 1) collect all periods
+  # 2) return math.lcm()
+
 def mcopy(matin):
   m = []
   for i in matin:
@@ -72,7 +77,7 @@ def generateOccupancy(appfile, mapfile, archfile):
 
   # generate occupancy matrix
   occupancy = [[0 for j in range(len(fpaths))] for i in range(len(nlinks))]
-   
+
   ic = 0
   kc = 0
   OCCUPANCY_MARK = 'x'
@@ -136,7 +141,7 @@ def generateOccupancy(appfile, mapfile, archfile):
         target = getMap(f["target"], mapping)
         occupancy[i][j] = ((getNumFlits(f["datasize"]) -1) +
           manhattan(source, target, arch) * getRoutingTime()) 
-      j += 1 
+      j += 1
     i += 1
 
   # generate deadline matrix (explicit in model)
@@ -189,9 +194,16 @@ def generateOccupancy(appfile, mapfile, archfile):
   for f in flows:
     header = header + f["name"] + " "
 
+  # variables
+  print()
+  hyperperiod = generateHyperperiod(flows)
+  print("hyperperiod_length = ", hyperperiod, ";")
+  print("num_links = ", len(nlinks), ";")
+  print("num_packets = ", len(flows),  ";")
+  print()
 
-  print("occupancy = [")
   print("% ", header)
+  print("occupancy = [", end = '')
   c = 0
   for i in occupancy:
     print("| ", end = '')
@@ -199,11 +211,12 @@ def generateOccupancy(appfile, mapfile, archfile):
       print("%5d, " % j, end = '')
     print("  %", nlinks[c][1]["label"])
     c = c + 1
-  print("|]")
+  print("|];")
 
   print()
-  print("min_start = [")
+
   print("% ", header)
+  print("min_start = [", end = '')
   c = 0
   for i in min_start:
     print("| ", end = '')
@@ -211,11 +224,12 @@ def generateOccupancy(appfile, mapfile, archfile):
       print("%5d, " % j, end = '')
     print("  %", nlinks[c][1]["label"])
     c = c + 1
-  print("|]")
+  print("|];")
 
   print()
-  print("deadline = [")
+
   print("% ", header)
+  print("deadline = [", end = '')
   c = 0
   for i in deadline:
     print("| ", end = '')
@@ -223,6 +237,51 @@ def generateOccupancy(appfile, mapfile, archfile):
       print("%5d, " % j, end = '')
     print("  %", nlinks[c][1]["label"])
     c = c + 1
-  print("|]")
+  print("|];")
 
+  # vhdl 
+  print()
+  print("constant tp : tpacket := (")
+  print("-- start  size  src  tgt  deadline ")
+  i = 0
+  for f in flows:
+    print ("(", end = '')
+
+    #locate source task, print WCET
+    sourceTask = f["source"]
+    sourceNode = getMap(sourceTask, mapping)
+
+    for n in app.nodes.items():
+      node, data = n
+      if node == sourceTask:
+        print(str(data["deadline"]) + ", ", end = '')
+        break
+
+    #print number of flits
+    print(str(getNumFlits(f["datasize"])) + ", ", end = '')
+
+    #locate source task, print node
+    print(sourceNode + ", ", end = '')
+
+    #locate target task, print node
+    targetTask = f["target"]
+    targetNode = getMap(targetTask, mapping)
+    print(targetNode + ", ", end = '')
+
+    #period
+    print(f["period"], end = '')
+  #  ( 36480, 130,    0,  2,    55), -- P1
+  #  ( 37203, 130,    3,  2,    55), -- P2
+  #  ( 37489, 130,    3,  1,    55), -- P6
+  #  ( 53378, 130,    2,  4,    55), -- P3
+  #  ( 53905, 130,    1,  5,    55), -- P7
+  #  ( 69553,   4,    4,  5,    55), -- P4
+  #  ( 70400, 256,    5,  3,    55)  -- P5
+    if i != len(flows) - 1:
+      print("),")
+    else:
+      print(")")
+    # print alias here 
+    i = i + 1
+  print(");")
 
