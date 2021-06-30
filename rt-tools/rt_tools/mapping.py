@@ -3,12 +3,14 @@ import sys
 import os.path
 from os import path
 
-
 def getMap(task, mapping):
+  node = None
   for m in mapping:
     for t in m["tasks"]:
       if t == task:
-        return m["node"]
+        node = m["node"]
+        break
+  return node
 
 def parse_Map(sourceFile):
   print("================== Mapping")

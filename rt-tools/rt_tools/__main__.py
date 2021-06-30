@@ -10,6 +10,8 @@ import mapping
 from mapping import parseMap
 import occupancy
 from occupancy import generateOccupancy
+import pktgen
+from pktgen import pktGen
 
 def main():
   # programa requires at least one command 
@@ -62,6 +64,13 @@ def main():
 
     generateOccupancy(sys.argv[2], sys.argv[3], sys.argv[4])
 
+  elif sys.argv[1] == 'pkt':
+
+    if len(sys.argv) != 5:
+      print("command <pkt> requires <appfile>, <mapfile> and <archfile> arguments")
+      exit(0)
+
+    pktGen(sys.argv[2], sys.argv[3], sys.argv[4])
 
   # invalid case
   else:
