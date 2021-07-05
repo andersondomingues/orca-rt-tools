@@ -157,6 +157,7 @@ def pktGen(appfile, mapfile, archfile):
       if occupancy[i][j] != -1:
         source = getMap(p["source"], mapping)
         target = getMap(p["target"], mapping)
+         #! this part uses an heuristic to accelerate the analysis
         occupancy[i][j] = ((getNumFlits(f["datasize"]) -1) +
           manhattan(source, target, arch) * getRoutingTime()) 
       j += 1
@@ -168,7 +169,7 @@ def pktGen(appfile, mapfile, archfile):
     j = 0
     for p in packets:
       if deadline[i][j] != -1:
-        deadline[i][j] = f["deadline"]
+        deadline[i][j] = p["abs_deadline"]
       j += 1
     i += 1
 
@@ -178,14 +179,8 @@ def pktGen(appfile, mapfile, archfile):
     j = 0
     for p in packets:
       if min_start[i][j] != -1:
-        sourceTask = None        
-        for n in app.nodes.items():
-          node, data = n
-          if node == f["source"]:
-            sourceTask = data
-            break
-        min_start[i][j] = sourceTask["deadline"]
-      j += 1 
+        min_start[i][j] = p["min_start"]
+      j += 1
     i += 1
 
   #!!
