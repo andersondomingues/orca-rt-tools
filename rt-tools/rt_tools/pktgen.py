@@ -263,6 +263,49 @@ def pktGen(appfile, mapfile, archfile):
       c = c + 1
     print("|];")
 
+    print("------------------------- PKT TABLE (VHDL SIM) ALT")
+
+    # constant header 
+    print()
+    print("  constant tp : tpacket := (")
+    print("  -- start  size  src  tgt  deadline ")
+
+    # packets
+    i = 0
+    for p in packets:
+      print("    (", end = '')
+
+      # min start
+      print(p["min_start"], end = '')
+      print(", ", end = '')
+
+      # remove header and size flits from vhdl input
+      print(getNumFlits(p["datasize"]) -2, end = '') 
+      print(", ", end = '')
+
+      # source and target nodes
+      sourceNode = getMap(p["source"], mapping)
+      targetNode = getMap(p["target"], mapping)      
+      print(sourceNode, end = '')
+      print(", ", end = '')
+      print(targetNode, end = '')
+      print(", ", end = '')
+
+      # pkt deadline
+      print(p["abs_deadline"], end = '')
+
+      # trailing comma 
+      if i == len(packets) - 1:
+        print(")", end = '')
+      else:
+        print("),", end = '')
+     
+      # packet alias
+      print("  --", p["name"])
+      i = i + 1
+
+    print("  );")
+
     print("------------------------- PKT TABLE (VHDL SIM)")
     # vhdl 
     print()

@@ -83,15 +83,17 @@ architecture TB of Testbench is
   --);
 	
   constant tp : tpacket := (
-  --  start  size  src tgt deadline 
-    ( 36480, 130,    0,  2,    55), -- P1
-    ( 37203, 130,    3,  2,    55), -- P2
-    ( 37489, 130,    3,  1,    55), -- P6
-    ( 53378, 130,    2,  4,    55), -- P3
-    ( 53905, 130,    1,  5,    55), -- P7
-    ( 69553,   4,    4,  5,    55), -- P4
-    ( 70400, 256,    5,  3,    55)  -- P5
+  -- start  size  src  tgt  deadline 
+    (0, 128, 0, 3, 40000),  -- f1:0
+    (0, 128, 3, 2, 40000),  -- f2:0
+    (0, 128, 2, 4, 40000),  -- f3:0
+    (0, 2, 4, 5, 40000),  -- f4:0
+    (0, 256, 5, 3, 40000),  -- f5:0
+    (0, 128, 3, 1, 40000),  -- f6:0
+    (0, 128, 1, 5, 40000)  -- f7:0
   );
+
+
 
   -- packet transmission - one FSM per packet
   type pckstate_t is (WAITING, HEADER, SIZE, PAYLOAD, DONE);
