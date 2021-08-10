@@ -15,7 +15,40 @@ from lcm import lcm
 
 DEBUG = True
 
-# matrix copy
+# extract flows from a given application graph edges
+# returns a list of flows
+def extractFlows(edges):
+  flows = []
+  for e in edges:
+    edge, data = e
+    flow = ({"name" : data["label"], "source" : edge[0], "target" : edge[1], 
+      "period" : data["period"], "datasize" : data["datasize"], 
+      "deadline" : data["deadline"] })
+    flows.append(flow)
+
+  # sort flows by lable (usually f1, f2, ...)
+  flows.sort(key=lambda x : x["name"], reverse=False)
+  return flows
+
+# generates packets for a given list of flows. packets 
+# are generated for the whole hyperperiod hp
+def getPacketsFromFlows(flows, hp):
+  packets = []
+  for f in flows:
+    min_start = 0 
+    period = 0
+    i = 0
+    while min_start < hp:
+      packet = ({"name" : f["name"] + ":" + str(i), "flow" : f["name"], 
+        "source" : f["source"], "target" : f["target"],
+        "min_start" : min_start, "abs_deadline" : min_start + f["deadline"],
+        "datasize" : f["datasize"]})
+      packets.append(packet)
+      min_start = min_start + f["period"]
+      i = i + 1
+  return packets
+
+# returns a matrix whose dimensions are equals to the given matrix
 def mcopy(matin):
   m = []
   for i in matin:
@@ -45,16 +78,7 @@ def pktGen(appfile, mapfile, archfile):
   app = nx.read_gml(appfile)   # read application model
   
   # locate flows within application
-  flows = []
-  for e in app.edges.items():
-    edge, data = e
-    flow = ({"name" : data["label"], "source" : edge[0], "target" : edge[1], 
-      "period" : data["period"], "datasize" : data["datasize"], 
-      "deadline" : data["deadline"] })
-    flows.append(flow)
-
-  # sort flows by lable (usually f1, f2, ...)
-  flows.sort(key=lambda x : x["name"], reverse=False)
+  flows = extractFlows(app.edge.items())
 
   # calculate hyperperiod
   periods = []
@@ -63,20 +87,7 @@ def pktGen(appfile, mapfile, archfile):
   hp = lcm(periods)
 
   # get packets from flows
-  packets = []
-
-  for f in flows:
-    min_start = 0 
-    period = 0
-    i = 0
-    while min_start < hp:
-      packet = ({"name" : f["name"] + ":" + str(i), "flow" : f["name"], 
-        "source" : f["source"], "target" : f["target"],
-        "min_start" : min_start, "abs_deadline" : min_start + f["deadline"],
-        "datasize" : f["datasize"]})
-      packets.append(packet)
-      min_start = min_start + f["period"]
-      i = i + 1
+  packets = getPacketsFromFlows(flows, hp)
 
   # get traversal path of each packet
   ppaths = []
@@ -305,47 +316,5 @@ def pktGen(appfile, mapfile, archfile):
       i = i + 1
 
     print("  );")
-
-    print("------------------------- PKT TABLE (VHDL SIM)")
-    # vhdl 
     print()
-    print("constant tp : tpacket := (")
-    print("-- start  size  src  tgt  deadline ")
-    i = 0
-    for p in packets:
-      print ("(", end = '')
 
-      #locate source task, print WCET
-      sourceTask = p["source"]
-      sourceNode = getMap(sourceTask, mapping)
-
-      for n in app.nodes.items():
-        node, data = n
-        if node == sourceTask:
-          print(str(data["deadline"]) + ", ", end = '')
-          break
-
-      #print number of flits
-      print(str(getNumFlits(p["datasize"])) + ", ", end = '')
-
-      #locate source task, print node
-      print(sourceNode + ", ", end = '')
-
-      #locate target task, print node
-      targetTask = p["target"]
-      targetNode = getMap(targetTask, mapping)
-      print(targetNode + ", ", end = '')
-
-      #period
-      print(p["min_start"], end = '')
-
-      if i != len(flows) - 1:
-        print("),", end = '')
-      else:
-        print(")", end = '')
-
-      # packet alias
-      print("    -- " + p["name"])
-      i = i + 1
-    print(");")
-    

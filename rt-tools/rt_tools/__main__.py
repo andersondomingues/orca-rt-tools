@@ -12,6 +12,8 @@ import occupancy
 from occupancy import generateOccupancy
 import pktgen
 from pktgen import pktGen
+import vhdl
+from vhdl import exportVhdl
 
 def main():
   # programa requires at least one command 
@@ -56,13 +58,13 @@ def main():
 
     parseMap(sys.argv[2])
 
-  elif sys.argv[1] == 'occupancy':
+  elif sys.argv[1] == 'vhdl':
 
-    if len(sys.argv) != 5:
-      print("command <occupancy> requires <appfile>, <mapfile> and <archfile> arguments")
+    if len(sys.argv) != 6:
+      print("command <vhdl> requires <appfile>, <mapfile>, <archfile>, and <startfile> arguments")
       exit(0)
 
-    generateOccupancy(sys.argv[2], sys.argv[3], sys.argv[4])
+    exportVhdl(sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5])
 
   elif sys.argv[1] == 'pkt':
 
