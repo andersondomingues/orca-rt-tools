@@ -17,5 +17,7 @@ vsim -voptargs=+acc=lprn -t ps work.InjectorTB
 set StdArithNoWarnings 1
 set StdVitalGlitchNoWarnings 1
 
+do injector_wave.do
+
 run 140 ns
 

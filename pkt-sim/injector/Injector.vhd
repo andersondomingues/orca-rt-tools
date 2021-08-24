@@ -63,6 +63,9 @@ architecture InjectorBehavior of Injector is
 
 begin
    
+  -- clock_tx (?) -- TODO
+  clock_tx <= clock;
+
   -- RESET and CYCLE COUNTER
   proc_reset: process (clock, reset) begin
     if rising_edge(clock) then

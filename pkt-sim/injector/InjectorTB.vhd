@@ -16,7 +16,7 @@ architecture InjectorTBBehavior of InjectorTB is
   constant NUM_ROUTERS : integer :=  X_ROUTERS * Y_ROUTERS;
 
   -- NoC if
-  signal clock : std_logic;
+  signal clock : std_logic := '0';
   signal reset : std_logic;
 
   -- Arrays follow the same direction of injectors, direction is inverted for routers
@@ -29,7 +29,7 @@ architecture InjectorTBBehavior of InjectorTB is
 begin
 
   reset <= '0', '1' after 1 ns;
-  clock <=  not clock after 500 ps;
+  clock <= not clock after 500 ps;
  
   -- generate clock for injector transmission
   clock_tx_gen : for i in 0 to NUM_ROUTERS-1 generate
@@ -41,10 +41,14 @@ begin
   credit_oArray <= (others => std_logic'high);
 
   -- generate array of injectors
-  injectors: for i in 0 to NUM_ROUTERS-1 generate
+  injectors_gen: for i in 0 to NUM_ROUTERS-1 generate
 
   Injector: Entity work.Injector
 --  generic map ( "asdasdasds.txt" )
+  generic map(
+    X_ROUTERS => X_ROUTERS,
+    Y_ROUTERS => Y_ROUTERS
+  )
   port map(
     clock => clock,
     reset => reset,
@@ -59,6 +63,10 @@ begin
   end generate;
 
   noc : Entity work.NOC
+  generic map(
+    X_ROUTERS => X_ROUTERS,
+    Y_ROUTERS => Y_ROUTERS
+  )
   port map(
     clock => clockArray,
     reset => reset,
