@@ -4,11 +4,13 @@ use ieee.std_logic_unsigned.all;
 use ieee.std_logic_arith.CONV_STD_LOGIC_VECTOR;
 use work.HermesPackage.all;
 use work.standards.all;
+use work.txt_util.all;
 use STD.TEXTIO.all;
 
 entity Injector is 
 generic(x_ROUTERS: integer := 3;
-        Y_ROUTERS: integer := 2 );
+        Y_ROUTERS: integer := 2;
+        PE_NUM: integer);
 port (
   clock    : in  std_logic;
   reset    : in  std_logic;
@@ -21,17 +23,9 @@ port (
 end Injector;
 
 architecture InjectorBehavior of Injector is
-  constant MAX_INT : integer := 100000; -- prevent huge simulations from crashing 
 
-  -- elapsed cycles
-  signal cycles : integer := 0; 
-
-  -- packet structure, integer values cannot exceed MAX_INT
-  type packet is record 
-    start, size, src, tgt, deadline :  integer range 0 to MAX_INT; 
-  end record;
-    
-  type tpacket is array(natural range <>) of packet;
+  -- prevents long time simulations from crashing 
+  constant MAX_INT : integer := 100000; 
 
   -- converts pe address from numeric to xy format
   function RouterAddress(router: integer) return std_logic_vector is
@@ -46,23 +40,31 @@ architecture InjectorBehavior of Injector is
     return addr;
   end RouterAddress;
 
-  -- TODO: 
-  constant tp : tpacket := (
-  -- start  size  src tgt deadline 
-    ( 0,    14,    0,  1,    55),  
-    (26,     6,    0,  1,    55),  
-    (30,    20,    0,  3,    55)
+  -- elapsed cycles
+  signal cycles : integer := 0; 
+
+  -- packet structure, integer values cannot exceed MAX_INT
+  type packet_t is record 
+    start, size, target, deadline :  integer range 0 to MAX_INT; 
+  end record;
+
+  -- pkt state
+  type packet_state_t is (
+    WAITING, -- load pkt info into input signals and wait until release time
+    HEADER,  -- inject first flit
+    SIZE,    -- inject second flit 
+    PAYLOAD  -- inject remaining flits
   );
+    
+  -- current loaded packet (from file)
+  signal pkt : packet_t; 
+  signal pkt_state : packet_state_t;
 
-  -- packet transmission - one FSM per packet
-  type pckstate_t is (WAITING, HEADER, SIZE, PAYLOAD, DONE);
-  type pckstate is array(0 to tp'high) of pckstate_t;
-  signal pkt_state : pckstate;
-
+  -- remaining payload flits
   signal pkt_cont : INTEGER := 0;
 
 begin
-   
+
   -- clock_tx (?) -- TODO
   clock_tx <= clock;
 
@@ -78,57 +80,85 @@ begin
   end process proc_reset;
 
   --flow generation
-  process(clock, reset) begin
-    for i in 0 to tp'high loop -- iterate on packets
-	  if reset = '1' then 
-	    pkt_state(i) <= WAITING;
-	    tx <= '0';  -- TODO:
-	    data_out <= (others => 'Z');
+  process(clock, reset) 
+    variable v_line  : LINE;
+    variable v_space : CHARACTER;
+    file v_text  : TEXT;
 
-	  elsif rising_edge(clock) then
+    variable d_start : INTEGER;
+    variable d_size  : INTEGER;
+    variable d_target : INTEGER;
+    variable d_deadline : INTEGER;
 
-		case pkt_state(i) is
+    -- file manip variables
+    variable packet_loaded_already : std_logic := '0';
+    constant pe_file : string := "packets/" & str(PE_NUM, 10) & ".txt";
+  begin
+    if reset = '1' then 
+	  pkt_state <= WAITING;
+	  tx <= '0';
+	  data_out <= (others => 'Z');
+	elsif rising_edge(clock) then
 
-		   when WAITING =>  -- must verify tx, to avoid superposed packets --
-              -- and tx = '0'    << remove this check (read from output, TODO)
-              if cycles >= tp(i).start and credit_i = std_logic'high then  
-                pkt_state(i) <= HEADER; 
-                data_out <=  conv_std_logic_vector(tp(i).src, METADEFLIT) &
-                               RouterAddress(tp(i).tgt);    
-                                 -- ADDED SOURCE IN THE 16 MORE SIGNIFICAT BITS
-                tx <= std_logic'high;
-              end if;
+	  case pkt_state is
+        -- WAITING: load next packet from file into pkt record (if any)
+        -- (1) there is no more packets to load, go to DONE
+        -- (2) the next packet was loaded, periodically check on timer,
+        --     release that packet's header
+	    when WAITING =>
+          -- load packet from file if any
+          if packet_loaded_already = '0' then   
+            file_open(v_text, pe_file, read_mode);
+			readline(v_text, v_line);
+            read(v_line, d_start);   read(v_line, v_space);
+            read(v_line, d_size);    read(v_line, v_space);
+            read(v_line, d_target);  read(v_line, v_space);
+            read(v_line, d_deadline); 
+            file_close(v_text);
 
-            when HEADER =>
-              if credit_i = std_logic'high then    
-                pkt_state(i) <= SIZE; 
-                pkt_cont <= tp(i).size;  -- store the packet size
-                data_out <=  conv_std_logic_vector(tp(i).size, TAM_FLIT);
-		      end if;
+            packet_loaded_already := '1';
 
-            when SIZE =>  
-              if credit_i = std_logic'high then   
-                pkt_state(i) <= PAYLOAD;
-                pkt_cont <= pkt_cont - 1;
-                data_out <= tp(i).size + 1 
-                  - conv_std_logic_vector(pkt_cont, TAM_FLIT); -- ** cont_size (best)
-              end if;   
-		                                        
-            when PAYLOAD =>
-              if pkt_cont > 0 and credit_i = std_logic'high then   
-                pkt_cont <= pkt_cont - 1;
-                data_out <= tp(i).size + 1 - conv_std_logic_vector(pkt_cont, TAM_FLIT);
-              elsif pkt_cont = 0 and credit_i = std_logic'high then
-                pkt_state(i) <= DONE;
-                tx <= std_logic'low;
-				data_out <= (others => 'Z'); -- flag data_in as don't care
-              end if;
+            pkt.start <= d_start;
+            pkt.size <= d_size;
+            pkt.target <= d_target;
+            pkt.deadline <= d_deadline;
 
-            when others => null; -- never reaches DONE
+          end if;
+          -- release first flit (header)
+          if cycles >= pkt.start and credit_i = std_logic'high then  
+            pkt_state <= HEADER; 
+            data_out <= conv_std_logic_vector(pkt.target, METADEFLIT) &
+              RouterAddress(pkt.target);    
+            tx <= std_logic'high; --enable tx
+          else 
+            tx <= std_logic'low;
+			data_out <= (others => 'Z'); -- flag data_in as don't care
+          end if;
+        
+        -- HEADER: if enough credit, send the next packet, wait otherwise 
+        when HEADER =>
+          if credit_i = std_logic'high then    
+            pkt_state <= SIZE; 
+            pkt_cont <= pkt.size;  -- store the packet size
+            data_out <=  conv_std_logic_vector(pkt.size, TAM_FLIT);
+		  end if;
 
-		  end case; 
-      end if;
-    end loop;
+        -- SIZE: transmit payload flits if enought credit, wait otherwise
+        when SIZE =>  
+          if credit_i = std_logic'high then   
+            pkt_cont <= pkt_cont - 1;
+            data_out <= pkt.size + 1 - conv_std_logic_vector(pkt_cont, TAM_FLIT);
+
+            if pkt_cont = 0 then
+              packet_loaded_already := '0';
+              pkt_state <= WAITING; 
+            end if;
+          end if;
+
+        -- DONE: no more flits to send
+        when others => null;
+      end case; 
+    end if;
   end process;
     
 end InjectorBehavior;

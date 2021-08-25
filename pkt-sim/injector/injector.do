@@ -9,6 +9,7 @@ vcom -work work -93 -explicit hermes/Hermes_switchcontrol.vhd
 vcom -work work -93 -explicit hermes/Hermes_crossbar.vhd
 vcom -work work -93 -explicit hermes/RouterCC.vhd
 vcom -work work -93 -explicit hermes/TopNOC.vhd
+vcom -work work -93 -explicit injector/text_util.vhd
 vcom -work work -93 -explicit injector/Injector.vhd
 vcom -work work -93 -explicit injector/InjectorTB.vhd
 
