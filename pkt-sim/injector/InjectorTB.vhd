@@ -28,7 +28,7 @@ architecture InjectorTBBehavior of InjectorTB is
 
 begin
 
-  reset <= '0', '1' after 1 ns;
+  reset <= '1', '0' after 1 ns;
   clock <= not clock after 500 ps;
  
   -- generate clock for injector transmission
@@ -38,7 +38,7 @@ begin
   end generate;
 
   -- enable unlimited credit (disable contention in routers-to-tb communication)
-  credit_oArray <= (others => std_logic'high);
+  credit_oArray <= (others => '1');
 
   -- generate array of injectors
   injectors_gen: for i in 0 to NUM_ROUTERS-1 generate
