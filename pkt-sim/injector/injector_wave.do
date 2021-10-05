@@ -23,6 +23,8 @@ add wave -noupdate -height 19 -expand -group {Router 0 - Out} /injectortb/noc/no
 add wave -noupdate -height 19 -expand -group {Router 0 - Out} /injectortb/noc/noc(0)/router/tx(0)
 add wave -noupdate -height 19 -expand -group {Router 0 - Out} /injectortb/noc/noc(0)/router/data_out(0)
 add wave -noupdate -height 19 -expand -group {Router 0 - Out} /injectortb/noc/noc(0)/router/credit_i(0)
+add wave -noupdate -expand /injectortb/data_inArray
+add wave -noupdate -expand /injectortb/data_outArray
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {855 ps} 0}
 quietly wave cursor active 1
@@ -40,4 +42,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {11243 ps}
+WaveRestoreZoom {129320 ps} {140563 ps}

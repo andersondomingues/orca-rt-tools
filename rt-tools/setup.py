@@ -14,7 +14,7 @@ required = [line.strip() for line in open("requirements.txt").readlines()]
 
 setup(
     name='rt_tools',
-    version='v0.1',
+    version='0.1',
     description='real-time analysis for network-on-chips',
     long_description=readme,
     author='Anderson Domingues',

@@ -149,6 +149,7 @@ begin
             tx <= '1';
           else 
             tx <= '0';
+			data_out <= (others => 'Z'); -- flag data_in as don't care
 		  end if;
 
         -- SIZE: transmit payload flits if enought credit, wait otherwise
@@ -162,8 +163,7 @@ begin
             data_out <= (others => 'Z');
           end if;
 
-          if pkt_cont = pkt.size then
-            packet_loaded_already := '0';
+          if pkt_cont = pkt.size -1 then
             if not endfile(v_text) then
               pkt_state <= HEADER; 
             else 

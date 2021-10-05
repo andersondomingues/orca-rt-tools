@@ -4,8 +4,6 @@ import os.path
 from os import path
 import routing
 from routing import XY
-#import export
-#from export import export
 import mapping
 from mapping import parseMap
 import occupancy
@@ -20,6 +18,13 @@ def main():
   if len(sys.argv) < 2:
     print("usage:")
     print("  python3 " + sys.argv[0] + " <cmd> [<params>, ...]")
+    print("available commands:")
+    print("  export <infile> <outfile>")
+    print("  print <infile>")
+    print("  route <infile> <source> <target>")
+    print("  map <infile>")
+    print("  vhdl <appfile> <mapfile> <archfile> <startfile>")
+    print("  pkt <appfile> <mapfile> <archfile>")
     exit(0)
   
   # plot exports given graph to a png file
@@ -77,7 +82,6 @@ def main():
   # invalid case
   else:
     print("command " + sys.argv[1] + " is invalid")
-
 
 # Automatically jumps to main if called from command line
 if __name__ == "__main__":
