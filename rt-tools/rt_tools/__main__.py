@@ -12,6 +12,9 @@ import pktgen
 from pktgen import pktGen
 import vhdl
 from vhdl import exportVhdl
+import nocgen
+from nocgen import nocgen
+
 
 def main():
   # programa requires at least one command 
@@ -20,6 +23,7 @@ def main():
     print("  python3 " + sys.argv[0] + " <cmd> [<params>, ...]")
     print("available commands:")
     print("  export <infile> <outfile>")
+    print("  nocgen <x> <y> <outfile>")
     print("  print <infile>")
     print("  route <infile> <source> <target>")
     print("  map <infile>")
@@ -27,8 +31,17 @@ def main():
     print("  pkt <appfile> <mapfile> <archfile>")
     exit(0)
   
+# plot exports given graph to a png file
+  if sys.argv[1] == 'nocgen':
+
+    if len(sys.argv) != 5:
+      print("command <nocgen> requires <x>, <y> and <outfile> arguments")
+      exit(0)
+
+    nocgen(int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])
+  
   # plot exports given graph to a png file
-  if sys.argv[1] == 'export':
+  elif sys.argv[1] == 'export':
 
     if len(sys.argv) != 4:
       print("command <export> requires <infile> and <outfile> arguments")
