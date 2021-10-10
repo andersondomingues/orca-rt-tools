@@ -192,6 +192,16 @@ graph [
     label "4-3"
   ]
   edge [
+    source 5
+    target 6
+    label "5-6"
+  ]
+  edge [
+    source 6
+    target 5
+    label "6-5"
+  ]
+  edge [
     source 6
     target 7
     label "6-7"
@@ -222,14 +232,24 @@ graph [
     label "9-8"
   ]
   edge [
-    source 9
-    target 10
-    label "9-10"
+    source 10
+    target 11
+    label "10-11"
   ]
   edge [
-    source 10
-    target 9
-    label "10-9"
+    source 11
+    target 10
+    label "11-10"
+  ]
+  edge [
+    source 11
+    target 12
+    label "11-12"
+  ]
+  edge [
+    source 12
+    target 11
+    label "12-11"
   ]
   edge [
     source 12
@@ -252,16 +272,6 @@ graph [
     label "14-13"
   ]
   edge [
-    source 14
-    target 15
-    label "14-15"
-  ]
-  edge [
-    source 15
-    target 14
-    label "15-14"
-  ]
-  edge [
     source 15
     target 16
     label "15-16"
@@ -272,6 +282,26 @@ graph [
     label "16-15"
   ]
   edge [
+    source 16
+    target 17
+    label "16-17"
+  ]
+  edge [
+    source 17
+    target 16
+    label "17-16"
+  ]
+  edge [
+    source 17
+    target 18
+    label "17-18"
+  ]
+  edge [
+    source 18
+    target 17
+    label "18-17"
+  ]
+  edge [
     source 18
     target 19
     label "18-19"
@@ -280,16 +310,6 @@ graph [
     source 19
     target 18
     label "19-18"
-  ]
-  edge [
-    source 19
-    target 20
-    label "19-20"
-  ]
-  edge [
-    source 20
-    target 19
-    label "20-19"
   ]
   edge [
     source 20
@@ -312,243 +332,223 @@ graph [
     label "22-21"
   ]
   edge [
-    source 24
-    target 25
-    label "24-25"
+    source 22
+    target 23
+    label "22-23"
   ]
   edge [
-    source 25
+    source 23
+    target 22
+    label "23-22"
+  ]
+  edge [
+    source 23
     target 24
-    label "25-24"
+    label "23-24"
   ]
   edge [
-    source 25
-    target 26
-    label "25-26"
-  ]
-  edge [
-    source 26
-    target 25
-    label "26-25"
-  ]
-  edge [
-    source 26
-    target 27
-    label "26-27"
-  ]
-  edge [
-    source 27
-    target 26
-    label "27-26"
-  ]
-  edge [
-    source 27
-    target 28
-    label "27-28"
-  ]
-  edge [
-    source 28
-    target 27
-    label "28-27"
+    source 24
+    target 23
+    label "24-23"
   ]
   edge [
     source 0
-    target 4
-    label "0-4"
+    target 5
+    label "0-5"
   ]
   edge [
-    source 4
+    source 5
     target 0
-    label "4-0"
-  ]
-  edge [
-    source 4
-    target 8
-    label "4-8"
-  ]
-  edge [
-    source 8
-    target 4
-    label "8-4"
-  ]
-  edge [
-    source 8
-    target 12
-    label "8-12"
-  ]
-  edge [
-    source 12
-    target 8
-    label "12-8"
-  ]
-  edge [
-    source 12
-    target 16
-    label "12-16"
-  ]
-  edge [
-    source 16
-    target 12
-    label "16-12"
-  ]
-  edge [
-    source 1
-    target 5
-    label "1-5"
+    label "5-0"
   ]
   edge [
     source 5
-    target 1
-    label "5-1"
+    target 10
+    label "5-10"
   ]
   edge [
-    source 5
-    target 9
-    label "5-9"
-  ]
-  edge [
-    source 9
+    source 10
     target 5
-    label "9-5"
-  ]
-  edge [
-    source 9
-    target 13
-    label "9-13"
-  ]
-  edge [
-    source 13
-    target 9
-    label "13-9"
-  ]
-  edge [
-    source 13
-    target 17
-    label "13-17"
-  ]
-  edge [
-    source 17
-    target 13
-    label "17-13"
-  ]
-  edge [
-    source 2
-    target 6
-    label "2-6"
-  ]
-  edge [
-    source 6
-    target 2
-    label "6-2"
-  ]
-  edge [
-    source 6
-    target 10
-    label "6-10"
+    label "10-5"
   ]
   edge [
     source 10
-    target 6
-    label "10-6"
+    target 15
+    label "10-15"
   ]
   edge [
-    source 10
-    target 14
-    label "10-14"
-  ]
-  edge [
-    source 14
+    source 15
     target 10
-    label "14-10"
-  ]
-  edge [
-    source 14
-    target 18
-    label "14-18"
-  ]
-  edge [
-    source 18
-    target 14
-    label "18-14"
-  ]
-  edge [
-    source 3
-    target 7
-    label "3-7"
-  ]
-  edge [
-    source 7
-    target 3
-    label "7-3"
-  ]
-  edge [
-    source 7
-    target 11
-    label "7-11"
-  ]
-  edge [
-    source 11
-    target 7
-    label "11-7"
-  ]
-  edge [
-    source 11
-    target 15
-    label "11-15"
+    label "15-10"
   ]
   edge [
     source 15
-    target 11
-    label "15-11"
-  ]
-  edge [
-    source 15
-    target 19
-    label "15-19"
-  ]
-  edge [
-    source 19
-    target 15
-    label "19-15"
-  ]
-  edge [
-    source 4
-    target 8
-    label "4-8"
-  ]
-  edge [
-    source 8
-    target 4
-    label "8-4"
-  ]
-  edge [
-    source 8
-    target 12
-    label "8-12"
-  ]
-  edge [
-    source 12
-    target 8
-    label "12-8"
-  ]
-  edge [
-    source 12
-    target 16
-    label "12-16"
-  ]
-  edge [
-    source 16
-    target 12
-    label "16-12"
-  ]
-  edge [
-    source 16
     target 20
-    label "16-20"
+    label "15-20"
   ]
   edge [
     source 20
+    target 15
+    label "20-15"
+  ]
+  edge [
+    source 1
+    target 6
+    label "1-6"
+  ]
+  edge [
+    source 6
+    target 1
+    label "6-1"
+  ]
+  edge [
+    source 6
+    target 11
+    label "6-11"
+  ]
+  edge [
+    source 11
+    target 6
+    label "11-6"
+  ]
+  edge [
+    source 11
     target 16
-    label "20-16"
+    label "11-16"
+  ]
+  edge [
+    source 16
+    target 11
+    label "16-11"
+  ]
+  edge [
+    source 16
+    target 21
+    label "16-21"
+  ]
+  edge [
+    source 21
+    target 16
+    label "21-16"
+  ]
+  edge [
+    source 2
+    target 7
+    label "2-7"
+  ]
+  edge [
+    source 7
+    target 2
+    label "7-2"
+  ]
+  edge [
+    source 7
+    target 12
+    label "7-12"
+  ]
+  edge [
+    source 12
+    target 7
+    label "12-7"
+  ]
+  edge [
+    source 12
+    target 17
+    label "12-17"
+  ]
+  edge [
+    source 17
+    target 12
+    label "17-12"
+  ]
+  edge [
+    source 17
+    target 22
+    label "17-22"
+  ]
+  edge [
+    source 22
+    target 17
+    label "22-17"
+  ]
+  edge [
+    source 3
+    target 8
+    label "3-8"
+  ]
+  edge [
+    source 8
+    target 3
+    label "8-3"
+  ]
+  edge [
+    source 8
+    target 13
+    label "8-13"
+  ]
+  edge [
+    source 13
+    target 8
+    label "13-8"
+  ]
+  edge [
+    source 13
+    target 18
+    label "13-18"
+  ]
+  edge [
+    source 18
+    target 13
+    label "18-13"
+  ]
+  edge [
+    source 18
+    target 23
+    label "18-23"
+  ]
+  edge [
+    source 23
+    target 18
+    label "23-18"
+  ]
+  edge [
+    source 4
+    target 9
+    label "4-9"
+  ]
+  edge [
+    source 9
+    target 4
+    label "9-4"
+  ]
+  edge [
+    source 9
+    target 14
+    label "9-14"
+  ]
+  edge [
+    source 14
+    target 9
+    label "14-9"
+  ]
+  edge [
+    source 14
+    target 19
+    label "14-19"
+  ]
+  edge [
+    source 19
+    target 14
+    label "19-14"
+  ]
+  edge [
+    source 19
+    target 24
+    label "19-24"
+  ]
+  edge [
+    source 24
+    target 19
+    label "24-19"
   ]
 ]

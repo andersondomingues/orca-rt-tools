@@ -15,6 +15,9 @@ from vhdl import exportVhdl
 import nocgen
 from nocgen import nocgen
 
+import export
+from export import export
+
 
 def main():
   # programa requires at least one command 

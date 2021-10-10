@@ -2,6 +2,9 @@ import sys
 import routing
 from routing import decodeNodeID
 
+def getNodeId(x, y, h, w):
+  return x + y * w
+
 # generate and save a XY noc arch into the given path
 def nocgen(x, y, output):
 
@@ -25,9 +28,8 @@ def nocgen(x, y, output):
   # add horizontal paths to the model
   for line in range(x):
     for column in range(y-1):
-
-      lnode = column + (line * (x+1))
-      rnode = lnode + 1
+      lnode = getNodeId(column, line, x, y)
+      rnode = getNodeId(column + 1, line, x, y) 
 
       gml = gml + "  edge [\n"
       gml = gml + "    source " + str(lnode) + "\n"
@@ -40,12 +42,16 @@ def nocgen(x, y, output):
       gml = gml + "    target " + str(lnode) + "\n"
       gml = gml + "    label \"" + (str(rnode) + "-" + str(lnode)) + "\"\n"
       gml = gml + "  ]\n"
+
+      #print(lnode, "-", rnode)
+
+  print("---")
 
   # add vertical paths to the model 
   for column in range(y):
     for line in range(x-1):
-      lnode = column + (line * (x - 1))
-      rnode = lnode + (x-1) 
+      lnode = getNodeId(column, line, x, y)
+      rnode = getNodeId(column, line + 1, x, y) 
 
       gml = gml + "  edge [\n"
       gml = gml + "    source " + str(lnode) + "\n"
@@ -58,6 +64,8 @@ def nocgen(x, y, output):
       gml = gml + "    target " + str(lnode) + "\n"
       gml = gml + "    label \"" + (str(rnode) + "-" + str(lnode)) + "\"\n"
       gml = gml + "  ]\n"
+
+      #print(lnode, "-", rnode)
 
   gml = gml + "]";
 
