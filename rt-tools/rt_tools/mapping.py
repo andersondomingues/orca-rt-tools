@@ -3,13 +3,20 @@ import sys
 import os.path
 from os import path
 
+# Reads mapping model and returns the node where the given 
+# task is mapped onto
+# inputs
+#   @task : the name of the task to be mapped
+#   @mapping : the mapping model (gml)
+# outputs
+#   @node : the node where the task is mapped to
 def getMap(task, mapping):
   node = None
   for m in mapping:
     for t in m["tasks"]:
       if t == task:
         node = m["node"]
-        break
+
   return node
 
 def parse_Map(sourceFile):

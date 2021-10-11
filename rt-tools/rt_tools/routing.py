@@ -37,15 +37,14 @@ def manhattan(source, target, graph):
 
 # return an object edge from the graph with given soruce and target nodes
 def getEdge(source, target, graph):
-  for e in graph.edges.items():
-    edge, data = e
-    if edge[0] == source["node"] and edge[1] == target["node"]:
-      return {"edge": {"source": edge[0], "target": edge[1]}, "data": data}
-  return None
+  for e in graph.edges(data=True):
+    esource, etarget, data = e
+    if source["node"] == esource and target["node"] == etarget:
+      return {"edge": {"source": source, "target": target}, "data": data}
 
 # return an object node from the graph with given X and Y coordinates
 def getNodeByXY(x, y, graph):
-  for n in graph.nodes.items():
+  for n in graph.nodes(data=True):
     node, data = n
     if data["X"] == x and data["Y"] == y:
       return {"node": node, "data": data}
@@ -53,13 +52,14 @@ def getNodeByXY(x, y, graph):
 
 # return an object node from the graph with given id
 def getNodeById(nodeid, graph):
-  for n in graph.nodes.items():
+  tnode = None
+  
+  for n in graph.nodes(data=True):
     node, data = n
-    x = data["X"]
-    y = data["Y"]
-    if node == nodeid:
-      return {"node": node, "data": { 'X' : x, 'Y' : y} }
-  return None
+    if int(nodeid) == node:
+      tnode = {"node": node, "data": { 'X' : data["X"], 'Y' : data["Y"]} }
+
+  return tnode
 
 # returns a list of paths from source to target node on a given topology
 def parse_XY(source, target, topology):
@@ -106,6 +106,10 @@ def XY(source, target, graph):
     
     # get edge (path), adds path to the output list
     edge = getEdge(currentNode, nextNode, graph)
+
+    if edge == None:
+      break #TODO: remove workaround
+
     paths.append(edge)
     
     # hops one node towards target

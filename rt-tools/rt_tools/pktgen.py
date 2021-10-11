@@ -20,14 +20,18 @@ DEBUG = True
 def extractFlows(edges):
   flows = []
   for e in edges:
-    edge, data = e
+    source, target, data = e
 
-    flow = ({"name" : data["label"], "source" : edge[0], "target" : edge[1], 
-      "period" : data["period"], "datasize" : data["datasize"], 
-      "deadline" : data["deadline"] })
+    flow = ({
+      "name" : data["label"],  # name of the flow, must be unique among the flows
+      "source" : source,       # task that generates the flow (task id)
+      "target" : target,       # task that will receive the packets (task id)  
+      "period" : data["period"],       # packets injection period
+      "datasize" : data["datasize"],   # number of bytes to send
+      "deadline" : data["deadline"] }) # deadline
     flows.append(flow)
 
-  # sort flows by lable (usually f1, f2, ...)
+  # sort flows by label (usually f1, f2, ...)
   flows.sort(key=lambda x : x["name"], reverse=False)
   return flows
 
@@ -36,8 +40,6 @@ def extractFlows(edges):
 def getPacketsFromFlows(flows, hp):
   packets = []
   for f in flows:
-
-    print(f)
 
     min_start = 0 
     period = 0
@@ -82,16 +84,13 @@ def pktGen(appfile, mapfile, archfile):
   app = nx.read_gml(appfile)   # read application model
   
   # locate flows within application
-  print(app.edge.items())
-  flows = extractFlows(app.edge.items())
+  flows = extractFlows(app.edges(data=True))
   
-#  flows = extractFlows(app.adj.items())
-
   # calculate hyperperiod
   periods = []
   for f in flows:
     periods.append(f["period"])
-    print(f)
+
   hp = lcm(periods)
 
   # get packets from flows
@@ -101,14 +100,25 @@ def pktGen(appfile, mapfile, archfile):
   ppaths = []
 
   for p in packets:
-    sourceNode = getMap(p["source"], mapping)
-    targetNode = getMap(p["target"], mapping)
+    sourceTaskName = ""
+    targetTaskName = ""
+
+    for n in app.nodes(data=True):
+      id, data = n
+      if id == p["source"]:
+        sourceTaskName = data["label"]
+      if id == p["target"]:
+        targetTaskName = data["label"]
+
+    sourceNode = getMap(sourceTaskName, mapping)
+    targetNode = getMap(targetTaskName, mapping)
+
     ppath = XY(sourceNode, targetNode, arch)
     ppaths.append(ppath)
 
   # enumerate network links
   nlinks = []
-  for e in arch.edges.items():
+  for e in arch.edges(data=True):
     nlinks.append(e)
 
   # generate occupancy matrix
@@ -124,23 +134,22 @@ def pktGen(appfile, mapfile, archfile):
       dj = j["data"]
       ik = 0
       for k in nlinks:
-        ek, dk = k
-        if dj["label"] == dk["label"]:
+        esource, etarget, edata = k
+        if dj["label"] == edata["label"]:
           occupancy[ik][ic] = OCCUPANCY_MARK
         ik += 1
     ic += 1
 
   # fill occupancy for node-to-pe and pe-to-node links
   i = len(nlinks)
-  for node in arch.nodes.items():
+  for node in arch.nodes(data=True):
     n, d = node
-    nlinks.append([(n, 'L'), {'label': n + "-L"}])
-    nlinks.append([('L', n), {'label': "L-" + n}])
+    nlinks.append([(n, 'L'), {'label': str(n) + "-L"}])
+    nlinks.append([('L', n), {'label': "L-" + str(n)}])
     occupancy.append([0 for j in range(len(packets))])
     occupancy.append([0 for j in range(len(packets))])
     j = 0
     for p in packets:
-      print(p)
       source = getMap(p["source"], mapping)
       if source == n:
         occupancy[i][j] = OCCUPANCY_MARK
@@ -173,9 +182,22 @@ def pktGen(appfile, mapfile, archfile):
   for l in nlinks:
     j = 0
     for p in packets:
+
       if occupancy[i][j] != -1:
-        source = getMap(p["source"], mapping)
-        target = getMap(p["target"], mapping)
+
+        sourceTaskName = ""
+        targetTaskName = ""
+
+        for n in app.nodes(data=True):
+          id, data = n
+          if id == p["source"]:
+            sourceTaskName = data["label"]
+          if id == p["target"]:
+            targetTaskName = data["label"]
+
+        source = getMap(sourceTaskName, mapping)
+        target = getMap(targetTaskName, mapping)
+
          #! this part uses an heuristic to accelerate the analysis
         occupancy[i][j] = ((getNumFlits(f["datasize"]) -1) +
           manhattan(source, target, arch) * getRoutingTime()) 
@@ -236,6 +258,8 @@ def pktGen(appfile, mapfile, archfile):
     print("num_packets = ", len(packets),  ";")
     print()
 
+    print(nlinks)
+
     print("% ", header)
     print("occupancy = ")
     print("[", end = '')
@@ -246,11 +270,10 @@ def pktGen(appfile, mapfile, archfile):
       print("| ", end = '')
       for j in i:
         print("%5d, " % j, end = '')
-      print("  %", nlinks[c][1]["label"])
+      print(" %", nlinks[c][2]["label"])
       c = c + 1
     print("|];")
 
-    print()
 
     print("% ", header)
     print("min_start = ")
@@ -262,7 +285,7 @@ def pktGen(appfile, mapfile, archfile):
       print("| ", end = '')
       for j in i:
         print("%5d, " % j, end = '')
-      print("  %", nlinks[c][1]["label"])
+      print(" %", nlinks[c][2]["label"])
       c = c + 1
     print("|];")
 
@@ -278,7 +301,7 @@ def pktGen(appfile, mapfile, archfile):
       print("| ", end = '')
       for j in i:
         print("%5d, " % j, end = '')
-      print("  %", nlinks[c][1]["label"])
+      print(" %", nlinks[c][2]["label"])
       c = c + 1
     print("|];")
 
