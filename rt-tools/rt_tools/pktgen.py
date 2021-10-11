@@ -21,6 +21,7 @@ def extractFlows(edges):
   flows = []
   for e in edges:
     edge, data = e
+
     flow = ({"name" : data["label"], "source" : edge[0], "target" : edge[1], 
       "period" : data["period"], "datasize" : data["datasize"], 
       "deadline" : data["deadline"] })
@@ -35,6 +36,9 @@ def extractFlows(edges):
 def getPacketsFromFlows(flows, hp):
   packets = []
   for f in flows:
+
+    print(f)
+
     min_start = 0 
     period = 0
     i = 0
@@ -78,12 +82,16 @@ def pktGen(appfile, mapfile, archfile):
   app = nx.read_gml(appfile)   # read application model
   
   # locate flows within application
+  print(app.edge.items())
   flows = extractFlows(app.edge.items())
+  
+#  flows = extractFlows(app.adj.items())
 
   # calculate hyperperiod
   periods = []
   for f in flows:
     periods.append(f["period"])
+    print(f)
   hp = lcm(periods)
 
   # get packets from flows

@@ -45,4 +45,12 @@ graph [
     datasize 10
     deadline 10
   ]
+  edge [
+    source 1
+    target 3
+    label "f3"
+    period 10
+    datasize 10
+    deadline 10
+  ]
 ]
