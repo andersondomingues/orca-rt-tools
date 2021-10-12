@@ -144,8 +144,8 @@ def pktGen(appfile, mapfile, archfile):
   i = len(nlinks)
   for node in arch.nodes(data=True):
     n, d = node
-    nlinks.append([(n, 'L'), {'label': str(n) + "-L"}])
-    nlinks.append([('L', n), {'label': "L-" + str(n)}])
+    nlinks.append([n, 'L', {'label': str(n) + "-L"}])
+    nlinks.append(['L', n, {'label': "L-" + str(n)}])
     occupancy.append([0 for j in range(len(packets))])
     occupancy.append([0 for j in range(len(packets))])
     j = 0
@@ -258,8 +258,6 @@ def pktGen(appfile, mapfile, archfile):
     print("num_packets = ", len(packets),  ";")
     print()
 
-    print(nlinks)
-
     print("% ", header)
     print("occupancy = ")
     print("[", end = '')
@@ -304,48 +302,3 @@ def pktGen(appfile, mapfile, archfile):
       print(" %", nlinks[c][2]["label"])
       c = c + 1
     print("|];")
-
-    print("------------------------- PKT TABLE (VHDL SIM) ALT")
-
-    # constant header 
-    print()
-    print("  constant tp : tpacket := (")
-    print("  -- start  size  src  tgt  deadline ")
-
-    # packets
-    i = 0
-    for p in packets:
-      print("    (", end = '')
-
-      # min start
-      print(p["min_start"], end = '')
-      print(", ", end = '')
-
-      # remove header and size flits from vhdl input
-      print(getNumFlits(p["datasize"]) -2, end = '') 
-      print(", ", end = '')
-
-      # source and target nodes
-      sourceNode = getMap(p["source"], mapping)
-      targetNode = getMap(p["target"], mapping)      
-      print(sourceNode, end = '')
-      print(", ", end = '')
-      print(targetNode, end = '')
-      print(", ", end = '')
-
-      # pkt deadline
-      print(p["abs_deadline"], end = '')
-
-      # trailing comma 
-      if i == len(packets) - 1:
-        print(")", end = '')
-      else:
-        print("),", end = '')
-     
-      # packet alias
-      print("  --", p["name"])
-      i = i + 1
-
-    print("  );")
-    print()
-
