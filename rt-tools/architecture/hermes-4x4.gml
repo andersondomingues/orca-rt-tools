@@ -10,26 +10,26 @@ graph [
   node [
     id 1
     label "1"
-    X 0
-    Y 1
+    X 1
+    Y 0
   ]
   node [
     id 2
     label "2"
-    X 0
-    Y 2
+    X 2
+    Y 0
   ]
   node [
     id 3
     label "3"
-    X 0
-    Y 3
+    X 3
+    Y 0
   ]
   node [
     id 4
     label "4"
-    X 1
-    Y 0
+    X 0
+    Y 1
   ]
   node [
     id 5
@@ -40,26 +40,26 @@ graph [
   node [
     id 6
     label "6"
-    X 1
-    Y 2
+    X 2
+    Y 1
   ]
   node [
     id 7
     label "7"
-    X 1
-    Y 3
+    X 3
+    Y 1
   ]
   node [
     id 8
     label "8"
-    X 2
-    Y 0
+    X 0
+    Y 2
   ]
   node [
     id 9
     label "9"
-    X 2
-    Y 1
+    X 1
+    Y 2
   ]
   node [
     id 10
@@ -70,26 +70,26 @@ graph [
   node [
     id 11
     label "11"
-    X 2
-    Y 3
+    X 3
+    Y 2
   ]
   node [
     id 12
     label "12"
-    X 3
-    Y 0
+    X 0
+    Y 3
   ]
   node [
     id 13
     label "13"
-    X 3
-    Y 1
+    X 1
+    Y 3
   ]
   node [
     id 14
     label "14"
-    X 3
-    Y 2
+    X 2
+    Y 3
   ]
   node [
     id 15

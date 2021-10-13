@@ -153,10 +153,11 @@ def pktGen(appfile, mapfile, archfile):
   i = len(nlinks)
   for node in arch.nodes(data=True):
     n, d = node
-    nlinks.append([n, 'L', {'label': str(n) + "-L"}])
     nlinks.append(['L', n, {'label': "L-" + str(n)}])
+    nlinks.append([n, 'L', {'label': str(n) + "-L"}])
     occupancy.append([0 for j in range(len(packets))])
     occupancy.append([0 for j in range(len(packets))])
+
     j = 0
     for p in packets:
 
@@ -171,17 +172,12 @@ def pktGen(appfile, mapfile, archfile):
           targetTaskName = data["label"]
 
       source = getMap(sourceTaskName, mapping)
-      print(type(source), source, type(n), n)
       if int(source) == n:
-        print("=> (", i, ",", j, ")")
         occupancy[i][j] = OCCUPANCY_MARK
 
       target = getMap(targetTaskName, mapping)
       if int(target) == n:
-        print("=> (", i, ",", j, ")")
         occupancy[i+1][j] = OCCUPANCY_MARK
-
-      print("(", source, ",", target, ")")
 
       j += 1
     i += 2

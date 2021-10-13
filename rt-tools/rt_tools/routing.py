@@ -7,8 +7,8 @@ from os import path
 # address decode
 def decodeNodeID(id, width, height):
   noc_addr = [0,0]
-  noc_addr[0] = int(id / width)
-  noc_addr[1] = int(id % width)
+  noc_addr[0] = int(id % width)
+  noc_addr[1] = int(id / width)
   return noc_addr
 
 #!cycles
