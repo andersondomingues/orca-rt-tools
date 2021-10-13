@@ -285,14 +285,16 @@ def pktGen(appfile, mapfile, archfile):
     print("occupancy = ")
     print("[", end = '')
     c = 0
+    first_line = True
     for i in occupancy:
       if not nulline(i): ##prints only if non-empty
-        if c != 0:
+        if not first_line:
           print(" ", end = '')
         print("| ", end = '')     
         for j in i:
           print("%5d, " % j, end = '')
         print(" %", nlinks[c][2]["label"])
+        first_line = False
       c = c + 1
     print("|];")
 
@@ -301,14 +303,16 @@ def pktGen(appfile, mapfile, archfile):
     print("min_start = ")
     print("[", end = '')
     c = 0
+    first_line = True
     for i in min_start:
       if not nulline(i): ##prints only if non-empty
-        if c != 0:
+        if not first_line:
           print(" ", end = '')
         print("| ", end = '')     
         for j in i:
           print("%5d, " % j, end = '')
         print(" %", nlinks[c][2]["label"])
+        first_line = False
       c = c + 1
     print("|];")
 
@@ -318,13 +322,15 @@ def pktGen(appfile, mapfile, archfile):
     print("deadline = ")
     print("[", end = '')
     c = 0
+    first_line = True
     for i in deadline:
       if not nulline(i): ##prints only if non-empty
-        if c != 0:
+        if not first_line:
           print(" ", end = '')
         print("| ", end = '')     
         for j in i:
           print("%5d, " % j, end = '')
         print(" %", nlinks[c][2]["label"])
+        first_line = False
       c = c + 1
     print("|];")
