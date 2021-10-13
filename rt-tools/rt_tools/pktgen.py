@@ -35,6 +35,15 @@ def extractFlows(edges):
   flows.sort(key=lambda x : x["name"], reverse=False)
   return flows
 
+# checks whether a vector constains only "-1" values
+def nulline(i):
+  res = True
+  for j in i:
+    if j != -1:
+      res = False
+      break
+  return res
+
 # generates packets for a given list of flows. packets 
 # are generated for the whole hyperperiod hp
 def getPacketsFromFlows(flows, hp):
@@ -150,12 +159,30 @@ def pktGen(appfile, mapfile, archfile):
     occupancy.append([0 for j in range(len(packets))])
     j = 0
     for p in packets:
-      source = getMap(p["source"], mapping)
-      if source == n:
+
+      sourceTaskName = ""
+      targetTaskName = ""
+
+      for nn in app.nodes(data=True):
+        id, data = nn
+        if id == p["source"]:
+          sourceTaskName = data["label"]
+        if id == p["target"]:
+          targetTaskName = data["label"]
+
+      source = getMap(sourceTaskName, mapping)
+      print(type(source), source, type(n), n)
+      if int(source) == n:
+        print("=> (", i, ",", j, ")")
         occupancy[i][j] = OCCUPANCY_MARK
-      target = getMap(p["target"], mapping)
-      if target == n:
+
+      target = getMap(targetTaskName, mapping)
+      if int(target) == n:
+        print("=> (", i, ",", j, ")")
         occupancy[i+1][j] = OCCUPANCY_MARK
+
+      print("(", source, ",", target, ")")
+
       j += 1
     i += 2
 
@@ -263,12 +290,13 @@ def pktGen(appfile, mapfile, archfile):
     print("[", end = '')
     c = 0
     for i in occupancy:
-      if c != 0:
-        print(" ", end = '')
-      print("| ", end = '')
-      for j in i:
-        print("%5d, " % j, end = '')
-      print(" %", nlinks[c][2]["label"])
+      if not nulline(i): ##prints only if non-empty
+        if c != 0:
+          print(" ", end = '')
+        print("| ", end = '')     
+        for j in i:
+          print("%5d, " % j, end = '')
+        print(" %", nlinks[c][2]["label"])
       c = c + 1
     print("|];")
 
@@ -278,12 +306,13 @@ def pktGen(appfile, mapfile, archfile):
     print("[", end = '')
     c = 0
     for i in min_start:
-      if c != 0:
-        print(" ", end = '')
-      print("| ", end = '')
-      for j in i:
-        print("%5d, " % j, end = '')
-      print(" %", nlinks[c][2]["label"])
+      if not nulline(i): ##prints only if non-empty
+        if c != 0:
+          print(" ", end = '')
+        print("| ", end = '')     
+        for j in i:
+          print("%5d, " % j, end = '')
+        print(" %", nlinks[c][2]["label"])
       c = c + 1
     print("|];")
 
@@ -294,11 +323,12 @@ def pktGen(appfile, mapfile, archfile):
     print("[", end = '')
     c = 0
     for i in deadline:
-      if c != 0:
-        print(" ", end = '')
-      print("| ", end = '')
-      for j in i:
-        print("%5d, " % j, end = '')
-      print(" %", nlinks[c][2]["label"])
+      if not nulline(i): ##prints only if non-empty
+        if c != 0:
+          print(" ", end = '')
+        print("| ", end = '')     
+        for j in i:
+          print("%5d, " % j, end = '')
+        print(" %", nlinks[c][2]["label"])
       c = c + 1
     print("|];")

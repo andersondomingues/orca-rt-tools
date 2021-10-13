@@ -33,24 +33,16 @@ graph [
     source 0
     target 1
     label "f1"
-    period 10
+    period 20
     datasize 10
-    deadline 10
+    deadline 20
   ]
   edge [
     source 2
     target 3
     label "f2"
-    period 10
+    period 20
     datasize 10
-    deadline 10
-  ]
-  edge [
-    source 1
-    target 3
-    label "f3"
-    period 10
-    datasize 10
-    deadline 10
+    deadline 20
   ]
 ]
