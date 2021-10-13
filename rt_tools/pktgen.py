@@ -13,7 +13,7 @@ from routing import getRoutingTime
 import lcm
 from lcm import lcm
 
-DEBUG = True
+DEBUG = False
 
 # extract flows from a given application graph edges
 # returns a list of flows
@@ -267,70 +267,72 @@ def pktGen(appfile, mapfile, archfile):
     print("------------------------- NETWORK LINKS")
     for l in nlinks:
       print(l)
+  
+  print("%------------------------ OCCUPANCY MATRICES (MINIZINC)")
+  # generate header 
+  header = ""
+  for p in packets:
+    header = header + p["name"] + " "
 
-    print("------------------------- OCCUPANCY MATRICES (MINIZINC)")
-    # generate header 
-    header = ""
-    for p in packets:
-      header = header + p["name"] + " "
+  # variables
+  print()
+  print("hyperperiod_length = ", hp, end = '')
+  print(";")
+  print("num_links = ", len(nlinks), end = "")
+  print(";")
+  print("num_packets = ", len(packets),  end = "")
+  print(";")
+  print()
 
-    # variables
-    print()
-    print("hyperperiod_length = ", hp, ";")
-    print("num_links = ", len(nlinks), ";")
-    print("num_packets = ", len(packets),  ";")
-    print()
+  print("% ", header)
+  print("occupancy = ")
+  print("[", end = '')
+  c = 0
+  first_line = True
+  for i in occupancy:
+    if not nulline(i): ##prints only if non-empty
+      if not first_line:
+        print(" ", end = '')
+      print("| ", end = '')     
+      for j in i:
+        print("%5d, " % j, end = '')
+      print(" %", nlinks[c][2]["label"])
+      first_line = False
+    c = c + 1
+  print("|];")
 
-    print("% ", header)
-    print("occupancy = ")
-    print("[", end = '')
-    c = 0
-    first_line = True
-    for i in occupancy:
-      if not nulline(i): ##prints only if non-empty
-        if not first_line:
-          print(" ", end = '')
-        print("| ", end = '')     
-        for j in i:
-          print("%5d, " % j, end = '')
-        print(" %", nlinks[c][2]["label"])
-        first_line = False
-      c = c + 1
-    print("|];")
+  print("% ", header)
+  print("min_start = ")
+  print("[", end = '')
+  c = 0
+  first_line = True
+  for i in min_start:
+    if not nulline(i): ##prints only if non-empty
+      if not first_line:
+        print(" ", end = '')
+      print("| ", end = '')     
+      for j in i:
+        print("%5d, " % j, end = '')
+      print(" %", nlinks[c][2]["label"])
+      first_line = False
+    c = c + 1
+  print("|];")
 
+  print()
 
-    print("% ", header)
-    print("min_start = ")
-    print("[", end = '')
-    c = 0
-    first_line = True
-    for i in min_start:
-      if not nulline(i): ##prints only if non-empty
-        if not first_line:
-          print(" ", end = '')
-        print("| ", end = '')     
-        for j in i:
-          print("%5d, " % j, end = '')
-        print(" %", nlinks[c][2]["label"])
-        first_line = False
-      c = c + 1
-    print("|];")
-
-    print()
-
-    print("% ", header)
-    print("deadline = ")
-    print("[", end = '')
-    c = 0
-    first_line = True
-    for i in deadline:
-      if not nulline(i): ##prints only if non-empty
-        if not first_line:
-          print(" ", end = '')
-        print("| ", end = '')     
-        for j in i:
-          print("%5d, " % j, end = '')
-        print(" %", nlinks[c][2]["label"])
-        first_line = False
-      c = c + 1
-    print("|];")
+  print("% ", header)
+  print("deadline = ")
+  print("[", end = '')
+  c = 0
+  first_line = True
+  for i in deadline:
+    if not nulline(i): ##prints only if non-empty
+      if not first_line:
+        print(" ", end = '')
+      print("| ", end = '')     
+      for j in i:
+        print("%5d, " % j, end = '')
+      print(" %", nlinks[c][2]["label"])
+      first_line = False
+    c = c + 1
+  print("|];")
