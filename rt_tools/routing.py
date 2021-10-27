@@ -15,14 +15,14 @@ def decodeNodeID(id, width, height):
 def getRoutingTime():
   return 4
 
-#!bits
+#!bits PAYLOAD ONLY
 def getNumFlits(datasize):
   BUS_WIDTH = 32
 
   if datasize % BUS_WIDTH == 0:
-    return (int)((datasize / BUS_WIDTH) + 2)
+    return (int)((datasize / BUS_WIDTH))
   else:
-    return (int)((datasize / BUS_WIDTH) + 3)
+    return (int)((datasize / BUS_WIDTH) + 1)
 
 def manhattan(source, target, graph):
   src = getNodeById(source, graph)
@@ -70,9 +70,6 @@ def parse_XY(source, target, topology):
 
   graph = nx.read_gml(topology)
   XY(source, target, graph)
-
-  for p in paths:
-    print(p)
 
 def XY(source, target, graph):
 

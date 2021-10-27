@@ -61,6 +61,7 @@ def getPacketsFromFlows(flows, hp):
       packets.append(packet)
       min_start = min_start + f["period"]
       i = i + 1
+
   return packets
 
 # returns a matrix whose dimensions are equals to the given matrix
@@ -221,9 +222,14 @@ def pktGen(appfile, mapfile, archfile):
         source = getMap(sourceTaskName, mapping)
         target = getMap(targetTaskName, mapping)
 
-         #! this part uses an heuristic to accelerate the analysis
-        occupancy[i][j] = ((getNumFlits(f["datasize"]) -1) +
-          manhattan(source, target, arch) * getRoutingTime()) 
+        #! this part uses an heuristic to accelerate the analysis
+        # (4 * hops) for the first flit, plus one for the last link (output)
+        # 1 for the size flit to leave 
+        # 1 per payload flit to leave
+        routing_time = (manhattan(source, target, arch) +1)
+        routing_time = (routing_time * getRoutingTime()) + 1
+        occupancy[i][j] = getNumFlits(int(p["datasize"])) + routing_time + 1
+
       j += 1
     i += 1
 
@@ -336,3 +342,29 @@ def pktGen(appfile, mapfile, archfile):
       first_line = False
     c = c + 1
   print("|];")
+
+  #report link usage
+  print("------------ Link Usage")
+  print("\t%\tlink")
+
+  rlinks = [] #links go here
+
+  c = 0
+  for i in occupancy:
+    acc = 0 
+    for j in i:
+      if j != -1:
+        acc = acc + j
+    p = { "label" : nlinks[c][2]["label"], "ratio" : acc }
+    rlinks.append(p)
+    c = c + 1
+
+  def elem2(e):
+    return e["ratio"]
+
+  rlinks.sort(key = elem2, reverse = True)
+
+  for r in rlinks:
+    print(r["label"], "\t", str((r["ratio"] / hp) * 100) + "% (abs:", r["ratio"], ")")
+
+
