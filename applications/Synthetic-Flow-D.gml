@@ -153,54 +153,54 @@ graph [
     source 5
     target 10
     label "f5"
-    period 10
-    datasize 0
-    deadline 10
+    period 30
+    datasize 512
+    deadline 30
   ]
   edge [
     id 5
     source 10
     target 14
     label "f6"
-    period 10
-    datasize 0
-    deadline 10
+    period 30
+    datasize 512
+    deadline 30
   ]
   edge [
     id 6
     source 14
     target 8
     label "f7"
-    period 10
-    datasize 0
-    deadline 10
+    period 30
+    datasize 512
+    deadline 30
   ]
   edge [
     id 7
     source 8
     target 7
     label "f8"
-    period 10
-    datasize 0
-    deadline 10
+    period 30
+    datasize 512
+    deadline 30
   ]
   edge [
     id 8
     source 7
     target 13
     label "f9"
-    period 10
-    datasize 0
-    deadline 10
+    period 30
+    datasize 512
+    deadline 30
   ]
   edge [
     id 9
     source 13
     target 5
     label "f10"
-    period 10
-    datasize 0
-    deadline 10
+    period 30
+    datasize 512
+    deadline 30
   ]
   edge [
     id 10
@@ -208,7 +208,7 @@ graph [
     target 6
     label "f11"
     period 20
-    datasize 196
+    datasize 192
     deadline 20
   ]
   edge [
@@ -217,7 +217,7 @@ graph [
     target 12
     label "f12"
     period 20
-    datasize 196
+    datasize 192
     deadline 20
   ]
   edge [
@@ -226,7 +226,7 @@ graph [
     target 9
     label "f13"
     period 20
-    datasize 196
+    datasize 192
     deadline 20
   ]
   edge [
@@ -235,7 +235,7 @@ graph [
     target 11
     label "f14"
     period 20
-    datasize 196
+    datasize 192
     deadline 20
   ]
   edge [
@@ -244,7 +244,7 @@ graph [
     target 15
     label "f15"
     period 20
-    datasize 196
+    datasize 192
     deadline 20
   ]
   edge [
@@ -253,7 +253,7 @@ graph [
     target 4
     label "f16"
     period 20
-    datasize 196
+    datasize 192
     deadline 20
   ]
 ]
