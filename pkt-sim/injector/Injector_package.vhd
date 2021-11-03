@@ -20,6 +20,7 @@ package InjectorPackage is
   -- pkt state
   type packet_state_t is (
     HEADER,  -- load pkt info into input signals inject first flit
+    HEADER2,
     SIZE,    -- inject second flit 
     PAYLOAD, -- inject remaining flits
     DONE     -- no more packets to inject

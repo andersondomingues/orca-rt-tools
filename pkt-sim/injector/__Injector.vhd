@@ -91,6 +91,8 @@ begin
   begin
     if reset = '1' then 
 	  pkt_state <= HEADER;
+      tx <= '0';
+	  data_out <= (others => 'Z');
       
 	elsif rising_edge(clock) then
 
@@ -107,7 +109,7 @@ begin
             end if;
 
             if not endfile(v_text) then
-			        readline(v_text, v_line);
+			  readline(v_text, v_line);
               read(v_line, d_start);   read(v_line, v_space);
               read(v_line, d_size);    read(v_line, v_space);
               read(v_line, d_target);  read(v_line, v_space);
@@ -122,31 +124,37 @@ begin
             end if;
           end if;
           -- release first flit (header)
-          if cycles >= pkt.start then  
-            pkt_state <= HEADER2; 
-            packet_loaded_already := '0';
-
-          end if;
-  
-          -- HEADER: if enough credit, send the next packet, wait otherwise 
-        when HEADER2 =>
-          if credit_i = '1' then    
+          if cycles >= pkt.start and credit_i = '1' then   -- 
             pkt_state <= SIZE; 
-            pkt_cont <= 0;  -- store the packet size
+            data_out <= conv_std_logic_vector(d_zero, METADEFLIT) & RouterAddress(d_target);
+            tx <= '1';
+            packet_loaded_already := '0';
+          else 
+            tx <= '0';
+			data_out <= (others => 'Z'); -- flag data_in as don't care
           end if;
-
+        
         -- HEADER: if enough credit, send the next packet, wait otherwise 
         when SIZE =>
           if credit_i = '1' then    
             pkt_state <= PAYLOAD; 
             pkt_cont <= 0;  -- store the packet size
-          
-		    end if;
+            data_out <=  conv_std_logic_vector(pkt.size, TAM_FLIT);
+            tx <= '1';
+          else 
+            tx <= '0';
+			data_out <= (others => 'Z'); -- flag data_in as don't care
+		  end if;
 
         -- SIZE: transmit payload flits if enought credit, wait otherwise
         when PAYLOAD =>  
           if credit_i = '1' then  
             pkt_cont <= pkt_cont + 1; 
+            data_out <= conv_std_logic_vector(pkt_cont, TAM_FLIT);
+            tx <= '1';
+          else
+            tx <= '0';
+            data_out <= (others => 'Z');
           end if;
 
           if pkt_cont = pkt.size -1 then
@@ -158,19 +166,11 @@ begin
           end if;
 
         -- DONE: no more flits to send
-        when others =>  null;
-
+        when others =>
+          tx <= '0';
+          data_out <= (others => 'Z'); -- flag data_in as don't care
       end case; 
     end if;
   end process;
-
-  data_out <= conv_std_logic_vector(0, METADEFLIT) & RouterAddress(pkt.target) when pkt_state=HEADER2 else
-              conv_std_logic_vector(pkt.size, TAM_FLIT) when pkt_state=SIZE else
-              conv_std_logic_vector(pkt_cont+1, TAM_FLIT) when pkt_state=PAYLOAD else
-              (others => 'Z');
-
-  tx <= '1'  when  credit_i = '1'  and (pkt_state=HEADER2 or pkt_state=SIZE or pkt_state=PAYLOAD) else
-        '0';
-
     
 end InjectorBehavior;
