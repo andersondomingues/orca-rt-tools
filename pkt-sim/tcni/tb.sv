@@ -24,6 +24,3 @@ initial begin
     end
     reset = 0;
 end
-
-
-//
