@@ -268,8 +268,8 @@ graph [
 
 
   edge [
-    source POSI
-    target NAVC
+    source 3
+    target 16
     label "f1"
     period 50
     datasize 1024
@@ -277,8 +277,8 @@ graph [
   ]
 
   edge [
-    source NAVC
-    target OBDB
+    source 16
+    target 17
     label "f2"
     period 50
     datasize 2048
@@ -286,8 +286,8 @@ graph [
   ]
 
   edge [
-    source OBDB
-    target NAVC
+    source 17
+    target 16
     label "f3"
     period 50
     datasize 16384
@@ -295,8 +295,8 @@ graph [
   ]
 
   edge [
-    source OBDB
-    target OBMG
+    source 17
+    target 32
     label "f4"
     period 50
     datasize 16384
@@ -304,8 +304,8 @@ graph [
   ]
 
   edge [
-    source NAVC
-    target DIRC
+    source 16
+    target 13
     label "f5"
     period 10
     datasize 512
@@ -313,8 +313,8 @@ graph [
   ]
 
   edge [
-    source SPES
-    target NAVC
+    source 2
+    target 16
     label "f6"
     period 10
     datasize 512
@@ -322,8 +322,8 @@ graph [
   ]
 
   edge [
-    source NAVC
-    target THRC
+    source 16
+    target 29
     label "f7"
     period 10
     datasize 1024
@@ -331,8 +331,8 @@ graph [
   ]
 
   edge [
-    source FBU3
-    target VOD1
+    source 7
+    target 30
     label "f8"
     period 4
     datasize 38400
@@ -340,8 +340,8 @@ graph [
   ]
 
   edge [
-    source FBU8
-    target VOD2
+    source 12
+    target 31
     label "f9"
     period 4
     datasize 38400
@@ -349,7 +349,7 @@ graph [
   ]
 
   edge [
-    source VOD1
+    source 30
     target NACV
     label "f10"
     period 4
@@ -358,7 +358,7 @@ graph [
   ]
 
   edge [
-    source VOD2
+    source 31
     target NACV
     label "f11"
     period 4
@@ -367,7 +367,7 @@ graph [
   ]
 
   edge [
-    source FBU1
+    source 5
     target FBE1
     label "f12"
     period 4
@@ -376,7 +376,7 @@ graph [
   ]
 
   edge [
-    source FBU2
+    source 6
     target FBE2
     label "f13"
     period 4
@@ -385,7 +385,7 @@ graph [
   ]
 
   edge [
-    source FBU3
+    source 7
     target FBE3
     label "f14"
     period 4
@@ -394,7 +394,7 @@ graph [
   ]
 
   edge [
-    source FBU4
+    source 8
     target FBE4
     label "f15"
     period 4
@@ -403,7 +403,7 @@ graph [
   ]
 
   edge [
-    source FBU5
+    source 9
     target FBE5
     label "f16"
     period 4
@@ -412,7 +412,7 @@ graph [
   ]
 
   edge [
-    source FBU6
+    source 10
     target FBE6
     label "f17"
     period 4
@@ -421,7 +421,7 @@ graph [
   ]
 
   edge [
-    source FBU7
+    source 11
     target FBE7
     label "f18"
     period 4
@@ -430,7 +430,7 @@ graph [
   ]
 
   edge [
-    source FBU8
+    source 12
     target FBE8
     label "f19"
     period 4
@@ -439,8 +439,8 @@ graph [
   ]
 
   edge [
-    source BFE1
-    target FDF1
+    source 18
+    target 26
     label "f20"
     period 4
     datasize 2048
@@ -448,8 +448,8 @@ graph [
   ]
 
   edge [
-    source BFE2
-    target FDF1
+    source 19
+    target 26
     label "f21"
     period 4
     datasize 2048
@@ -457,8 +457,8 @@ graph [
   ]
 
   edge [
-    source BFE3
-    target FDF1
+    source 20
+    target 26
     label "f22"
     period 4
     datasize 2048
@@ -466,8 +466,8 @@ graph [
   ]
 
   edge [
-    source BFE4
-    target FDF1
+    source 21
+    target 26
     label "f23"
     period 4
     datasize 2048
@@ -475,8 +475,8 @@ graph [
   ]
 
   edge [
-    source BFE5
-    target FDF2
+    source 22
+    target 27
     label "f24"
     period 4
     datasize 2048
@@ -484,8 +484,8 @@ graph [
   ]
 
   edge [
-    source BFE6
-    target FDF2
+    source 23
+    target 27
     label "f25"
     period 4
     datasize 2048
@@ -493,8 +493,8 @@ graph [
   ]
 
   edge [
-    source BFE7
-    target FDF2
+    source 24
+    target 27
     label "f26"
     period 4
     datasize 2048
@@ -502,8 +502,8 @@ graph [
   ]
 
   edge [
-    source BFE8
-    target FDF2
+    source 25
+    target 27
     label "f27"
     period 4
     datasize 2048
@@ -511,8 +511,8 @@ graph [
   ]
 
   edge [
-    source FDF1
-    target STPH
+    source 26
+    target 28
     label "f28"
     period 4
     datasize 8192
@@ -520,8 +520,8 @@ graph [
   ]
 
   edge [
-    source FDF2
-    target STPH
+    source 27
+    target 28
     label "f29"
     period 4
     datasize 8192
@@ -529,8 +529,8 @@ graph [
   ]
 
   edge [
-    source STPH
-    target OBMG
+    source 28
+    target 32
     label "f30"
     period 4
     datasize 4096
@@ -538,8 +538,8 @@ graph [
   ]
 
   edge [
-    source POSI
-    target OBMG
+    source 3
+    target 32
     label "f31"
     period 50
     datasize 1024
@@ -547,8 +547,8 @@ graph [
   ]
 
   edge [
-    source USOS
-    target OBMG
+    source 4
+    target 32
     label "f32"
     period 10
     datasize 1024
@@ -556,8 +556,8 @@ graph [
   ]
 
   edge [
-    source OBMG
-    target OBDB
+    source 32
+    target 17
     label "f33"
     period 100
     datasize 4096
@@ -565,8 +565,8 @@ graph [
   ]
 
   edge [
-    source TPMS
-    target STAC
+    source 0
+    target 13
     label "f34"
     period 50
     datasize 2048
@@ -574,8 +574,8 @@ graph [
   ]
 
   edge [
-    source VIBS
-    target STAC
+    source 1
+    target 13
     label "f35"
     period 10
     datasize 512
@@ -583,8 +583,8 @@ graph [
   ]
 
   edge [
-    source STAC
-    target TPRC
+    source 13
+    target 14
     label "f36"
     period 100
     datasize 2048
@@ -592,8 +592,8 @@ graph [
   ]
 
   edge [
-    source SPES
-    target STAC
+    source 2
+    target 13
     label "f37"
     period 10
     datasize 1024
@@ -602,8 +602,8 @@ graph [
 
 
   edge [
-    source STAC
-    target THRC
+    source 13
+    target 29
     label "f38"
     period 10
     datasize 1024
