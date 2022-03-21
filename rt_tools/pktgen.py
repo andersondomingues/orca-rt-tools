@@ -13,7 +13,7 @@ from routing import getRoutingTime
 import lcm
 from lcm import lcm
 
-DEBUG = False
+DEBUG = True
 
 # extract flows from a given application graph edges
 # returns a list of flows
@@ -115,6 +115,9 @@ def pktGen(appfile, mapfile, archfile):
 
     for n in app.nodes(data=True):
       id, data = n
+
+      print(id)
+      print(data)
       if id == p["source"]:
         sourceTaskName = data["label"]
       if id == p["target"]:
@@ -281,15 +284,7 @@ def pktGen(appfile, mapfile, archfile):
     header = header + p["name"] + " "
 
   # variables
-  print()
-  print("hyperperiod_length = ", hp, end = '')
-  print(";")
-  print("num_links = ", len(nlinks), end = "")
-  print(";")
-  print("num_packets = ", len(packets),  end = "")
-  print(";")
-  print()
-
+  number_of_blank_lines_skipped = 0
   print("% ", header)
   print("occupancy = ")
   print("[", end = '')
@@ -304,6 +299,9 @@ def pktGen(appfile, mapfile, archfile):
         print("%5d, " % j, end = '')
       print(" %", nlinks[c][2]["label"])
       first_line = False
+    else:
+      #count only this time, not necessary to repeat the process
+      number_of_blank_lines_skipped = number_of_blank_lines_skipped + 1
     c = c + 1
   print("|];")
 
@@ -326,6 +324,7 @@ def pktGen(appfile, mapfile, archfile):
 
   print()
 
+  blanks = 0
   print("% ", header)
   print("deadline = ")
   print("[", end = '')
@@ -342,6 +341,16 @@ def pktGen(appfile, mapfile, archfile):
       first_line = False
     c = c + 1
   print("|];")
+
+  #scalars
+  print()
+  print("hyperperiod_length = ", hp, end = '')
+  print(";")
+  print("num_links = ", len(nlinks) - number_of_blank_lines_skipped, end = "")
+  print(";")
+  print("num_packets = ", len(packets),  end = "")
+  print(";")
+  print()
 
   #report link usage
   print("------------ Link Usage")
@@ -366,5 +375,4 @@ def pktGen(appfile, mapfile, archfile):
 
   for r in rlinks:
     print(r["label"], "\t", str((r["ratio"] / hp) * 100) + "% (abs:", r["ratio"], ")")
-
 
