@@ -13,7 +13,7 @@ from routing import getRoutingTime
 import lcm
 from lcm import lcm
 
-DEBUG = True
+DEBUG = False
 
 # extract flows from a given application graph edges
 # returns a list of flows
@@ -116,8 +116,6 @@ def pktGen(appfile, mapfile, archfile):
     for n in app.nodes(data=True):
       id, data = n
 
-      print(id)
-      print(data)
       if id == p["source"]:
         sourceTaskName = data["label"]
       if id == p["target"]:
@@ -353,26 +351,14 @@ def pktGen(appfile, mapfile, archfile):
   print()
 
   #report link usage
-  print("------------ Link Usage")
-  print("\t%\tlink")
-
-  rlinks = [] #links go here
-
-  c = 0
+  acc = 0
   for i in occupancy:
-    acc = 0 
     for j in i:
       if j != -1:
         acc = acc + j
-    p = { "label" : nlinks[c][2]["label"], "ratio" : acc }
-    rlinks.append(p)
-    c = c + 1
+  
+  total_net_capacity = len(occupancy) * len(occupancy[0]) * hp
+  accumulated_usage = acc
+  print("Usage: ", (accumulated_usage / total_net_capacity) * 100, "%")
 
-  def elem2(e):
-    return e["ratio"]
-
-  rlinks.sort(key = elem2, reverse = True)
-
-  for r in rlinks:
-    print(r["label"], "\t", str((r["ratio"] / hp) * 100) + "% (abs:", r["ratio"], ")")
-
+  
