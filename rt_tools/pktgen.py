@@ -361,4 +361,3 @@ def pktGen(appfile, mapfile, archfile):
   accumulated_usage = acc
   print("Usage: ", (accumulated_usage / total_net_capacity) * 100, "%")
 
-  
