@@ -28,8 +28,8 @@ graph [
     capacity 20
     deadline 55
   ]
+
   edge [
-    id 0
     source 0
     target 1
     label "f1"
@@ -38,7 +38,6 @@ graph [
     deadline 55
   ]
   edge [
-    id 1
     source 0
     target 3
     label "f2"

@@ -269,333 +269,333 @@ graph [
     source 3
     target 16
     label "f1"
-    period 500000
+    period 100000000
     datasize 1024
-    deadline 500000
+    deadline 100000000
   ]
 
   edge [
     source 16
     target 17
     label "f2"
-    period 500000
+    period 100000000
     datasize 2048
-    deadline 500000
+    deadline 100000000
   ]
 
   edge [
     source 17
     target 16
     label "f3"
-    period 500000
+    period 100000000
     datasize 16384
-    deadline 500000
+    deadline 100000000
   ]
 
   edge [
     source 17
     target 32
     label "f4"
-    period 500000
+    period 100000000
     datasize 16384
-    deadline 500000
+    deadline 100000000
   ]
 
   edge [
     source 16
     target 13
     label "f5"
-    period 100000
+    period 20000000
     datasize 512
-    deadline 100000
+    deadline 20000000
   ]
 
   edge [
     source 2
     target 16
     label "f6"
-    period 100000
+    period 20000000
     datasize 512
-    deadline 100000
+    deadline 20000000
   ]
 
   edge [
     source 16
     target 29
     label "f7"
-    period 100000
+    period 20000000
     datasize 1024
-    deadline 100000
+    deadline 20000000
   ]
 
   edge [
     source 7
     target 30
     label "f8"
-    period 40000
+    period 8000000
     datasize 38400
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 12
     target 31
     label "f9"
-    period 40000
+    period 8000000
     datasize 38400
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 30
     target 16
     label "f10"
-    period 40000
+    period 8000000
     datasize 512
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 31
     target 16
     label "f11"
-    period 40000
+    period 8000000
     datasize 512
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 5
     target 18
     label "f12"
-    period 40000
+    period 8000000
     datasize 38400
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 6
     target 19
     label "f13"
-    period 40000
+    period 8000000
     datasize 38400
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 7
     target 20
     label "f14"
-    period 40000
+    period 8000000
     datasize 38400
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 8
     target 21
     label "f15"
-    period 40000
+    period 8000000
     datasize 38400
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 9
     target 22
     label "f16"
-    period 40000
+    period 8000000
     datasize 38400
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 10
     target 23
     label "f17"
-    period 40000
+    period 8000000
     datasize 38400
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 11
     target 24
     label "f18"
-    period 40000
+    period 8000000
     datasize 38400
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 12
     target 25
     label "f19"
-    period 40000
+    period 8000000
     datasize 38400
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 18
     target 26
     label "f20"
-    period 40000
+    period 8000000
     datasize 2048
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 19
     target 26
     label "f21"
-    period 40000
+    period 8000000
     datasize 2048
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 20
     target 26
     label "f22"
-    period 40000
+    period 8000000
     datasize 2048
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 21
     target 26
     label "f23"
-    period 40000
+    period 8000000
     datasize 2048
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 22
     target 27
     label "f24"
-    period 40000
+    period 8000000
     datasize 2048
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 23
     target 27
     label "f25"
-    period 40000
+    period 8000000
     datasize 2048
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 24
     target 27
     label "f26"
-    period 40000
+    period 8000000
     datasize 2048
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 25
     target 27
     label "f27"
-    period 40000
+    period 8000000
     datasize 2048
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 26
     target 28
     label "f28"
-    period 40000
+    period 8000000
     datasize 8192
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 27
     target 28
     label "f29"
-    period 40000
+    period 8000000
     datasize 8192
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 28
     target 32
     label "f30"
-    period 40000
+    period 8000000
     datasize 4096
-    deadline 40000
+    deadline 8000000
   ]
 
   edge [
     source 3
     target 32
     label "f31"
-    period 500000
+    period 100000000
     datasize 1024
-    deadline 500000
+    deadline 100000000
   ]
 
   edge [
     source 4
     target 32
     label "f32"
-    period 100000
+    period 20000000
     datasize 1024
-    deadline 100000
+    deadline 20000000
   ]
 
   edge [
     source 32
     target 17
     label "f33"
-    period 1000000
+    period 200000000
     datasize 4096
-    deadline 1000000
+    deadline 200000000
   ]
 
   edge [
     source 0
     target 13
     label "f34"
-    period 500000
+    period 100000000
     datasize 2048
-    deadline 500000
+    deadline 100000000
   ]
 
   edge [
     source 1
     target 13
     label "f35"
-    period 100000
+    period 20000000
     datasize 512
-    deadline 100000
+    deadline 20000000
   ]
 
   edge [
     source 13
     target 14
     label "f36"
-    period 1000000
+    period 200000000
     datasize 2048
-    deadline 1000000
+    deadline 200000000
   ]
 
   edge [
     source 2
     target 13
     label "f37"
-    period 100000
+    period 20000000
     datasize 1024
-    deadline 100000
+    deadline 20000000
   ]
 
 
@@ -603,9 +603,9 @@ graph [
     source 13
     target 29
     label "f38"
-    period 100000
+    period 20000000
     datasize 1024
-    deadline 100000
+    deadline 20000000
   ]
 
 ]
