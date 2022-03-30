@@ -92,7 +92,7 @@ def pktGen(appfile, mapfile, archfile):
   arch = nx.read_gml(archfile) # read topology file (architecture)
   mapping = parseMap(mapfile)  # read mapping file (node-to-tasks)
   app = nx.read_gml(appfile)   # read application model
-  
+
   # locate flows within application
   flows = extractFlows(app.edges(data=True))
   
@@ -115,11 +115,10 @@ def pktGen(appfile, mapfile, archfile):
 
     for n in app.nodes(data=True):
       id, data = n
-
       if id == p["source"]:
-        sourceTaskName = data["label"]
+        sourceTaskName = id
       if id == p["target"]:
-        targetTaskName = data["label"]
+        targetTaskName = id
 
     sourceNode = getMap(sourceTaskName, mapping)
     targetNode = getMap(targetTaskName, mapping)
@@ -169,9 +168,9 @@ def pktGen(appfile, mapfile, archfile):
       for nn in app.nodes(data=True):
         id, data = nn
         if id == p["source"]:
-          sourceTaskName = data["label"]
+          sourceTaskName = id
         if id == p["target"]:
-          targetTaskName = data["label"]
+          targetTaskName = id
 
       source = getMap(sourceTaskName, mapping)
       if int(source) == n:
@@ -216,9 +215,9 @@ def pktGen(appfile, mapfile, archfile):
         for n in app.nodes(data=True):
           id, data = n
           if id == p["source"]:
-            sourceTaskName = data["label"]
+            sourceTaskName = id
           if id == p["target"]:
-            targetTaskName = data["label"]
+            targetTaskName = id
 
         source = getMap(sourceTaskName, mapping)
         target = getMap(targetTaskName, mapping)

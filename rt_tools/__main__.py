@@ -14,6 +14,8 @@ import vhdl
 from vhdl import exportVhdl
 import nocgen
 from nocgen import nocgen
+import app2csv
+from app2csv import app2csv
 
 import export
 from export import export
@@ -32,9 +34,12 @@ def main():
     print("  map <infile>")
     print("  vhdl <appfile> <mapfile> <archfile> <startfile>")
     print("  pkt <appfile> <mapfile> <archfile>")
+    print("  csv2app <csv> <output>")
     exit(0)
   
-# plot exports given graph to a png file
+  print(sys.argv[1])
+
+  # plot exports given graph to a png file
   if sys.argv[1] == 'nocgen':
 
     if len(sys.argv) != 5:
@@ -42,7 +47,15 @@ def main():
       exit(0)
 
     nocgen(int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])
-  
+
+  # generate app file from csv 
+  elif sys.argv[1] == 'csv2app':
+    if len(sys.argv) != 4:
+      print("command <csv2app> requires <csv> and <output> arguments")
+      exit(0)
+
+    app2csv(sys.argv[2], sys.argv[3])
+
   # plot exports given graph to a png file
   elif sys.argv[1] == 'export':
 

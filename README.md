@@ -18,8 +18,9 @@ The following packages are required for rt_tools to run in a linux environment. 
 
 The rt_tools package depends on some python packages, enlisted below. 
 
-- networkx==1.9.1
+- networkx==2.7.1
 - pyparsing==2.4.7
+- pygraphviz==1.9
 
 In addition to the aforementioned packages, you must install Minizinc, following the instruction provided in their own website. Please visit https://www.minizinc.org/ for more information.
 

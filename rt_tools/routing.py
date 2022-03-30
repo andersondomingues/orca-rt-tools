@@ -53,10 +53,11 @@ def getNodeByXY(x, y, graph):
 # return an object node from the graph with given id
 def getNodeById(nodeid, graph):
   tnode = None
-  
+
   for n in graph.nodes(data=True):
     node, data = n
-    if int(nodeid) == node:
+
+    if node == nodeid:
       tnode = {"node": node, "data": { 'X' : data["X"], 'Y' : data["Y"]} }
 
   return tnode
