@@ -358,5 +358,5 @@ def pktGen(appfile, mapfile, archfile):
   
   total_net_capacity = len(occupancy) * len(occupancy[0]) * hp
   accumulated_usage = acc
-  print("Usage: ", (accumulated_usage / total_net_capacity) * 100, "%")
+  #print("Usage: ", (accumulated_usage / total_net_capacity) * 100, "%")
 

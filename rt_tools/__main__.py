@@ -14,8 +14,10 @@ import vhdl
 from vhdl import exportVhdl
 import nocgen
 from nocgen import nocgen
-import app2csv
-from app2csv import app2csv
+import csv2app
+from csv2app import csv2app
+import znc2csv
+from znc2csv import znc2csv
 
 import export
 from export import export
@@ -35,10 +37,9 @@ def main():
     print("  vhdl <appfile> <mapfile> <archfile> <startfile>")
     print("  pkt <appfile> <mapfile> <archfile>")
     print("  csv2app <csv> <output>")
+    print("  znc2scv <znc> <output")
     exit(0)
   
-  print(sys.argv[1])
-
   # plot exports given graph to a png file
   if sys.argv[1] == 'nocgen':
 
@@ -107,6 +108,14 @@ def main():
       exit(0)
 
     pktGen(sys.argv[2], sys.argv[3], sys.argv[4])
+
+  elif sys.argv[1] == 'znc2csv':
+  
+    if len(sys.argv) != 4:
+      print("command <znc2csv> requires <znc> and <output> arguments")
+      exit(0)
+
+    znc2csv(sys.argv[2], sys.argv[3])
 
   # invalid case
   else:

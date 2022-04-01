@@ -1,611 +1,571 @@
 graph [
   directed 1
   node [
-    id 0
-    label "TPMS"
-    alias "Tire Pressure Monitoring System"
-    period 0
-    capacity 0
-    deadline 0
-  ]
-  node [
     id 1
-    label "VIBS"
-    alias "Vibration Sensor"
+    label "TPMS"
+    alias "Tire pressure monitoring system"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 2
-    label "SPES"
-    alias "Speed Sensor"
+    label "VIBS"
+    alias "Vibration sensor"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 3
-    label "POSI"
-    alias "Position Sensor Interface"
+    label "SPES"
+    alias "Speed sensor"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 4
-    label "USOS"
-    alias "Ultrasonic Sensor"
+    label "POSI"
+    alias "Position sensor interface"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 5
-    label "FBU1"
-    alias "Frame Buffer - Left Camera, Upper-Left Quadrant"
+    label "USOS"
+    alias "Ultrasonic sensor"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 6
-    label "FBU2"
-    alias "Frame Buffer - Left Camera, Upper-Right Quadrant"
+    label "FBU1"
+    alias "Frame buffer - Left camera, upper-left quadrant"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 7
-    label "FBU3"
-    alias "Frame Buffer - Left Camera, Lower-Left Quadrant"
+    label "FBU2"
+    alias "Frame buffer - Left camera, upper-right quadrant"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 8
-    label "FBU4"
-    alias "Frame Buffer - Left Camera, Lower-Right Quadrant"
+    label "FBU3"
+    alias "Frame buffer - Left camera, lower-left quadrant"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 9
-    label "FBU5"
-    alias "Frame Buffer - Right Camera, Upper-Left Quadrant"
+    label "FBU4"
+    alias "Frame buffer - Left camera, lower-right quadrant"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 10
-    label "FBU6"
-    alias "Frame Buffer - Right Camera, Upper-Right Quadrant"
+    label "FBU5"
+    alias "Frame buffer - Right camera, upper-left quadrant"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 11
-    label "FBU7"
-    alias "Frame Buffer - Right Camera, Lower-Left Quadrant"
+    label "FBU6"
+    alias "Frame buffer - Right camera, upper-right quadrant"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 12
-    label "FBU8"
-    alias "Frame Buffer - Right Camera, Lower-Right Quadrant"
+    label "FBU7"
+    alias "Frame buffer - Right camera, lower-left quadrant"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 13
-    label "STAC"
-    alias "Stability Control"
+    label "FBU8"
+    alias "Frame buffer - Right camera, lower-right quadrant"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 14
-    label "TPRC"
-    alias "Tire Pressure Control"
+    label "STAC"
+    alias "Stability control"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 15
-    label "DIRC"
-    alias "Direction Control"
+    label "TPRC"
+    alias "Tire pressure control"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 16
-    label "NAVC"
-    alias "Navigation Control"
+    label "DIRC"
+    alias "Direction control"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 17
-    label "OBDB"
-    alias "Obstacle Databse"
+    label "NAVC"
+    alias "Navigation control"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 18
-    label "BFE1"
-    alias "Background Estimation and Feature Extraction 1"
+    label "OBDB"
+    alias "Obstacle database"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 19
-    label "BFE2"
-    alias "Background Estimation and Feature Extraction 2"
+    label "BFE1"
+    alias "Background estimation and feature extraction 1"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 20
-    label "BFE3"
-    alias "Background Estimation and Feature Extraction 3"
+    label "BFE2"
+    alias "Background estimation and feature extraction 2"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 21
-    label "BFE4"
-    alias "Background Estimation and Feature Extraction 4"
+    label "BFE3"
+    alias "Background estimation and feature extraction 3"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 22
-    label "BFE5"
-    alias "Background Estimation and Feature Extraction 5"
+    label "BFE4"
+    alias "Background estimation and feature extraction 4"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 23
-    label "BFE6"
-    alias "Background Estimation and Feature Extraction 6"
+    label "BFE5"
+    alias "Background estimation and feature extraction 5"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 24
-    label "BFE7"
-    alias "Background Estimation and Feature Extraction 7"
+    label "BFE6"
+    alias "Background estimation and feature extraction 6"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 25
-    label "BFE8"
-    alias "Background Estimation and Feature Extraction 8"
+    label "BFE7"
+    alias "Background estimation and feature extraction 7"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 26
-    label "FDF1"
-    alias "Feature Data Fusion 1"
+    label "BFE8"
+    alias "Background estimation and feature extraction 8"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 27
-    label "FDF2"
-    alias "Feature Data Fusion 2"
+    label "FDF1"
+    alias "Feature data fusion 1"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 28
-    label "STPH"
-    alias "Stereo Photogrammetry"
+    label "FDF2"
+    alias "Feature data fusion 2"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 29
-    label "THRC"
-    alias "Throttle Control"
-    period 0
-    capacity 0
-    deadline 0
-  ]
-  node [
-    id 30
-    label "VOD1"
-    alias "Visual Odometry 1"
+    label "STPH"
+    alias "Stereo photogrammetry"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 31
-    label "VOD2"
-    alias "Visual Odometry 2"
+    label "THRC"
+    alias "Throttle control"
     period 0
     capacity 0
     deadline 0
   ]
   node [
     id 32
-    label "OBMG"
-    alias "Obstacle Database Manager"
+    label "VOD1"
+    alias "Visual odometry 1"
     period 0
     capacity 0
     deadline 0
   ]
-
-  edge [
-    source 3
-    target 16
-    label "f1"
-    period 500000
-    datasize 1024
-    deadline 500000
+  node [
+    id 33
+    label "VOD2"
+    alias "Visual odometry 2"
+    period 0
+    capacity 0
+    deadline 0
   ]
-
-  edge [
-    source 16
-    target 17
-    label "f2"
-    period 500000
-    datasize 2048
-    deadline 500000
+  node [
+    id 34
+    label "OBMG"
+    alias "Obstacle database manager"
+    period 0
+    capacity 0
+    deadline 0
   ]
-
-  edge [
-    source 17
-    target 16
-    label "f3"
-    period 500000
-    datasize 16384
-    deadline 500000
-  ]
-
-  edge [
-    source 17
-    target 32
-    label "f4"
-    period 500000
-    datasize 16384
-    deadline 500000
-  ]
-
-  edge [
-    source 16
-    target 13
-    label "f5"
-    period 100000
-    datasize 512
-    deadline 100000
-  ]
-
-  edge [
-    source 2
-    target 16
-    label "f6"
-    period 100000
-    datasize 512
-    deadline 100000
-  ]
-
-  edge [
-    source 16
-    target 29
-    label "f7"
-    period 100000
-    datasize 1024
-    deadline 100000
-  ]
-
-  edge [
-    source 7
-    target 30
-    label "f8"
-    period 40000
-    datasize 38400
-    deadline 40000
-  ]
-
-  edge [
-    source 12
-    target 31
-    label "f9"
-    period 40000
-    datasize 38400
-    deadline 40000
-  ]
-
-  edge [
-    source 30
-    target 16
-    label "f10"
-    period 40000
-    datasize 512
-    deadline 40000
-  ]
-
-  edge [
-    source 31
-    target 16
-    label "f11"
-    period 40000
-    datasize 512
-    deadline 40000
-  ]
-
-  edge [
-    source 5
-    target 18
-    label "f12"
-    period 40000
-    datasize 38400
-    deadline 40000
-  ]
-
-  edge [
-    source 6
-    target 19
-    label "f13"
-    period 40000
-    datasize 38400
-    deadline 40000
-  ]
-
-  edge [
-    source 7
-    target 20
-    label "f14"
-    period 40000
-    datasize 38400
-    deadline 40000
-  ]
-
-  edge [
-    source 8
-    target 21
-    label "f15"
-    period 40000
-    datasize 38400
-    deadline 40000
-  ]
-
-  edge [
-    source 9
-    target 22
-    label "f16"
-    period 40000
-    datasize 38400
-    deadline 40000
-  ]
-
-  edge [
-    source 10
-    target 23
-    label "f17"
-    period 40000
-    datasize 38400
-    deadline 40000
-  ]
-
-  edge [
-    source 11
-    target 24
-    label "f18"
-    period 40000
-    datasize 38400
-    deadline 40000
-  ]
-
-  edge [
-    source 12
-    target 25
-    label "f19"
-    period 40000
-    datasize 38400
-    deadline 40000
-  ]
-
-  edge [
-    source 18
-    target 26
-    label "f20"
-    period 40000
-    datasize 2048
-    deadline 40000
-  ]
-
-  edge [
-    source 19
-    target 26
-    label "f21"
-    period 40000
-    datasize 2048
-    deadline 40000
-  ]
-
-  edge [
-    source 20
-    target 26
-    label "f22"
-    period 40000
-    datasize 2048
-    deadline 40000
-  ]
-
-  edge [
-    source 21
-    target 26
-    label "f23"
-    period 40000
-    datasize 2048
-    deadline 40000
-  ]
-
-  edge [
-    source 22
-    target 27
-    label "f24"
-    period 40000
-    datasize 2048
-    deadline 40000
-  ]
-
-  edge [
-    source 23
-    target 27
-    label "f25"
-    period 40000
-    datasize 2048
-    deadline 40000
-  ]
-
-  edge [
-    source 24
-    target 27
-    label "f26"
-    period 40000
-    datasize 2048
-    deadline 40000
-  ]
-
-  edge [
-    source 25
-    target 27
-    label "f27"
-    period 40000
-    datasize 2048
-    deadline 40000
-  ]
-
-  edge [
-    source 26
-    target 28
-    label "f28"
-    period 40000
-    datasize 8192
-    deadline 40000
-  ]
-
-  edge [
-    source 27
-    target 28
-    label "f29"
-    period 40000
-    datasize 8192
-    deadline 40000
-  ]
-
-  edge [
-    source 28
-    target 32
-    label "f30"
-    period 40000
-    datasize 4096
-    deadline 40000
-  ]
-
-  edge [
-    source 3
-    target 32
-    label "f31"
-    period 500000
-    datasize 1024
-    deadline 500000
-  ]
-
   edge [
     source 4
-    target 32
-    label "f32"
+    target 17
+    label f1
+    period 500000
+    datasize 1024
+    deadline 500000
+  ]
+  edge [
+    source 17
+    target 18
+    label f2
+    period 500000
+    datasize 2048
+    deadline 500000
+  ]
+  edge [
+    source 18
+    target 17
+    label f3
+    period 500000
+    datasize 16384
+    deadline 500000
+  ]
+  edge [
+    source 18
+    target 34
+    label f4
+    period 500000
+    datasize 16384
+    deadline 500000
+  ]
+  edge [
+    source 17
+    target 16
+    label f5
+    period 100000
+    datasize 512
+    deadline 100000
+  ]
+  edge [
+    source 3
+    target 17
+    label f6
+    period 100000
+    datasize 512
+    deadline 100000
+  ]
+  edge [
+    source 17
+    target 31
+    label f7
     period 100000
     datasize 1024
     deadline 100000
   ]
-
+  edge [
+    source 8
+    target 32
+    label f8
+    period 40000
+    datasize 38400
+    deadline 40000
+  ]
+  edge [
+    source 13
+    target 33
+    label f9
+    period 40000
+    datasize 38400
+    deadline 40000
+  ]
   edge [
     source 32
     target 17
-    label "f33"
+    label f10
+    period 40000
+    datasize 512
+    deadline 40000
+  ]
+  edge [
+    source 33
+    target 17
+    label f11
+    period 40000
+    datasize 512
+    deadline 40000
+  ]
+  edge [
+    source 6
+    target 19
+    label f12
+    period 40000
+    datasize 38400
+    deadline 40000
+  ]
+  edge [
+    source 7
+    target 20
+    label f13
+    period 40000
+    datasize 38400
+    deadline 40000
+  ]
+  edge [
+    source 8
+    target 21
+    label f14
+    period 40000
+    datasize 38400
+    deadline 40000
+  ]
+  edge [
+    source 9
+    target 22
+    label f15
+    period 40000
+    datasize 38400
+    deadline 40000
+  ]
+  edge [
+    source 10
+    target 23
+    label f16
+    period 40000
+    datasize 38400
+    deadline 40000
+  ]
+  edge [
+    source 11
+    target 24
+    label f17
+    period 40000
+    datasize 38400
+    deadline 40000
+  ]
+  edge [
+    source 12
+    target 25
+    label f18
+    period 40000
+    datasize 38400
+    deadline 40000
+  ]
+  edge [
+    source 13
+    target 26
+    label f19
+    period 40000
+    datasize 38400
+    deadline 40000
+  ]
+  edge [
+    source 19
+    target 27
+    label f20
+    period 40000
+    datasize 2048
+    deadline 40000
+  ]
+  edge [
+    source 20
+    target 27
+    label f21
+    period 40000
+    datasize 2048
+    deadline 40000
+  ]
+  edge [
+    source 21
+    target 27
+    label f22
+    period 40000
+    datasize 2048
+    deadline 40000
+  ]
+  edge [
+    source 22
+    target 27
+    label f23
+    period 40000
+    datasize 2048
+    deadline 40000
+  ]
+  edge [
+    source 23
+    target 28
+    label f24
+    period 40000
+    datasize 2048
+    deadline 40000
+  ]
+  edge [
+    source 24
+    target 28
+    label f25
+    period 40000
+    datasize 2048
+    deadline 40000
+  ]
+  edge [
+    source 25
+    target 28
+    label f26
+    period 40000
+    datasize 2048
+    deadline 40000
+  ]
+  edge [
+    source 26
+    target 28
+    label f27
+    period 40000
+    datasize 2048
+    deadline 40000
+  ]
+  edge [
+    source 27
+    target 29
+    label f28
+    period 40000
+    datasize 8192
+    deadline 40000
+  ]
+  edge [
+    source 28
+    target 29
+    label f29
+    period 40000
+    datasize 8192
+    deadline 40000
+  ]
+  edge [
+    source 29
+    target 34
+    label f30
+    period 40000
+    datasize 4096
+    deadline 40000
+  ]
+  edge [
+    source 4
+    target 34
+    label f31
+    period 500000
+    datasize 1024
+    deadline 500000
+  ]
+  edge [
+    source 5
+    target 34
+    label f32
+    period 100000
+    datasize 1024
+    deadline 100000
+  ]
+  edge [
+    source 34
+    target 18
+    label f33
     period 1000000
     datasize 4096
     deadline 1000000
   ]
-
   edge [
-    source 0
-    target 13
-    label "f34"
+    source 1
+    target 14
+    label f34
     period 500000
     datasize 2048
     deadline 500000
   ]
-
   edge [
-    source 1
-    target 13
-    label "f35"
+    source 2
+    target 14
+    label f35
     period 100000
     datasize 512
     deadline 100000
   ]
-
   edge [
-    source 13
-    target 14
-    label "f36"
+    source 14
+    target 15
+    label f36
     period 1000000
     datasize 2048
     deadline 1000000
   ]
-
   edge [
-    source 2
-    target 13
-    label "f37"
+    source 3
+    target 14
+    label f37
     period 100000
     datasize 1024
     deadline 100000
   ]
-
-
   edge [
-    source 13
-    target 29
-    label "f38"
+    source 14
+    target 31
+    label f38
     period 100000
     datasize 1024
     deadline 100000
   ]
-
 ]
