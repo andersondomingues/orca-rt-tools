@@ -55,7 +55,7 @@ def main():
       print("command <csv2app> requires <csv> and <output> arguments")
       exit(0)
 
-    app2csv(sys.argv[2], sys.argv[3])
+    csv2app(sys.argv[2], sys.argv[3])
 
   # plot exports given graph to a png file
   elif sys.argv[1] == 'export':

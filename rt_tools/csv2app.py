@@ -63,7 +63,7 @@ def exportGmlFlows(tasks, flows):
 
 # Exports a graph to a png file. By design, dot generates
 # plot layout (requires graphviz)
-def app2csv(infile, outfile):
+def csv2app(infile, outfile):
   
   if not path.exists(infile):
     print("unable to read input file")

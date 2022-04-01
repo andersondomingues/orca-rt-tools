@@ -3,8 +3,8 @@
 Welcome to the ORCA RT-Tools repository. In this repository you will find the following assets:
 
 - Minizinc constraint models for optimizing real-time traffic in networks-on-chip
-- Data models for several applications and noc architectures
-- A python program suite that automates the optmizationg process, which we call "rt_tools"
+- A single data model, used for all applications and noc architectures
+- A python program suite that automates the optmization process, which we call "rt_tools"
 - An RTL simulator written for the Hermes NoC
 
 ## Requirements and Installation
@@ -28,9 +28,9 @@ For the RTL simulator, you must have ModelSim (or Questa) installed in your syst
 
 ## How to use it 
 
-Before using rt_tools, you must provide three models: application, architecture, and mapping. See example models to learn the syntax of each model. Once you've done modeling, you can use rt_tools to generate the input model for minizinc, using the command `python3 __main__.py pkt <A> <B> <C>` replacing A, B and C by your application, architecture, and mapping model files. Be careful to provide files in the right sequence.
+Before using rt_tools, you must provide three models: application, architecture, and mapping. See the provided example models to learn the syntax of each model. Once you've done modeling, you can use rt_tools to generate the input model for minizinc, using the command `python3 __main__.py pkt <A> <B> <C>` replacing A, B and C by your application, architecture, and mapping model files. Be careful to provide files in the right sequence.
 
-The output must show a couple of debugging information, followed by a section named `OCCUPANCY MATRICES (MINIZINC)`. The content of this section must be saved into a file (minizinc uses \*.mdc extension). Provide the save file to the constraint model using minizinc IDE or command line, and its done!
+The output must show a couple of debugging information, followed by a section named `OCCUPANCY MATRICES (MINIZINC)`. The content of this section must be saved into a file (minizinc uses \*.dnz extension). Run minizinc passing both the \*.dnz file along with the provided \*.mnz file, and its done! You command line should look like `minizinc --solver Gecode <dnz> <mnz> > output.txt`.
 
 ## ...in a nutshell
 1) `python3 rt_tools/__main__.py pkt applications/app.gml mappings/map.gml architectures/arch.gml > output.dnz`
