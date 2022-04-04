@@ -1,5 +1,6 @@
 import networkx as nx
 import sys
+import json
 import os.path
 from os import path
 import mapping
@@ -12,6 +13,7 @@ from routing import manhattan
 from routing import getRoutingTime
 import lcm
 from lcm import lcm
+from terminal import info
 
 DEBUG = False
 
@@ -102,9 +104,11 @@ def pktGen(appfile, mapfile, archfile):
     periods.append(f["period"])
 
   hp = lcm(periods)
+  info("Hyperperiod for the flow set is " + str(hp))
 
   # get packets from flows
   packets = getPacketsFromFlows(flows, hp)
+  info("Extracted " + str(len(packets)) + " packets from " + str(len(flows)) + " flows")
 
   # get traversal path of each packet
   ppaths = []
@@ -125,6 +129,11 @@ def pktGen(appfile, mapfile, archfile):
 
     ppath = XY(sourceNode, targetNode, arch)
     ppaths.append(ppath)
+
+
+
+  return 
+
 
   # enumerate network links
   nlinks = []
@@ -252,27 +261,6 @@ def pktGen(appfile, mapfile, archfile):
         min_start[i][j] = p["min_start"]
       j += 1
     i += 1
-
-  #!!
-  if DEBUG:
-    print("------------------------- FLOWS")
-    for f in flows:
-      print(f)
-
-    print("------------------------- HYPERPERIOD")
-    print(hp)
-
-    print("------------------------- PACKETS")
-    for p in packets:
-      print(p)
-
-    print("------------------------- PATHS")
-    for p in ppaths:
-      print(p)
-
-    print("------------------------- NETWORK LINKS")
-    for l in nlinks:
-      print(l)
   
   print("%------------------------ OCCUPANCY MATRICES (MINIZINC)")
   # generate header 
@@ -360,3 +348,7 @@ def pktGen(appfile, mapfile, archfile):
   accumulated_usage = acc
   #print("Usage: ", (accumulated_usage / total_net_capacity) * 100, "%")
 
+  with open('packets.txt', 'w+') as file:
+    for p in packets:
+      s = json.dumps(p)
+      file.write(s + '\n')

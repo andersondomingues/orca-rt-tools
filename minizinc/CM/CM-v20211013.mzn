@@ -35,7 +35,7 @@ constraint forall(l1, l2 in LINKS, p in PACKETS)(
 % definition of overleap predicate (same as in job shop)
 predicate nonoverlap(
   var int:b1, var int:e1, var int:b2, var int:e2)
-   = b1 + e1 <= b2 \/ b2 + e2 <= b1;
+   = b1 + e1 < b2 \/ b2 + e2 < b1;
 
 % prevent two flow from sharing the same resource at the same time
 % (uses the predicate above)

@@ -18,7 +18,7 @@ def formatLine(line):
 
   return items
 
-def znc2csv (infile, outfile):
+def znc2csv (infile):
 
   firstLine = True
   rows = []
@@ -36,8 +36,4 @@ def znc2csv (infile, outfile):
             if rows[i] == -1 or rows[i] > column[i]:
               rows[i] = column[i]
     
-    for r in rows:
-      print(r, end=',')
-
-  # print(rows[0])
-  return 1
+  return rows
