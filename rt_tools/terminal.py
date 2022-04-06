@@ -12,8 +12,11 @@ def wsfill(num, pad):
   fill = genwss(pad - len(nstr))
   return fill + nstr
 
-def info(msg):
-  print(colors.OK + "info: " + colors.END + msg)
+def info(msg, end='\n\r'):
+  print(colors.OK + "info: " + colors.END + msg, end=end)
+
+def error(msg, end='\n\r'):
+  print(colors.ERROR + "error: " + colors.END + msg, end=end)
 
 class colors:
   HEADER = '\033[95m'

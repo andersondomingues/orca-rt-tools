@@ -1,3 +1,4 @@
+from asyncio import subprocess
 import networkx as nx
 import sys
 import json
@@ -13,9 +14,14 @@ from routing import manhattan
 from routing import getRoutingTime
 import lcm
 from lcm import lcm
-from terminal import info
+from terminal import info, wsfill, error
+import subprocess
 
 DEBUG = False
+ZINC_APP   = 'minizinc'
+ZINC_MODEL  = '../minizinc/CM/CM-v20211013.mzn'
+ZINC_SOLVER = 'Gecode'
+ZINC_INPUT_PAD = 7
 
 # extract flows from a given application graph edges
 # returns a list of flows
@@ -76,6 +82,35 @@ def mcopy(matin):
     m.append(n)
   return m
 
+def genTable(label, table, nlinks, header):
+
+  info("... " + label + " matrix")
+  
+  lines = []
+  lines.append(header)
+  lines.append(label + " = ")
+  
+  c = 0
+  first_line = True
+  for i in table:
+    if not nulline(i): ##prints only if non-empty
+      if not first_line:
+        line = " "
+      else:
+        line = "["
+      line = line + "| "
+      for j in i:
+        line = line + wsfill(j, ZINC_INPUT_PAD) + ", "
+      line = line + " %" + nlinks[c][2]["label"]
+      lines.append(line)
+      first_line = False
+    c = c + 1
+  lines.append("|];")
+
+  
+
+  return '\n'.join(lines, )
+
 # generate a list of packets from models
 def pktGen(appfile, mapfile, archfile):
 
@@ -91,10 +126,13 @@ def pktGen(appfile, mapfile, archfile):
     print("unable to read architecture file")
     exit(0)
 
-  arch = nx.read_gml(archfile) # read topology file (architecture)
-  mapping = parseMap(mapfile)  # read mapping file (node-to-tasks)
+  info("Reading `" + appfile + "`")
   app = nx.read_gml(appfile)   # read application model
-
+  info("Reading `" + archfile + "`")
+  arch = nx.read_gml(archfile) # read topology file (architecture)
+  info("Reading `" + mapfile + "`")
+  mapping = parseMap(mapfile)  # read mapping file (node-to-tasks)
+  
   # locate flows within application
   flows = extractFlows(app.edges(data=True))
   
@@ -104,11 +142,13 @@ def pktGen(appfile, mapfile, archfile):
     periods.append(f["period"])
 
   hp = lcm(periods)
-  info("Hyperperiod for the flow set is " + str(hp))
+  info("Hyperperiod for the entered flow set is " + str(hp))
 
   # get packets from flows
   packets = getPacketsFromFlows(flows, hp)
   info("Extracted " + str(len(packets)) + " packets from " + str(len(flows)) + " flows")
+
+  info("Discovering packets routes...")
 
   # get traversal path of each packet
   ppaths = []
@@ -130,15 +170,14 @@ def pktGen(appfile, mapfile, archfile):
     ppath = XY(sourceNode, targetNode, arch)
     ppaths.append(ppath)
 
-
-
-  return 
-
+  info("Enumerating network links...")
 
   # enumerate network links
   nlinks = []
   for e in arch.edges(data=True):
     nlinks.append(e)
+
+  info("Generating optimization problem (Minizinc export)...")
 
   # generate occupancy matrix
   occupancy = [[0 for j in range(len(ppaths))] for i in range(len(nlinks))]
@@ -262,91 +301,57 @@ def pktGen(appfile, mapfile, archfile):
       j += 1
     i += 1
   
-  print("%------------------------ OCCUPANCY MATRICES (MINIZINC)")
   # generate header 
-  header = ""
+  header = "% "
   for p in packets:
     header = header + p["name"] + " "
-
-  # variables
-  number_of_blank_lines_skipped = 0
-  print("% ", header)
-  print("occupancy = ")
-  print("[", end = '')
-  c = 0
-  first_line = True
-  for i in occupancy:
-    if not nulline(i): ##prints only if non-empty
-      if not first_line:
-        print(" ", end = '')
-      print("| ", end = '')     
-      for j in i:
-        print("%5d, " % j, end = '')
-      print(" %", nlinks[c][2]["label"])
-      first_line = False
-    else:
-      #count only this time, not necessary to repeat the process
-      number_of_blank_lines_skipped = number_of_blank_lines_skipped + 1
-    c = c + 1
-  print("|];")
-
-  print("% ", header)
-  print("min_start = ")
-  print("[", end = '')
-  c = 0
-  first_line = True
-  for i in min_start:
-    if not nulline(i): ##prints only if non-empty
-      if not first_line:
-        print(" ", end = '')
-      print("| ", end = '')     
-      for j in i:
-        print("%5d, " % j, end = '')
-      print(" %", nlinks[c][2]["label"])
-      first_line = False
-    c = c + 1
-  print("|];")
-
-  print()
-
-  blanks = 0
-  print("% ", header)
-  print("deadline = ")
-  print("[", end = '')
-  c = 0
-  first_line = True
-  for i in deadline:
-    if not nulline(i): ##prints only if non-empty
-      if not first_line:
-        print(" ", end = '')
-      print("| ", end = '')     
-      for j in i:
-        print("%5d, " % j, end = '')
-      print(" %", nlinks[c][2]["label"])
-      first_line = False
-    c = c + 1
-  print("|];")
-
-  #scalars
-  print()
-  print("hyperperiod_length = ", hp, end = '')
-  print(";")
-  print("num_links = ", len(nlinks) - number_of_blank_lines_skipped, end = "")
-  print(";")
-  print("num_packets = ", len(packets),  end = "")
-  print(";")
-  print()
-
-  #report link usage
-  acc = 0
-  for i in occupancy:
-    for j in i:
-      if j != -1:
-        acc = acc + j
   
-  total_net_capacity = len(occupancy) * len(occupancy[0]) * hp
-  accumulated_usage = acc
-  #print("Usage: ", (accumulated_usage / total_net_capacity) * 100, "%")
+  tOccupancy = genTable("occupancy", occupancy, nlinks, header)
+  tDeadline = genTable("deadline", deadline, nlinks, header)
+  tMinStart = genTable("min_start", min_start, nlinks, header)
+
+  skipLines = 0
+  for l in occupancy:
+    if(nulline(l)):
+      skipLines = skipLines + 1
+
+  info('Skipping ' + str(skipLines) + ' unused network links')
+
+  lines = []
+  lines.append("hyperperiod_length = " +  str(hp) + ";")
+  lines.append("num_links = " + str(len(nlinks) - skipLines) + ";")
+  lines.append("num_packets = " + str(len(packets)) + ";")
+  lines.append("")
+  lines.append(tOccupancy)
+  lines.append("")
+  lines.append(tDeadline)
+  lines.append("")
+  lines.append(tMinStart)
+
+  # write minizinc input to disk
+  mzFile = '../minizinc/' + (appfile.split('/')[-1].split('.')[0]) + '.dzn'
+  info("Writing to `" + mzFile + "`")
+  with open(mzFile, 'w+') as file:
+    for l in lines:
+      file.write(l + '\n')
+
+  info("Checking for Minizinc installation...")
+  try:
+    sp = subprocess.run([ZINC_APP, '--version'], stdout=subprocess.PIPE)
+    version = sp.stdout.decode('utf-8').split("\n")
+    for l in version:
+      if len(l) > 0:
+        info("... " + l)
+  except:
+    error("Unable to locate Minizinc installation in this system, aborting")
+    exit()
+
+  info("Invoking Minizinc with...")
+  cmd = [ZINC_APP, "--solver", ZINC_SOLVER, ZINC_MODEL, mzFile]
+  info("... `" + " ".join(cmd) + "`")
+  info("Waiting for " + ZINC_APP + " to finish processing, please wait (it may take a while)")
+
+  sp = subprocess.run(cmd, stdout=subprocess.PIPE)  
 
   with open('packets.txt', 'w+') as file:
     for p in packets:
