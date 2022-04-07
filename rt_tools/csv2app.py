@@ -123,3 +123,17 @@ def csv2app(infile, outfile):
     for i in gmlFile:
       file.write(i)
 
+
+from rttool import rttool
+def main():
+  # programa requires at least one command 
+  if len(sys.argv) != 3:
+    print("usage:")
+    print("  python3 " + sys.argv[0] + " <csv> <outfile>")
+    exit(0)
+
+  csv2app(sys.argv[1], sys.argv[2])
+
+# Automatically jumps to main if called from command line
+if __name__ == "__main__":
+  main()

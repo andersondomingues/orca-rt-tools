@@ -1,20 +1,17 @@
 from asyncio import subprocess
 import networkx as nx
-import sys
 import json
-import os.path
 from os import path
-import mapping
 from mapping import parseMap
 from mapping import getMap
-import routing
 from routing import XY
 from routing import getNumFlits
 from routing import manhattan
 from routing import getRoutingTime
-import lcm
 from lcm import lcm
 from terminal import info, wsfill, error
+from exports import printSched, exportGraphImage
+from parseznc import parseznc, parseoccup
 import subprocess
 
 DEBUG = False
@@ -115,16 +112,16 @@ def genTable(label, table, nlinks, header):
 def pktGen(appfile, mapfile, archfile):
 
   if not path.exists(appfile):
-    print("unable to read application file")
-    exit(0)
+    error("Could not read application file")
+    exit()
 
   if not path.exists(mapfile):
-    print("unable to read mapping file")
-    exit(0)
+    error("Could not read mapping file")
+    exit()
 
   if not path.exists(archfile):
-    print("unable to read architecture file")
-    exit(0)
+    error("Could not read architecture file")
+    exit()
 
   info("Reading `" + appfile + "`")
   app = nx.read_gml(appfile)   # read application model
@@ -133,6 +130,11 @@ def pktGen(appfile, mapfile, archfile):
   info("Reading `" + mapfile + "`")
   mapping = parseMap(mapfile)  # read mapping file (node-to-tasks)
   
+
+  info("Exporting PNG file for `" + appfile + "`")
+  appname = (appfile.split('/')[-1].split('.')[0])
+  exportGraphImage(appfile, "../applications/" + appname + ".png")
+
   # locate flows within application
   flows = extractFlows(app.edges(data=True))
   
@@ -329,7 +331,7 @@ def pktGen(appfile, mapfile, archfile):
   lines.append(tMinStart)
 
   # write minizinc input to disk
-  mzFile = '../minizinc/' + (appfile.split('/')[-1].split('.')[0]) + '.dzn'
+  mzFile = '../minizinc/' + appname + '.dzn'
   info("Writing to `" + mzFile + "`")
   with open(mzFile, 'w+') as file:
     for l in lines:
@@ -350,10 +352,34 @@ def pktGen(appfile, mapfile, archfile):
   cmd = [ZINC_APP, "--solver", ZINC_SOLVER, ZINC_MODEL, mzFile]
   info("... `" + " ".join(cmd) + "`")
   info("Waiting for " + ZINC_APP + " to finish processing, please wait (it may take a while)")
-
   sp = subprocess.run(cmd, stdout=subprocess.PIPE)  
 
-  with open('packets.txt', 'w+') as file:
-    for p in packets:
-      s = json.dumps(p)
-      file.write(s + '\n')
+  voccupancy = parseoccup(occupancy)
+  releases = parseznc(sp.stdout.decode('utf-8'))
+
+  #final packets characterization, scheduled
+  schedule = []
+  for i in range(0, len(packets)):
+    p = packets[i]
+    r = releases[i]
+    o = voccupancy[i]
+    schedule.append({
+      'name' : p['name'],
+      'flow' : p['flow'],
+      'source' : {
+        p['source'],
+        getMap(p['source'], mapping)
+      },
+      'target' : {
+        p['target'],
+        getMap(p['target'], mapping)
+      },
+      'min_start' : p['min_start'],
+      'abs_deadline' : p['abs_deadline'],
+      'datasize_bytes' : p['datasize'],
+      'num_flit' : getNumFlits(p['datasize']),
+      'release' : r,
+      'net_time' : o
+    })   
+
+  printSched(schedule, hp)

@@ -1,2 +1,0 @@
-usage:
-  python3 __main__.py <app.gml> <mapping.map> <noc.gml>

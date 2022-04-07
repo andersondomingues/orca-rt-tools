@@ -19,11 +19,7 @@ import nocgen
 from nocgen import nocgen
 import csv2app
 from csv2app import csv2app
-import znc2csv
-from znc2csv import znc2csv
 
-import export
-from export import export
 from rttool import rttool
 def main():
   # programa requires at least one command 

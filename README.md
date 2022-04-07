@@ -9,18 +9,19 @@ Welcome to the ORCA RT-Tools repository. In this repository you will find the fo
 
 ## Requirements and Installation
 
-The following packages are required for rt_tools to run in a linux environment. We've testing CentoOS7 packages, although it may work out-of-the-box in most linux distributions.
+We've tested RT_TOOLS in CentOS 7, Ubuntu 20.4, and Debian 11 packages, although it may work out-of-the-box in most linux distributions. The following packages are required for RT_TOOLS to run in a linux environment. 
 
-- python3
+- python3 (3.8+)
 - python3-devel
 - graphviz
 - graphviz-devel
 
-The rt_tools package depends on some python packages, enlisted below. 
+RT_TOOLS depends on some python packages, enlisted below. 
 
 - networkx==2.7.1
 - pyparsing==2.4.7
 - pygraphviz==1.9
+- matplotlib==3.5.1
 
 In addition to the aforementioned packages, you must install Minizinc, following the instruction provided in their own website. Please visit https://www.minizinc.org/ for more information.
 

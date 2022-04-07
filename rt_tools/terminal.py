@@ -18,6 +18,9 @@ def info(msg, end='\n\r'):
 def error(msg, end='\n\r'):
   print(colors.ERROR + "error: " + colors.END + msg, end=end)
 
+def header(msg, end='\n\r'):
+  print(colors.HEADER + msg, colors.END, end=end)
+
 class colors:
   HEADER = '\033[95m'
   BLUE = '\033[94m'
