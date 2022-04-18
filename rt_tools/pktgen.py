@@ -172,6 +172,8 @@ def pktGen(appfile, mapfile, archfile):
     ppath = XY(sourceNode, targetNode, arch)
     ppaths.append(ppath)
 
+  info("... Discovered " + str(len(arch.edges(data=True)) + len(arch.nodes(data=True)) * 2) + " links")
+
   info("Enumerating network links...")
 
   # enumerate network links
@@ -357,6 +359,7 @@ def pktGen(appfile, mapfile, archfile):
   voccupancy = parseoccup(occupancy)
   releases = parseznc(sp.stdout.decode('utf-8'))
 
+  info("Preparing data for plotting using `matplotlib`...")
   #final packets characterization, scheduled
   schedule = []
   for i in range(0, len(packets)):
@@ -379,7 +382,9 @@ def pktGen(appfile, mapfile, archfile):
       'datasize_bytes' : p['datasize'],
       'num_flit' : getNumFlits(p['datasize']),
       'release' : r,
-      'net_time' : o
+      'net_time' : o,
+      'path' : ppaths[i]
     })   
 
+  info("Plotting...")
   printSched(schedule, hp)
