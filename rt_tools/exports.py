@@ -36,9 +36,6 @@ def printSched(packets, hp):
 
   links = formatSchedData(packets)
 
-  for l in links:
-    print(l, links[l])
-
   fig, ax = plt.subplots()
 
   # for each links, add a ticks to the y-axis 
@@ -66,7 +63,7 @@ def printSched(packets, hp):
       #   fontsize=16,
       #   horizontalalignment='right', verticalalignment='top'
       # )
-      ax.annotate(v['name'], xy=(v['release'], v['net_time']))
+      ax.annotate(v['name'], xy=(v['release'], v['net_time']), xycoords='figure points')
 
   # limit the range of the axis 
   ax.set_ylim(0, yticks_counter)

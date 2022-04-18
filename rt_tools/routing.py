@@ -17,7 +17,9 @@ def getRoutingTime():
 
 #!bits PAYLOAD ONLY
 def getNumFlits(datasize):
-  BUS_WIDTH = 32
+  # BUS_WIDTH = 32
+  BUS_WIDTH = 4
+
 
   if datasize % BUS_WIDTH == 0:
     return (int)((datasize / BUS_WIDTH))
@@ -112,6 +114,41 @@ def XY(source, target, graph):
     
     # hops one node towards target
     currentNode = nextNode
+
+  # fix missing local source and target nodes
+  source = paths[0]['edge']['source']
+  paths.insert(0, {
+    'edge': {
+      'source' : {
+        'node' : 'L',
+        'data' : {
+          'X' : -1,
+          'Y' : -1
+        }
+      },
+      'target' : source
+    },
+    'data' : {
+      'label' : 'L-' + source['node']
+    }
+  })
+
+  target = paths[-1]['edge']['target']
+  paths.append({
+    'edge': {
+      'source' : target,
+      'target' : {
+        'node' : 'L',
+        'data' : {
+          'X' : -1,
+          'Y' : -1
+        }
+      }
+    },
+    'data' : {
+      'label' : target['node'] + '-L'
+    }
+  })
 
   return paths
 

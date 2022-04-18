@@ -9,16 +9,17 @@ from routing import getNumFlits
 from routing import manhattan
 from routing import getRoutingTime
 from lcm import lcm
-from terminal import info, wsfill, error
+from terminal import info, wsfill, error, debug
 from exports import printSched, exportGraphImage
 from parseznc import parseznc, parseoccup
 import subprocess
 
-DEBUG = False
+DEBUG = True
 ZINC_APP   = 'minizinc'
 ZINC_MODEL  = '../minizinc/CM/CM-v20211013.mzn'
 ZINC_SOLVER = 'Gecode'
 ZINC_INPUT_PAD = 7
+OCCUPANCY_TEMPLATE_PLACEHOLDER = 'X'
 
 # extract flows from a given application graph edges
 # returns a list of flows
@@ -38,6 +39,7 @@ def extractFlows(edges):
 
   # sort flows by label (usually f1, f2, ...)
   flows.sort(key=lambda x : x["name"], reverse=False)
+
   return flows
 
 # checks whether a vector constains only "-1" values
@@ -104,8 +106,6 @@ def genTable(label, table, nlinks, header):
     c = c + 1
   lines.append("|];")
 
-  
-
   return '\n'.join(lines, )
 
 # generate a list of packets from models
@@ -138,6 +138,10 @@ def pktGen(appfile, mapfile, archfile):
   # locate flows within application
   flows = extractFlows(app.edges(data=True))
   
+  if DEBUG == True:
+    for f in flows:
+      debug(str(f))
+
   # calculate hyperperiod
   periods = []
   for f in flows:
@@ -150,11 +154,13 @@ def pktGen(appfile, mapfile, archfile):
   packets = getPacketsFromFlows(flows, hp)
   info("Extracted " + str(len(packets)) + " packets from " + str(len(flows)) + " flows")
 
+  if DEBUG == True:
+    for p in packets:
+      debug(str(p))
+
   info("Discovering packets routes...")
 
   # get traversal path of each packet
-  ppaths = []
-
   for p in packets:
     sourceTaskName = ""
     targetTaskName = ""
@@ -170,9 +176,13 @@ def pktGen(appfile, mapfile, archfile):
     targetNode = getMap(targetTaskName, mapping)
 
     ppath = XY(sourceNode, targetNode, arch)
-    ppaths.append(ppath)
 
-  info("... Discovered " + str(len(arch.edges(data=True)) + len(arch.nodes(data=True)) * 2) + " links")
+    p['path'] = ppath
+
+    if DEBUG == True:
+      debug(p['name'] + ": hops=" + str(len(ppath)))
+      for p in ppath:
+        debug("    " + str(p))
 
   info("Enumerating network links...")
 
@@ -181,109 +191,73 @@ def pktGen(appfile, mapfile, archfile):
   for e in arch.edges(data=True):
     nlinks.append(e)
 
+  # add local-to/from links 
+  for n in arch.nodes(data=True):
+    x, y = n
+    nlinks.append((x, 'L', {'label': str(x) + '-L'}))
+    nlinks.append(('L', x, {'label': 'L-' + str(x)}))
+
+  if DEBUG == True:
+    for n in nlinks:
+      debug(str(n))
+
+  info("... Discovered " + str(len(nlinks)) + " links")
+
+
+  # calculate net_time
+  info("Calculating networking time...")
+  
+  for p in packets:
+    sourceTaskName = ""
+    targetTaskName = ""
+
+    for n in app.nodes(data=True):
+      id, data = n
+      if id == p["source"]:
+        sourceTaskName = id
+      if id == p["target"]:
+        targetTaskName = id
+
+    source = getMap(sourceTaskName, mapping)
+    target = getMap(targetTaskName, mapping)
+
+    routing_time = (manhattan(source, target, arch) +1)
+    routing_time = (routing_time * getRoutingTime()) + 1
+    p['net_time'] = getNumFlits(int(p["datasize"])) + routing_time + 1
+
+    if DEBUG == True:
+      debug(p['name'] + ": " + str(p['net_time']))
+
   info("Generating optimization problem (Minizinc export)...")
 
-  # generate occupancy matrix
-  occupancy = [[0 for j in range(len(ppaths))] for i in range(len(nlinks))]
+  # Generate template matrix, represents the relation P x R, where 
+  # P is the set of all packets and R is the set of all resources. 
+  # Resources are represented by links, thus the len(nlinks).
+  occupancy = [[0 for j in range(len(packets))] for i in range(len(nlinks))]
 
-  ic = 0
-  kc = 0
-  OCCUPANCY_MARK = 'x'
+  # fill occupancy template
+  for i in range(0, len(packets)):
+    p = packets[i]
+    for j in range(0, len(nlinks)):
+      n = nlinks[j]
+      for t in p['path']:
+        q = n[2]
+        if(q['label'] == t['data']['label']):
+          occupancy[j][i] = OCCUPANCY_TEMPLATE_PLACEHOLDER
 
-  # fill occupancy for node-to-node links
-  for i in ppaths:  
-    for j in i:
-      dj = j["data"]
-      ik = 0
-      for k in nlinks:
-        esource, etarget, edata = k
-        if dj["label"] == edata["label"]:
-          occupancy[ik][ic] = OCCUPANCY_MARK
-        ik += 1
-    ic += 1
-
-  # fill occupancy for node-to-pe and pe-to-node links
-  i = len(nlinks)
-  for node in arch.nodes(data=True):
-    n, d = node
-    nlinks.append(['L', n, {'label': "L-" + str(n)}])
-    nlinks.append([n, 'L', {'label': str(n) + "-L"}])
-    occupancy.append([0 for j in range(len(packets))])
-    occupancy.append([0 for j in range(len(packets))])
-
-    j = 0
-    for p in packets:
-
-      sourceTaskName = ""
-      targetTaskName = ""
-
-      for nn in app.nodes(data=True):
-        id, data = nn
-        if id == p["source"]:
-          sourceTaskName = id
-        if id == p["target"]:
-          targetTaskName = id
-
-      source = getMap(sourceTaskName, mapping)
-      if int(source) == n:
-        occupancy[i][j] = OCCUPANCY_MARK
-
-      target = getMap(targetTaskName, mapping)
-      if int(target) == n:
-        occupancy[i+1][j] = OCCUPANCY_MARK
-
-      j += 1
-    i += 2
+  # fix sparse matrix representation
+  for p1 in occupancy:
+    for p2 in p1:
+      if occupancy[p1][p2] != OCCUPANCY_TEMPLATE_PLACEHOLDER:
+        occupancy[p1][p2] = -1
 
   # generate occupancy matrices
   min_start = mcopy(occupancy)
   deadline = mcopy(occupancy)
-  
-  #fix sparse representation for all matrices
-  i = 0
-  for ii in min_start:
-    j = 0
-    for jj in ii:
-      if occupancy[i][j] == 0:
-        occupancy[i][j] = -1
-        deadline[i][j] = -1
-        min_start[i][j] = -1
-      j += 1 
-    i += 1
+    
 
-  # generate occupancy matrix
-  # occupancy is (data_size / bus_width) + 1 + manhattan (source/target) 
-  # manhattan is for mesh-only nets
-  i = 0
-  for l in nlinks:
-    j = 0
-    for p in packets:
+  # populate occupancy, deadline, and min_start tables
 
-      if occupancy[i][j] != -1:
-
-        sourceTaskName = ""
-        targetTaskName = ""
-
-        for n in app.nodes(data=True):
-          id, data = n
-          if id == p["source"]:
-            sourceTaskName = id
-          if id == p["target"]:
-            targetTaskName = id
-
-        source = getMap(sourceTaskName, mapping)
-        target = getMap(targetTaskName, mapping)
-
-        #! this part uses an heuristic to accelerate the analysis
-        # (4 * hops) for the first flit, plus one for the last link (output)
-        # 1 for the size flit to leave 
-        # 1 per payload flit to leave
-        routing_time = (manhattan(source, target, arch) +1)
-        routing_time = (routing_time * getRoutingTime()) + 1
-        occupancy[i][j] = getNumFlits(int(p["datasize"])) + routing_time + 1
-
-      j += 1
-    i += 1
 
   # generate deadline matrix (explicit in model)
   i = 0
