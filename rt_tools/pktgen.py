@@ -81,12 +81,18 @@ def mcopy(matin):
     m.append(n)
   return m
 
-def genTable(label, table, nlinks, header):
+def vcopy(vecin):
+  newvec = []
+  for i in vecin:
+    newvec.append(i)
+  return newvec
+
+def genTable(label, table):
 
   info("... " + label + " matrix")
   
   lines = []
-  lines.append(header)
+  # lines.append(header)
   lines.append(label + " = ")
   
   c = 0
@@ -98,9 +104,12 @@ def genTable(label, table, nlinks, header):
       else:
         line = "["
       line = line + "| "
-      for j in i:
-        line = line + wsfill(j, ZINC_INPUT_PAD) + ", "
-      line = line + " %" + nlinks[c][2]["label"]
+
+      for j in table[i]:
+        line = line + wsfill(j, 5) + ",   "
+      
+      line = line + "%" + i
+
       lines.append(line)
       first_line = False
     c = c + 1
@@ -233,60 +242,63 @@ def pktGen(appfile, mapfile, archfile):
   # Generate template matrix, represents the relation P x R, where 
   # P is the set of all packets and R is the set of all resources. 
   # Resources are represented by links, thus the len(nlinks).
-  occupancy = [[0 for j in range(len(packets))] for i in range(len(nlinks))]
+  occupancy_line = [-1 for j in range(len(packets))]
+  occupancy = {}
+  min_start = {}
+  deadline  = {}
 
+  for l in nlinks:
+    s, t, o = l
+    occupancy[o['label']] = vcopy(occupancy_line)
+    min_start[o['label']] = vcopy(occupancy_line)
+    deadline[o['label']] = vcopy(occupancy_line)
+  
   # fill occupancy template
   for i in range(0, len(packets)):
-    p = packets[i]
-    for j in range(0, len(nlinks)):
-      n = nlinks[j]
-      for t in p['path']:
-        q = n[2]
-        if(q['label'] == t['data']['label']):
-          occupancy[j][i] = OCCUPANCY_TEMPLATE_PLACEHOLDER
+    paths = packets[i]['path']
+    for p in paths:
+      l = p['data']['label']
 
-  # fix sparse matrix representation
-  for p1 in occupancy:
-    for p2 in p1:
-      if occupancy[p1][p2] != OCCUPANCY_TEMPLATE_PLACEHOLDER:
-        occupancy[p1][p2] = -1
+      # update deadline
+      link = deadline[l]
+      link[i] = packets[i]['abs_deadline']
+      deadline[l] = link
 
-  # generate occupancy matrices
-  min_start = mcopy(occupancy)
-  deadline = mcopy(occupancy)
-    
+      # update min_start
+      link = min_start[l]
+      link[i] = packets[i]['min_start']
+      min_start[l] = link
 
-  # populate occupancy, deadline, and min_start tables
+      # update occupancy
+      link = occupancy[l]
+      link[i] = packets[i]['net_time']
+      occupancy[l] = link
 
-
-  # generate deadline matrix (explicit in model)
-  i = 0
-  for l in nlinks:
-    j = 0
-    for p in packets:
-      if deadline[i][j] != -1:
-        deadline[i][j] = p["abs_deadline"]
-      j += 1
-    i += 1
-
-  # generate min_start matrix (deadline of source task)
-  i = 0
-  for l in nlinks:
-    j = 0
-    for p in packets:
-      if min_start[i][j] != -1:
-        min_start[i][j] = p["min_start"]
-      j += 1
-    i += 1
+  if DEBUG == True:
+    debug("occupancy")
+    for i in occupancy:
+      debug(i + ' ' + str(occupancy[i]))
+    debug("min_start")
+    for i in min_start:
+      debug(i + ' ' + str(min_start[i]))
+    debug("deadline")
+    for i in deadline:
+      debug(i + ' ' + str(deadline[i]))
   
   # generate header 
   header = "% "
   for p in packets:
     header = header + p["name"] + " "
-  
-  tOccupancy = genTable("occupancy", occupancy, nlinks, header)
-  tDeadline = genTable("deadline", deadline, nlinks, header)
-  tMinStart = genTable("min_start", min_start, nlinks, header)
+
+  # generate minizinc tables  
+  tOccupancy = genTable("occupancy", occupancy)
+  tDeadline = genTable("deadline", deadline)
+  tMinStart = genTable("min_start", min_start)
+
+  if DEBUG == True:
+    debug(str(tOccupancy))
+    debug(str(tDeadline))
+    debug(str(tMinStart))
 
   skipLines = 0
   for l in occupancy:
@@ -330,8 +342,19 @@ def pktGen(appfile, mapfile, archfile):
   info("Waiting for " + ZINC_APP + " to finish processing, please wait (it may take a while)")
   sp = subprocess.run(cmd, stdout=subprocess.PIPE)  
 
+  zincres = sp.stdout.decode('utf-8')
+  
+  # leaves if unsatisfiable
+  if zincres.startswith("====="):
+    info("... `" + zincres.replace('\n','') + "`")
+    info("... problem is unsatisfiable, could not acquire injection time table!")
+    info("All done.")
+    exit()
+  else: 
+    info("... solution found!")
+
   voccupancy = parseoccup(occupancy)
-  releases = parseznc(sp.stdout.decode('utf-8'))
+  releases = parseznc(zincres)
 
   info("Preparing data for plotting using `matplotlib`...")
   #final packets characterization, scheduled
@@ -357,7 +380,7 @@ def pktGen(appfile, mapfile, archfile):
       'num_flit' : getNumFlits(p['datasize']),
       'release' : r,
       'net_time' : o,
-      'path' : ppaths[i]
+      'path' : p['path']
     })   
 
   info("Plotting...")

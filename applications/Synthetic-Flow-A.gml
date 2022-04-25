@@ -34,7 +34,8 @@ graph [
     target 1
     label "f1"
     period 55
-    datasize 160
+    datasize2 160
+    datasize 20
     deadline 55
   ]
   edge [
@@ -42,7 +43,8 @@ graph [
     target 3
     label "f2"
     period 55
-    datasize 416
+    datasize2 416
+    datasize 52
     deadline 55
   ]
   edge [
@@ -50,7 +52,8 @@ graph [
     target 3
     label "f3"
     period 55
-    datasize 192
+    datasize2 192
+    datasize 24
     deadline 55
   ]
   edge [
@@ -58,7 +61,8 @@ graph [
     target 1
     label "f4"
     period 55
-    datasize 256
+    datasize2 256
+    datasize 32
     deadline 55
   ]
   edge [
@@ -66,7 +70,8 @@ graph [
     target 0
     label "f5"
     period 55
-    datasize 128
+    datasize2 128
+    datasize 16
     deadline 55
   ]
 ]

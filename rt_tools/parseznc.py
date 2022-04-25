@@ -54,9 +54,11 @@ def parseznc(input):
 def parseoccup(occupancy):
 
   firstLine = True
+
   max = []
 
-  for row in occupancy:
+  for f in occupancy:
+    row = occupancy[f]
 
     if firstLine:
       max = row
