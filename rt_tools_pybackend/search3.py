@@ -95,7 +95,7 @@ def nextnode(avp, h):
   idx = None
   max = None
   for i in range(0, len(avp)):
-    if (idx == None or (avp[i] and h[i] < max)):
+    if (avp[i] and (idx == None or h[i] < max)):
       max = h[i]
       idx = i
   return idx
@@ -138,6 +138,8 @@ Heuristic search.
 @param h a heuristic vector 
 '''
 def hsearch(M, O, D, space, partial, avp, h, depth=0):
+
+  hsearch.entered += 1
 
   # print current solution node
   #os.system('clear')
@@ -189,10 +191,17 @@ def hsearch(M, O, D, space, partial, avp, h, depth=0):
       res = hsearch(M, O, D, space, vv, navp, h, depth + 1)
       if(res != None):
         return res
+    else:
+      hsearch.ignored += 1
 
   return None
 
 
+'''
+Self-counting!
+'''
+hsearch.entered = 0
+hsearch.ignored = 0
 
 def search3(min_start, occupancy, deadline):
   
@@ -219,4 +228,4 @@ def search3(min_start, occupancy, deadline):
   h = lstf(solution_space)
 
   # call search at node zero
-  return hsearch(min_start, occupancy, deadline, solution_space, partial_solution, avp, h)
+  return (hsearch(min_start, occupancy, deadline, solution_space, partial_solution, avp, h), hsearch.entered, hsearch.ignored)

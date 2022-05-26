@@ -113,19 +113,19 @@ begin
               read(v_line, d_target);  read(v_line, v_space);
               read(v_line, d_deadline); 
 
-              packet_loaded_already := '1';
-
               pkt.start <= d_start;
               pkt.size <= d_size;
               pkt.target <= d_target;
               pkt.deadline <= d_deadline;
+
+              packet_loaded_already := '1';
             end if;
           end if;
-          -- release first flit (header)
-          if cycles >= pkt.start then  
-            pkt_state <= HEADER2; 
-            packet_loaded_already := '0';
 
+          -- release first flit (header)
+          if cycles >= d_start and packet_loaded_already = '1' then
+            packet_loaded_already := '0';
+            pkt_state <= HEADER2;
           end if;
   
           -- HEADER: if enough credit, send the next packet, wait otherwise 
@@ -151,7 +151,8 @@ begin
 
           if pkt_cont = pkt.size -1 then
             if not endfile(v_text) then
-              pkt_state <= HEADER; 
+              pkt_state <= HEADER;
+              d_start := 999;
             else 
               pkt_state <= DONE;
             end if;

@@ -13,7 +13,7 @@ def decodeNodeID(id, width, height):
 
 #!cycles
 def getRoutingTime():
-  return 4
+  return 6
 
 #!bits PAYLOAD ONLY
 def getNumFlits(datasize):

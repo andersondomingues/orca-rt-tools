@@ -30,7 +30,7 @@ package HermesPackage is
 ---------------------------------------------------------
 -- CONSTANTS DEPENDENTES DA PROFUNDIDADE DA FILA
 ---------------------------------------------------------
-	constant TAM_BUFFER: integer := 4;
+	constant TAM_BUFFER: integer := 8;
     constant TAM_POINTER : integer range 1 to 32 := INTEGER(CEIL(LOG2(REAL(TAM_BUFFER))));
 
 ---------------------------------------------------------

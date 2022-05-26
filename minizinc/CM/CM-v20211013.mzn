@@ -1,6 +1,6 @@
 int: num_packets;
 int: num_links;
-int: hyperperiod_length;
+int: hp;
 
 set of int: PACKETS = 1..num_packets;
 set of int: LINKS = 1..num_links;

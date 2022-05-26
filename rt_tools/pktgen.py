@@ -2,6 +2,7 @@ from asyncio import subprocess
 import networkx as nx
 import json
 from os import path
+import os.path
 from mapping import parseMap
 from mapping import getMap
 from routing import XY
@@ -12,13 +13,17 @@ from lcm import lcm
 from terminal import info, wsfill, error, debug
 from exports import printSched, exportGraphImage
 from parseznc import parseznc, parseoccup
+from vhdl import generateVhdlSimInput
 import subprocess
 
 DEBUG = True
 ZINC_APP   = 'minizinc'
-ZINC_MODEL  = '../minizinc/CM/CM-v20211013.mzn'
+#ZINC_MODEL  = '../minizinc/CM/CM-v20211013.mzn'
+#ZINC_MODEL  = '../minizinc/CM/CM-v20220427.mzn'
+ZINC_MODEL  = '../minizinc/CM/CM-v20220518.mzn'
 ZINC_SOLVER = 'Gecode'
 ZINC_INPUT_PAD = 7
+ZINC_THREADS = 4
 OCCUPANCY_TEMPLATE_PLACEHOLDER = 'X'
 
 # extract flows from a given application graph edges
@@ -88,8 +93,6 @@ def vcopy(vecin):
   return newvec
 
 def genTable(label, table):
-
-  info("... " + label + " matrix")
   
   lines = []
   # lines.append(header)
@@ -230,14 +233,16 @@ def pktGen(appfile, mapfile, archfile):
     source = getMap(sourceTaskName, mapping)
     target = getMap(targetTaskName, mapping)
 
-    routing_time = (manhattan(source, target, arch) +1)
-    routing_time = (routing_time * getRoutingTime()) + 1
-    p['net_time'] = getNumFlits(int(p["datasize"])) + routing_time + 1
+    delta_m = manhattan(source, target, arch)
+    routing_time = (delta_m + 1) * getRoutingTime()
+    payload = getNumFlits(int(p["datasize"]))
+    p['net_time'] = payload + routing_time + 1
 
     if DEBUG == True:
-      debug(p['name'] + ": " + str(p['net_time']))
-
-  info("Generating optimization problem (Minizinc export)...")
+      debug(p['name'] + "=" + str(p['net_time']) +
+        " dm=" + str(delta_m) +
+        " ffrt=" + str(routing_time) +
+        " payload=" + str(payload))
 
   # Generate template matrix, represents the relation P x R, where 
   # P is the set of all packets and R is the set of all resources. 
@@ -274,6 +279,25 @@ def pktGen(appfile, mapfile, archfile):
       link[i] = packets[i]['net_time']
       occupancy[l] = link
 
+  # find unused links
+  to_remove = []
+  for f in occupancy:
+    l = occupancy[f]
+    has = False
+    for ll in l:
+      if ll != -1 :
+        has = True
+        break
+    if has != True:
+      to_remove.append(f)
+
+  for i in to_remove:
+    del occupancy[i]
+    del min_start[i]
+    del deadline[i]
+
+  info('Cleaned up ' + str(len(to_remove)) + ' unused network links')
+
   if DEBUG == True:
     debug("occupancy")
     for i in occupancy:
@@ -290,7 +314,11 @@ def pktGen(appfile, mapfile, archfile):
   for p in packets:
     header = header + p["name"] + " "
 
+
+  info("Generating optimization problem (Minizinc export)...")
+
   # generate minizinc tables  
+  info("... problem size: " + str(len(packets)) + "-by-" + str(len(occupancy)))
   tOccupancy = genTable("occupancy", occupancy)
   tDeadline = genTable("deadline", deadline)
   tMinStart = genTable("min_start", min_start)
@@ -300,16 +328,9 @@ def pktGen(appfile, mapfile, archfile):
     debug(str(tDeadline))
     debug(str(tMinStart))
 
-  skipLines = 0
-  for l in occupancy:
-    if(nulline(l)):
-      skipLines = skipLines + 1
-
-  info('Skipping ' + str(skipLines) + ' unused network links')
-
   lines = []
-  lines.append("hyperperiod_length = " +  str(hp) + ";")
-  lines.append("num_links = " + str(len(nlinks) - skipLines) + ";")
+  lines.append("hp = " +  str(hp) + ";")
+  lines.append("num_links = " + str(len(occupancy)) + ";")
   lines.append("num_packets = " + str(len(packets)) + ";")
   lines.append("")
   lines.append(tOccupancy)
@@ -337,13 +358,17 @@ def pktGen(appfile, mapfile, archfile):
     exit()
 
   info("Invoking Minizinc with...")
-  cmd = [ZINC_APP, "--solver", ZINC_SOLVER, ZINC_MODEL, mzFile]
+  cmd = [ZINC_APP, "--solver", ZINC_SOLVER, ZINC_MODEL, mzFile, "-p", str(ZINC_THREADS)]
   info("... `" + " ".join(cmd) + "`")
   info("Waiting for " + ZINC_APP + " to finish processing, please wait (it may take a while)")
   sp = subprocess.run(cmd, stdout=subprocess.PIPE)  
 
   zincres = sp.stdout.decode('utf-8')
-  
+
+  #TODO: fix print
+  if(DEBUG):
+    debug(zincres)
+
   # leaves if unsatisfiable
   if zincres.startswith("====="):
     info("... `" + zincres.replace('\n','') + "`")
@@ -355,8 +380,8 @@ def pktGen(appfile, mapfile, archfile):
 
   voccupancy = parseoccup(occupancy)
   releases = parseznc(zincres)
-
-  info("Preparing data for plotting using `matplotlib`...")
+  
+  info("Collecting schedule from minizinc output...")
   #final packets characterization, scheduled
   schedule = []
   for i in range(0, len(packets)):
@@ -367,12 +392,12 @@ def pktGen(appfile, mapfile, archfile):
       'name' : p['name'],
       'flow' : p['flow'],
       'source' : {
-        p['source'],
-        getMap(p['source'], mapping)
+        'task' : p['source'],
+        'node' : getMap(p['source'], mapping)
       },
       'target' : {
-        p['target'],
-        getMap(p['target'], mapping)
+        'task' : p['target'],
+        'node' : getMap(p['target'], mapping)
       },
       'min_start' : p['min_start'],
       'abs_deadline' : p['abs_deadline'],
@@ -383,5 +408,14 @@ def pktGen(appfile, mapfile, archfile):
       'path' : p['path']
     })   
 
-  info("Plotting...")
+  # gen vhdl sim files
+  location = os.path.dirname(os.path.realpath(__file__)) + "/../pkt-sim/packets/"
+  info("Generating pkt-sim input at `" + location + "`")
+  sources = generateVhdlSimInput(arch, schedule, location)
+  
+  if(DEBUG):
+    debug(sources)
+
+  # plot
+  info("Plotting using `matplotlib`...")
   printSched(schedule, hp)

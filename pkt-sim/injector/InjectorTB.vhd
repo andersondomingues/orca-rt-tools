@@ -8,8 +8,8 @@ use work.InjectorPackage.all;
 use STD.TEXTIO.all;
 
 entity InjectorTB is 
-  generic(X_ROUTERS: integer := 4;
-          Y_ROUTERS: integer := 4 );
+  generic(X_ROUTERS: integer := 2;
+          Y_ROUTERS: integer := 2 );
 end InjectorTB;
 
 architecture InjectorTBBehavior of InjectorTB is

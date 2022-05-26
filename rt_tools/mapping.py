@@ -16,7 +16,6 @@ def getMap(task, mapping):
     for t in m["tasks"]:
       if t == task:
         node = m["node"]
-
   return node
 
 def parse_Map(sourceFile):

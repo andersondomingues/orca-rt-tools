@@ -21,5 +21,5 @@ set StdVitalGlitchNoWarnings 1
 
 do injector_wave.do
 
-run 200 ns
+run 70 ns
 

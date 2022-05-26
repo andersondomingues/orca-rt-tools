@@ -268,304 +268,304 @@ graph [
     source 4
     target 17
     label f1
-    period 2000000
+    period 1000000
     datasize 4096
-    deadline 2000000
+    deadline 1000000
   ]
   edge [
     source 17
     target 18
     label f2
-    period 2000000
+    period 1000000
     datasize 8192
-    deadline 2000000
+    deadline 1000000
   ]
   edge [
     source 18
     target 17
     label f3
-    period 2000000
+    period 1000000
     datasize 65536
-    deadline 2000000
+    deadline 1000000
   ]
   edge [
     source 18
     target 34
     label f4
-    period 2000000
+    period 1000000
     datasize 65536
-    deadline 2000000
+    deadline 1000000
   ]
   edge [
     source 17
     target 16
     label f5
-    period 400000
+    period 200000
     datasize 2048
-    deadline 400000
+    deadline 200000
   ]
   edge [
     source 3
     target 17
     label f6
-    period 400000
+    period 200000
     datasize 2048
-    deadline 400000
+    deadline 200000
   ]
   edge [
     source 17
     target 31
     label f7
-    period 400000
+    period 200000
     datasize 4096
-    deadline 400000
+    deadline 200000
   ]
   edge [
     source 8
     target 32
     label f8
-    period 160000
+    period 80000
     datasize 153600
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 13
     target 33
     label f9
-    period 160000
+    period 80000
     datasize 153600
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 32
     target 17
     label f10
-    period 160000
+    period 80000
     datasize 2048
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 33
     target 17
     label f11
-    period 160000
+    period 80000
     datasize 2048
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 6
     target 19
     label f12
-    period 160000
+    period 80000
     datasize 153600
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 7
     target 20
     label f13
-    period 160000
+    period 80000
     datasize 153600
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 8
     target 21
     label f14
-    period 160000
+    period 80000
     datasize 153600
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 9
     target 22
     label f15
-    period 160000
+    period 80000
     datasize 153600
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 10
     target 23
     label f16
-    period 160000
+    period 80000
     datasize 153600
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 11
     target 24
     label f17
-    period 160000
+    period 80000
     datasize 153600
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 12
     target 25
     label f18
-    period 160000
+    period 80000
     datasize 153600
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 13
     target 26
     label f19
-    period 160000
+    period 80000
     datasize 153600
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 19
     target 27
     label f20
-    period 160000
+    period 80000
     datasize 8192
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 20
     target 27
     label f21
-    period 160000
+    period 80000
     datasize 8192
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 21
     target 27
     label f22
-    period 160000
+    period 80000
     datasize 8192
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 22
     target 27
     label f23
-    period 160000
+    period 80000
     datasize 8192
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 23
     target 28
     label f24
-    period 160000
+    period 80000
     datasize 8192
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 24
     target 28
     label f25
-    period 160000
+    period 80000
     datasize 8192
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 25
     target 28
     label f26
-    period 160000
+    period 80000
     datasize 8192
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 26
     target 28
     label f27
-    period 160000
+    period 80000
     datasize 8192
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 27
     target 29
     label f28
-    period 160000
+    period 80000
     datasize 32768
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 28
     target 29
     label f29
-    period 160000
+    period 80000
     datasize 32768
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 29
     target 34
     label f30
-    period 160000
+    period 80000
     datasize 16384
-    deadline 160000
+    deadline 80000
   ]
   edge [
     source 4
     target 34
     label f31
-    period 2000000
+    period 1000000
     datasize 4096
-    deadline 2000000
+    deadline 1000000
   ]
   edge [
     source 5
     target 34
     label f32
-    period 400000
+    period 200000
     datasize 4096
-    deadline 400000
+    deadline 200000
   ]
   edge [
     source 34
     target 18
     label f33
-    period 4000000
+    period 2000000
     datasize 16384
-    deadline 4000000
+    deadline 2000000
   ]
   edge [
     source 1
     target 14
     label f34
-    period 2000000
+    period 1000000
     datasize 8192
-    deadline 2000000
+    deadline 1000000
   ]
   edge [
     source 2
     target 14
     label f35
-    period 400000
+    period 200000
     datasize 2048
-    deadline 400000
+    deadline 200000
   ]
   edge [
     source 14
     target 15
     label f36
-    period 4000000
+    period 2000000
     datasize 8192
-    deadline 4000000
+    deadline 2000000
   ]
   edge [
     source 3
     target 14
     label f37
-    period 400000
+    period 200000
     datasize 4096
-    deadline 400000
+    deadline 200000
   ]
   edge [
     source 14
     target 31
     label f38
-    period 400000
+    period 200000
     datasize 4096
-    deadline 400000
+    deadline 200000
   ]
 ]

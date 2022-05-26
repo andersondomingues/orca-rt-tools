@@ -5,20 +5,6 @@ import os.path
 import merge
 from merge import merge
 from os import path
-import routing
-from routing import XY
-import mapping
-from mapping import parseMap
-import occupancy
-from occupancy import generateOccupancy
-import pktgen
-from pktgen import pktGen
-import vhdl
-from vhdl import exportVhdl
-import nocgen
-from nocgen import nocgen
-import csv2app
-from csv2app import csv2app
 
 from rttool import rttool
 def main():
