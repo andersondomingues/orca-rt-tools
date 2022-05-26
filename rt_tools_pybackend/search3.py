@@ -46,8 +46,7 @@ def overleap(ra, rb):
   mina, maxa = ra
   minb, maxb = rb
 
-  return (mina <= minb and maxb >= minb) or \
-         (minb <= mina and maxa >= mina)
+  return not(maxa < minb or maxb < mina)
 
 '''
 Checks whether a given partial solution has a valid
@@ -101,22 +100,32 @@ def nextnode(avp, h):
       idx = i
   return idx
 
-def check_consistency(M, O):
-  #return check_answer(M, O)
-  return True
+'''
+Checks whether some packets conflits with
+other packets in the model. 
+'''
+def check_consistency(V, O, idx):
 
-def check_answer(V, occupancy):
-  for i in range(0, len(V)):
-    for j in range(0, len(V[0])):
-      #check that all alternatives do not overlea
-      if(V[i][j] != None):
-        rangea = (V[i][j], V[i][j] + occupancy[i][j])
-        for k in range(j + 1, len(V[0])):
-          if(V[i][k] != None):
-            rangeb = (V[i][k], V[i][k] + occupancy[i][k])
-            if(i != j):
-              if overleap(rangea, rangeb):
-                return False
+  # acquire range for package at V[idx]
+  rangea = (0,0)
+  for i in range(0, len(V)-1):
+    if(V[i][idx] != None):
+      rangea = (V[i][idx], V[i][idx] + O[i][idx])
+
+  # for each link in the model
+  for i in range(0, len(V)-1):
+
+    # ignore row if current packet doesnt use that link
+    if(V[i][idx] != None):
+
+      # for each packet in that link, find if it 
+      # overleaps current packet
+      for j in range(0, len(V[0])-1):
+        if(j != idx and V[i][j] != None): # avoid comparing to itself
+          rangeb = (V[i][j], V[i][j] + O[i][j])
+
+          if(overleap(rangea, rangeb)):
+            return False
   return True
 
 '''
@@ -142,16 +151,7 @@ def hsearch(M, O, D, space, partial, avp, h, depth=0):
   # solution. If this is a suitable solution, 
   # return it. Otherwise keep going.
   if(avp.count(False) == len(avp)):
-
-    exit(0) #<<<<<<<<<<<<<<<<
-    checkres = check_answer(partial, O)
-    if(checkres):
-      return partial
-
-    else:
-      return None
-
-
+    return partial
 
   # Select next node based on the heuristic. 
   # Ex. get the lesser slack time
@@ -185,7 +185,7 @@ def hsearch(M, O, D, space, partial, avp, h, depth=0):
 
     # Check consistency. If branch has a possible
     # solution, keep searching
-    if(check_consistency(vv, O)):
+    if(check_consistency(vv, O, nnode)):
       res = hsearch(M, O, D, space, vv, navp, h, depth + 1)
       if(res != None):
         return res
@@ -207,7 +207,6 @@ def search3(min_start, occupancy, deadline):
   # arithmetics. Sparse matrix notation takes '-1' as 
   solution_space = mcopy(occupancy)
   for i in range(0, len(solution_space)):
-    row = []
     for j in range(0, len(solution_space[i])):
       cell = solution_space[i][j]
       if(cell != None):
