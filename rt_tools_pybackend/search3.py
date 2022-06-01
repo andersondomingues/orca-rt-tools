@@ -79,7 +79,8 @@ def lstf(V):
       if V[i][j] != None:
         li, ls = V[i][j]
         st = ls - li
-        if(slack_time[j] == None or st < slack_time[j]):
+        # if(slack_time[j] == None or st < slack_time[j]):
+        if(slack_time[j] == None or st > slack_time[j]):
             slack_time[j] = st
   return slack_time
 
@@ -137,16 +138,16 @@ Heuristic search.
 @param avp a list of nodes in the problem
 @param h a heuristic vector 
 '''
-def hsearch(M, O, D, space, partial, avp, h, depth=0):
+def hsearch(M, O, D, space, partial, avp, h, depth, step):
 
   hsearch.entered += 1
 
   # print current solution node
   #os.system('clear')
   debug("depth:" + str(depth))
-  mprint(partial)
-  print("--")
-  mprint(space)
+  #mprint(partial)
+  #print("--")
+  #mprint(space)
 
   # verify whether we reach a leaf node.
   # if node reached, then evaluate current
@@ -173,9 +174,8 @@ def hsearch(M, O, D, space, partial, avp, h, depth=0):
   
   # iterate through the range
   min, max = packet_range
-  #print("current_range:", min, max)
-  for k in range(min, max):
-
+  #print("current_range:", min, max, step, k)
+  for k in range(min, max, step):
     # copy current solution and replace range
     # by the values of current iteration
     vv = mcopy(partial)
@@ -188,7 +188,7 @@ def hsearch(M, O, D, space, partial, avp, h, depth=0):
     # Check consistency. If branch has a possible
     # solution, keep searching
     if(check_consistency(vv, O, nnode)):
-      res = hsearch(M, O, D, space, vv, navp, h, depth + 1)
+      res = hsearch(M, O, D, space, vv, navp, h, depth + 1, step)
       if(res != None):
         return res
     else:
@@ -203,7 +203,7 @@ Self-counting!
 hsearch.entered = 0
 hsearch.ignored = 0
 
-def search3(min_start, occupancy, deadline):
+def search3(min_start, occupancy, deadline, step):
   
   # Initial solution has no packets placed yet.
   # Rationally: select packet with the highest
@@ -228,4 +228,4 @@ def search3(min_start, occupancy, deadline):
   h = lstf(solution_space)
 
   # call search at node zero
-  return (hsearch(min_start, occupancy, deadline, solution_space, partial_solution, avp, h), hsearch.entered, hsearch.ignored)
+  return (hsearch(min_start, occupancy, deadline, solution_space, partial_solution, avp, h, 0, step), hsearch.entered, hsearch.ignored)
