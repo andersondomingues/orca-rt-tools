@@ -1,16 +1,29 @@
 from terminal import info
 from search3 import search3
-from os import path
-from problem_syntheticA import occupancy, min_start, deadline
+from heuristics import lstf, mbul, mcpf
+from prelaunchtest import prelaunchtest
+#from problem_syntheticA import occupancy, min_start, deadline
 #from problem_dctVerify import occupancy, min_start, deadline
-#from problem_carshi2 import occupancy, min_start, deadline
-def main():
-  
-  step = 4
-  num_links = len(min_start)
-  num_packets = len(min_start[0])
+from problem_carshi2 import occupancy, min_start, deadline, packets, links, hyperperiod
 
-  res, entered, ignored = search3(min_start, occupancy, deadline, step)
+STEP = 10
+
+# lstf(solution_space),  least slack time first
+# mcpf(occupancy),       most conflicting packets first
+# mbul(occupancy),       most network overhead
+HEURISTIC = mbul
+
+"""
+Entry-point.
+@step The number of values to skip when iterating thoughout the
+      search space. More is faster. Skiping more values may
+      prevent the algorithm from finding any solution.
+"""
+def main(step = STEP):
+  
+  testsres = prelaunchtest(min_start, occupancy, deadline, packets, links, hyperperiod)
+  
+  res, entered, ignored = search3(min_start, occupancy, deadline, HEURISTIC, packets, links, step)
   
   if res == None:
     print("No solution found.")

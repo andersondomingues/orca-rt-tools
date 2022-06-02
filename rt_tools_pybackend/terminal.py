@@ -1,3 +1,5 @@
+""" high level support for doing this and that. """
+
 # generate string of whitespaces
 def genwss(len):
   buf = ""
@@ -12,6 +14,10 @@ def wsfill(num, pad):
   fill = genwss(pad - len(nstr))
   return fill + nstr
 
+"""
+Print an info on the terminal using the 
+corresponding info color. 
+"""
 def info(msg, end='\n\r'):
   print(colors.OK + "info: " + colors.END + str(msg), end=end)
 

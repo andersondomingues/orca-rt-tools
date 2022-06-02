@@ -1,5 +1,6 @@
-from numpy import empty
+from numpy import append, empty
 from terminal import debug, error, info
+from heuristics import lstf, mbul, mcpf
 import os
 
 
@@ -67,24 +68,6 @@ def check(V):
   return True
 
 '''
-Calculates a vector of slack times for a given 
-problem. 
-@param V the base problem
-@returns a vector of slack times
-'''
-def lstf(V):
-  slack_time = [None for i in V[0]]
-  for i in range(0, len(V)):
-    for j in range(0, len(V[i])):
-      if V[i][j] != None:
-        li, ls = V[i][j]
-        st = ls - li
-        # if(slack_time[j] == None or st < slack_time[j]):
-        if(slack_time[j] == None or st > slack_time[j]):
-            slack_time[j] = st
-  return slack_time
-
-'''
 Finds the next node to be processed given a list 
 of available nodes and a max heuristic
 @param avp the list of available nodes 
@@ -138,16 +121,9 @@ Heuristic search.
 @param avp a list of nodes in the problem
 @param h a heuristic vector 
 '''
-def hsearch(M, O, D, space, partial, avp, h, depth, step):
+def hsearch(M, O, D, space, partial, avp, h, packets, links, depth, step):
 
   hsearch.entered += 1
-
-  # print current solution node
-  #os.system('clear')
-  debug("depth:" + str(depth))
-  #mprint(partial)
-  #print("--")
-  #mprint(space)
 
   # verify whether we reach a leaf node.
   # if node reached, then evaluate current
@@ -160,10 +136,26 @@ def hsearch(M, O, D, space, partial, avp, h, depth, step):
   # Ex. get the lesser slack time
   nnode = nextnode(avp, h)
 
+  # print current solution node
+  #os.system('clear')
+  used_links = []
+
+  for l in range(0, len(O)):
+    if(O[l][nnode] != None):
+      used_links.append(links[l])
+
+  debug("depth:" + str(depth) + " " + packets[depth] + " | " + " ".join(used_links))
+  #mprint(partial)
+  #print("--")
+  #mprint(space)
+
+  # if depth == 530:
+  #   mprint(partial)
+  #   exit(0)
+
   # Copy remaining nodes list and disable current
   # node from selection
-  navp = vcopy(avp)
-  navp[nnode] = False
+  avp[nnode] = False
 
   # acquire packet solution range
   packet_range = (0,0) 
@@ -175,27 +167,31 @@ def hsearch(M, O, D, space, partial, avp, h, depth, step):
   # iterate through the range
   min, max = packet_range
   #print("current_range:", min, max, step, k)
-  for k in range(min, max, step):
-    # copy current solution and replace range
-    # by the values of current iteration
-    vv = mcopy(partial)
-
+  for k in range(min, max, int((max - min)/10) ):
+    
     # replace value for that package
     for i in range(0, len(space)):
       if(space[i][nnode] != None):
-        vv[i][nnode] = k
+        partial[i][nnode] = k
 
     # Check consistency. If branch has a possible
     # solution, keep searching
-    if(check_consistency(vv, O, nnode)):
-      res = hsearch(M, O, D, space, vv, navp, h, depth + 1, step)
+    if(check_consistency(partial, O, nnode)):
+      res = hsearch(M, O, D, space, partial, avp, h, packets, links, depth + 1, step)
       if(res != None):
         return res
     else:
       hsearch.ignored += 1
 
-  return None
+  # rewrite values back to the partial solution before returning
+  # replace value for that package
+  for i in range(0, len(space)):
+    if(space[i][nnode] != None):
+      partial[i][nnode] = None
 
+  avp[nnode] = True
+
+  return None
 
 '''
 Self-counting!
@@ -203,7 +199,7 @@ Self-counting!
 hsearch.entered = 0
 hsearch.ignored = 0
 
-def search3(min_start, occupancy, deadline, step):
+def search3(min_start, occupancy, deadline, heuristic, packets, links, step):
   
   # Initial solution has no packets placed yet.
   # Rationally: select packet with the highest
@@ -225,7 +221,7 @@ def search3(min_start, occupancy, deadline, step):
   avp = [True for i in occupancy[0]]
 
   # Heuristic
-  h = lstf(solution_space)
+  h = heuristic(solution_space, min_start, occupancy, deadline)
 
   # call search at node zero
-  return (hsearch(min_start, occupancy, deadline, solution_space, partial_solution, avp, h, 0, step), hsearch.entered, hsearch.ignored)
+  return (hsearch(min_start, occupancy, deadline, solution_space, partial_solution, avp, h, packets, links, 0, step), hsearch.entered, hsearch.ignored)
