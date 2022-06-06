@@ -1,8 +1,7 @@
 from numpy import append, empty
-from terminal import debug, error, info
+from terminal import debug, error, info, warn
 from heuristics import lstf, mbul, mcpf
 import os
-
 
 '''
 Prints a matrix, row by row.
@@ -68,23 +67,6 @@ def check(V):
   return True
 
 '''
-Finds the next node to be processed given a list 
-of available nodes and a max heuristic
-@param avp the list of available nodes 
-@param h the heuristic values 
-@returns The index of the next node to be processed,
-  -1 otherwise. 
-'''
-def nextnode(avp, h):
-  idx = None
-  max = None
-  for i in range(0, len(avp)):
-    if (avp[i] and (idx == None or h[i] < max)):
-      max = h[i]
-      idx = i
-  return idx
-
-'''
 Checks whether some packets conflits with
 other packets in the model. 
 '''
@@ -118,10 +100,9 @@ Heuristic search.
 @param O occupancy values
 @param D deadline values 
 @param V problem instance
-@param avp a list of nodes in the problem
 @param h a heuristic vector 
 '''
-def hsearch(M, O, D, space, partial, avp, h, packets, links, depth, step):
+def hsearch(M, O, D, space, partial, h, packets, links, depth, step):
 
   hsearch.entered += 1
 
@@ -129,33 +110,21 @@ def hsearch(M, O, D, space, partial, avp, h, packets, links, depth, step):
   # if node reached, then evaluate current
   # solution. If this is a suitable solution, 
   # return it. Otherwise keep going.
-  if(avp.count(False) == len(avp)):
+  if len(h) == 0:
     return partial
 
   # Select next node based on the heuristic. 
   # Ex. get the lesser slack time
-  nnode = nextnode(avp, h)
+  nnode = h.pop()
 
   # print current solution node
-  #os.system('clear')
   used_links = []
-
   for l in range(0, len(O)):
     if(O[l][nnode] != None):
       used_links.append(links[l])
 
   debug("depth:" + str(depth) + " " + packets[depth] + " | " + " ".join(used_links))
-  #mprint(partial)
-  #print("--")
-  #mprint(space)
-
-  # if depth == 530:
-  #   mprint(partial)
-  #   exit(0)
-
-  # Copy remaining nodes list and disable current
-  # node from selection
-  avp[nnode] = False
+  #warn(h)
 
   # acquire packet solution range
   packet_range = (0,0) 
@@ -167,8 +136,9 @@ def hsearch(M, O, D, space, partial, avp, h, packets, links, depth, step):
   # iterate through the range
   min, max = packet_range
   #print("current_range:", min, max, step, k)
-  for k in range(min, max, int((max - min)/10) ):
-    
+  for k in range(min, max, int((max - min)/100) ):
+  #for k in range(min, max, step):
+
     # replace value for that package
     for i in range(0, len(space)):
       if(space[i][nnode] != None):
@@ -177,7 +147,7 @@ def hsearch(M, O, D, space, partial, avp, h, packets, links, depth, step):
     # Check consistency. If branch has a possible
     # solution, keep searching
     if(check_consistency(partial, O, nnode)):
-      res = hsearch(M, O, D, space, partial, avp, h, packets, links, depth + 1, step)
+      res = hsearch(M, O, D, space, partial, h, packets, links, depth + 1, step)
       if(res != None):
         return res
     else:
@@ -189,8 +159,7 @@ def hsearch(M, O, D, space, partial, avp, h, packets, links, depth, step):
     if(space[i][nnode] != None):
       partial[i][nnode] = None
 
-  avp[nnode] = True
-
+  h.append(nnode)
   return None
 
 '''
@@ -217,11 +186,9 @@ def search3(min_start, occupancy, deadline, heuristic, packets, links, step):
       if(cell != None):
         solution_space[i][j] = (min_start[i][j], deadline[i][j] - occupancy[i][j])
 
-  # List of packets fixed in the solution so far
-  avp = [True for i in occupancy[0]]
-
   # Heuristic
   h = heuristic(solution_space, min_start, occupancy, deadline)
 
   # call search at node zero
-  return (hsearch(min_start, occupancy, deadline, solution_space, partial_solution, avp, h, packets, links, 0, step), hsearch.entered, hsearch.ignored)
+  return (hsearch(min_start, occupancy, deadline, solution_space, partial_solution, h, packets, links, 0, step),
+    hsearch.entered, hsearch.ignored)

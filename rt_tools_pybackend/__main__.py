@@ -2,16 +2,17 @@ from terminal import info
 from search3 import search3
 from heuristics import lstf, mbul, mcpf
 from prelaunchtest import prelaunchtest
-#from problem_syntheticA import occupancy, min_start, deadline
-#from problem_dctVerify import occupancy, min_start, deadline
+
+#from problem_syntheticA import occupancy, min_start, deadline, packets, links, hyperperiod
+#from problem_dctVerify import occupancy, min_start, deadline, packets, links, hyperperiod
 from problem_carshi2 import occupancy, min_start, deadline, packets, links, hyperperiod
 
-STEP = 10
+STEP = 1000
 
 # lstf(solution_space),  least slack time first
 # mcpf(occupancy),       most conflicting packets first
 # mbul(occupancy),       most network overhead
-HEURISTIC = mbul
+HEURISTIC = lstf
 
 """
 Entry-point.
@@ -22,7 +23,7 @@ Entry-point.
 def main(step = STEP):
   
   testsres = prelaunchtest(min_start, occupancy, deadline, packets, links, hyperperiod)
-  
+
   res, entered, ignored = search3(min_start, occupancy, deadline, HEURISTIC, packets, links, step)
   
   if res == None:

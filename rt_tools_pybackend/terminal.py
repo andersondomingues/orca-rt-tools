@@ -1,4 +1,4 @@
-""" high level support for doing this and that. """
+from datetime import datetime
 
 # generate string of whitespaces
 def genwss(len):
@@ -28,7 +28,13 @@ def header(msg, end='\n\r'):
   print(colors.HEADER + str(msg) + colors.END, end=end)
 
 def debug(msg, end='\n\r'):
-  print(colors.CYAN + "debug: " + str(msg) + colors.END, end=end)
+  now = datetime.now()
+  # strnow = now.strftime("%m/%d/%Y, %H:%M:%S")
+  strnow = now.strftime("%H:%M:%S")
+  print(colors.CYAN + "[debug " + strnow + "] " + str(msg) + colors.END, end=end)
+
+def warn(msg, end='\n\r'):
+  print(colors.WARN + "warn: " + str(msg) + colors.END, end=end)
 
 class colors:
   HEADER = '\033[95m'

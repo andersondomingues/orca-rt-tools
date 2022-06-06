@@ -1,3 +1,10 @@
+
+hyperperiod = 55
+
+packets = ["p1", "p2", "p3", "p4", "p5"]
+
+links = [ "0-1", "1-3", "2-3", "2-0", "3-1", "3-2", "0-L", "L-0", "1-L", "L-2", "3-L", "L-3"]
+
 occupancy = [
   #  p1    p2    p3    p4  p5
   [  18,   32, None, None, None],   # 0-1

@@ -1,3 +1,6 @@
+from math import inf
+
+
 # find the sum of capacity for all links
 # most bandwidth-usage link
 def mbul(solution_space, min_start, O, deadline):
@@ -11,8 +14,32 @@ def mbul(solution_space, min_start, O, deadline):
         sumsl[l] += O[l][p]
         sumsp[p] += O[l][p]
 
-  # return sum capacity per packet
-  return sumsp
+
+  # sorte packets from the least consuming to the most consuming
+  # (most consuming will be consumed first)
+  list = []
+
+  removed = True
+  while removed:
+    lowest = +inf
+    idx = +inf
+
+    removed = False
+
+    for i in range(0, len(sumsp)):
+      if sumsp[i] < lowest:
+        lowest = sumsp[i]
+        idx = i
+        
+    if lowest != +inf:
+      list.append(idx)
+      sumsp[idx] = +inf
+      removed = True
+      print("removed: ", idx, lowest)
+
+  print(list)
+  return list
+
 
 '''
 Calculates a vector of slack times for a given 
@@ -30,10 +57,36 @@ def lstf(V, min_start, occupancy, deadline):
         # if(slack_time[j] == None or st < slack_time[j]):
         if(slack_time[j] == None or st > slack_time[j]):
             slack_time[j] = st
-  return slack_time
+  #return slack_time
+  
+  # most slack time first, least slack time 
+  # will be consumed first
+  list = []
+
+  removed = True
+  while removed:
+    largest = -inf
+    idx = -inf
+
+    removed = False
+
+    for i in range(0, len(slack_time)):
+      if slack_time[i] > largest:
+        largest = slack_time[i]
+        idx = i
+        
+    if largest != -inf:
+      list.append(idx)
+      slack_time[idx] = -inf
+      removed = True
+      print("removed: ", idx, largest)
+
+  print(list)
+  # exit(0)
+  return list
 
 '''
-Calculates a weigthed vector. Higher values represent
+Calculates a weighted vector. Higher values represent
   packets in more critical links. 
 @param V the base problem
 @returns a vector of slack times
