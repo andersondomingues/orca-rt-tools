@@ -52,3 +52,12 @@ min_start = [
   [None,    0,    0, None, None],   # 3-L
   [None, None, None, None,    0]    # L-3
 ]
+
+problem = {
+  'min_start' : min_start,
+  'occupancy' : occupancy,
+  'deadline' : deadline,
+  'packets' : packets,
+  'links': links,
+  'hyperperiod' : hyperperiod
+}

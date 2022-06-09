@@ -1,5 +1,27 @@
 from math import inf
+from vutils import mcopy, vcopy
 
+def resort(tt, packets):
+  t = vcopy(tt)
+  h = []
+  
+  removed = True
+  while(removed):
+
+    removed = False
+    min = +inf
+    idx = +inf    
+
+    for i in range(0, len(t)):
+      if(t[i] != -inf and t[i] < min):
+        min = t[i]
+        idx = i
+        t[i] = +inf
+        removed = True
+
+    if(removed):
+      h.append(idx)
+  return h
 
 # find the sum of capacity for all links
 # most bandwidth-usage link
@@ -35,9 +57,7 @@ def mbul(solution_space, min_start, O, deadline):
       list.append(idx)
       sumsp[idx] = +inf
       removed = True
-      print("removed: ", idx, lowest)
 
-  print(list)
   return list
 
 
@@ -79,10 +99,7 @@ def lstf(V, min_start, occupancy, deadline):
       list.append(idx)
       slack_time[idx] = -inf
       removed = True
-      print("removed: ", idx, largest)
 
-  print(list)
-  # exit(0)
   return list
 
 '''
@@ -114,8 +131,5 @@ def mcpf(solution_space, min_start, O, deadline):
       if(O[l][p] != None):
         acc += O[l][p] * load[l]
     crit[p] = acc
-
-  #print(load)
-  #print(crit)
   
   return crit

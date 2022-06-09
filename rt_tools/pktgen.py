@@ -19,8 +19,8 @@ import subprocess
 DEBUG = True
 ZINC_APP   = 'minizinc'
 #ZINC_MODEL  = '../minizinc/CM/CM-v20211013.mzn'
-#ZINC_MODEL  = '../minizinc/CM/CM-v20220427.mzn'
-ZINC_MODEL  = '../minizinc/CM/CM-v20220518.mzn'
+ZINC_MODEL  = '../minizinc/CM/CM-v20220427.mzn'
+#ZINC_MODEL  = '../minizinc/CM/CM-v20220518.mzn'
 ZINC_SOLVER = 'Gecode'
 ZINC_INPUT_PAD = 7
 ZINC_THREADS = 4
@@ -92,10 +92,10 @@ def vcopy(vecin):
     newvec.append(i)
   return newvec
 
-def genTable(label, table):
+def genTable(label, table, header = ""):
   
   lines = []
-  # lines.append(header)
+  lines.append(header)
   lines.append(label + " = ")
   
   c = 0
@@ -319,16 +319,20 @@ def pktGen(appfile, mapfile, archfile):
 
   # generate minizinc tables  
   info("... problem size: " + str(len(packets)) + "-by-" + str(len(occupancy)))
-  tOccupancy = genTable("occupancy", occupancy)
-  tDeadline = genTable("deadline", deadline)
-  tMinStart = genTable("min_start", min_start)
+
+  tOccupancy = genTable("occupancy", occupancy, header)
+  tDeadline = genTable("deadline", deadline, header)
+  tMinStart = genTable("min_start", min_start, header)
 
   if DEBUG == True:
     debug(str(tOccupancy))
     debug(str(tDeadline))
     debug(str(tMinStart))
 
+  linkNames = "% [ " + "\", \"".join(list(occupancy.keys())) + "]"
+
   lines = []
+  lines.append(linkNames)
   lines.append("hp = " +  str(hp) + ";")
   lines.append("num_links = " + str(len(occupancy)) + ";")
   lines.append("num_packets = " + str(len(packets)) + ";")

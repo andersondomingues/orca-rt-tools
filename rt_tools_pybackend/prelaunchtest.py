@@ -14,11 +14,15 @@ def bandwidthSum(min_start, occupancy, deadline, packets, links, hyperperiod):
         error("Prelaunch test failed due to link capacity overflow!")
         print(sums)
         exit(1)
-
-  for i in range(0, len(sums)):
-    print(i, links[i], sums[i])
     
-def prelaunchtest(min_start, occupancy, deadline, packets, links, step):
+def prelaunchtest(problem):
   # tests whether all links has enough bandwidth to 
   # support all allocated traffic
-  return bandwidthSum(min_start, occupancy, deadline, packets, links, step)
+  return bandwidthSum(
+    problem['min_start'], 
+    problem['occupancy'], 
+    problem['deadline'],
+    problem['packets'],
+    problem['links'],
+    problem['hyperperiod']
+  )

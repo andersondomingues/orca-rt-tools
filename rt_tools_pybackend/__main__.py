@@ -2,17 +2,18 @@ from terminal import info
 from search3 import search3
 from heuristics import lstf, mbul, mcpf
 from prelaunchtest import prelaunchtest
+from svg import saveSvg
 
-#from problem_syntheticA import occupancy, min_start, deadline, packets, links, hyperperiod
-#from problem_dctVerify import occupancy, min_start, deadline, packets, links, hyperperiod
-from problem_carshi2 import occupancy, min_start, deadline, packets, links, hyperperiod
-
-STEP = 1000
+#from problem_syntheticA import problem
+#from problem_dctVerify import problem
+from problem_carshi2 import problem
 
 # lstf(solution_space),  least slack time first
 # mcpf(occupancy),       most conflicting packets first
 # mbul(occupancy),       most network overhead
 HEURISTIC = lstf
+STEP = 10
+TRIES = 500
 
 """
 Entry-point.
@@ -20,20 +21,12 @@ Entry-point.
       search space. More is faster. Skiping more values may
       prevent the algorithm from finding any solution.
 """
-def main(step = STEP):
+def main(heuristic = HEURISTIC, step = STEP, tries = TRIES):
   
-  testsres = prelaunchtest(min_start, occupancy, deadline, packets, links, hyperperiod)
+  testsres = prelaunchtest(problem)
+  res, skipped = search3(problem, heuristic, tries, step)
+  saveSvg(res, problem, skipped)
 
-  res, entered, ignored = search3(min_start, occupancy, deadline, HEURISTIC, packets, links, step)
-  
-  if res == None:
-    print("No solution found.")
-  else:
-    info("SOLUTION:")
-    for i in res:
-      print(i)
-    info("Ignored nodes: " + str(ignored))
-    info("Entered nodes: " + str(entered))
 
 # Automatically jumps to main if called from command line
 if __name__ == "__main__":

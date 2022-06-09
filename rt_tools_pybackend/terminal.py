@@ -1,5 +1,7 @@
 from datetime import datetime
 
+ENDLINE = '\n\r'
+
 # generate string of whitespaces
 def genwss(len):
   buf = ""
@@ -18,10 +20,10 @@ def wsfill(num, pad):
 Print an info on the terminal using the 
 corresponding info color. 
 """
-def info(msg, end='\n\r'):
+def info(msg, end=ENDLINE):
   print(colors.OK + "info: " + colors.END + str(msg), end=end)
 
-def error(msg, end='\n\r'):
+def error(msg, end=ENDLINE):
   print(colors.ERROR + "error: " + colors.END + str(msg), end=end)
 
 def header(msg, end='\n\r'):

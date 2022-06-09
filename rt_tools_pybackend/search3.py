@@ -1,46 +1,17 @@
+from unittest import skip
 from numpy import append, empty
 from terminal import debug, error, info, warn
-from heuristics import lstf, mbul, mcpf
+from heuristics import lstf, mbul, mcpf, resort
+from vutils import mcopy, vcopy, mprint
 import os
 
-'''
-Prints a matrix, row by row.
-'''
-def mprint(m):
-  for i in m:
-    print(i)
-
-'''
-Copies given vector and returns a new 
-vector containing the same elements as 
-the entered vector.
-@param m the input vector
-@returns a vector containing the same elements of m
-'''
-def vcopy(m):
-  v = []
-  for i in m:
-    v.append(i) 
-  return v   
-
-'''
-Copies a bi-dimensional matrix and returns a 
-new matrix containing the same elements as the 
-entered matrix.
-@param m the input matrix
-@returns a matrix containing the same elements of m
-'''
-def mcopy(m):
-  v = []
-  for i in m:
-    v.append(vcopy(i))
-  return v
 
 '''
 Checks whether two ranges overleap.
 @param ra range a, the first range 
 @param rb range b, the second range
 @returns True if the ranger overleap, otherwise False
+
 '''
 def overleap(ra, rb):
   mina, maxa = ra
@@ -102,8 +73,10 @@ Heuristic search.
 @param V problem instance
 @param h a heuristic vector 
 '''
-def hsearch(M, O, D, space, partial, h, packets, links, depth, step):
 
+def hsearch(p, space, partial, h, depth, t, tries, step):
+
+  # global counter for entered nodes
   hsearch.entered += 1
 
   # verify whether we reach a leaf node.
@@ -117,14 +90,14 @@ def hsearch(M, O, D, space, partial, h, packets, links, depth, step):
   # Ex. get the lesser slack time
   nnode = h.pop()
 
+  # increment the number of time the algorithm entered this node
+  t[nnode] += 1 #tries
+
   # print current solution node
   used_links = []
-  for l in range(0, len(O)):
-    if(O[l][nnode] != None):
-      used_links.append(links[l])
-
-  debug("depth:" + str(depth) + " " + packets[depth] + " | " + " ".join(used_links))
-  #warn(h)
+  for l in range(0, len(p['occupancy'])):
+    if(p['occupancy'][l][nnode] != None):
+      used_links.append(p['links'][l])
 
   # acquire packet solution range
   packet_range = (0,0) 
@@ -133,62 +106,103 @@ def hsearch(M, O, D, space, partial, h, packets, links, depth, step):
       packet_range = space[i][nnode]
       break
   
+  #debug("depth:" + str(depth) + "/" + str(len(p['packets'])) + " " + str(p['packets'][depth]) 
+  #  + " tries:" + str(t[nnode]) + "/" + str(tries)  + " | " + " ".join(used_links))
+
   # iterate through the range
   min, max = packet_range
-  #print("current_range:", min, max, step, k)
-  for k in range(min, max, int((max - min)/100) ):
-  #for k in range(min, max, step):
-
-    # replace value for that package
+  res = None
+  for k in range(min, max, int((max - min)/step) ):
+    
+    # replace tentative starting time value for that package
     for i in range(0, len(space)):
       if(space[i][nnode] != None):
         partial[i][nnode] = k
 
     # Check consistency. If branch has a possible
     # solution, keep searching
-    if(check_consistency(partial, O, nnode)):
-      res = hsearch(M, O, D, space, partial, h, packets, links, depth + 1, step)
-      if(res != None):
-        return res
+    if(check_consistency(partial, p['occupancy'], nnode)):
+      res = hsearch(p, space, partial, h, depth + 1, t, tries, step)
+
+      if res != None:
+        break
     else:
       hsearch.ignored += 1
 
   # rewrite values back to the partial solution before returning
   # replace value for that package
-  for i in range(0, len(space)):
-    if(space[i][nnode] != None):
-      partial[i][nnode] = None
+  if(res == None or res == "RESTART"):
+    for i in range(0, len(space)):
+      if(space[i][nnode] != None):
+        partial[i][nnode] = None
+
+  if(t[nnode] == tries):
+    #return "RESTART"
+    hsearch.skipped.append(nnode)
+    error("could not schedule " + p['packets'][nnode] + "! skipping.")
+    return None
 
   h.append(nnode)
-  return None
+
+  return res
 
 '''
 Self-counting!
 '''
 hsearch.entered = 0
 hsearch.ignored = 0
+hsearch.skipped = []
 
-def search3(min_start, occupancy, deadline, heuristic, packets, links, step):
+def search3(p, heuristic, tries, step):
   
   # Initial solution has no packets placed yet.
   # Rationally: select packet with the highest
   # value for the given heuristic. Place the 
   # selected packet and then select another one.
-  partial_solution = [[None for x in occupancy[0]] for y in occupancy]
+  partial_solution = [[None for x in p['occupancy'][0]] for y in p['occupancy']]
 
   # Generate ranges of solution here. At this 
   # point, we proceed as Minizinc, using intervalar
-  # arithmetics. Sparse matrix notation takes '-1' as 
-  solution_space = mcopy(occupancy)
+  # arithmetics. Sparse matrix notation takes '-1' as
+  solution_space = mcopy(p['occupancy'])
   for i in range(0, len(solution_space)):
     for j in range(0, len(solution_space[i])):
       cell = solution_space[i][j]
       if(cell != None):
-        solution_space[i][j] = (min_start[i][j], deadline[i][j] - occupancy[i][j])
+        solution_space[i][j] = (p['min_start'][i][j], p['deadline'][i][j] - p['occupancy'][i][j])
 
   # Heuristic
-  h = heuristic(solution_space, min_start, occupancy, deadline)
+  h = heuristic(solution_space, p['min_start'], p['occupancy'], p['deadline'])
+
+  t = [0 for x in p['occupancy'][0]] # packet tries counter
+
+  res = "RESTART"
+  skip = set()
+  while res == "RESTART":
+    
+    result = hsearch(p, solution_space, partial_solution, h, 0, t, tries, step)
+
+    for i in hsearch.skipped:
+      skip.add(i)
+    
+    if result == None:
+      print("No solution found.")
+      return
+
+    if result != "RESTART":
+      info("Solution found! Press any key to display solution.")
+      #a = input()
+      #for i in solution:
+      #  print(i)
+      info("Ignored nodes: " + str(hsearch.ignored))
+      info("Entered nodes: " + str(hsearch.entered))
+      return (result, skip)
+
+    for i in range(0, len(t)):
+      if t[i] >= tries:
+        t[i] += 1
+
+    h = resort(t, p['packets'])
 
   # call search at node zero
-  return (hsearch(min_start, occupancy, deadline, solution_space, partial_solution, h, packets, links, 0, step),
-    hsearch.entered, hsearch.ignored)
+  return (res, skip)
