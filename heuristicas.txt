@@ -1,4 +1,0 @@
-- tentar resolver problema pelo fluxo antes de ir para os pacotes 
-- problema de decisão vira problema de otimização
-- métricas: uso do enlace, pacotes por fluxo, maximum slack time
-- possibilidade de resolver caminho crítico primeiro
