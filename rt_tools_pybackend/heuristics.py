@@ -25,7 +25,7 @@ def resort(tt, packets):
 
 # find the sum of capacity for all links
 # most bandwidth-usage link
-def mbul(solution_space, min_start, O, deadline):
+def mbuf(solution_space, min_start, O, deadline):
   sumsl = [0 for x in O]
   sumsp = [0 for x in O[0]]
 
@@ -37,7 +37,7 @@ def mbul(solution_space, min_start, O, deadline):
         sumsp[p] += O[l][p]
 
 
-  # sorte packets from the least consuming to the most consuming
+  # sort packets from the least consuming to the most consuming
   # (most consuming will be consumed first)
   list = []
 
@@ -131,5 +131,26 @@ def mcpf(solution_space, min_start, O, deadline):
       if(O[l][p] != None):
         acc += O[l][p] * load[l]
     crit[p] = acc
+
+  # most slack time first, least slack time 
+  # will be consumed first
+  list = []
+
+  removed = True
+  while removed:
+    largest = -inf
+    idx = -inf
+
+    removed = False
+
+    for i in range(0, len(crit)):
+      if crit[i] > largest:
+        largest = crit[i]
+        idx = i
+        
+    if largest != -inf:
+      list.append(idx)
+      crit[idx] = -inf
+      removed = True
   
-  return crit
+  return list

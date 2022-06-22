@@ -1,10 +1,6 @@
-from unittest import skip
-from numpy import append, empty
+from heuristics import resort
 from terminal import debug, error, info, warn
-from heuristics import lstf, mbul, mcpf, resort
-from vutils import mcopy, vcopy, mprint
-import os
-
+from vutils import mcopy
 
 '''
 Checks whether two ranges overleap.
@@ -41,27 +37,30 @@ def check(V):
 Checks whether some packets conflits with
 other packets in the model. 
 '''
-def check_consistency(V, O, idx):
+def check_consistency(V, O, idx, show=False):
 
   # acquire range for package at V[idx]
   rangea = (0,0)
-  for i in range(0, len(V)-1):
+  for i in range(0, len(V)):
     if(V[i][idx] != None):
-      rangea = (V[i][idx], V[i][idx] + O[i][idx])
+      rangea = (V[i][idx], V[i][idx] + O[i][idx]) #first occurence!
+      break
 
   # for each link in the model
-  for i in range(0, len(V)-1):
+  for l in range(0, len(V)):
 
     # ignore row if current packet doesnt use that link
-    if(V[i][idx] != None):
+    if(V[l][idx] != None):
 
       # for each packet in that link, find if it 
       # overleaps current packet
-      for j in range(0, len(V[0])-1):
-        if(j != idx and V[i][j] != None): # avoid comparing to itself
-          rangeb = (V[i][j], V[i][j] + O[i][j])
+      for p in range(0, len(V[0])):
+        if(p != idx and V[l][p] != None): # avoid comparing to itself
+          rangeb = (V[l][p], V[l][p] + O[l][p])
 
           if(overleap(rangea, rangeb)):
+            # if show:
+            #   warn("conflict at link '" + str(l) + "'")
             return False
   return True
 
@@ -140,6 +139,13 @@ def hsearch(p, space, partial, h, depth, t, tries, step):
     #return "RESTART"
     hsearch.skipped.append(nnode)
     error("could not schedule " + p['packets'][nnode] + "! skipping.")
+
+    for l in range(0, len(p['occupancy'])):
+      if (p['occupancy'][l][nnode] != None):
+        debug(p['links'][l])
+
+    check_consistency(partial, p['occupancy'], nnode, True)
+
     return None
 
   h.append(nnode)

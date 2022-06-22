@@ -1,6 +1,6 @@
 from terminal import info
 from search3 import search3
-from heuristics import lstf, mbul, mcpf
+from heuristics import lstf, mbuf, mcpf
 from prelaunchtest import prelaunchtest
 from svg import saveSvg
 
@@ -8,11 +8,11 @@ from svg import saveSvg
 #from problem_dctVerify import problem
 from problem_carshi2 import problem
 
-# lstf(solution_space),  least slack time first
-# mcpf(occupancy),       most conflicting packets first
-# mbul(occupancy),       most network overhead
-HEURISTIC = lstf
-STEP = 10
+# lstf(solution_space),  packet with the least slack time first
+# mcpf(occupancy),       packet in most conflicting links first
+# mbuf(occupancy),       packets with most network overhead first
+HEURISTIC = mbuf
+STEP = 100
 TRIES = 500
 
 """
