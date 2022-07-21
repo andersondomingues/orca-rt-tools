@@ -1,0 +1,11 @@
+{
+  "defaultfrequencyMhz" : 2000000,
+  "dynamicFrequency": true,
+  "routingAlgorithm": "xy",
+  "scheduler" : {
+    "timeSlotPaddingUnits" : 100,
+    "dynamicTimeSlotPadding" : true,
+    "abandonAfterTooManyTries" : false,
+    "maximumTriesPerNode" : 5000
+  }
+}

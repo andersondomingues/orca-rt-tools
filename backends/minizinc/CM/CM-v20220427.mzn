@@ -5,20 +5,17 @@ int: hp;
 set of int: PACKETS = 1..num_packets;
 set of int: LINKS = 1..num_links;
 
-array[LINKS, PACKETS] of -1..hp: deadline;    % maximum "end" execution time
-array[LINKS, PACKETS] of -1..hp: min_start;   % prevents packet overleap
-array[LINKS, PACKETS] of -1..hp: occupancy;   % time taken per link
+% maximum "end" execution time
+array[LINKS, PACKETS] of -1..hp: deadline; 
 
-array[LINKS, PACKETS] of var -2..hp: release_time;  % answer
+% prevents packet overleap
+array[LINKS, PACKETS] of -1..hp: min_start;   
 
-% heuristic
-constraint forall(l in LINKS, p in PACKETS where min_start[l, p] != -1)(
-  release_time[l, p] mod min(occupancy) = 0
-);
+% time taken per link
+array[LINKS, PACKETS] of -1..hp: occupancy;   
 
-constraint forall(l in LINKS, p in PACKETS where min_start[l, p] = -1)(
-  release_time[l, p] = -1
-);
+% answer, output
+array[LINKS, PACKETS] of var -2..hp: release_time;  
 
 % cannot release packets before their release time, 
 % and cannot release them after their deadline (lower bound rule)
@@ -54,12 +51,11 @@ constraint forall(p1 in PACKETS, p2 in PACKETS, l in LINKS where p1 != p2 /\ dea
    )
 );
 
-% any solution suits the problem
-% solve maximize max_min_start;
-%solve ::int_search(min_start, dom_w_deg, indomain_max) satisfy ;
-%solve :: int_search(?, dom_w_degree, indomain_max) satisfy;
 solve satisfy;
 
 output [show_int(2, release_time[l,p]) ++ if p = num_packets then "\n" else "\t" endif | l in LINKS, p in PACKETS]; 
 
 
+constraint forall(l in LINKS, p in PACKETS where min_start[l, p] = -1)(
+  release_time[l, p] = -1
+);

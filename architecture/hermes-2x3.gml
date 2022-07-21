@@ -1,6 +1,6 @@
 graph [
   directed 1
-  routing_algorithm "XY"
+  channelWidth 4
   node [
     id 0
     label "0"
