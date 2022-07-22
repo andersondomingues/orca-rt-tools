@@ -1,4 +1,5 @@
-from asyncio import subprocess
+import subprocess
+import traceback
 
 from lib.vector import vcopy
 from lib.terminal import info, debug, error
@@ -13,9 +14,7 @@ from modules.routing.router import getNumFlits
 from os.path import dirname, realpath
 
 ZINC_APP   = 'minizinc'
-#ZINC_MODEL  = '../minizinc/CM/CM-v20211013.mzn'
-ZINC_MODEL  = '../minizinc/CM/CM-v20220427.mzn'
-#ZINC_MODEL  = '../minizinc/CM/CM-v20220518.mzn'
+ZINC_MODEL  = './minizinc/CM/CM-v20220427.mzn'
 ZINC_SOLVER = 'Gecode'
 ZINC_INPUT_PAD = 7
 ZINC_THREADS = 4
@@ -157,10 +156,7 @@ def minizincExport(packets, nlinks, hp, mapping, arch, appname):
   lines.append(tMinStart)
 
   # write minizinc input to disk
-  mzFile = '../minizinc/' + appname + '.dzn'
-
-  print(mzFile)
-
+  mzFile = './minizinc/' + appname + '.dzn'
 
   info("Writing to `" + mzFile + "`")
   with open(mzFile, 'w+') as file:
@@ -175,6 +171,7 @@ def minizincExport(packets, nlinks, hp, mapping, arch, appname):
       if len(l) > 0:
         info("... " + l)
   except:
+    traceback.print_exc()
     error("Unable to locate Minizinc installation in this system, aborting")
     exit()
 
@@ -229,9 +226,7 @@ def minizincExport(packets, nlinks, hp, mapping, arch, appname):
     })   
 
   # gen vhdl sim files
-  location = dirname(realpath(__file__)) + "/../pkt-sim/packets/"
-  info("Generating pkt-sim input at `" + location + "`")
-  sources = generateVhdlSimInput(arch, schedule, location)
+  sources = generateVhdlSimInput(arch, schedule)
   
   debug(sources)
 

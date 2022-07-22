@@ -58,6 +58,9 @@ def main():
     # unwrap flows into packets
     packets, hp, nlinks = flowUnwrapper.unwrap(instance, noc, mapping)
 
+    for p in packets:
+      error(p)
+
     # call minizinc backend
     minizinc.minizincExport(packets, nlinks, hp, mapping, noc, appname)
 
