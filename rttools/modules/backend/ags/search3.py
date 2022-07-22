@@ -1,6 +1,6 @@
-from heuristics import resort
-from terminal import debug, error, info, warn
-from vutils import mcopy
+from modules.backend.ags.heuristics import resort
+from lib.terminal import debug, error, info, warn
+from lib.vector import mcopy
 
 '''
 Checks whether two ranges overleap.
@@ -177,6 +177,9 @@ def search3(p, heuristic, tries, step):
       if(cell != None):
         solution_space[i][j] = (p['min_start'][i][j], p['deadline'][i][j] - p['occupancy'][i][j])
 
+  for i in solution_space:
+    warn(str(i))
+
   # Heuristic
   h = heuristic(solution_space, p['min_start'], p['occupancy'], p['deadline'])
 
@@ -198,8 +201,8 @@ def search3(p, heuristic, tries, step):
     if result != "RESTART":
       info("Solution found! Press any key to display solution.")
       #a = input()
-      #for i in solution:
-      #  print(i)
+      # for i in solution:
+      #   print(i)
       info("Ignored nodes: " + str(hsearch.ignored))
       info("Entered nodes: " + str(hsearch.entered))
       return (result, skip)

@@ -1,20 +1,35 @@
-ENABLE_PRINT_DEBUG = False
+from datetime import datetime
 
-def info(msg, end='\n\r'):
-  print(colors.OK + "info: " + colors.END + msg, end=end)
+TERMINAL_ENABLE_DEBUG = False
+TERMINAL_ENDLINE = '\n\r'
 
-def error(msg, end='\n\r'):
-  print(colors.ERROR + "error: " + colors.END + str(msg), end=end)
+def info(msg, end=TERMINAL_ENDLINE):
+  now = datetime.now()
+  # strnow = now.strftime("%m/%d/%Y, %H:%M:%S")
+  strnow = now.strftime("%H:%M:%S")
+  print(colors.OK + "[info " + strnow + "] " + str(msg) + colors.END, end=end)
 
-def header(msg, end='\n\r'):
+def error(msg, end=TERMINAL_ENDLINE):
+  now = datetime.now()
+  # strnow = now.strftime("%m/%d/%Y, %H:%M:%S")
+  strnow = now.strftime("%H:%M:%S")
+  print(colors.ERROR + "[error " + strnow + "] " + str(msg) + colors.END, end=end)
+
+def header(msg, end=TERMINAL_ENDLINE):
   print(colors.HEADER + msg + colors.END, end=end)
 
-def debug(msg, end='\n\r'):
-  if ENABLE_PRINT_DEBUG:
-    print(colors.DEBUG + "debug: " + msg + colors.END, end=end)
+def debug(msg, end=TERMINAL_ENDLINE):
+  if TERMINAL_ENABLE_DEBUG:
+    now = datetime.now()
+    # strnow = now.strftime("%m/%d/%Y, %H:%M:%S")
+    strnow = now.strftime("%H:%M:%S")
+    print(colors.DEBUG + "[debug " + strnow + "] " + str(msg) + colors.END, end=end)
 
-def warn(msg, end='\n\r'):
-  print(colors.WARN + "warn: " + msg + colors.END, end=end)
+def warn(msg, end=TERMINAL_ENDLINE):
+  now = datetime.now()
+  # strnow = now.strftime("%m/%d/%Y, %H:%M:%S")
+  strnow = now.strftime("%H:%M:%S")
+  print(colors.WARN + "[warn " + strnow + "] " + str(msg) + colors.END, end=end)
 
 class colors:
   HEADER = '\033[95m'

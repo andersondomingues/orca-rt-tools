@@ -6,7 +6,12 @@ from modules.io import configurator, appparser, nocparser, mapparser
 from modules.frequency import guesser
 from modules.instances import instantiator
 from modules.unwrapper import flowUnwrapper
-from modules.backend import minizinc
+from modules.backend.ags import ags
+from modules.backend.minizinc import minizinc 
+
+RTTOOLS_ENABLE_MINIZINC = False
+RTTOOLS_PRUNNING_FACTOR = 1
+RTTOOLS_FAIL_THRESHOULD = 5000000
 
 # Main 
 def main():
@@ -51,31 +56,35 @@ def main():
 
   info("Tentative frequency is " + str(frequency) + "Hz")
 
-  while(True):
+
+  schedule = None
+  while(schedule == None):
     # generate instance
     instance = instantiator.createInstance(app, noc, frequency)
 
     # unwrap flows into packets
     packets, hp, nlinks = flowUnwrapper.unwrap(instance, noc, mapping)
 
-    for p in packets:
-      error(p)
+    # pre-tests here!
+    #testsres = prelaunchtest(problem)
 
-    # call minizinc backend
-    minizinc.minizincExport(packets, nlinks, hp, mapping, noc, appname)
+    # select which scheduler to use
+    if RTTOOLS_ENABLE_MINIZINC:
+      schedule = minizinc.minizincExport(packets, nlinks, hp, mapping, noc, appname)
+    else: # adaptive guided search
+      schedule = ags.agsExport(packets, nlinks, hp, mapping, noc, appname,
+        RTTOOLS_PRUNNING_FACTOR, RTTOOLS_FAIL_THRESHOULD)
 
-    for p in packets:
-      error(p)
+    # check whether schedule is feasible
+    if schedule != None:
+      #feasible
+      pass
+    else:
+      #unfeasible
+      pass
 
-    # generate packets for instance
-    packets = ''
-    break
+    return
 
-  # unwrapper
-  # packets = unwrapper.unwrap(config, app, mapping, topology)
-
-  # scheduler
-  # schedule = scheduler.schedule(config, packets)
   return
 
 # Automatically jumps to main if called from command line.

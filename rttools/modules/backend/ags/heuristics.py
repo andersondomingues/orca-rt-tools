@@ -1,5 +1,5 @@
 from math import inf
-from vutils import mcopy, vcopy
+from lib.vector import mcopy, vcopy
 
 def resort(tt, packets):
   t = vcopy(tt)
