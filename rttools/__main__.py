@@ -58,9 +58,10 @@ def main():
 
 
   schedule = None
+  current_frequency = frequency
   while(schedule == None):
     # generate instance
-    instance = instantiator.createInstance(app, noc, frequency)
+    instance = instantiator.createInstance(app, noc, current_frequency)
 
     # unwrap flows into packets
     packets, hp, nlinks = flowUnwrapper.unwrap(instance, noc, mapping)
@@ -74,6 +75,8 @@ def main():
     else: # adaptive guided search
       schedule = ags.agsExport(packets, nlinks, hp, mapping, noc, appname,
         RTTOOLS_PRUNNING_FACTOR, RTTOOLS_FAIL_THRESHOULD)
+
+    print(schedule)
 
     # check whether schedule is feasible
     if schedule != None:

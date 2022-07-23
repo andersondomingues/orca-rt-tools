@@ -105,14 +105,15 @@ def hsearch(p, space, partial, h, depth, t, tries, step):
       packet_range = space[i][nnode]
       break
   
-  #debug("depth:" + str(depth) + "/" + str(len(p['packets'])) + " " + str(p['packets'][depth]) 
+  #debug("depth:" + str(depth) + "/" + str(len(p['packets'])) + " " + str(p['packets'][depth]))
   #  + " tries:" + str(t[nnode]) + "/" + str(tries)  + " | " + " ".join(used_links))
 
   # iterate through the range
   min, max = packet_range
   res = None
-  for k in range(min, max, int((max - min)/step) ):
-    
+
+  for k in range(min, max, step):
+
     # replace tentative starting time value for that package
     for i in range(0, len(space)):
       if(space[i][nnode] != None):
@@ -120,9 +121,10 @@ def hsearch(p, space, partial, h, depth, t, tries, step):
 
     # Check consistency. If branch has a possible
     # solution, keep searching
-    if(check_consistency(partial, p['occupancy'], nnode)):
-      res = hsearch(p, space, partial, h, depth + 1, t, tries, step)
+    check = check_consistency(partial, p['occupancy'], nnode)
 
+    if check:
+      res = hsearch(p, space, partial, h, depth + 1, t, tries, step)
       if res != None:
         break
     else:
@@ -177,9 +179,6 @@ def search3(p, heuristic, tries, step):
       if(cell != None):
         solution_space[i][j] = (p['min_start'][i][j], p['deadline'][i][j] - p['occupancy'][i][j])
 
-  for i in solution_space:
-    warn(str(i))
-
   # Heuristic
   h = heuristic(solution_space, p['min_start'], p['occupancy'], p['deadline'])
 
@@ -199,12 +198,11 @@ def search3(p, heuristic, tries, step):
       return
 
     if result != "RESTART":
-      info("Solution found! Press any key to display solution.")
-      #a = input()
-      # for i in solution:
-      #   print(i)
+      info("Solution found!")
       info("Ignored nodes: " + str(hsearch.ignored))
       info("Entered nodes: " + str(hsearch.entered))
+      for r in result:
+        info(r)
       return (result, skip)
 
     for i in range(0, len(t)):

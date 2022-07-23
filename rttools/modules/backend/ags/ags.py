@@ -41,7 +41,7 @@ def agsExport(packets, links, hp, mapping, arch, appname, prunning, fail):
           deadline[l][p] = packets[p]['abs_deadline']
           occupancy[l][p] = packets[p]['net_time']
 
-  # remove unused links
+  # remove unused links from tables
   removal = []
   for i in range(0, len(occupancy)):
     isNone = True
@@ -55,16 +55,13 @@ def agsExport(packets, links, hp, mapping, arch, appname, prunning, fail):
   for i in range(0, len(min_start)):
     error(str(min_start[i]) + '\t' + str(links[i][2]['label']) )
     
+  # remove unused links from links list 
   remIdx = 0
   for i in removal:
     del min_start[i - remIdx]
     del occupancy[i - remIdx]
     del deadline[i- remIdx]
     remIdx = remIdx + 1
-
-  for i in min_start:
-    info(i)
-  
 
   problem = {
     'min_start' : min_start,
@@ -81,5 +78,11 @@ def agsExport(packets, links, hp, mapping, arch, appname, prunning, fail):
 def runAgs(problem, heuristic = HEURISTIC, step = STEP, tries = TRIES):
   
   res, skipped = search3.search3(problem, heuristic, tries, step)
+  
   #saveSvg(res, problem, skipped)
-  pass
+
+  if len(skipped) == 0:
+    return res
+  else: 
+    return None
+  
