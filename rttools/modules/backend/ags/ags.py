@@ -3,21 +3,12 @@ from modules.backend.ags import heuristics
 
 from lib.terminal import warn, error, info
 
-#from heuristics import lstf, mbuf, mcpf
-#from prelaunchtest import prelaunchtest
-#from svg import saveSvg
-
-#from problem_syntheticA import problem
-#from problem_dctVerify import problem
-#from problem_carshi2 import problem
-
 # lstf(solution_space),  packet with the least slack time first
 # mcpf(occupancy),       packet in most conflicting links first
 # mbuf(occupancy),       packets with most network overhead first
 HEURISTIC = heuristics.mbuf
 STEP = 100
 TRIES = 500
-
 
 def agsExport(packets, links, hp, mapping, arch, appname, prunning, fail):
 
@@ -51,10 +42,7 @@ def agsExport(packets, links, hp, mapping, arch, appname, prunning, fail):
         break
     if isNone:
       removal.append(i)
-  
-  for i in range(0, len(min_start)):
-    error(str(min_start[i]) + '\t' + str(links[i][2]['label']) )
-    
+      
   # remove unused links from links list 
   remIdx = 0
   for i in removal:
@@ -77,11 +65,12 @@ def agsExport(packets, links, hp, mapping, arch, appname, prunning, fail):
 
 def runAgs(problem, heuristic = HEURISTIC, step = STEP, tries = TRIES):
   
-  res, skipped = search3.search3(problem, heuristic, tries, step)
-  
+  r  = search3.search3(problem, heuristic, tries, step)
+    
   #saveSvg(res, problem, skipped)
 
-  if len(skipped) == 0:
+  if r != None:
+    res, skipped = r
     return res
   else: 
     return None

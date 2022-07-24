@@ -62,8 +62,8 @@ def unwrap(app, arch, mapping):
   flows = extractFlows(app['flows'])
 
 
-  for f in flows:
-    error(f)
+  # for f in flows:
+  #   error(f)
 
   # calculate hyperperiod
   periods = []

@@ -194,15 +194,13 @@ def search3(p, heuristic, tries, step):
       skip.add(i)
     
     if result == None:
-      print("No solution found.")
-      return
+      #print("No solution found.")
+      return None
 
     if result != "RESTART":
       info("Solution found!")
       info("Ignored nodes: " + str(hsearch.ignored))
       info("Entered nodes: " + str(hsearch.entered))
-      for r in result:
-        info(r)
       return (result, skip)
 
     for i in range(0, len(t)):

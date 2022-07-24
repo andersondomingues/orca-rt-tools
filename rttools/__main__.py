@@ -54,14 +54,21 @@ def main():
     frequency = guesser.guess()
     warn('no default frequency indicated, scaling for ' + str(frequency) + 'Hz...')
 
-  info("Tentative frequency is " + str(frequency) + "Hz")
-
-
   schedule = None
-  current_frequency = frequency
-  while(schedule == None):
+  pfreq = 0
+  nfreq = frequency * 2
+  cfreq = frequency 
+  
+  last_working_frequency = None
+  last_working_schedule = None
+
+  while(True):
     # generate instance
-    instance = instantiator.createInstance(app, noc, current_frequency)
+    instance = instantiator.createInstance(app, noc, nfreq)
+
+
+    info("Tentative frequency is " + str(cfreq) + "Hz")
+
 
     # unwrap flows into packets
     packets, hp, nlinks = flowUnwrapper.unwrap(instance, noc, mapping)
@@ -76,18 +83,29 @@ def main():
       schedule = ags.agsExport(packets, nlinks, hp, mapping, noc, appname,
         RTTOOLS_PRUNNING_FACTOR, RTTOOLS_FAIL_THRESHOULD)
 
-    print(schedule)
+    # print(schedule)
 
     # check whether schedule is feasible
     if schedule != None:
-      #feasible
-      pass
+      info("Found a schedule at " + str(cfreq) + "Hz. Scaling frequency down.")
+      last_working_frequency = cfreq
+      last_working_schedule = schedule
+      nfreq = cfreq
+      cfreq = (nfreq + pfreq) / 2
     else:
       #unfeasible
-      pass
+      warn("Could not find a schedule at " + str(cfreq) + "Hz. Scaling frequency up.")
+      pfreq = cfreq
+      cfreq = (nfreq + pfreq) / 2
+    
+    if abs(pfreq - nfreq) < cfreq * 0.0001:
+      break
 
-    return
-
+  info("Could not optmize frequency any further.")
+  info('Minimum frequency found at ' + str(last_working_frequency) + "Hz")
+  for p in last_working_schedule:
+    info(p)
+  
   return
 
 # Automatically jumps to main if called from command line.
