@@ -93,10 +93,10 @@ def hsearch(p, space, partial, h, depth, t, tries, step):
   t[nnode] += 1 #tries
 
   # print current solution node
-  used_links = []
-  for l in range(0, len(p['occupancy'])):
-    if(p['occupancy'][l][nnode] != None):
-      used_links.append(p['links'][l])
+  # used_links = []
+  # for l in range(0, len(p['occupancy'])):
+  #   if(p['occupancy'][l][nnode] != None):
+  #     used_links.append(p['links'][l])
 
   # acquire packet solution range
   packet_range = (0,0) 
@@ -111,6 +111,10 @@ def hsearch(p, space, partial, h, depth, t, tries, step):
   # iterate through the range
   min, max = packet_range
   res = None
+
+  # dvalue =  (max - min) / step
+  # warn("Depth " + str(depth) + " reported ~" + str(int(dvalue)) + 
+  #   " checkings. Visited " + str(t[nnode]) + " times.")
 
   for k in range(min, max, step):
 
@@ -140,7 +144,7 @@ def hsearch(p, space, partial, h, depth, t, tries, step):
   if(t[nnode] == tries):
     #return "RESTART"
     hsearch.skipped.append(nnode)
-    error("could not schedule " + p['packets'][nnode] + "! skipping.")
+    error("Could not schedule " + str(p['packets'][nnode]['name']) + "! Restarting.")
 
     for l in range(0, len(p['occupancy'])):
       if (p['occupancy'][l][nnode] != None):
@@ -186,8 +190,12 @@ def search3(p, heuristic, tries, step):
 
   res = "RESTART"
   skip = set()
+  hsearch.entered = 0
+  hsearch.ignored = 0
+  hsearch.skipped = []
   while res == "RESTART":
     
+    info("Fresh start, waiting for hsearch to finish")
     result = hsearch(p, solution_space, partial_solution, h, 0, t, tries, step)
 
     for i in hsearch.skipped:

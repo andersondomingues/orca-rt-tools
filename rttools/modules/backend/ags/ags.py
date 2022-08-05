@@ -6,11 +6,11 @@ from lib.terminal import warn, error, info
 # lstf(solution_space),  packet with the least slack time first
 # mcpf(occupancy),       packet in most conflicting links first
 # mbuf(occupancy),       packets with most network overhead first
-HEURISTIC = heuristics.mbuf
+HEURISTIC = heuristics.lstf
 STEP = 100
 TRIES = 500
 
-def agsExport(packets, links, hp, mapping, arch, appname, prunning, fail):
+def agsExport(packets, links, hp, mapping, arch, appname, prunning, fail, heuristic):
 
   min_start = [[None for y in range(0,len(packets))] for x in range(0, len(links))]
   occupancy = [[None for y in range(0,len(packets))] for x in range(0, len(links))]
@@ -60,18 +60,11 @@ def agsExport(packets, links, hp, mapping, arch, appname, prunning, fail):
     'hyperperiod' : hp
   }
 
-  return runAgs(problem, step=prunning, tries=fail)
+  return runAgs(problem, step=prunning, tries=fail, heuristic=heuristic)
 
 
 def runAgs(problem, heuristic = HEURISTIC, step = STEP, tries = TRIES):
-  
-  r  = search3.search3(problem, heuristic, tries, step)
+  info("This is Adaptive Guided Search. Parameters: step=" + str(step) + ", tries=" + str(tries))
+  return search3.search3(problem, heuristic, tries, step)
     
   #saveSvg(res, problem, skipped)
-
-  if r != None:
-    res, skipped = r
-    return res
-  else: 
-    return None
-  
