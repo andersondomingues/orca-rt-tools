@@ -6,18 +6,25 @@ from modules.io import configurator, appparser, nocparser, mapparser
 from modules.frequency import guesser
 from modules.instances import instantiator
 from modules.unwrapper import flowUnwrapper
-from modules.backend.ags import ags, heuristics
+from modules.backend.ags import ags, heuristics, svg
 from modules.backend.minizinc import minizinc 
 
 RTTOOLS_ENABLE_MINIZINC = False
-RTTOOLS_PRUNNING_FACTOR = 4000
+RTTOOLS_PRUNNING_FACTOR = 10
 
 RTTOOLS_FAIL_THRESHOULD = 500
-RTTOOLS_SCALING_TOLERANCE = 0.001
+RTTOOLS_SCALING_TOLERANCE = 0.01
 RTTOOLS_DEFAULT_FREQUENCY = 3000000
-RTTOOLS_HEURISTIC = heuristics.mcpf
+RTTOOLS_HEURISTIC = heuristics.mbcf
 
-# Main 
+def parseMinimumReleaseTime(sched, p, hp):
+  min = hp
+  for l in sched:
+    print(l)
+    if (l[p] != None and l[p] < min):
+      min = l[p]
+  return min
+
 def main():
   header('Launching ' + sys.argv[0] + ' package...')
   args = sys.argv[1:]
@@ -66,14 +73,12 @@ def main():
   last_working_frequency = None
   last_working_schedule = None
   last_working_instance = None
+  last_working_hp = None
 
   while(True):
     # generate instance
     instance = instantiator.createInstance(app, noc, cfreq)
-
-
     info("Tentative frequency is " + str(cfreq) + "Hz")
-
 
     # unwrap flows into packets
     packets, hp, nlinks = flowUnwrapper.unwrap(instance, noc, mapping)
@@ -85,7 +90,7 @@ def main():
     if RTTOOLS_ENABLE_MINIZINC:
       schedule = minizinc.minizincExport(packets, nlinks, hp, mapping, noc, appname)
     else: # adaptive guided search
-      schedule = ags.agsExport(packets, nlinks, hp, mapping, noc, appname,
+      problem, schedule = ags.agsExport(packets, nlinks, hp, mapping, noc, appname,
         RTTOOLS_PRUNNING_FACTOR, RTTOOLS_FAIL_THRESHOULD, RTTOOLS_HEURISTIC)
 
     # print(schedule)
@@ -95,8 +100,9 @@ def main():
       if len(skipped) == 0:
         warn("Found a schedule at " + str(cfreq) + "Hz. Scaling frequency down.")
         last_working_frequency = cfreq
-        last_working_schedule = schedule
+        last_working_schedule = sched
         last_working_instance = instance 
+        last_working_hp = hp
         nfreq = cfreq
         cfreq = (nfreq + pfreq) / 2
       else:
@@ -111,19 +117,18 @@ def main():
         warn("Could not find a schedule at " + str(cfreq) + ".")
         warn("Scaling frequency up...")
         pfreq = cfreq
-        cfreq = (nfreq + pfreq) / 2     
+        cfreq = (nfreq + pfreq) / 2
     
     if abs(pfreq - nfreq) < cfreq * RTTOOLS_SCALING_TOLERANCE:
       break
 
   info("Could not optmize frequency any further.")
   info('Minimum frequency found at ' + str(last_working_frequency) + "Hz")
-  for p in last_working_schedule:
-    info(p)
 
-  info(last_working_instance['tasks'])
-  info(last_working_instance['flows'])
-  
+  print(len(problem['links']))
+
+  # svg.printSched(pkts, last_working_hp)
+  svg.saveSvg(last_working_schedule, problem, skipped)
   return
 
 # Automatically jumps to main if called from command line.

@@ -5,8 +5,9 @@ def getColor():
   return '#{:02x}{:02x}{:02x}'.format(r(), r(), r())
 
 def saveSvg(res, problem, skipped = []):
- 
-  SCALE_X = 1/100
+
+  #SCALE_X = 1/100
+  SCALE_X = 5
   SCALE_Y = 1
   SCALE_TICKS = int(100 / SCALE_X)
   RECT_HEIGHT = 10 * SCALE_Y
@@ -32,14 +33,15 @@ def saveSvg(res, problem, skipped = []):
 
   #left scale here
   for l in range(0, len(problem['links'])):
-    f.write('<text x="' + str(LEFT_PADDING) + '" y="' + str(l * RECT_HEIGHT + RECT_HEIGHT - 1) + '" font-size="10px">' + problem['links'][l] + '</text>\n')
+    src, trg, data = problem['links'][l]
+    f.write('<text x="' + str(LEFT_PADDING) + '" y="' + str(l * RECT_HEIGHT + RECT_HEIGHT - 1) + '" font-size="10px">' + data['label'] + '</text>\n')
   f.write('<text x="10" transform="rotate(90,3,0)" y="0" font-size="10px">links</text>\n')
   
   # print packets
   for l in range(0, len(res)):
     for p in range(0, len(res[0])):
       
-      name = problem['packets'][p]
+      name = problem['packets'][p]['name']
 
       if(res[l][p] != None):
         
@@ -48,6 +50,8 @@ def saveSvg(res, problem, skipped = []):
 
         width = problem['occupancy'][l][p] * RECT_WIDTH
         height = RECT_HEIGHT
+
+        #print(x, y, width, height, name, colors[p])
 
         f.write('<rect width="' + str(width) + '" height="' + str(height) + '" x="' + str(x) + '" y="' + str(y) + '" fill="' + colors[p] + '" />\n')
         f.write('<text width="' + str(width) + '" height="' + str(height) + '" x="' + str(x) + '" y="' + str(y + 8) + '" font-size="10px">' + name + '</text>\n')

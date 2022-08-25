@@ -25,7 +25,7 @@ def resort(tt, packets):
 
 # find the sum of capacity for all links
 # most bandwidth-usage link
-def mbuf(solution_space, min_start, O, deadline):
+def mbcf(solution_space, min_start, O, deadline):
   sumsl = [0 for x in O]
   sumsp = [0 for x in O[0]]
 

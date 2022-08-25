@@ -43,13 +43,15 @@ def agsExport(packets, links, hp, mapping, arch, appname, prunning, fail, heuris
     if isNone:
       removal.append(i)
       
-  # remove unused links from links list 
+  # remove unused links from problem instance
   remIdx = 0
   for i in removal:
     del min_start[i - remIdx]
     del occupancy[i - remIdx]
     del deadline[i- remIdx]
+    del links[i - remIdx] # <<
     remIdx = remIdx + 1
+
 
   problem = {
     'min_start' : min_start,
@@ -60,7 +62,9 @@ def agsExport(packets, links, hp, mapping, arch, appname, prunning, fail, heuris
     'hyperperiod' : hp
   }
 
-  return runAgs(problem, step=prunning, tries=fail, heuristic=heuristic)
+  print(len(links))
+
+  return problem, runAgs(problem, step=prunning, tries=fail, heuristic=heuristic)
 
 
 def runAgs(problem, heuristic = HEURISTIC, step = STEP, tries = TRIES):
