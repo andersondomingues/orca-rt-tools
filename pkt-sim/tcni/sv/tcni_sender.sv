@@ -1,8 +1,10 @@
-import Testbench::memword;
-import Testbench::memoffset;
+import testbench::memword;
+import testbench::memoffset;
 
-package Tcni;
-
+typedef enum logic[1:0] {
+    CONFIG_WAIT = 0, // wait configuration from the network
+    CONFIG_PUSH = 1  // push received configuration into the queue
+} tcni_send_state;
 
 
 module tcni_sender #(parameter MEMORY_BUS_WIDTH = 32)(
@@ -43,9 +45,3 @@ module tcni_sender #(parameter MEMORY_BUS_WIDTH = 32)(
 
 endmodule: tcni_sender
 
-typedef enum logic[1:0] {
-    CONFIG_WAIT = 0, // wait configuration from the network
-    CONFIG_PUSH = 1  // push received configuration into the queue
-} tcni_send_state;
-
-endpackage: Tcni

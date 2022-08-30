@@ -1,7 +1,5 @@
-import Testbench::memword;
-import Testbench::memoffset;
-
-package Tcni;
+import testbench::memword;
+import testbench::memoffset;
 
 module tcni_receiver (
   input bit clock,
@@ -15,5 +13,3 @@ module tcni_receiver (
 );
 
 endmodule: tcni_receiver
-
-endpackage: Tcni

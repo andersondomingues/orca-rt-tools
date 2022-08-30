@@ -12,6 +12,8 @@ vlog -sv -work work sv/interface_noc.sv
 vlog -sv -work work sv/tcni_receiver.sv
 vlog -sv -work work sv/tcni_sender.sv
 
+
+
 vlog -sv -work work sv/testbench.sv
 
 vsim -voptargs=+acc=lprn -t ps work.Testbench

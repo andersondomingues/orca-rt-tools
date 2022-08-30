@@ -1,5 +1,5 @@
-import Testbench::memword;
-import Testbench::memoffset;
+import testbench::memword;
+import testbench::memoffset;
 
 interface INoc (input logic clock_in, logic reset_in);
 

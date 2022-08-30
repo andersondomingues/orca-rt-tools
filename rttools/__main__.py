@@ -29,23 +29,22 @@ def main():
   header('Launching ' + sys.argv[0] + ' package...')
   args = sys.argv[1:]
 
-  # [0] configuration file
-  # [1] application characterization
-  # [2] mapping
-  # [3] topology
-  # [4] frequency
+  # [0] application characterization
+  # [1] mapping
+  # [2] topology
+  # [3] frequency
   if(len(args) < 4 or len(args) > 5):
     error('Usage: ')
-    error('  __main__.py <config> <app> <map> <noc> [<frequency>]')
+    error('  __main__.py <app> <map> <noc> [<frequency>]')
     return 1
 
-  cfg_file = args[0]
-  app_file = args[1]
-  map_file = args[2]
-  noc_file = args[3]
+  cfg_file = "rttools.ini"
+  app_file = args[0]
+  map_file = args[1]
+  noc_file = args[2]
   frequency = None
 
-  if(len(args) == 5):
+  if(len(args) == 4):
     frequency = int(args[4])
 
   # parse configuration

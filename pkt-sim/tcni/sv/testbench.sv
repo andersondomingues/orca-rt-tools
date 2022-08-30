@@ -1,7 +1,3 @@
-import Tcni::*;
-
-package Testbench;
-
 `timescale 1 ns / 1 ps
 
 module Testbench #(parameter NOC_DIM_X = 4, NOC_DIM_Y = 4)();
@@ -27,5 +23,3 @@ module Testbench #(parameter NOC_DIM_X = 4, NOC_DIM_Y = 4)();
     tcni_if ITcni[NOC_DIM_X, NOC_DIM_Y](clock, reset);
 
 endmodule
-
-endpackage: Testbench
