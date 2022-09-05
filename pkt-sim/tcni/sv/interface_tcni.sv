@@ -1,22 +1,20 @@
-import testbench::memword;
-import testbench::memoffset;
+import defs::memword;
+import defs::memoffset;
 
-interface ITcni (input logic clock_in, logic reset_in);
+interface interface_tcni #(parameter MEMORY_BUS_WIDTH = 32, FLIT_WIDTH = 32 )
+(input clock, input reset);
   
-  // to memory
-  memword data_out;
-  memword addr_out;
-  memword data_in;
-  logic[3:0] wb_out;
-
-  // to mmio
-  memword injection_time_in;
-  memoffset data_location_in;
-  logic[2:0] status;
+  logic[MEMORY_BUS_WIDTH-3:0] addr_out;
+  logic[MEMORY_BUS_WIDTH-3:0] nbytes_out;
+  logic cmd;
+  logic[4:0] status;
 
   modport TCNI (
-    input data_in, clock_in, reset_in, injection_time_in, data_location_in,
-    output data_out, addr_out, wb_out, status
-  );
+    input clock, reset, status, 
+    output addr_out, nbytes_out, cmd);
 
-endinterface: ITcni
+  modport DUT (
+    output status, 
+    input addr_out, nbytes_out, cmd, clock, reset);
+
+endinterface: interface_tcni

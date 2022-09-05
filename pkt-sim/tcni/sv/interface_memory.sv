@@ -1,22 +1,18 @@
-import testbench::memword;
-import testbench::memoffset;
+import defs::memword;
+import defs::memoffset;
 
-interface IMemory (input logic clock_in, logic reset_in);
-
-  memword data_in;
-  memword addr_in;
-  memword data_out;
+interface interface_memory #(parameter MEMORY_BUS_WIDTH = 32)(input clock, input reset);
+  logic[MEMORY_BUS_WIDTH-1:0] data_in; // mem. interface
+  logic[MEMORY_BUS_WIDTH-1:0] addr_in;
+  logic[MEMORY_BUS_WIDTH-1:0] data_out;
   logic[3:0] wb_in;
 
   modport MEM (
-    input data_in, addr_in, wb_in, clock_in, reset_in,
-    output data_out
-  );
+    input clock, reset, data_in, addr_in, wb_in, 
+    output data_out);
 
-  modport CON (
-    input data_out, clock_in, reset_in,
-    output data_in, addr_in, wb_in
-  );
+  modport DUT (
+    output data_in, addr_in, wb_in, 
+    input data_out, clock, reset);
 
-endinterface: IMemory
-
+endinterface: interface_memory

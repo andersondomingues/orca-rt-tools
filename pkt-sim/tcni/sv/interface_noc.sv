@@ -1,21 +1,24 @@
-import testbench::memword;
-import testbench::memoffset;
+import defs::memword;
+import defs::memoffset;
 
-interface INoc (input logic clock_in, logic reset_in);
+interface interface_noc #(parameter FLIT_WIDTH = 32)(input clock, input reset);
 
-  // memword data_in,
-  // memword addr_in,
-  // memword data_out,
-  // logic[3:0] wb_in,
+  logic clock_tx;
+  logic tx;
+  logic credit_i;
+  logic[FLIT_WIDTH-1:0] data_o;
 
-  // modport MEM (
-  //   input data_in, addr_in, wb_in, 
-  //   output logic[3:0]
-  // );
+  logic clock_rx;
+  logic rx;
+  logic credit_o;
+  logic[FLIT_WIDTH-1:0] data_i;
 
-  // modport CON (
-  //   input logic[3:0],
-  //   output data_in, addr_in, wb_in
-  // );
+  modport NOC (
+    input clock, reset, clock_rx, rx, data_i, credit_i, 
+    output clock_tx, tx, credit_o, data_o);
 
-endinterface: INoc
+  modport DUT (
+    output clock_rx, rx, data_i, credit_i, 
+    input clock_tx, tx, credit_o, data_o, clock, reset);
+
+endinterface: interface_noc
