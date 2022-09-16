@@ -2,9 +2,21 @@ import defs::memword;
 import defs::memoffset;
 
 typedef enum logic {
-    SEND = 0, // wait configuration from the network
-    RECV = 1  // push received configuration into the queue
+  A_SEND = 0, // wait configuration from the network
+  A_RECV = 1  // push received configuration into the queue
 } arbiter_state;
+
+typedef enum integer {
+  R_IDLE = 0,
+  R_HEADER = 1,
+  R_SIZE = 2,  
+  R_PAYLOAD = 3
+} recv_state;
+
+typedef enum integer {
+  S_IDLE = 0,
+  S_PAYLOAD = 1
+} send_state;
 
 /**
  * This module is a double dma that can asyncronously sends and receive packets.
@@ -35,18 +47,55 @@ module ddma #(parameter MEMORY_BUS_WIDTH = 32, FLIT_WIDTH = 32)(
 
   input logic[MEMORY_BUS_WIDTH-3:0] addr_in, // tcd interface (TODO: aligned access?)
   input logic[MEMORY_BUS_WIDTH-3:0] nbytes_in,
-  input logic cmd,
-  output logic[4:0] status
+  input logic cmd_in,
+  output logic[4:0] status_out
 );
   arbiter_state arbiter;
+  recv_state recv;
+  send_state send;
 
   /** Memory will be set to read mode unless there 
     * is any data to be received */
-  assign arbiter = (arbiter == SEND && rx == 1) ? RECV : SEND;
+  assign arbiter = (arbiter == A_SEND && rx == 1) ? A_RECV : A_SEND;
 
   // tx clock is the same as global clock
   assign clock_tx = clock;
 
+  // recv state machine 
+  always @(posedge clock) 
+  begin
+    if (arbiter == A_RECV) begin
+      case (recv)
+        R_IDLE: if (rx == 1) begin
+          recv = R_HEADER;
+        end 
+        R_HEADER : if (rx == 1) begin
+          recv <= R_SIZE;
+        end
+        R_SIZE : if (rx == 1) begin
+          recv <= R_PAYLOAD;
+        end
+        R_PAYLOAD : if (rx == 1) begin
+          recv <= R_IDLE;
+        end
+      endcase 
+    end
+  end
+
+  // send state machine 
+  always @(posedge clock) 
+  begin
+    if (arbiter == A_SEND) begin
+      case (send)
+        S_IDLE: if (tx == 1) begin
+          send = S_PAYLOAD;
+        end 
+        S_PAYLOAD : if (tx == 1) begin
+          send <= S_IDLE;
+        end
+      endcase 
+    end
+  end
 
 endmodule: ddma
 

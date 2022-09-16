@@ -22,8 +22,8 @@ add wave -noupdate -height 19 -expand -group {TCNI Interface} /tb/tcni_if/clock
 add wave -noupdate -height 19 -expand -group {TCNI Interface} /tb/tcni_if/reset
 add wave -noupdate -height 19 -expand -group {TCNI Interface} /tb/tcni_if/addr_out
 add wave -noupdate -height 19 -expand -group {TCNI Interface} /tb/tcni_if/nbytes_out
-add wave -noupdate -height 19 -expand -group {TCNI Interface} /tb/tcni_if/cmd
-add wave -noupdate -height 19 -expand -group {TCNI Interface} /tb/tcni_if/status
+add wave -noupdate -height 19 -expand -group {TCNI Interface} /tb/tcni_if/cmd_out
+add wave -noupdate -height 19 -expand -group {TCNI Interface} /tb/tcni_if/status_in
 add wave -noupdate -height 19 -expand -group {CPU Interface} /tb/cpu_if/clock
 add wave -noupdate -height 19 -expand -group {CPU Interface} /tb/cpu_if/reset
 add wave -noupdate -height 19 -expand -group {CPU Interface} /tb/cpu_if/data_in
