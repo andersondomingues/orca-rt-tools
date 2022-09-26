@@ -12,7 +12,7 @@ vcom -mixedsvvh -work work -93 -explicit ./hw/router/hermes/RouterCC.vhd
 vlog -mixedsvvh -sv -work work ./hw/router/router.sv
 
 # DMA SOURCE
-vlog -mixedsvvh -sv -work work ./hw/tcni/ddma.sv
+vlog -mixedsvvh -sv -work work ./hw/ddma/ddma.sv
 
 # INTERFACES AND PE 
 vlog -mixedsvvh -sv -work work ./hw/interface_memory.sv
@@ -23,14 +23,15 @@ vlog -mixedsvvh -sv -work work ./hw/pe.sv
 
 # PE INTERFACE AND TB
 vlog -mixedsvvh -sv -work work ./hw/interface_pe.sv
-vlog -mixedsvvh -sv -work work ./hw/tb.sv
+vlog -mixedsvvh -sv -work work -suppress 2583 ./hw/tb.sv
 
-vsim -voptargs=+acc=lprn -t ps work.tb
+#vsim -voptargs=+acc=lprn -t ps -debugDB work.tb
+vsim -t ps -debugDB work.tb
 
 #set StdArithNoWarnings 1
 #set StdVitalGlitchNoWarnings 1
 
-#do wave.do
+do wave.do
 run 100 ns
 
 

@@ -1,4 +1,4 @@
-module pe #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)(
+module pe #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS)(
   interface_pe.PE pe_if
 );
 
@@ -16,7 +16,12 @@ module pe #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)(
     .tcd_if(tcd_if.DUT)
   );
 
-  router #(FLIT_WIDTH, 0) router_mod (router_if.ROUTER);
+  router #(FLIT_WIDTH, ADDRESS) router_mod (router_if.ROUTER);
+
+  // assign pe_if.clock_tx[3:0] = router_if.clock_tx[3:0];
+  // assign pe_if.tx[3:0] = router_if.tx[3:0];
+  // assign pe_if.credit_i[3:0] = router_if.credit_i[3:0];
+  // assign pe_if.data_o[3:0] = router_if.data_o[3:0];
 
 endmodule: pe
 
