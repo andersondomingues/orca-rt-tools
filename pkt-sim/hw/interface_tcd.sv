@@ -1,7 +1,5 @@
-import defs::memword;
-import defs::memoffset;
 
-interface interface_tcni #(parameter MEMORY_BUS_WIDTH = 32, FLIT_WIDTH = 32 )
+interface interface_tcd #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)
 (input clock, input reset);
   
   logic[MEMORY_BUS_WIDTH-3:0] addr_out;
@@ -9,7 +7,7 @@ interface interface_tcni #(parameter MEMORY_BUS_WIDTH = 32, FLIT_WIDTH = 32 )
   logic cmd_out;
   logic[4:0] status_in;
 
-  modport TCNI (
+  modport TCD (
     input clock, reset, status_in, 
     output addr_out, nbytes_out, cmd_out);
 
@@ -17,4 +15,4 @@ interface interface_tcni #(parameter MEMORY_BUS_WIDTH = 32, FLIT_WIDTH = 32 )
     output status_in, 
     input addr_out, nbytes_out, cmd_out, clock, reset);
 
-endinterface: interface_tcni
+endinterface: interface_tcd

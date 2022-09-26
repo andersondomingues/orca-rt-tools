@@ -1,7 +1,5 @@
-import defs::memword;
-import defs::memoffset;
 
-interface interface_cpu #(parameter MEMORY_BUS_WIDTH = 32)
+interface interface_cpu #(parameter MEMORY_BUS_WIDTH)
 (input clock, input reset);
   
   logic[MEMORY_BUS_WIDTH-1:0] data_in;

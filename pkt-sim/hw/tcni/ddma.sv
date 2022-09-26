@@ -1,6 +1,3 @@
-import defs::memword;
-import defs::memoffset;
-
 typedef enum logic {
   A_SEND = 0, // wait configuration from the network
   A_RECV = 1  // push received configuration into the queue
@@ -24,35 +21,21 @@ typedef enum integer {
  * processes. Access to the port is given to one of the processess in a round-robin
  * fashion priority schema. The cpu must configure the DMA to send packets. The 
  * interruption wire raises when a packet is tranferred to the memory. */
-module ddma #(parameter MEMORY_BUS_WIDTH = 32, FLIT_WIDTH = 32)(
+module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)(
   input logic clock,
   input logic reset,
 
-  output logic irq, //cpu interface 
-
-  output logic[MEMORY_BUS_WIDTH-1:0] data_out, // mem. interface
-  output logic[MEMORY_BUS_WIDTH-1:0] addr_out,
-  input  logic[MEMORY_BUS_WIDTH-1:0] data_in,
-  output logic[3:0] wb_out,
-
-  output logic clock_tx,   // output to router (router in)
-  output logic tx,
-  input  logic credit_i,
-  output logic[FLIT_WIDTH-1:0] data_o,
-
-  input  logic clock_rx, // input from router (router out)
-  input  logic rx,
-  output logic credit_o,
-  input  logic[FLIT_WIDTH-1:0] data_i,
-
-  input logic[MEMORY_BUS_WIDTH-3:0] addr_in, // tcd interface (TODO: aligned access?)
-  input logic[MEMORY_BUS_WIDTH-3:0] nbytes_in,
-  input logic cmd_in,
-  output logic[4:0] status_out
+  interface_cpu.DUT cpu_if,
+  interface_memory.DUT mem_if,
+  interface_router.DUT router_if,
+  interface_tcd.DUT tcd_if
 );
+
   arbiter_state arbiter;
   recv_state recv;
   send_state send;
+  logic rx;
+  logic tx;
 
   /** Memory will be set to read mode unless there 
     * is any data to be received */
