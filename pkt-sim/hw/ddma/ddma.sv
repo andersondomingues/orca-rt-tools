@@ -25,24 +25,31 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)(
   input logic clock,
   input logic reset,
 
-  interface_cpu.DUT cpu_if,
+  interface_router_port.DDMA router_if,
   interface_memory.DUT mem_if,
-  interface_router.DUT router_if,
-  interface_tcd.DUT tcd_if
+  interface_ddma.DDMA ddma_if
 );
-
   arbiter_state arbiter;
   recv_state recv;
   send_state send;
   logic rx;
   logic tx;
 
+  always_comb begin
+    mem_if.data_in = router_if.data_o;
+    mem_if.enable_in = 0;
+    mem_if.addr_in = 0'b000;
+    
+    router_if.data_i = mem_if.data_out;
+    router_if.credit_i = 0;
+    router_if.clock_rx = clock;
+    router_if.rx = 0;
+  end 
+
   /** Memory will be set to read mode unless there 
     * is any data to be received */
   assign arbiter = (arbiter == A_SEND && rx == 1) ? A_RECV : A_SEND;
 
-  // tx clock is the same as global clock
-  assign clock_tx = clock;
 
   // recv state machine 
   always @(posedge clock) 

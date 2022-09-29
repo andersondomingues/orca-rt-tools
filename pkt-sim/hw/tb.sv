@@ -1,8 +1,14 @@
 `timescale 1 ns / 1 ps
 
+module tb #(parameter 
+  NOC_DIM_X = 4,       
+  NOC_DIM_Y = 4, 
+  FLIT_WIDTH = 32,        // 32-bit flit width
+  MEMORY_BUS_WIDTH = 32,  // memory data bus width
+  MEMORY_SIZE=1024        // total memory size = 32 bits * 1024
+)();
 
-module tb #(parameter NOC_DIM_X = 4, NOC_DIM_Y = 4, FLIT_WIDTH = 32, MEMORY_BUS_WIDTH = 32)();
-
+  // router ports enumeration cannot be imported from Hermes definitions
   typedef enum {EAST = 0, WEST = 1, NORTH = 2, SOUTH = 3, LOCAL = 4} e_port;
 
   bit clock = 0;
@@ -14,19 +20,21 @@ module tb #(parameter NOC_DIM_X = 4, NOC_DIM_Y = 4, FLIT_WIDTH = 32, MEMORY_BUS_
   // reset goes down after 2nd cycle
   always #2 reset = 0;
 
-  // generate one pe per noc node 
+  // generate NOC_DIM_X * NOC_DIM_Y pe nodes
   genvar i, j;
   generate
     for(i = 0; i < NOC_DIM_X; i++) begin : pe_x
       for(j = 0; j < NOC_DIM_Y; j++) begin : pe_y
 
+        // pe interface comprise all exposed wires but clock and reset
         interface_pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH) pe_if(clock, reset);
 
-        // actual pe module
-        pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH, 0) pe_mod(
+        // connect an actual pe module with its interface
+        pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH, 0, MEMORY_SIZE) pe_mod(
+          .clock(clock), .reset(reset),
           .pe_if(pe_if.PE)
         );
-        
+
       end
     end
   endgenerate

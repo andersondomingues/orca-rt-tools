@@ -16,7 +16,7 @@ interface interface_pe #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH )
     input clock, reset, clock_rx, rx, credit_i, data_i,
     output clock_tx, tx, credit_o, data_o);
 
-  modport DUT (
+  modport MESH (
     input clock, reset, clock_tx, tx, credit_o, data_o,
     output clock_rx, rx, credit_i, data_i);
 

@@ -1,6 +1,6 @@
 
-interface interface_router #(parameter FLIT_WIDTH)(
-  input clock, input reset);
+interface interface_router #(parameter FLIT_WIDTH)
+(input clock, input reset);
 
   logic[4:0] clock_tx;
   logic[4:0] tx;
@@ -11,7 +11,7 @@ interface interface_router #(parameter FLIT_WIDTH)(
   logic[4:0] rx;
   logic[4:0] credit_o;
   logic[4:0][FLIT_WIDTH -1 :0] data_i;
-
+  
   modport ROUTER (
     input clock, reset, clock_rx, rx, data_i, credit_i, 
     output clock_tx, tx, credit_o, data_o);

@@ -1,7 +1,7 @@
 
 interface interface_cpu #(parameter MEMORY_BUS_WIDTH)
 (input clock, input reset);
-  
+
   logic[MEMORY_BUS_WIDTH-1:0] data_in;
   logic[MEMORY_BUS_WIDTH-1:0] data_out;
   logic irq;
