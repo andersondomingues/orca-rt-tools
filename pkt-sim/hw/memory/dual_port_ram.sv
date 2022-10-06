@@ -5,7 +5,15 @@ module dual_port_ram #(parameter MEMORY_BUS_WIDTH, SIZE)(
   interface_memory.MEM mem_if_b
 );
 
-logic mem [SIZE * MEMORY_BUS_WIDTH-3:0];
+logic[SIZE * (MEMORY_BUS_WIDTH-2)] mem;
+
+ 
+initial begin
+  for (integer i = 0; i < SIZE * (MEMORY_BUS_WIDTH-2); i = i + 1) begin
+    mem[i] <= 4'b00;
+  end
+end
+ 
 
 always @ (posedge clock) begin
   if (mem_if_a.enable_in) begin
@@ -23,8 +31,10 @@ always @ (posedge clock) begin
   end
 end
 
-assign mem_if_a.data_out = mem[mem_if_a.addr_in];
-assign mem_if_b.data_out = mem[mem_if_b.addr_in];
+always_comb begin
+  mem_if_a.data_out = mem[mem_if_a.addr_in];
+  mem_if_b.data_out = mem[mem_if_b.addr_in];
+end
 
 
 endmodule

@@ -19,6 +19,7 @@ vlog -mixedsvvh -sv -work work ./hw/ddma/interface_ddma.sv
 
 # MMIO SOURCE
 vlog -mixedsvvh -sv -work work ./hw/mmio/mmio.sv
+vlog -mixedsvvh -sv -work work ./hw/mmio/interface_mmio.sv
 
 # TCD SOURCE
 vlog -mixedsvvh -sv -work work ./hw/tcd/tcd.sv
@@ -29,20 +30,23 @@ vlog -mixedsvvh -sv -work work ./hw/memory/dual_port_ram.sv
 vlog -mixedsvvh -sv -work work ./hw/memory/interface_memory.sv
 
 # CPU SOURCE
-vlog -mixedsvvh -sv -work work ./hw/cpu/interface_cpu.sv
+vlog -mixedsvvh -sv -work work ./hw/cpu/fake_cpu_injector.sv
 
 # PE AND TESTBENCH
 vlog -mixedsvvh -sv -work work ./hw/pe.sv
 vlog -mixedsvvh -sv -work work ./hw/interface_pe.sv
 vlog -mixedsvvh -sv -work work -suppress 2583 ./hw/tb.sv
 
-#vsim -voptargs=+acc=lprn -t ps -debugDB work.tb
-vsim -t ps -debugDB work.tb
+vsim -voptargs=+acc=lprn -t ps -debugDB work.tb
+#vsim -t ps -debugDB work.tb
 
-#set StdArithNoWarnings 1
-#set StdVitalGlitchNoWarnings 1
+# Workarount 
+# set StdArithNoWarnings 1
+# set StdVitalGlitchNoWarnings 1
 
 do wave.do
+#view -new schematic
+
 run 100 ns
 
 

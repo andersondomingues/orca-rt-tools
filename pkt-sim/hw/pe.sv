@@ -1,4 +1,4 @@
-module pe #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS, MEMORY_SIZE)(
+module pe #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS, MEMORY_SIZE, MEMORY_BASE)(
   input logic clock,
   input logic reset,
   interface_pe.PE pe_if
@@ -8,10 +8,13 @@ module pe #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS, MEMORY_SIZE)(
   interface_memory #(MEMORY_BUS_WIDTH) mem_if_dma(clock, reset); // mem and ddma
   interface_memory #(MEMORY_BUS_WIDTH) mem_if_mmio(clock, reset); // mem and mmio
   interface_ddma   #(MEMORY_BUS_WIDTH, FLIT_WIDTH) ddma_if(clock, reset); //tcd and ddma
-  interface_tcd    #(MEMORY_BUS_WIDTH, FLIT_WIDTH) tcd_if(clock, reset); //tcd to mmio
+  interface_tcd    #(MEMORY_BUS_WIDTH) tcd_if(clock, reset); //tcd to mmio
+  interface_mmio   #(MEMORY_BUS_WIDTH) mmio_if(clock, reset); //cpu to mmio
+
+  logic cpu_irq;
 
   // create a new router
-  router #(FLIT_WIDTH, ADDRESS) router_mod (
+  router #(ADDRESS) router_mod (
     .clock(clock), .reset(reset),
     .router_if(router_if.ROUTER)
   );
@@ -34,7 +37,8 @@ module pe #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS, MEMORY_SIZE)(
     .clock(clock), .reset(reset), 
     .router_if(router_port_if.DDMA),
     .mem_if(mem_if_dma.DUT),
-    .ddma_if(ddma_if.DDMA)
+    .ddma_if(ddma_if.DDMA),
+    .irq(cpu_irq)
   );
 
   // connect router local port to the ddma
@@ -53,19 +57,29 @@ module pe #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS, MEMORY_SIZE)(
   // create new scratchpad 
   dual_port_ram #(MEMORY_BUS_WIDTH, MEMORY_SIZE) memory_mod(
     .clock(clock), .reset(reset),
-    .mem_if_a(mem_if_dma),
-    .mem_if_b(mem_if_mmio)
+    .mem_if_a(mem_if_dma.MEM),
+    .mem_if_b(mem_if_mmio.MEM)
   );
 
-  // create new mmio module
-  mmio mmio_mod (
-    .clock(clock),
-    .reset(reset),
-    .mem_if(mem_if_mmio.DUT),
-    .tcd_if(tcd_if.MMIO)
+  tcd #(MEMORY_BUS_WIDTH) tcd_mod (
+    .clock(clock), .reset(reset),
+    .tcd_if(tcd_if.TCD),
+    .ddma_if(ddma_if.TCD)
   );
-  
-  
+
+  mmio #(MEMORY_BUS_WIDTH, MEMORY_BASE, MEMORY_SIZE) mmio_mod (
+    .clock(clock), .reset(reset),
+    .mmio_if(mmio_if.MMIO),
+    .tcd_if(tcd_if.MMIO),
+    .mem_if(mem_if_mmio.DUT)
+  );
+
+  fake_cpu_injector fake_cpu (
+    .clock(clock), .reset(reset),
+    .mmio_if(mmio_if.CPU),
+    .irq(cpu_irq)
+  );
+
 
 endmodule: pe
 

@@ -27,21 +27,31 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)(
 
   interface_router_port.DDMA router_if,
   interface_memory.DUT mem_if,
-  interface_ddma.DDMA ddma_if
+  interface_ddma.DDMA ddma_if,
+  
+  output logic irq
 );
   arbiter_state arbiter;
   recv_state recv;
   send_state send;
+
   logic rx;
   logic tx;
 
+  integer memory_pointer_recv = 123456;
+
+  always_comb begin
+    irq = 0;
+  end
+
   always_comb begin
     mem_if.data_in = router_if.data_o;
-    mem_if.enable_in = 0;
-    mem_if.addr_in = 0'b000;
+    mem_if.enable_in = 1;
+    mem_if.addr_in = memory_pointer_recv;
+    mem_if.wb_in = 0;
     
     router_if.data_i = mem_if.data_out;
-    router_if.credit_i = 0;
+    router_if.credit_i = 1;
     router_if.clock_rx = clock;
     router_if.rx = 0;
   end 

@@ -1,6 +1,5 @@
 run: 
-	vsim -do sim.do -novopt
-
+	vsim -do sim.do 
 clean: 
 	rm -rf ./work
 	rm -rf ./modelsim.ini

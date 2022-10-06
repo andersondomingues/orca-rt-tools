@@ -13,8 +13,8 @@ vcom -work work -93 -explicit Testbench.vhd
 
 vsim -voptargs=+acc=lprn -t ps work.Testbench
 
-set StdArithNoWarnings 1
-set StdVitalGlitchNoWarnings 1
+#set StdArithNoWarnings 1
+#set StdVitalGlitchNoWarnings 1
 
 do wave.do
 run 1000 ns

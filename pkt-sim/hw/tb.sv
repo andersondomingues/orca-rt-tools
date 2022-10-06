@@ -5,7 +5,8 @@ module tb #(parameter
   NOC_DIM_Y = 4, 
   FLIT_WIDTH = 32,        // 32-bit flit width
   MEMORY_BUS_WIDTH = 32,  // memory data bus width
-  MEMORY_SIZE=1024        // total memory size = 32 bits * 1024
+  MEMORY_SIZE = 1024,     // total memory size = 32 bits * 1024
+  MEMORY_BASE = 0         // starting address
 )();
 
   // router ports enumeration cannot be imported from Hermes definitions
@@ -23,14 +24,15 @@ module tb #(parameter
   // generate NOC_DIM_X * NOC_DIM_Y pe nodes
   genvar i, j;
   generate
-    for(i = 0; i < NOC_DIM_X; i++) begin : pe_x
-      for(j = 0; j < NOC_DIM_Y; j++) begin : pe_y
+    for (i = 0; i < NOC_DIM_X; i = i + 1) begin : pe_x
+      for (j = 0; j < NOC_DIM_Y; j = j + 1) begin : pe_y
 
         // pe interface comprise all exposed wires but clock and reset
         interface_pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH) pe_if(clock, reset);
 
         // connect an actual pe module with its interface
-        pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH, 0, MEMORY_SIZE) pe_mod(
+        // @TODO: generate pe address
+        pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH, 0, MEMORY_SIZE, MEMORY_BASE) pe_mod(
           .clock(clock), .reset(reset),
           .pe_if(pe_if.PE)
         );
