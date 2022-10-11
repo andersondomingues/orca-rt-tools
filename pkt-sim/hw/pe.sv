@@ -61,7 +61,7 @@ module pe #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS, MEMORY_SIZE, MEMORY
     .mem_if_b(mem_if_mmio.MEM)
   );
 
-  tcd #(MEMORY_BUS_WIDTH) tcd_mod (
+  tcd #(MEMORY_BUS_WIDTH, 123456, 100000) tcd_mod (
     .clock(clock), .reset(reset),
     .tcd_if(tcd_if.TCD),
     .ddma_if(ddma_if.TCD)

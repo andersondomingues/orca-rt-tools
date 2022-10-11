@@ -5,12 +5,12 @@ module dual_port_ram #(parameter MEMORY_BUS_WIDTH, SIZE)(
   interface_memory.MEM mem_if_b
 );
 
-logic[SIZE * (MEMORY_BUS_WIDTH-2)] mem;
+logic[SIZE][MEMORY_BUS_WIDTH-1:0] mem;
 
- 
 initial begin
   for (integer i = 0; i < SIZE * (MEMORY_BUS_WIDTH-2); i = i + 1) begin
-    mem[i] <= 4'b00;
+    mem[i] = 32'h0000;
+    // $display("0%h", mem[i]);
   end
 end
  
