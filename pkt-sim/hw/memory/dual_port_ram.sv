@@ -8,12 +8,11 @@ module dual_port_ram #(parameter MEMORY_BUS_WIDTH, SIZE)(
 logic[SIZE][MEMORY_BUS_WIDTH-1:0] mem;
 
 initial begin
-  for (integer i = 0; i < SIZE * (MEMORY_BUS_WIDTH-2); i = i + 1) begin
-    mem[i] = 32'h0000;
-    // $display("0%h", mem[i]);
+  for (integer i = 0; i < SIZE; i = i + 1) begin
+    mem[i] = {MEMORY_BUS_WIDTH{1'b0}};
+    //0; // 32'h00000000;
   end
 end
- 
 
 always @ (posedge clock) begin
   if (mem_if_a.enable_in) begin

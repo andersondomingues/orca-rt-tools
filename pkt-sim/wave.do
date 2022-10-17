@@ -34,6 +34,9 @@ add wave -noupdate -expand -group mem_if_ddma {/tb/pe_x[0]/pe_y[0]/pe_mod/mem_if
 add wave -noupdate -expand -group mem_if_ddma {/tb/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/data_out}
 add wave -noupdate -expand -group mem_if_ddma {/tb/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/enable_in}
 add wave -noupdate -expand -group mem_if_ddma {/tb/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/wb_in}
+add wave -noupdate -color Cyan {/tb/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/i_token}
+add wave -noupdate {/tb/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/i_state}
+add wave -noupdate -radix decimal {/tb/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/i_flip_counter}
 add wave -noupdate -expand -group ddma_if -radix decimal {/tb/pe_x[0]/pe_y[0]/pe_mod/ddma_if/addr_in}
 add wave -noupdate -expand -group ddma_if -radix decimal {/tb/pe_x[0]/pe_y[0]/pe_mod/ddma_if/nbytes_in}
 add wave -noupdate -expand -group ddma_if {/tb/pe_x[0]/pe_y[0]/pe_mod/ddma_if/cmd_in}

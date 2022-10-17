@@ -33,7 +33,7 @@ module pe #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS, MEMORY_SIZE, MEMORY
   end
 
   // create new ddma module
-  ddma #(MEMORY_BUS_WIDTH, FLIT_WIDTH) ddma_mod(
+  ddma #(MEMORY_BUS_WIDTH, FLIT_WIDTH, 5) ddma_mod(
     .clock(clock), .reset(reset), 
     .router_if(router_port_if.DDMA),
     .mem_if(mem_if_dma.DUT),

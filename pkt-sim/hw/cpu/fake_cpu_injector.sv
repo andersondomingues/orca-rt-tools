@@ -14,14 +14,19 @@ module fake_cpu_injector (
     #0 mmio_if.wb_in = 1;
 
     // cfg nbytes_in
-    #1 mmio_if.addr_in = 12345;
+    #2 mmio_if.addr_in = 12345;
     #0 mmio_if.data_in = 12;
     #0 mmio_if.wb_in = 1;
 
     // cfg timer
-    #1 mmio_if.addr_in = 12345;
+    #2 mmio_if.addr_in = 12345;
     #0 mmio_if.data_in = 30;
     #0 mmio_if.wb_in = 1;
+
+    // 
+    #2 mmio_if.addr_in = 0;
+    #0 mmio_if.data_in = 0;
+    #0 mmio_if.wb_in = 0;
   end
 
 endmodule: fake_cpu_injector

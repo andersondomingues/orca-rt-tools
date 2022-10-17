@@ -1,3 +1,5 @@
+`timescale 1 ns/1 ns
+
 typedef enum logic {
   A_SEND = 0, // wait configuration from the network
   A_RECV = 1  // push received configuration into the queue
@@ -21,7 +23,7 @@ typedef enum integer {
  * processes. Access to the port is given to one of the processess in a round-robin
  * fashion priority schema. The cpu must configure the DMA to send packets. The 
  * interruption wire raises when a packet is tranferred to the memory. */
-module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)(
+module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
   input logic clock,
   input logic reset,
 
@@ -31,6 +33,8 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)(
   
   output logic irq
 );
+
+//===============================
   arbiter_state arbiter;
   recv_state recv;
   send_state send;
@@ -39,7 +43,86 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)(
   logic tx;
 
   integer memory_pointer_recv = 123456;
+//===============================
 
+  typedef enum integer {
+    DDMA_SEND = 0,
+    DDMA_RECV = 1,
+    DDMA_IDLE = 2
+  } ddma_state_t;
+
+  ddma_state_t i_state = DDMA_IDLE;
+
+  bit has_data_to_send = 0;
+  bit has_data_to_recv = 0;
+
+  initial begin
+
+    #10 has_data_to_recv = 1;
+    #12 has_data_to_send = 1;
+    #17 has_data_to_recv = 0;
+
+    #26 has_data_to_recv = 1;
+  end
+
+
+  // token_t represents the process which has priority in 
+  // the interleaving system. 
+  typedef enum integer {
+    TOKEN_SEND = 0,
+    TOKEN_RECV = 1
+  } token_t;
+
+  // token status (which process has priority)
+  token_t i_token = TOKEN_SEND;
+
+  // remaining cycles until interleaving priority switching  
+  integer i_flip_counter = 1;
+
+  // process for handling interleaving arbitration. 
+  // rules:
+  // - interleaving changes between sending and receiving actions
+  // - an action changes if it timeouts or finish before the timeout
+  // - if an action chaging would cause no effect, it won't change instead
+  always @(posedge clock) begin
+    if(~reset) begin
+      if(i_flip_counter == 1) begin
+        if (i_token == TOKEN_SEND && has_data_to_recv) begin
+          i_token = TOKEN_RECV;
+          i_flip_counter = INTERLEAVING_GRAIN; // reset counter
+        end else if (i_token == TOKEN_RECV && has_data_to_send) begin
+          i_token = TOKEN_SEND;
+          i_flip_counter = INTERLEAVING_GRAIN; // reset counter
+        end   
+      end else begin
+        i_flip_counter = i_flip_counter - 1; // decrease one time unit
+        if (i_token == TOKEN_SEND && ~has_data_to_send && has_data_to_recv) begin
+          i_token = TOKEN_RECV;
+          i_flip_counter = INTERLEAVING_GRAIN; // reset counter
+        end else if (i_token == TOKEN_RECV && ~has_data_to_recv && has_data_to_send) begin
+          i_token = TOKEN_SEND;
+          i_flip_counter = INTERLEAVING_GRAIN; // reset counter
+        end 
+      end
+    end 
+  end
+
+  always @(posedge clock) begin
+    if(~reset && i_token == TOKEN_SEND) begin
+
+
+    end 
+  end 
+
+  always @(posedge clock) begin
+    if(~reset && i_token == TOKEN_RECV) begin
+
+
+    end 
+  end 
+
+
+///=====================
   always_comb begin
     irq = 0;
   end
@@ -59,7 +142,6 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)(
   /** Memory will be set to read mode unless there 
     * is any data to be received */
   assign arbiter = (arbiter == A_SEND && rx == 1) ? A_RECV : A_SEND;
-
 
   // recv state machine 
   always @(posedge clock) 

@@ -40,12 +40,16 @@ vlog -mixedsvvh -sv -work work -suppress 2583 ./hw/tb.sv
 vsim -voptargs=+acc=lprn -t ps -debugDB work.tb
 #vsim -t ps -debugDB work.tb
 
-# Workarount 
-# set StdArithNoWarnings 1
-# set StdVitalGlitchNoWarnings 1
+quietly set StdArithNoWarnings 1
+quietly set StdVitalGlitchNoWarnings 1
 
 do wave.do
 #view -new schematic
+
+run 0 ns
+
+quietly set StdArithNoWarnings 0
+quietly set StdVitalGlitchNoWarnings 0
 
 run 100 ns
 
