@@ -1,22 +1,5 @@
 `timescale 1 ns/1 ns
 
-typedef enum logic {
-  A_SEND = 0, // wait configuration from the network
-  A_RECV = 1  // push received configuration into the queue
-} arbiter_state;
-
-typedef enum integer {
-  R_IDLE = 0,
-  R_HEADER = 1,
-  R_SIZE = 2,  
-  R_PAYLOAD = 3
-} recv_state;
-
-typedef enum integer {
-  S_IDLE = 0,
-  S_PAYLOAD = 1
-} send_state;
-
 /**
  * This module is a double dma that can asyncronously sends and receive packets.
  * There is only one memory bus, which is shared between sending and receiving 
@@ -34,27 +17,24 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
   output logic irq
 );
 
-//===============================
-  arbiter_state arbiter;
-  recv_state recv;
-  send_state send;
-
-  logic rx;
-  logic tx;
-
-  integer memory_pointer_recv = 123456;
-//===============================
-
+  // token_t represents the process which has priority in 
+  // the interleaving system. 
   typedef enum integer {
-    DDMA_SEND = 0,
-    DDMA_RECV = 1,
-    DDMA_IDLE = 2
-  } ddma_state_t;
+    TOKEN_SEND = 0,
+    TOKEN_RECV = 1
+  } token_t;
 
-  ddma_state_t i_state = DDMA_IDLE;
+  // <<<<<<<<<
 
   bit has_data_to_send = 0;
   bit has_data_to_recv = 0;
+
+  // ========== TO BE REMOVED ===================================
+
+  integer RECV_BUFFER_SIZE = 1024;
+
+  integer memory_pointer_recv = 123456;
+  integer memory_pointer_send = 123456;  
 
   initial begin
 
@@ -64,14 +44,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
 
     #26 has_data_to_recv = 1;
   end
-
-
-  // token_t represents the process which has priority in 
-  // the interleaving system. 
-  typedef enum integer {
-    TOKEN_SEND = 0,
-    TOKEN_RECV = 1
-  } token_t;
+  //==============================================================
 
   // token status (which process has priority)
   token_t i_token = TOKEN_SEND;
@@ -93,7 +66,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
         end else if (i_token == TOKEN_RECV && has_data_to_send) begin
           i_token = TOKEN_SEND;
           i_flip_counter = INTERLEAVING_GRAIN; // reset counter
-        end   
+        end
       end else begin
         i_flip_counter = i_flip_counter - 1; // decrease one time unit
         if (i_token == TOKEN_SEND && ~has_data_to_send && has_data_to_recv) begin
@@ -107,17 +80,113 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
     end 
   end
 
+  // send process state machine states 
+  typedef enum integer {
+    WAIT_CONFIG = 0,
+    SENDING = 1,
+    HANDSHAKE = 2
+  } send_state_t;
+
+  // send state variables 
+  send_state_t sstate = WAIT_CONFIG;
+  integer temp_addr_in;
+  integer temp_nbytes_in;
+
+  // send state process 
   always @(posedge clock) begin
-    if(~reset && i_token == TOKEN_SEND) begin
-
-
+    if(~reset) begin
+      case (sstate)
+        WAIT_CONFIG: begin
+          if(ddma_if.cmd_in == 1) begin
+            temp_addr_in <= ddma_if.addr_in;
+            temp_nbytes_in <= ddma_if.nbytes_in;
+            sstate <= SENDING;
+            ddma_if.status_out <= 1;
+          end 
+          has_data_to_send <= 0;
+          router_if.rx <= 0;
+        end 
+        SENDING: begin 
+          has_data_to_send <= 1;
+          if(i_token == TOKEN_SEND) begin
+            router_if.rx <= 1;
+            temp_addr_in += 4;
+            temp_nbytes_in -= 4;
+            if(temp_nbytes_in == 0) begin
+              sstate <= HANDSHAKE;
+              ddma_if.status_out <= 0;
+            end else begin 
+              ddma_if.status_out <=  1;
+            end 
+          end else begin 
+            ddma_if.status_out <=  1;
+          end 
+        end 
+        HANDSHAKE: begin 
+          has_data_to_send <= 0;
+          router_if.rx <= 0;
+          if(ddma_if.cmd_in == 0) begin
+            sstate <= WAIT_CONFIG;
+          end
+        end 
+      endcase
     end 
   end 
 
+  // send process state machine states 
+  typedef enum integer {
+    WAIT_HEADER = 1,
+    WAIT_SIZE = 2,
+    DATA_COPY = 3,
+    R_HANDSHAKE = 4
+  } recv_state_t;
+
+  // send state variables 
+  recv_state_t rstate = WAIT_HEADER;
+  
+  integer packet_size;
+  integer flits_to_recv;
+
+  // recv process 
   always @(posedge clock) begin
-    if(~reset && i_token == TOKEN_RECV) begin
+    if(~reset) begin
+      case (rstate)
+        /* Wait until the header flit arrive at the local port. 
+         * A rose router_if.tx means that there are flits to be 
+         * received. Besides, interleaving token must be respected. */
+        WAIT_HEADER: begin
+          if(i_token == TOKEN_RECV && router_if.tx == 1) begin
+            rstate <= WAIT_SIZE;
+            router_if.credit_i <= 1; // keep credit down 
+          end else begin 
+            router_if.credit_i <= 0; // keep credit down 
+          end 
+        end
+        WAIT_SIZE: begin
+          if(i_token == TOKEN_RECV && router_if.tx == 1) begin
+            router_if.credit_i <= 1;
+            flits_to_recv <= router_if.data_i;
+            packet_size <= router_if.data_i;
+          end else begin 
+            router_if.credit_i <= 0;
+          end 
+        end 
+        DATA_COPY: begin
+          if(i_token == TOKEN_RECV && router_if.tx == 1) begin
+            router_if.credit_i <= 1;
+            flits_to_recv = flits_to_recv -1;
+            if(flits_to_recv == 0) begin
+              rstate <= WAIT_HEADER;
+              memory_pointer_recv = memory_pointer_recv % RECV_BUFFER_SIZE;
+            end 
+          end else begin
+            router_if.credit_i <= 0;
+          end
+        end 
+        R_HANDSHAKE: begin
 
-
+        end
+      endcase
     end 
   end 
 
@@ -128,56 +197,26 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
   end
 
   always_comb begin
+    // data is feed with incoming flits, always
     mem_if.data_in = router_if.data_o;
     mem_if.enable_in = 1;
-    mem_if.addr_in = memory_pointer_recv;
-    mem_if.wb_in = 0;
+
+    // address can come from either send or receiving processess. 
+    // memory will be set to write mode only when receiving flits,
+    // otherwise it'll reside in read mode 
+    mem_if.addr_in = (i_token == TOKEN_RECV && has_data_to_recv) ? memory_pointer_recv : memory_pointer_send;
+    mem_if.wb_in = (i_token == TOKEN_RECV && has_data_to_recv) ? 1 : 0;
     
+    // enable credit out only when receiving is enable 
+    // router_if.credit_i = (TOKEN_RECV && has_data_to_recv) ? 1 : 0;
+
+    // router input data always comes from the sending process, which 
+    // reads data from the memory
     router_if.data_i = mem_if.data_out;
-    router_if.credit_i = 1;
+    // router_if.rx = (TOKEN_SEND && has_data_to_send) ? 1 : 0;
+
     router_if.clock_rx = clock;
-    router_if.rx = 0;
   end 
-
-  /** Memory will be set to read mode unless there 
-    * is any data to be received */
-  assign arbiter = (arbiter == A_SEND && rx == 1) ? A_RECV : A_SEND;
-
-  // recv state machine 
-  always @(posedge clock) 
-  begin
-    if (arbiter == A_RECV) begin
-      case (recv)
-        R_IDLE: if (rx == 1) begin
-          recv = R_HEADER;
-        end 
-        R_HEADER : if (rx == 1) begin
-          recv <= R_SIZE;
-        end
-        R_SIZE : if (rx == 1) begin
-          recv <= R_PAYLOAD;
-        end
-        R_PAYLOAD : if (rx == 1) begin
-          recv <= R_IDLE;
-        end
-      endcase 
-    end
-  end
-
-  // send state machine 
-  always @(posedge clock) 
-  begin
-    if (arbiter == A_SEND) begin
-      case (send)
-        S_IDLE: if (tx == 1) begin
-          send = S_PAYLOAD;
-        end 
-        S_PAYLOAD : if (tx == 1) begin
-          send <= S_IDLE;
-        end
-      endcase 
-    end
-  end
 
 endmodule: ddma
 
