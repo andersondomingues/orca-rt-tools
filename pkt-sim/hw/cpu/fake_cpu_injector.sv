@@ -20,7 +20,7 @@ module fake_cpu_injector (
 
     // cfg timer
     #2 mmio_if.addr_in = 12345;
-    #0 mmio_if.data_in = 30;
+    #0 mmio_if.data_in = 15;
     #0 mmio_if.wb_in = 1;
 
     // 
