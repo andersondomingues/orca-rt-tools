@@ -33,8 +33,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
 
   integer RECV_BUFFER_SIZE = 1024;
 
-  integer memory_pointer_recv = 123456;
-  integer memory_pointer_send = 123456;  
+  integer memory_pointer_recv = 100;
 
   //==============================================================
 
@@ -114,7 +113,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
                 router_if.rx <= 0;
               end
             end else begin
-              router_if.rx <= 0;
+              router_if.rx <= 1;
               sstate <= HANDSHAKE;
             end 
           end else begin 
@@ -134,14 +133,14 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
 
   // recv process state machine states 
   typedef enum integer {
-    RIDLE = 0
+    RIDLE = 0,
     WAIT_HEADER = 1,
     WAIT_SIZE = 2,
-    DATA_COPY = 3,
+    DATA_COPY = 3
   } recv_state_t;
 
   // recv state variables 
-  recv_state_t rstate = WAIT_HEADER;
+  recv_state_t rstate = RIDLE;
   
   integer packet_size;
   integer flits_to_recv;
@@ -207,7 +206,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
     // address can come from either send or receiving processess. 
     // memory will be set to write mode only when receiving flits,
     // otherwise it'll reside in read mode 
-    mem_if.addr_in = (i_token == TOKEN_RECV && has_data_to_recv) ? memory_pointer_recv : memory_pointer_send;
+    mem_if.addr_in = (i_token == TOKEN_RECV && has_data_to_recv) ? memory_pointer_recv : temp_addr_in;
     mem_if.wb_in = (i_token == TOKEN_RECV && has_data_to_recv) ? 1 : 0;
     mem_if.data_in = router_if.data_o;
     mem_if.enable_in = 1;

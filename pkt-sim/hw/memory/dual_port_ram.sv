@@ -7,31 +7,25 @@ module dual_port_ram #(parameter MEMORY_BUS_WIDTH, SIZE)(
 
 reg[SIZE][MEMORY_BUS_WIDTH-1:0] mem;
 
-logic[MEMORY_BUS_WIDTH-1:0] ireg_a;
-logic[MEMORY_BUS_WIDTH-1:0] ireg_b;
-
 initial begin
-  if(reset)
   for(integer j = 0; j < SIZE; j = j+1) begin
-    mem[j] = {MEMORY_BUS_WIDTH{1'b1}};
-  end
+    // mem[j] = {MEMORY_BUS_WIDTH{1'b1}};
+    mem[j] = j;
+  end 
 end 
 
 always @(posedge clock) begin
-  if (~reset && mem_if_a.enable_in && mem_if_a.wb_in) begin
+  if (mem_if_a.enable_in && mem_if_a.wb_in) begin
     mem[mem_if_a.addr_in] <= mem_if_a.data_in;
   end
-end
-
-always @(posedge clock) begin
-  if (~reset && mem_if_b.enable_in && mem_if_b.wb_in) begin
+  if (mem_if_b.enable_in && mem_if_b.wb_in) begin
     mem[mem_if_b.addr_in] <= mem_if_b.data_in;
   end
 end
 
-always_comb begin
-  mem_if_a.data_out = mem[mem_if_a.addr_in];
-  mem_if_b.data_out = mem[mem_if_b.addr_in];
+always @(posedge clock) begin
+  mem_if_a.data_out <= mem[mem_if_a.addr_in];
+  mem_if_b.data_out <= mem[mem_if_b.addr_in];
 end
 
 
