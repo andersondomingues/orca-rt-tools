@@ -30,6 +30,6 @@ run 0 ns
 quietly set StdArithNoWarnings 0
 quietly set StdVitalGlitchNoWarnings 0
 
-run 100 ns
+run 200 ns
 
 

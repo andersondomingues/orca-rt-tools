@@ -29,7 +29,6 @@ module ddma_top #(parameter
     .mem_if_b(mem_if_mmio.MEM)
   );
 
-
   // creates new ddma module
   ddma #(MEMORY_BUS_WIDTH, FLIT_WIDTH, 3) ddma_mod(
     .clock(clock), .reset(reset), 

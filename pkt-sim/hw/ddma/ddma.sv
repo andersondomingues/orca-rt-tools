@@ -16,6 +16,12 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
   
   output logic irq
 );
+  // ========== TO BE REMOVED ===================================
+
+  integer RECV_BUFFER_SIZE = 1024;
+  integer memory_pointer_recv = 100;
+
+  //==============================================================
 
   // token_t represents the process which has priority in 
   // the interleaving system. 
@@ -23,25 +29,44 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
     TOKEN_SEND = 0,
     TOKEN_RECV = 1
   } token_t;
+  
+  // send process state machine states 
+  typedef enum integer {
+    WAIT_CONFIG = 0,
+    SENDING = 1,
+    HANDSHAKE = 2
+  } send_state_t;
 
-  // <<<<<<<<<
+  // recv process state machine states 
+  typedef enum integer {
+    WAIT_HEADER = 0,
+    WAIT_SIZE = 1,
+    DATA_COPY = 2,
+    INTERRUPTION = 3
+  } recv_state_t;
 
+  // token status (which process has priority)
+  token_t i_token;
+
+  // remaining cycles until interleaving priority switching  
+  integer i_flip_counter;
+
+  // recv state variables 
+  recv_state_t rstate;
+  integer flits_to_recv;
+  integer packet_size;
+
+  // token request for recv and send states 
   logic has_data_to_send;
   logic has_data_to_recv;
 
-  // ========== TO BE REMOVED ===================================
+  // send state variables 
+  send_state_t sstate = WAIT_CONFIG;
+  integer temp_addr_in = 0;
+  integer temp_nbytes_in = 0;
 
-  integer RECV_BUFFER_SIZE = 1024;
-
-  integer memory_pointer_recv = 100;
-
-  //==============================================================
-
-  // token status (which process has priority)
-  token_t i_token = TOKEN_SEND;
-
-  // remaining cycles until interleaving priority switching  
-  integer i_flip_counter = 1;
+  assign has_data_to_send = (sstate == SENDING);
+  assign has_data_to_recv = router_if.tx;
 
   // process for handling interleaving arbitration. 
   // rules:
@@ -68,22 +93,11 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
           i_flip_counter = INTERLEAVING_GRAIN; // reset counter
         end 
       end
+    end else begin
+      i_flip_counter = 1;
+      i_token = TOKEN_SEND;
     end 
   end
-
-  // send process state machine states 
-  typedef enum integer {
-    WAIT_CONFIG = 0,
-    SENDING = 1,
-    HANDSHAKE = 2
-  } send_state_t;
-
-  // send state variables 
-  send_state_t sstate = WAIT_CONFIG;
-  integer temp_addr_in = 0;
-  integer temp_nbytes_in = 0;
-
-  assign has_data_to_send = (sstate == SENDING);
 
   // send state process 
   always @(posedge clock) begin
@@ -128,95 +142,76 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
           end
         end 
       endcase
+    end else begin 
+      sstate = WAIT_CONFIG;
     end 
   end 
-
-  // recv process state machine states 
-  typedef enum integer {
-    RIDLE = 0,
-    WAIT_HEADER = 1,
-    WAIT_SIZE = 2,
-    DATA_COPY = 3
-  } recv_state_t;
-
-  // recv state variables 
-  recv_state_t rstate = RIDLE;
-  
-  integer packet_size;
-  integer flits_to_recv;
-
-
-  assign has_data_to_recv = (rstate != RIDLE);
 
   // recv process 
   always @(posedge clock) begin
     if(~reset) begin
       case (rstate)
-        RIDLE: begin
-          if(i_token == TOKEN_RECV && router_if.tx == 1) begin
-            rstate <= WAIT_HEADER;
-            router_if.credit_i <= 1; // keep credit down 
-          end else begin 
-            router_if.credit_i <= 0; // keep credit down 
-          end 
-        end
-        /* Wait until the header flit arrive at the local port. 
-         * A rose router_if.tx means that there are flits to be 
-         * received. Besides, interleaving token must be respected. */
         WAIT_HEADER: begin
           if(i_token == TOKEN_RECV && router_if.tx == 1) begin
             rstate <= WAIT_SIZE;
-            router_if.credit_i <= 1; // keep credit down 
-          end else begin 
+            router_if.credit_i <= 1;
+          end else begin
             router_if.credit_i <= 0; // keep credit down 
           end 
         end
         WAIT_SIZE: begin
           if(i_token == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
-            flits_to_recv <= router_if.data_i;
-            packet_size <= router_if.data_i;
+            flits_to_recv <= router_if.data_o;
+            packet_size <= router_if.data_o;
+            rstate <= DATA_COPY;
           end else begin 
             router_if.credit_i <= 0;
           end 
         end 
         DATA_COPY: begin
-          if(i_token == TOKEN_RECV && router_if.tx == 1) begin
-            router_if.credit_i <= 1;
-            flits_to_recv = flits_to_recv -1;
-            if(flits_to_recv == 0) begin
-              rstate <= WAIT_HEADER;
-              memory_pointer_recv <= memory_pointer_recv % RECV_BUFFER_SIZE;
+          if(flits_to_recv >= 0) begin
+            if(i_token == TOKEN_RECV && router_if.tx == 1) begin
+              router_if.credit_i <= 1;
+              flits_to_recv = flits_to_recv -1;
+
+              memory_pointer_recv <= (memory_pointer_recv < RECV_BUFFER_SIZE)
+                ? memory_pointer_recv : RECV_BUFFER_SIZE;
+            end else begin 
+              router_if.credit_i <= 0;  
             end 
-          end else begin
+          else begin
+            rstate <= INTERRUPTION;
             router_if.credit_i <= 0;
+            ddma_if.irq_out <= 1;
           end
         end
+        INTERRUPTION: begin
+          ddma_if.irq_out <= 0;
+          ddma_if.status_out <= ddma_if.status_out & 2'b01;
+          rstate <= WAIT_HEADER;
+        end 
       endcase
+    end else begin 
+      rstate = WAIT_HEADER;
     end 
   end 
-
-
-///=====================
-  always_comb begin
-    irq = 0;
-  end
 
   always_comb begin
     // address can come from either send or receiving processess. 
     // memory will be set to write mode only when receiving flits,
     // otherwise it'll reside in read mode 
     mem_if.addr_in = (i_token == TOKEN_RECV && has_data_to_recv) ? memory_pointer_recv : temp_addr_in;
-    mem_if.wb_in = (i_token == TOKEN_RECV && has_data_to_recv) ? 1 : 0;
-    mem_if.data_in = router_if.data_o;
-    mem_if.enable_in = 1;
-    
-    // router input data always comes from the sending process, which 
-    // reads data from the memory
-    router_if.data_i = mem_if.data_out;
-
-    router_if.clock_rx = clock;
+    mem_if.wb_in = (i_token == TOKEN_RECV && router_if.tx == 1);
+        
   end 
+
+  // router input data always comes from the sending process, which 
+  // reads data from the memory  
+  assign router_if.clock_rx = clock;
+  assign router_if.data_i = mem_if.data_out;
+  assign mem_if.enable_in = 1;
+  assign mem_if.data_in = router_if.data_o;
 
 endmodule: ddma
 

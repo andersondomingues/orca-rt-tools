@@ -5,15 +5,15 @@ module tcd #(parameter MEMORY_BUS_WIDTH, TCD_CONFIG_ADDR, HYPERPERIOD)(
   interface_tcd.TCD tcd_if,
   interface_ddma.TCD ddma_if
 );
-  integer timer = 0;
+  integer timer;
   integer timer_unlock = 0;
 
   always @(posedge clock)  begin
     if (~reset) begin
-      timer = (timer + 1) % HYPERPERIOD;
+      timer = (timer != HYPERPERIOD) ? timer++ : 0;
     end else begin
-      timer = 0;
-    end    
+      timer = 0
+    end 
   end
 
   /** Configuration is performed in 3 cycles. First cycle
@@ -64,7 +64,7 @@ module tcd #(parameter MEMORY_BUS_WIDTH, TCD_CONFIG_ADDR, HYPERPERIOD)(
   end
 
   always_comb begin
-    ddma_if.cmd_in = (state == WAIT_DMA_OP) ? 1 : 0;
+    ddma_if.cmd_in = (state == WAIT_DMA_OP);
   end
 
 endmodule: tcd
