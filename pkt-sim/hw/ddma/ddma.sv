@@ -180,7 +180,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
             end else begin 
               router_if.credit_i <= 0;  
             end 
-          else begin
+          end else begin
             rstate <= INTERRUPTION;
             router_if.credit_i <= 0;
             ddma_if.irq_out <= 1;

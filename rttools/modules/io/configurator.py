@@ -10,6 +10,7 @@ def loadFromFile(conf_file_name):
     error('Unable to load configuration file. Could not locate file "' + conf_file_name + '".')
     exit(1)
   else: 
-    with open(conf_file_name) as f:
-      lines = f.read()
-      return json.loads(lines)
+    #with open(conf_file_name) as f:
+    #  lines = f.read()
+    #  return json.loads(lines)
+    pass

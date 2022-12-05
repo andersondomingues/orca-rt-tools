@@ -71,7 +71,15 @@ def unwrap(app, arch, mapping):
     periods.append(f["period"])
 
   hp = lcm(periods)
-  info("Hyperperiod for the entered flow set is " + str(hp) + ' cycles')
+  if hp != 0:
+    info("Hyperperiod for the entered flow set is " + str(hp) + ' cycles')
+  else:
+    error("Unable to compute hyperperiod for the entered flow set.")
+    pp = []
+    [pp.append(x) for x in periods if x not in pp]
+    error(str(pp))
+
+    return None, 0, None
 
   # get packets from flows
   packets = getPacketsFromFlows(flows, hp)

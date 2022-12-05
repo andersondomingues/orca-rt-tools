@@ -1,98 +1,118 @@
-import networkx as nx
-import sys
-import os.path
-from os import path
-import pygraphviz
 import random
+r = lambda: random.randint(150,220)
 
-# Importing the matplotlib.pyplot
-import matplotlib.pyplot as plt
+def getColor():
+  return '#{:02x}{:02x}{:02x}'.format(r(), r(), r())
 
-def formatSchedData(packets):
+def saveSvg(filename, res, problem, skipped = [], scale_x = 1):
 
-  # enumerate links
-  links = {}
+  #SCALE_X = 1/100
+  SCALE_X = scale_x
+  SCALE_Y = 1
+  SCALE_TICKS = int(100 / SCALE_X)
+  RECT_HEIGHT = 10 * SCALE_Y
+  RECT_WIDTH  = SCALE_X
+  LEFT_PADDING = 14
+  BARS_PADDING = 50
+  BARS_HEIGHT = (len(problem["links"]) + 1) * RECT_HEIGHT
+  
+  docWidth = problem['hyperperiod'] * SCALE_X + 200
+  docHeight = len(problem['links']) * 10
 
-  for p in packets:
-    for l in p['path']:
-      label = l['data']['label']
-      vec = []
+  f = open(filename, 'w')
+  f.write('<svg version="1.1" width="' + str(docWidth) + '" height="' + str(docHeight * 2 + 200) + '" xmlns="http://www.w3.org/2000/svg">\n')
+  f.write('<style> text { font-family: "Arial"; }</style>')
 
-      if label in links:
-        vec = links[label]
+  #background
+  f.write('<rect width="' + str(problem["hyperperiod"] * RECT_WIDTH) + '" height="' + str(BARS_HEIGHT - RECT_HEIGHT) + '" x="' + str(BARS_PADDING) + '" y="0" fill="#eee" />\n')
 
-      vec.append({ 
-        'name': p['name'],
-        'release': p['release'], 
-        'net_time': p['net_time']}
-      )
-            
-      links[label] = vec
-  return links
+  #get colors for each packet
+  colors = []
+  for i in range(0, len(problem["packets"])):
+    colors.append(getColor())
 
-def printSched(packets, hp):
+  #left scale here
+  for l in range(0, len(problem['links'])):
+    src, trg, data = problem['links'][l]
+    f.write('<text x="' + str(LEFT_PADDING) + '" y="' + str(l * RECT_HEIGHT + RECT_HEIGHT - 1) + '" font-size="10px">' + data['label'] + '</text>\n')
+  f.write('<text x="10" transform="rotate(90,3,0)" y="0" font-size="10px">links</text>\n')
+  
+  # print packets
+  for l in range(0, len(res)):
+    for p in range(0, len(res[0])):
+      
+      name = problem['packets'][p]['name']
 
-  YTICKSFACTOR = 1
+      if(res[l][p] != None):
+        
+        x = res[l][p] * RECT_WIDTH + BARS_PADDING #left scale width
+        y = l * RECT_HEIGHT
 
-  links = formatSchedData(packets)
+        width = problem['occupancy'][l][p] * RECT_WIDTH
+        height = RECT_HEIGHT
 
-  fig, ax = plt.subplots()
+        #print(x, y, width, height, name, colors[p])
 
-  # for each links, add a ticks to the y-axis 
-  # each 5 units
-  yticks = []
-  yticks_labels = []
-  yticks_counter = YTICKSFACTOR
-  for l in links:
-    yticks.append(yticks_counter)
-    yticks_counter = yticks_counter + YTICKSFACTOR
-    yticks_labels.append(l)
+        f.write('<rect width="' + str(width) + '" height="' + str(height) + '" x="' + str(x) + '" y="' + str(y) + '" fill="' + colors[p] + '" />\n')
+        f.write('<text width="' + str(width) + '" height="' + str(height) + '" x="' + str(x) + '" y="' + str(y + 8) + '" font-size="10px">' + name + '</text>\n')
+   
+  # bottom scale 
+  y = len(res) * RECT_HEIGHT + 10
+  f.write('<text x="' + str(i + BARS_PADDING ) + '" y="' + str(y + 40) + '" font-size="10px">time (cycles)</text>\n')
+  for i in range(0, problem['hyperperiod'], SCALE_TICKS):
+    f.write('<rect width="1" height="20" x="' + str(i * SCALE_X + BARS_PADDING) + '" y="' + str(y) + '" fill="#666" />\n')
+    f.write('<text x="' + str(i * SCALE_X + BARS_PADDING + 3) + '" y="' + str(y + 20) + '" font-size="10px">' + str(i) + '</text>\n')
+  f.write
+  
+  # add hyperperiod information
+  f.write('<rect width="1" height="20" x="' + str(problem["hyperperiod"] * RECT_WIDTH + BARS_PADDING) + '" y="' + str(y) + '" fill="blue" />\n')
+  f.write('<text x="' + str(problem["hyperperiod"] * RECT_WIDTH + BARS_PADDING + 2) + '" y="' + str(y + 20) + '" fill="blue" font-size="10px">' + str(problem["hyperperiod"]) + '</text>\n')
 
-    # print link rectangles
-    vec = links[l]
-    for v in vec:
-      #add blue rectangle
-      ax.broken_barh(
-        [(v['release'], v['net_time'])],
-        (yticks_counter - YTICKSFACTOR * 1.3, YTICKSFACTOR / 2),
-        alpha=0.5
-      )
-      # ax.annotate(v['name'], (int(v['release']), int(v['net_time'])),
-      #   xytext=(0.8, 0.9), textcoords='axes fraction',
-      #   arrowprops=dict(facecolor='black', shrink=0.05),
-      #   fontsize=16,
-      #   horizontalalignment='right', verticalalignment='top'
-      # )
-      ax.annotate(v['name'], xy=[v['release'], v['net_time']], xycoords='figure points')
+  # not scheduled packets
+  base = y + 70
+  t = 10
+  i = 0
+  for p in skipped:
+    name = problem['packets'][p]
+    f.write('<text x="' + str(LEFT_PADDING) + '" y="' + str(base + t * i) + '" font-size="10px">' + name +'</text>\n')
 
-  # limit the range of the axis 
-  ax.set_ylim(0, yticks_counter)
+    links = []
 
-  # set the ticks and their labels
-  ax.set_yticks(yticks, labels=yticks_labels)
+    # print problematic link data
+    for l in range(0, len(problem['links'])):
+      if(problem['occupancy'][l][p] != None):
 
-  ax.set_xlim(0, hp)
-  ax.set_xlabel('discrete time domain (cycles)')
+        width  = problem['occupancy'][l][p] * SCALE_X
+        link_name = problem['links'][l]
+        links.append(l) # save links for below plot
+        x = problem['min_start'][l][p] + BARS_PADDING #left scale width
 
-  ax.grid(False)
-  # ax.annotate('race interrupted', (61, 25),
-  #             xytext=(0.8, 0.9), textcoords='axes fraction',
-  #             arrowprops=dict(facecolor='black', shrink=0.05),
-  #             fontsize=16,
-  #             horizontalalignment='right', verticalalignment='top')
+        f.write('<rect width="' + str(width) + '" height="' + str(RECT_HEIGHT) + '" x="' + str(BARS_PADDING) + '" y="' + str(base + i * t + 1) + '" fill="' + colors[p] + '" style="fill-opacity: .5;" />\n')
+        f.write('<text width="' + str(width) + '" height="' + str(RECT_HEIGHT) + '" x="' + str(BARS_PADDING) + '" y="' + str(base + i * t + 10) + '" font-size="10px">' + link_name + '</text>\n')
+        i += 1
 
-  plt.show()
+    print(links)
 
+    # repeat previous lines
+    for l in links:
+      for p in range(0, len(res[0])):
+      
+        name = problem['packets'][p]
 
-# Exports a graph to a png file. By design, dot generates
-# plot layout (requires graphviz)
-def exportGraphImage(infile, outfile):
-  if not path.exists(infile):
-    print("unable to read input file")
-    exit(0)
+        if(res[l][p] != None):
+          
+          x = res[l][p] * RECT_WIDTH + BARS_PADDING #left scale width
+          y = l * RECT_HEIGHT
 
-  graph = nx.read_gml(infile)
-  gvizGraph = nx.nx_agraph.to_agraph(graph)
-  gvizGraph.layout(prog = "dot") #defaults to neato if ommited
-  gvizGraph.draw(outfile)
+          width = problem['occupancy'][l][p] * RECT_WIDTH
+          height = RECT_HEIGHT
 
+          f.write('<rect width="' + str(width) + '" height="' + str(height) + '" x="' + str(x) + '" y="' + str(base + i * t + 1) + '" fill="' + colors[p] + '" />\n')
+          f.write('<text width="' + str(width) + '" height="' + str(height) + '" x="' + str(x) + '" y="' + str(base + i * t + 10) + '" font-size="10px">' + name + '</text>\n')
+      i += 1
+
+    i += 5
+  f.write('</svg>\n')
+  f.close()
+
+  return

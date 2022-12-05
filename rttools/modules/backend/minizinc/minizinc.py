@@ -6,7 +6,7 @@ from lib.terminal import info, debug, error
 from lib.string import wsfill, genwss
 
 from modules.io.znc import parseoccup, parseznc
-from modules.io.svg import printSched
+from modules.io.svg2 import printSched
 from modules.mapping.mapper import getMap
 from modules.io.vhdl import generateVhdlSimInput
 from modules.routing.router import getNumFlits

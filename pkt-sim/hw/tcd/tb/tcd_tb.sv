@@ -102,7 +102,7 @@ module ddma_tb #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)(
 
     #20;
     // ================================== [TEST 4]
-    //    free recving, 2-cycle contention
+    //    free reving, contention
     // ===========================================
     router_if.credit_o = 0;      // disable sending 
     router_if.data_o = 5;

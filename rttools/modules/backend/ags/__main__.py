@@ -1,8 +1,6 @@
-from terminal import info
 from search3 import search3
 from heuristics import lstf, mbuf, mcpf
 from prelaunchtest import prelaunchtest
-from svg import saveSvg
 
 #from problem_syntheticA import problem
 #from problem_dctVerify import problem
@@ -25,7 +23,7 @@ def main(heuristic = HEURISTIC, step = STEP, tries = TRIES):
   
   testsres = prelaunchtest(problem)
   res, skipped = search3(problem, heuristic, tries, step)
-  saveSvg(res, problem, skipped)
+  # saveSvg(res, problem, skipped)
 
 
 # Automatically jumps to main if called from command line

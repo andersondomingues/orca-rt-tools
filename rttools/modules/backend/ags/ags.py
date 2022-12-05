@@ -62,13 +62,11 @@ def agsExport(packets, links, hp, mapping, arch, appname, prunning, fail, heuris
     'hyperperiod' : hp
   }
 
-  print(len(links))
-
   return problem, runAgs(problem, step=prunning, tries=fail, heuristic=heuristic)
 
 
 def runAgs(problem, heuristic = HEURISTIC, step = STEP, tries = TRIES):
   info("This is Adaptive Guided Search. Parameters: step=" + str(step) + ", tries=" + str(tries))
   return search3.search3(problem, heuristic, tries, step)
-    
+  
   #saveSvg(res, problem, skipped)
