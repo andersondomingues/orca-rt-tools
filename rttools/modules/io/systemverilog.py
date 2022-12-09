@@ -4,6 +4,8 @@ from os import remove
 def exportPackets(expDir, lws, prob, lwf):
 
   packets = []
+  base_addr = "'h0"
+  ddma_addr = "'h12345"
 
   # for all links, get packets whose first output link if L-*
   for l in range(0, len(lws)):
@@ -56,11 +58,84 @@ def exportPackets(expDir, lws, prob, lwf):
       packets_to_process.sort(key=reltime)
 
       # save file 
-      file =  open(str(current_source) + '.txt', 'w')
+      file =  open(expDir + '/' + str(current_source) + '.sv', 'w')
 
-      for e in packets_to_process:
-        file.write(str(e))
+      file.write('module ddma_driver_tb{0} #()(\n'.format(str(current_source)))
+      file.write('  input logic clock,\n')
+      file.write('  input logic reset,\n')
+      file.write('  interface_router_port.ROUTER router_if,\n')
+      file.write('  interface_memory.DUT mem_if,\n')
+      file.write('  interface_ddma.TCD ddma_if\n')
+      file.write(');\n\n\n')
 
+      file.write('integer counter = 0;\n')
+      file.write('always @(posedge clock) begin\n')
+      file.write('  counter <= counter + 1;\n') 
+      file.write('end\n\n\n')
+
+      file.write('initial begin\n\n')
+      file.write('  router_if.clock_tx = clock;\n')
+      file.write('  router_if.data_o = counter;\n')
+
+      delay = 0
+      for i in range(0, len(packets_to_process)):
+        
+        e = packets_to_process[i]
+
+
+        # wait until the packet release time to configure another packet
+        file.write('  #{0};  // wait {1} cycles\n\n'.format(str(delay * 2), str(delay)))
+
+        file.write('  // source_node:  {0}\n'.format(str(e['source_node'])))
+        file.write('  // target_node:  {0}\n'.format(str(e['target_node'])))
+        file.write('  // source_xy:    {0}\n'.format(str(e['source_xy'])))
+        file.write('  // target_xy:    {0}\n'.format(str(e['target_xy'])))
+        file.write('  // data_size:    {0}\n'.format(str(e['data_size'])))
+        file.write('  // release_time: {0}\n'.format(str(e['release_time'])))
+
+        # write header flit
+        file.write('  #2;\n')
+        file.write('  mem_if.enable_in = 1;\n')
+        file.write('  mem_if.wb_in = 1;\n')
+        file.write('  mem_if.data_in = ({x} << 16) & {y};  // header flit\n'.format(
+          x = e['target_xy']['X'],
+          y = e['target_xy']['Y']
+        ))
+        file.write('  mem_if.addr_in = {0};\n\n'.format(base_addr))
+
+        # write size flit
+        file.write('  #2;\n')
+        file.write('  mem_if.enable_in = 1;\n')
+        file.write('  mem_if.wb_in = 1;\n')
+        file.write('  mem_if.data_in = {0};  // {1} bytes, size flit\n'.format(
+          str(int(e['data_size'] / 4)),
+          str(int(e['data_size']))
+        ))
+        file.write("  mem_if.addr_in = {0} + 'h4;\n\n".format(base_addr))
+
+        # configure ddma
+        file.write('  #2;\n')
+        file.write("  ddma_if.addr_in = 'h0;\n")
+        file.write('  ddma_if.nbytes = {0};\n'.format(int(e['data_size'])))
+        file.write('  ddma_if.cmd_in = 1;\n\n')
+        file.write('  mem_if.wb_in = 0;  // lock memory write\n\n\n')
+
+        # lock memory access
+        file.write('  #2;\n')    # !! must acknowledge ddma protocol here
+      
+        # configure current packet
+        # ddma_addr
+
+
+        # configure next packet when there's no more flits 
+        # to be transmitted. 
+        # num_words =  data_size / 4 
+        # numn_cycles = num_words * 2
+        delay = int(e['data_size'] / 2)
+
+
+      file.write('end\n\n')
+      file.write('endmodule\n\n')
       file.close()
 
       # clear the list 

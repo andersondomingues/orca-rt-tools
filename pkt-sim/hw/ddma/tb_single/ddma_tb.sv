@@ -7,7 +7,14 @@ module ddma_tb #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)(
   interface_memory.DUT mem_if, // mmio, grounded
   interface_ddma.TCD ddma_if
 );
+
+  integer counter = 0;
   
+  always @(posedge clock) begin
+    counter <= counter + 1;
+  end 
+
+
   logic cpu_irq;
 
   // ground unused memory port
@@ -24,7 +31,7 @@ module ddma_tb #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)(
   initial begin
 
     router_if.clock_tx = clock;
-    router_if.data_o = 32'hff;
+    router_if.data_o = counter;
 
     // ================================== [TEST 1]
     //      free sending, no contention
