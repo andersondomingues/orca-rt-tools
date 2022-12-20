@@ -12,30 +12,27 @@ vlog -mixedsvvh -sv -work work ../interface_ddma.sv
 vlog -mixedsvvh -sv -work work ../../memory/dual_port_ram.sv
 vlog -mixedsvvh -sv -work work ../../memory/interface_memory.sv
 
+# NOC
+vlog -mixedsvvh -sv -work work ../../router/interface_router.sv
+vlog -mixedsvvh -sv -work work ../../router/router.sv
+vcom -mixedsvvh -work work -93 -explicit ../../router/hermes/Hermes_package.vhd
+vcom -mixedsvvh -work work -93 -explicit ../../router/hermes/Hermes_buffer.vhd
+vcom -mixedsvvh -work work -93 -explicit ../../router/hermes/Hermes_switchcontrol.vhd
+vcom -mixedsvvh -work work -93 -explicit ../../router/hermes/Hermes_crossbar.vhd
+vcom -mixedsvvh -work work -93 -explicit ../../router/hermes/RouterCC.vhd
+
+
+# PE MOCK
+vlog -mixedsvvh -sv -work work ../../interface_pe.sv
 
 # TB DRIVERS
-vlog -mixedsvvh -sv -work work ../../../packets/0.sv
-vlog -mixedsvvh -sv -work work ../../../packets/1.sv
-vlog -mixedsvvh -sv -work work ../../../packets/2.sv
-vlog -mixedsvvh -sv -work work ../../../packets/3.sv
-vlog -mixedsvvh -sv -work work ../../../packets/4.sv
-vlog -mixedsvvh -sv -work work ../../../packets/5.sv
-vlog -mixedsvvh -sv -work work ../../../packets/6.sv
-vlog -mixedsvvh -sv -work work ../../../packets/7.sv
-vlog -mixedsvvh -sv -work work ../../../packets/8.sv
-# vlog -mixedsvvh -sv -work work ../../../packets/9.sv
-vlog -mixedsvvh -sv -work work ../../../packets/10.sv
-vlog -mixedsvvh -sv -work work ../../../packets/11.sv
-vlog -mixedsvvh -sv -work work ../../../packets/12.sv
-vlog -mixedsvvh -sv -work work ../../../packets/13.sv
-vlog -mixedsvvh -sv -work work ../../../packets/14.sv
-vlog -mixedsvvh -sv -work work ../../../packets/15.sv
-
+vlog -mixedsvvh -sv -work work ../../../packets/mockup.sv
 
 # TB MODS
-vlog -mixedsvvh -sv -work work ./ddma_top.sv
+vlog -mixedsvvh -sv -work work ./ddma_pe.sv
+vlog -mixedsvvh -sv -work work ./ddma_noc_top.sv
 
-vsim -voptargs=+acc=lprn -t ps -debugDB work.ddma_top
+vsim -voptargs=+acc=lprn -t ps -debugDB work.ddma_noc_top
 #vsim -t ps -debugDB work.tb
 
 quietly set StdArithNoWarnings 1
