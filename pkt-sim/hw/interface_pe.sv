@@ -1,4 +1,3 @@
-
 interface interface_pe #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH )
 (input clock, input reset);
   

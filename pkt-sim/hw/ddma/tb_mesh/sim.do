@@ -43,9 +43,9 @@ do wave.do
 
 run 0 ns
 
-quietly set StdArithNoWarnings 0
-quietly set StdVitalGlitchNoWarnings 0
+quietly set StdArithNoWarnings 1
+quietly set StdVitalGlitchNoWarnings 1
 
-run 200 ns
+run 2500 us
 
 

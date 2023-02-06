@@ -1,4 +1,4 @@
-`timescale 1 ns / 1 ns
+`timescale 1ns/10ps
 
 module ddma_top #(parameter
   MEMORY_BUS_WIDTH = 32, 

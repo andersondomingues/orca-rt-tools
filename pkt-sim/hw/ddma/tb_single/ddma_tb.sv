@@ -1,4 +1,4 @@
-`timescale 1 ns / 1 ns
+`timescale 1ns/10ps
 
 module ddma_tb #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH)(
   input logic clock,

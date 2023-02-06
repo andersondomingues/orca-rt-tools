@@ -1,15 +1,16 @@
-`timescale 1 ns / 1 ns
-
 module ddma_pe #(parameter
   MEMORY_BUS_WIDTH = 32, 
   FLIT_WIDTH = 32,
   MEMORY_SIZE = 1024,
-  ADDRESS = 0
+  ADDRESS = 0,
+  INTERLEAVING_GRAIN = 10
 )(
   input logic clock,
   input logic reset,
   interface_pe.PE pe_if
 );
+
+  
 
   interface_router #(FLIT_WIDTH) router_if(clock, reset); // router and pe
 
@@ -17,7 +18,7 @@ module ddma_pe #(parameter
   interface_router_port #(FLIT_WIDTH) router_port_if(clock, reset); // router and ddma
   interface_memory #(MEMORY_BUS_WIDTH) mem_if_dma(clock, reset); // mem and ddma
   interface_memory #(MEMORY_BUS_WIDTH) mem_if_mmio(clock, reset); // mem and mmio
-  interface_ddma   #(MEMORY_BUS_WIDTH, FLIT_WIDTH) ddma_if(clock, reset); //tcd and ddma
+  interface_ddma   #(MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS) ddma_if(clock, reset); //tcd and ddma
 
   logic cpu_irq;
 
@@ -29,7 +30,7 @@ module ddma_pe #(parameter
   );
 
   // creates new ddma module
-  ddma #(MEMORY_BUS_WIDTH, FLIT_WIDTH, 3) ddma_mod(
+  ddma #(MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN) ddma_mod(
     .clock(clock), .reset(reset), 
     .router_if(router_port_if.DDMA),
     .mem_if(mem_if_dma.DUT),
@@ -40,7 +41,6 @@ module ddma_pe #(parameter
   // !+++++ PENUM
   ddma_driver_tb #(MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS) ddma_tb_mod(
     .clock(clock), .reset(reset),
-    .router_if(router_port_if),
     .mem_if(mem_if_mmio),
     .ddma_if(ddma_if)
   );
@@ -66,15 +66,15 @@ module ddma_pe #(parameter
 
   // connect router local port to the ddma
   always_comb begin
-    router_port_if.clock_tx = router_if.clock_tx[4];
-    router_port_if.tx = router_if.tx[4];
-    router_port_if.data_o = router_if.data_o[4];
-    router_port_if.credit_o = router_if.credit_o[4];
+    router_port_if.clock_tx <= router_if.clock_tx[4];
+    router_port_if.tx <= router_if.tx[4];
+    router_port_if.data_o <= router_if.data_o[4];
+    router_port_if.credit_o <= router_if.credit_o[4];
 
-    router_if.clock_rx[4] = router_port_if.clock_rx;
-    router_if.rx[4] = router_port_if.rx;
-    router_if.data_i[4] = router_port_if.data_i;
-    router_if.credit_i[4] = router_port_if.credit_i;
+    router_if.clock_rx[4] <= router_port_if.clock_rx;
+    router_if.rx[4] <= router_port_if.rx;
+    router_if.data_i[4] <= router_port_if.data_i;
+    router_if.credit_i[4] <= router_port_if.credit_i;
   end
 
 

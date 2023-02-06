@@ -17,6 +17,9 @@ RTTOOLS_SCALING_TOLERANCE = 0.01
 RTTOOLS_DEFAULT_FREQUENCY = 3000000
 RTTOOLS_HEURISTIC = heuristics.mbcf
 
+#SVG_SCALE = 0.001
+SVG_SCALE = 0.01
+
 def parseMinimumReleaseTime(sched, p, hp):
   min = hp
   for l in sched:
@@ -132,7 +135,7 @@ def main():
     info('Minimum frequency found at ' + str(last_working_frequency) + "Hz")
 
     filename = 'results.svg'
-    svg.saveSvg(filename, last_working_schedule, problem, skipped, 0.001)
+    svg.saveSvg(filename, last_working_schedule, problem, skipped, SVG_SCALE)
     info('Schedule visualization exported to `' + filename + '`')
 
     expDir = 'pkt-sim/packets'

@@ -1,5 +1,3 @@
-`timescale 1 ns/1 ns
-
 /**
  * This module is a double dma that can asyncronously sends and receive packets.
  * There is only one memory bus, which is shared between sending and receiving 
@@ -66,7 +64,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
   integer temp_nbytes_in = 0;
 
   assign has_data_to_send = (sstate == SENDING);
-  assign has_data_to_recv = router_if.tx;
+  assign has_data_to_recv = (rstate == WAIT_SIZE);
 
   // process for handling interleaving arbitration. 
   // rules:
@@ -106,7 +104,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
         WAIT_CONFIG: begin
           if(ddma_if.cmd_in == 1) begin
             temp_addr_in <= ddma_if.addr_in;
-            temp_nbytes_in <= ddma_if.nbytes_in;
+            temp_nbytes_in <= ddma_if.nbytes_in >> 2;  // divide by 4
             sstate <= SENDING;
             ddma_if.status_out <= 1;
           end else begin 
@@ -121,13 +119,13 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
             if (temp_nbytes_in > 0) begin
               if (router_if.credit_o == 1) begin
                 router_if.rx <= 1;
-                temp_addr_in += 4;
-                temp_nbytes_in -= 4;
+                temp_addr_in += 1;
+                temp_nbytes_in -= 1;
               end else begin
                 router_if.rx <= 0;
               end
             end else begin
-              router_if.rx <= 1;
+              router_if.rx <= 0;
               sstate <= HANDSHAKE;
             end 
           end else begin 
@@ -137,9 +135,9 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
 
         HANDSHAKE: begin 
           router_if.rx <= 0;
-          if(ddma_if.cmd_in == 0) begin
+          // if(ddma_if.cmd_in == 0) begin
             sstate <= WAIT_CONFIG;
-          end
+          // end
         end 
       endcase
     end else begin 
@@ -152,12 +150,10 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
     if(~reset) begin
       case (rstate)
         WAIT_HEADER: begin
-          if(i_token == TOKEN_RECV && router_if.tx == 1) begin
-            rstate <= WAIT_SIZE;
-            router_if.credit_i <= 1;
-          end else begin
-            router_if.credit_i <= 0; // keep credit down 
-          end 
+          router_if.credit_i <= 1;
+          if(router_if.tx == 1) begin
+            // rstate <= WAIT_SIZE;
+          end
         end
         WAIT_SIZE: begin
           if(i_token == TOKEN_RECV && router_if.tx == 1) begin

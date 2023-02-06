@@ -19,4 +19,8 @@ module router #(parameter ADDRESS) (
     .credit_i(router_if.credit_i)
   );
 
+  initial begin
+    $display("ADDRESS: ", ADDRESS);
+  end
+
 endmodule: router

@@ -1,12 +1,13 @@
-`timescale 1 ns / 1 ns
+`timescale 1ns/10ps
 
 module ddma_noc_top #(parameter 
-  NOC_DIM_X = 4,       
-  NOC_DIM_Y = 4, 
   FLIT_WIDTH = 32,        // 32-bit flit width
   MEMORY_BUS_WIDTH = 32,  // memory data bus width
-  MEMORY_SIZE = 1024,     // total memory size = 32 bits * 1024
-  MEMORY_BASE = 0         // starting address
+  MEMORY_SIZE = 'h8000,     // total memory size = 32 bits * 1024
+  MEMORY_BASE = 0,        // starting address
+  NOC_DIM_X = 4,
+  NOC_DIM_Y = 4,
+  INTERLEAVING_GRAIN = 10
 )();
 
   // router ports enumeration cannot be imported from Hermes definitions
@@ -16,10 +17,10 @@ module ddma_noc_top #(parameter
   bit reset = 1; 
 
   // clock generator 
-  always #1 clock = ~clock;
+  always #0.5 clock = ~clock;
 
   // reset goes down after 2nd cycle
-  always #2 reset = 0;
+  always #2 reset = 0; 
 
   // generate NOC_DIM_X * NOC_DIM_Y pe nodes
   genvar i, j;
@@ -32,7 +33,10 @@ module ddma_noc_top #(parameter
 
         // connect an actual pe module with its interface
         // @TODO: generate pe address
-        ddma_pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH, MEMORY_SIZE) pe_mod(
+
+        localparam ADDRESS = (i << (FLIT_WIDTH / 4)) | j;
+
+        ddma_pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH, MEMORY_SIZE, ADDRESS, INTERLEAVING_GRAIN) pe_mod(
           .clock(clock), .reset(reset),
           .pe_if(pe_if.PE)
         );
@@ -46,12 +50,19 @@ module ddma_noc_top #(parameter
     for(i = 0; i < NOC_DIM_X; i++) begin : conn_x
       for(j = 0; j < NOC_DIM_Y; j++) begin : conn_y
 
+        localparam ii = i;
+        localparam jj = j;
+        localparam j1 = j - 1; 
+        localparam i1 = i - 1;
+
         // grounding west border
         if (i == 0) begin         
           assign pe_x[i].pe_y[j].pe_if.data_i[WEST][FLIT_WIDTH-1:0] = 0;
           always_comb pe_x[i].pe_y[j].pe_if.credit_i[WEST] = 1'b0;
           always_comb pe_x[i].pe_y[j].pe_if.rx[WEST] = 1'b0;
           always_comb pe_x[i].pe_y[j].pe_if.clock_rx[WEST] = 1'b0;
+
+          $info("[", i, ",", j, "][WEST] => grounded");
           
         end else begin
 
@@ -65,6 +76,9 @@ module ddma_noc_top #(parameter
           always_comb pe_x[i-1].pe_y[j].pe_if.credit_i[EAST] = pe_x[i].pe_y[j].pe_if.credit_o[WEST];
           always_comb pe_x[i-1].pe_y[j].pe_if.rx[EAST] = pe_x[i].pe_y[j].pe_if.tx[WEST];
           always_comb pe_x[i-1].pe_y[j].pe_if.clock_rx[EAST] = pe_x[i].pe_y[j].pe_if.clock_tx[WEST];
+
+          $info("[", i, ",", j, "][WEST] => connected to [", (i-1), ",", j, "][EAST]");
+
         end
 
         // grounding east border
@@ -73,6 +87,9 @@ module ddma_noc_top #(parameter
           always_comb pe_x[i].pe_y[j].pe_if.credit_i[EAST] = 1'b0;
           always_comb pe_x[i].pe_y[j].pe_if.rx[EAST] = 1'b0;
           always_comb pe_x[i].pe_y[j].pe_if.clock_rx[EAST] = 1'b0;
+
+          $info("[", i, ",", j, "][EAST] => grounded");
+
         end
 
         if (j == 0) begin
@@ -82,9 +99,13 @@ module ddma_noc_top #(parameter
           always_comb pe_x[i].pe_y[j].pe_if.rx[SOUTH] = 1'b0;
           always_comb pe_x[i].pe_y[j].pe_if.clock_rx[SOUTH] = 1'b0;
 
+          $info("[", i, ",", j, "][SOUTH] => grounded");
+
         end else begin
 
-          // connect to neighbor routers (X-axis)
+          $info("[", i, ",", j, "][SOUTH] => connected to [", i, ",", (j-1), "][NORTH]");
+
+          // connect to neighbor routers (Y-axis)
           always_comb pe_x[i].pe_y[j].pe_if.data_i[SOUTH][FLIT_WIDTH-1:0] = pe_x[i].pe_y[j-1].pe_if.data_o[NORTH][FLIT_WIDTH-1:0];
           always_comb pe_x[i].pe_y[j].pe_if.credit_i[SOUTH] = pe_x[i].pe_y[j-1].pe_if.credit_o[NORTH];
           always_comb pe_x[i].pe_y[j].pe_if.rx[SOUTH] = pe_x[i].pe_y[j-1].pe_if.tx[NORTH];
@@ -98,6 +119,9 @@ module ddma_noc_top #(parameter
         end 
 
         if(j == NOC_DIM_Y-1) begin
+
+          $info("[", i, ",", j, "][NORTH] => grounded");
+
           // grounding north border
           always_comb pe_x[i].pe_y[j].pe_if.data_i[NORTH][FLIT_WIDTH-1:0] = 0;
           always_comb pe_x[i].pe_y[j].pe_if.credit_i[NORTH] = 1'b0;

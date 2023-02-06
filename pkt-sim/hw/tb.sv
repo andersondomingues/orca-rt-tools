@@ -1,5 +1,3 @@
-`timescale 1 ns / 1 ns
-
 module tb #(parameter 
   NOC_DIM_X = 4,       
   NOC_DIM_Y = 4, 

@@ -1,4 +1,3 @@
-
 interface interface_mmio #(parameter MEMORY_BUS_WIDTH)
 (input clock, input reset);
 
