@@ -10,7 +10,7 @@ reg[SIZE][MEMORY_BUS_WIDTH-1:0] mem;
 initial begin
   for(integer j = 0; j < SIZE; j = j+1) begin
     // mem[j] = {MEMORY_BUS_WIDTH{1'b1}};
-    mem[j] = j;
+    mem[j] = j-1;
   end 
 end 
 

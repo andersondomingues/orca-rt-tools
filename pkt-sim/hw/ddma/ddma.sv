@@ -104,7 +104,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
         WAIT_CONFIG: begin
           if(ddma_if.cmd_in == 1) begin
             temp_addr_in <= ddma_if.addr_in;
-            temp_nbytes_in <= ddma_if.nbytes_in >> 2;  // divide by 4
+            temp_nbytes_in <= ddma_if.nbytes_in;  // divide by 4
             sstate <= SENDING;
             ddma_if.status_out <= 1;
           end else begin 
