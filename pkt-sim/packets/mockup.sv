@@ -32,12 +32,12 @@ initial begin
     // data_size:    4096
     // release_time: 6000
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -46,7 +46,7 @@ initial begin
 
     #6098; // skipt to 6000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -61,12 +61,12 @@ initial begin
     // data_size:    153600
     // release_time: 40000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -75,7 +75,7 @@ initial begin
 
     #33997; // skipt to 40000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -90,12 +90,12 @@ initial begin
     // data_size:    4096
     // release_time: 80000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -104,7 +104,7 @@ initial begin
 
     #39997; // skipt to 80000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -119,12 +119,12 @@ initial begin
     // data_size:    153600
     // release_time: 136250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -133,7 +133,7 @@ initial begin
 
     #56247; // skipt to 136250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -148,12 +148,12 @@ initial begin
     // data_size:    153600
     // release_time: 232500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -162,7 +162,7 @@ initial begin
 
     #96247; // skipt to 232500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -177,12 +177,12 @@ initial begin
     // data_size:    153600
     // release_time: 328750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -191,7 +191,7 @@ initial begin
 
     #96247; // skipt to 328750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -206,12 +206,12 @@ initial begin
     // data_size:    153600
     // release_time: 425000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -220,7 +220,7 @@ initial begin
 
     #96247; // skipt to 425000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -235,12 +235,12 @@ initial begin
     // data_size:    153600
     // release_time: 521250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -249,7 +249,7 @@ initial begin
 
     #96247; // skipt to 521250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -264,12 +264,12 @@ initial begin
     // data_size:    153600
     // release_time: 617500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -278,7 +278,7 @@ initial begin
 
     #96247; // skipt to 617500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -293,12 +293,12 @@ initial begin
     // data_size:    153600
     // release_time: 713750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -307,7 +307,7 @@ initial begin
 
     #96247; // skipt to 713750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -322,12 +322,12 @@ initial begin
     // data_size:    153600
     // release_time: 810000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -336,7 +336,7 @@ initial begin
 
     #96247; // skipt to 810000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -351,12 +351,12 @@ initial begin
     // data_size:    153600
     // release_time: 906250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -365,7 +365,7 @@ initial begin
 
     #96247; // skipt to 906250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -380,12 +380,12 @@ initial begin
     // data_size:    153600
     // release_time: 1002500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -394,7 +394,7 @@ initial begin
 
     #96247; // skipt to 1002500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -409,12 +409,12 @@ initial begin
     // data_size:    153600
     // release_time: 1098750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -423,7 +423,7 @@ initial begin
 
     #96247; // skipt to 1098750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -438,12 +438,12 @@ initial begin
     // data_size:    153600
     // release_time: 1195000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -452,7 +452,7 @@ initial begin
 
     #96247; // skipt to 1195000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -467,12 +467,12 @@ initial begin
     // data_size:    4096
     // release_time: 1235125
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -481,7 +481,7 @@ initial begin
 
     #40122; // skipt to 1235125
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -496,12 +496,12 @@ initial begin
     // data_size:    4096
     // release_time: 1237125
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -510,7 +510,7 @@ initial begin
 
     #1997; // skipt to 1237125
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -525,12 +525,12 @@ initial begin
     // data_size:    153600
     // release_time: 1291250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -539,7 +539,7 @@ initial begin
 
     #54122; // skipt to 1291250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -554,12 +554,12 @@ initial begin
     // data_size:    153600
     // release_time: 1387500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -568,7 +568,7 @@ initial begin
 
     #96247; // skipt to 1387500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -583,12 +583,12 @@ initial begin
     // data_size:    153600
     // release_time: 1483750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -597,7 +597,7 @@ initial begin
 
     #96247; // skipt to 1483750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -612,12 +612,12 @@ initial begin
     // data_size:    153600
     // release_time: 1580000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -626,7 +626,7 @@ initial begin
 
     #96247; // skipt to 1580000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -641,12 +641,12 @@ initial begin
     // data_size:    153600
     // release_time: 1676250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -655,7 +655,7 @@ initial begin
 
     #96247; // skipt to 1676250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -670,12 +670,12 @@ initial begin
     // data_size:    153600
     // release_time: 1772500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -684,7 +684,7 @@ initial begin
 
     #96247; // skipt to 1772500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -699,12 +699,12 @@ initial begin
     // data_size:    153600
     // release_time: 1868750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -713,7 +713,7 @@ initial begin
 
     #96247; // skipt to 1868750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -728,12 +728,12 @@ initial begin
     // data_size:    153600
     // release_time: 1965000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -742,7 +742,7 @@ initial begin
 
     #96247; // skipt to 1965000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -757,12 +757,12 @@ initial begin
     // data_size:    153600
     // release_time: 2061250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -771,7 +771,7 @@ initial begin
 
     #96247; // skipt to 2061250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -786,12 +786,12 @@ initial begin
     // data_size:    153600
     // release_time: 2157500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -800,7 +800,7 @@ initial begin
 
     #96247; // skipt to 2157500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -815,12 +815,12 @@ initial begin
     // data_size:    153600
     // release_time: 2253750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -829,7 +829,7 @@ initial begin
 
     #96247; // skipt to 2253750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -844,12 +844,12 @@ initial begin
     // data_size:    153600
     // release_time: 2350000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -858,7 +858,7 @@ initial begin
 
     #96247; // skipt to 2350000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -878,12 +878,12 @@ initial begin
     // data_size:    8192
     // release_time: 40000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -892,7 +892,7 @@ initial begin
 
     #40098; // skipt to 40000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -907,12 +907,12 @@ initial begin
     // data_size:    2048
     // release_time: 138250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -921,7 +921,7 @@ initial begin
 
     #98247; // skipt to 138250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -936,12 +936,12 @@ initial begin
     // data_size:    8192
     // release_time: 140250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -950,7 +950,7 @@ initial begin
 
     #1997; // skipt to 140250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -965,12 +965,12 @@ initial begin
     // data_size:    2048
     // release_time: 234500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -979,7 +979,7 @@ initial begin
 
     #94247; // skipt to 234500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -994,12 +994,12 @@ initial begin
     // data_size:    8192
     // release_time: 236500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1008,7 +1008,7 @@ initial begin
 
     #1997; // skipt to 236500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1023,12 +1023,12 @@ initial begin
     // data_size:    2048
     // release_time: 330750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1037,7 +1037,7 @@ initial begin
 
     #94247; // skipt to 330750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1052,12 +1052,12 @@ initial begin
     // data_size:    8192
     // release_time: 332750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1066,7 +1066,7 @@ initial begin
 
     #1997; // skipt to 332750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1081,12 +1081,12 @@ initial begin
     // data_size:    2048
     // release_time: 427000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1095,7 +1095,7 @@ initial begin
 
     #94247; // skipt to 427000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1110,12 +1110,12 @@ initial begin
     // data_size:    8192
     // release_time: 429000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1124,7 +1124,7 @@ initial begin
 
     #1997; // skipt to 429000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1139,12 +1139,12 @@ initial begin
     // data_size:    8192
     // release_time: 525250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1153,7 +1153,7 @@ initial begin
 
     #96247; // skipt to 525250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1168,12 +1168,12 @@ initial begin
     // data_size:    2048
     // release_time: 529250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1182,7 +1182,7 @@ initial begin
 
     #3997; // skipt to 529250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1197,12 +1197,12 @@ initial begin
     // data_size:    2048
     // release_time: 619500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1211,7 +1211,7 @@ initial begin
 
     #90247; // skipt to 619500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1226,12 +1226,12 @@ initial begin
     // data_size:    8192
     // release_time: 621500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1240,7 +1240,7 @@ initial begin
 
     #1997; // skipt to 621500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1255,12 +1255,12 @@ initial begin
     // data_size:    2048
     // release_time: 715750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1269,7 +1269,7 @@ initial begin
 
     #94247; // skipt to 715750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1284,12 +1284,12 @@ initial begin
     // data_size:    8192
     // release_time: 717750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1298,7 +1298,7 @@ initial begin
 
     #1997; // skipt to 717750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1313,12 +1313,12 @@ initial begin
     // data_size:    2048
     // release_time: 812000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1327,7 +1327,7 @@ initial begin
 
     #94247; // skipt to 812000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1342,12 +1342,12 @@ initial begin
     // data_size:    8192
     // release_time: 814000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1356,7 +1356,7 @@ initial begin
 
     #1997; // skipt to 814000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1371,12 +1371,12 @@ initial begin
     // data_size:    2048
     // release_time: 908250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1385,7 +1385,7 @@ initial begin
 
     #94247; // skipt to 908250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1400,12 +1400,12 @@ initial begin
     // data_size:    8192
     // release_time: 910250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1414,7 +1414,7 @@ initial begin
 
     #1997; // skipt to 910250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1429,12 +1429,12 @@ initial begin
     // data_size:    8192
     // release_time: 1006500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1443,7 +1443,7 @@ initial begin
 
     #96247; // skipt to 1006500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1458,12 +1458,12 @@ initial begin
     // data_size:    2048
     // release_time: 1010500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1472,7 +1472,7 @@ initial begin
 
     #3997; // skipt to 1010500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1487,12 +1487,12 @@ initial begin
     // data_size:    2048
     // release_time: 1100750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1501,7 +1501,7 @@ initial begin
 
     #90247; // skipt to 1100750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1516,12 +1516,12 @@ initial begin
     // data_size:    8192
     // release_time: 1102750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1530,7 +1530,7 @@ initial begin
 
     #1997; // skipt to 1102750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1545,12 +1545,12 @@ initial begin
     // data_size:    2048
     // release_time: 1197000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1559,7 +1559,7 @@ initial begin
 
     #94247; // skipt to 1197000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1574,12 +1574,12 @@ initial begin
     // data_size:    8192
     // release_time: 1199000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1588,7 +1588,7 @@ initial begin
 
     #1997; // skipt to 1199000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1603,12 +1603,12 @@ initial begin
     // data_size:    2048
     // release_time: 1293250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1617,7 +1617,7 @@ initial begin
 
     #94247; // skipt to 1293250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1632,12 +1632,12 @@ initial begin
     // data_size:    8192
     // release_time: 1295250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1646,7 +1646,7 @@ initial begin
 
     #1997; // skipt to 1295250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1661,12 +1661,12 @@ initial begin
     // data_size:    2048
     // release_time: 1389500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1675,7 +1675,7 @@ initial begin
 
     #94247; // skipt to 1389500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1690,12 +1690,12 @@ initial begin
     // data_size:    8192
     // release_time: 1391500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1704,7 +1704,7 @@ initial begin
 
     #1997; // skipt to 1391500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1719,12 +1719,12 @@ initial begin
     // data_size:    8192
     // release_time: 1487750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1733,7 +1733,7 @@ initial begin
 
     #96247; // skipt to 1487750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1748,12 +1748,12 @@ initial begin
     // data_size:    2048
     // release_time: 1491750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1762,7 +1762,7 @@ initial begin
 
     #3997; // skipt to 1491750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1777,12 +1777,12 @@ initial begin
     // data_size:    2048
     // release_time: 1582000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1791,7 +1791,7 @@ initial begin
 
     #90247; // skipt to 1582000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1806,12 +1806,12 @@ initial begin
     // data_size:    8192
     // release_time: 1584000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1820,7 +1820,7 @@ initial begin
 
     #1997; // skipt to 1584000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1835,12 +1835,12 @@ initial begin
     // data_size:    2048
     // release_time: 1678250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1849,7 +1849,7 @@ initial begin
 
     #94247; // skipt to 1678250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1864,12 +1864,12 @@ initial begin
     // data_size:    8192
     // release_time: 1680250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1878,7 +1878,7 @@ initial begin
 
     #1997; // skipt to 1680250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1893,12 +1893,12 @@ initial begin
     // data_size:    2048
     // release_time: 1774500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1907,7 +1907,7 @@ initial begin
 
     #94247; // skipt to 1774500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1922,12 +1922,12 @@ initial begin
     // data_size:    8192
     // release_time: 1776500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1936,7 +1936,7 @@ initial begin
 
     #1997; // skipt to 1776500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1951,12 +1951,12 @@ initial begin
     // data_size:    2048
     // release_time: 1870750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1965,7 +1965,7 @@ initial begin
 
     #94247; // skipt to 1870750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -1980,12 +1980,12 @@ initial begin
     // data_size:    8192
     // release_time: 1872750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -1994,7 +1994,7 @@ initial begin
 
     #1997; // skipt to 1872750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2009,12 +2009,12 @@ initial begin
     // data_size:    8192
     // release_time: 1969000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2023,7 +2023,7 @@ initial begin
 
     #96247; // skipt to 1969000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2038,12 +2038,12 @@ initial begin
     // data_size:    2048
     // release_time: 1973000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2052,7 +2052,7 @@ initial begin
 
     #3997; // skipt to 1973000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2067,12 +2067,12 @@ initial begin
     // data_size:    2048
     // release_time: 2063250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2081,7 +2081,7 @@ initial begin
 
     #90247; // skipt to 2063250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2096,12 +2096,12 @@ initial begin
     // data_size:    8192
     // release_time: 2065250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2110,7 +2110,7 @@ initial begin
 
     #1997; // skipt to 2065250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2125,12 +2125,12 @@ initial begin
     // data_size:    2048
     // release_time: 2159500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2139,7 +2139,7 @@ initial begin
 
     #94247; // skipt to 2159500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2154,12 +2154,12 @@ initial begin
     // data_size:    8192
     // release_time: 2161500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2168,7 +2168,7 @@ initial begin
 
     #1997; // skipt to 2161500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2183,12 +2183,12 @@ initial begin
     // data_size:    2048
     // release_time: 2255750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2197,7 +2197,7 @@ initial begin
 
     #94247; // skipt to 2255750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2212,12 +2212,12 @@ initial begin
     // data_size:    8192
     // release_time: 2257750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2226,7 +2226,7 @@ initial begin
 
     #1997; // skipt to 2257750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2241,12 +2241,12 @@ initial begin
     // data_size:    2048
     // release_time: 2352000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2255,7 +2255,7 @@ initial begin
 
     #94247; // skipt to 2352000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2270,12 +2270,12 @@ initial begin
     // data_size:    8192
     // release_time: 2354000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2284,7 +2284,7 @@ initial begin
 
     #1997; // skipt to 2354000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2304,12 +2304,12 @@ initial begin
     // data_size:    16384
     // release_time: 0
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2318,7 +2318,7 @@ initial begin
 
     #98; // skipt to 0
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2333,12 +2333,12 @@ initial begin
     // data_size:    16384
     // release_time: 96250
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2347,7 +2347,7 @@ initial begin
 
     #96247; // skipt to 96250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2362,12 +2362,12 @@ initial begin
     // data_size:    8192
     // release_time: 108250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2376,7 +2376,7 @@ initial begin
 
     #11997; // skipt to 108250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2391,12 +2391,12 @@ initial begin
     // data_size:    16384
     // release_time: 192500
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2405,7 +2405,7 @@ initial begin
 
     #84247; // skipt to 192500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2420,12 +2420,12 @@ initial begin
     // data_size:    8192
     // release_time: 204500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2434,7 +2434,7 @@ initial begin
 
     #11997; // skipt to 204500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2449,12 +2449,12 @@ initial begin
     // data_size:    16384
     // release_time: 288750
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2463,7 +2463,7 @@ initial begin
 
     #84247; // skipt to 288750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2478,12 +2478,12 @@ initial begin
     // data_size:    8192
     // release_time: 300750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2492,7 +2492,7 @@ initial begin
 
     #11997; // skipt to 300750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2507,12 +2507,12 @@ initial begin
     // data_size:    16384
     // release_time: 385000
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2521,7 +2521,7 @@ initial begin
 
     #84247; // skipt to 385000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2536,12 +2536,12 @@ initial begin
     // data_size:    8192
     // release_time: 397000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2550,7 +2550,7 @@ initial begin
 
     #11997; // skipt to 397000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2565,12 +2565,12 @@ initial begin
     // data_size:    16384
     // release_time: 481250
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2579,7 +2579,7 @@ initial begin
 
     #84247; // skipt to 481250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2594,12 +2594,12 @@ initial begin
     // data_size:    8192
     // release_time: 493250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2608,7 +2608,7 @@ initial begin
 
     #11997; // skipt to 493250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2623,12 +2623,12 @@ initial begin
     // data_size:    16384
     // release_time: 577500
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2637,7 +2637,7 @@ initial begin
 
     #84247; // skipt to 577500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2652,12 +2652,12 @@ initial begin
     // data_size:    8192
     // release_time: 589500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2666,7 +2666,7 @@ initial begin
 
     #11997; // skipt to 589500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2681,12 +2681,12 @@ initial begin
     // data_size:    16384
     // release_time: 673750
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2695,7 +2695,7 @@ initial begin
 
     #84247; // skipt to 673750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2710,12 +2710,12 @@ initial begin
     // data_size:    8192
     // release_time: 685750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2724,7 +2724,7 @@ initial begin
 
     #11997; // skipt to 685750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2739,12 +2739,12 @@ initial begin
     // data_size:    16384
     // release_time: 770000
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2753,7 +2753,7 @@ initial begin
 
     #84247; // skipt to 770000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2768,12 +2768,12 @@ initial begin
     // data_size:    8192
     // release_time: 782000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2782,7 +2782,7 @@ initial begin
 
     #11997; // skipt to 782000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2797,12 +2797,12 @@ initial begin
     // data_size:    16384
     // release_time: 866250
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2811,7 +2811,7 @@ initial begin
 
     #84247; // skipt to 866250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2826,12 +2826,12 @@ initial begin
     // data_size:    8192
     // release_time: 878250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2840,7 +2840,7 @@ initial begin
 
     #11997; // skipt to 878250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2855,12 +2855,12 @@ initial begin
     // data_size:    16384
     // release_time: 962500
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2869,7 +2869,7 @@ initial begin
 
     #84247; // skipt to 962500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2884,12 +2884,12 @@ initial begin
     // data_size:    8192
     // release_time: 974500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2898,7 +2898,7 @@ initial begin
 
     #11997; // skipt to 974500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2913,12 +2913,12 @@ initial begin
     // data_size:    16384
     // release_time: 1058750
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2927,7 +2927,7 @@ initial begin
 
     #84247; // skipt to 1058750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2942,12 +2942,12 @@ initial begin
     // data_size:    8192
     // release_time: 1070750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2956,7 +2956,7 @@ initial begin
 
     #11997; // skipt to 1070750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -2971,12 +2971,12 @@ initial begin
     // data_size:    16384
     // release_time: 1155000
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -2985,7 +2985,7 @@ initial begin
 
     #84247; // skipt to 1155000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3000,12 +3000,12 @@ initial begin
     // data_size:    8192
     // release_time: 1167000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3014,7 +3014,7 @@ initial begin
 
     #11997; // skipt to 1167000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3029,12 +3029,12 @@ initial begin
     // data_size:    16384
     // release_time: 1251250
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3043,7 +3043,7 @@ initial begin
 
     #84247; // skipt to 1251250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3058,12 +3058,12 @@ initial begin
     // data_size:    8192
     // release_time: 1263250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3072,7 +3072,7 @@ initial begin
 
     #11997; // skipt to 1263250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3087,12 +3087,12 @@ initial begin
     // data_size:    16384
     // release_time: 1347500
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3101,7 +3101,7 @@ initial begin
 
     #84247; // skipt to 1347500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3116,12 +3116,12 @@ initial begin
     // data_size:    8192
     // release_time: 1359500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3130,7 +3130,7 @@ initial begin
 
     #11997; // skipt to 1359500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3145,12 +3145,12 @@ initial begin
     // data_size:    16384
     // release_time: 1443750
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3159,7 +3159,7 @@ initial begin
 
     #84247; // skipt to 1443750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3174,12 +3174,12 @@ initial begin
     // data_size:    8192
     // release_time: 1455750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3188,7 +3188,7 @@ initial begin
 
     #11997; // skipt to 1455750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3203,12 +3203,12 @@ initial begin
     // data_size:    16384
     // release_time: 1540000
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3217,7 +3217,7 @@ initial begin
 
     #84247; // skipt to 1540000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3232,12 +3232,12 @@ initial begin
     // data_size:    8192
     // release_time: 1552000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3246,7 +3246,7 @@ initial begin
 
     #11997; // skipt to 1552000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3261,12 +3261,12 @@ initial begin
     // data_size:    16384
     // release_time: 1636250
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3275,7 +3275,7 @@ initial begin
 
     #84247; // skipt to 1636250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3290,12 +3290,12 @@ initial begin
     // data_size:    8192
     // release_time: 1648250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3304,7 +3304,7 @@ initial begin
 
     #11997; // skipt to 1648250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3319,12 +3319,12 @@ initial begin
     // data_size:    16384
     // release_time: 1732500
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3333,7 +3333,7 @@ initial begin
 
     #84247; // skipt to 1732500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3348,12 +3348,12 @@ initial begin
     // data_size:    8192
     // release_time: 1744500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3362,7 +3362,7 @@ initial begin
 
     #11997; // skipt to 1744500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3377,12 +3377,12 @@ initial begin
     // data_size:    16384
     // release_time: 1828750
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3391,7 +3391,7 @@ initial begin
 
     #84247; // skipt to 1828750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3406,12 +3406,12 @@ initial begin
     // data_size:    8192
     // release_time: 1840750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3420,7 +3420,7 @@ initial begin
 
     #11997; // skipt to 1840750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3435,12 +3435,12 @@ initial begin
     // data_size:    16384
     // release_time: 1925000
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3449,7 +3449,7 @@ initial begin
 
     #84247; // skipt to 1925000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3464,12 +3464,12 @@ initial begin
     // data_size:    8192
     // release_time: 1937000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3478,7 +3478,7 @@ initial begin
 
     #11997; // skipt to 1937000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3493,12 +3493,12 @@ initial begin
     // data_size:    16384
     // release_time: 2021250
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3507,7 +3507,7 @@ initial begin
 
     #84247; // skipt to 2021250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3522,12 +3522,12 @@ initial begin
     // data_size:    8192
     // release_time: 2033250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3536,7 +3536,7 @@ initial begin
 
     #11997; // skipt to 2033250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3551,12 +3551,12 @@ initial begin
     // data_size:    16384
     // release_time: 2117500
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3565,7 +3565,7 @@ initial begin
 
     #84247; // skipt to 2117500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3580,12 +3580,12 @@ initial begin
     // data_size:    8192
     // release_time: 2129500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3594,7 +3594,7 @@ initial begin
 
     #11997; // skipt to 2129500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3609,12 +3609,12 @@ initial begin
     // data_size:    16384
     // release_time: 2213750
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3623,7 +3623,7 @@ initial begin
 
     #84247; // skipt to 2213750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3638,12 +3638,12 @@ initial begin
     // data_size:    8192
     // release_time: 2225750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3652,7 +3652,7 @@ initial begin
 
     #11997; // skipt to 2225750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3667,12 +3667,12 @@ initial begin
     // data_size:    16384
     // release_time: 2310000
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3681,7 +3681,7 @@ initial begin
 
     #84247; // skipt to 2310000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3696,12 +3696,12 @@ initial begin
     // data_size:    8192
     // release_time: 2322000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3710,7 +3710,7 @@ initial begin
 
     #11997; // skipt to 2322000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3730,12 +3730,12 @@ initial begin
     // data_size:    2048
     // release_time: 40000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3744,7 +3744,7 @@ initial begin
 
     #40098; // skipt to 40000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3759,12 +3759,12 @@ initial begin
     // data_size:    4096
     // release_time: 44000
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3773,7 +3773,7 @@ initial begin
 
     #3997; // skipt to 44000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3788,12 +3788,12 @@ initial begin
     // data_size:    153600
     // release_time: 96250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3802,7 +3802,7 @@ initial begin
 
     #52247; // skipt to 96250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3817,12 +3817,12 @@ initial begin
     // data_size:    153600
     // release_time: 192500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3831,7 +3831,7 @@ initial begin
 
     #96247; // skipt to 192500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3846,12 +3846,12 @@ initial begin
     // data_size:    4096
     // release_time: 240625
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3860,7 +3860,7 @@ initial begin
 
     #48122; // skipt to 240625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3875,12 +3875,12 @@ initial begin
     // data_size:    2048
     // release_time: 242625
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3889,7 +3889,7 @@ initial begin
 
     #1997; // skipt to 242625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3904,12 +3904,12 @@ initial begin
     // data_size:    153600
     // release_time: 288750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3918,7 +3918,7 @@ initial begin
 
     #46122; // skipt to 288750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3933,12 +3933,12 @@ initial begin
     // data_size:    153600
     // release_time: 385000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3947,7 +3947,7 @@ initial begin
 
     #96247; // skipt to 385000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3962,12 +3962,12 @@ initial begin
     // data_size:    153600
     // release_time: 481250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -3976,7 +3976,7 @@ initial begin
 
     #96247; // skipt to 481250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -3991,12 +3991,12 @@ initial begin
     // data_size:    4096
     // release_time: 521250
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4005,7 +4005,7 @@ initial begin
 
     #39997; // skipt to 521250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4020,12 +4020,12 @@ initial begin
     // data_size:    2048
     // release_time: 523250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4034,7 +4034,7 @@ initial begin
 
     #1997; // skipt to 523250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4049,12 +4049,12 @@ initial begin
     // data_size:    153600
     // release_time: 577500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4063,7 +4063,7 @@ initial begin
 
     #54247; // skipt to 577500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4078,12 +4078,12 @@ initial begin
     // data_size:    153600
     // release_time: 673750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4092,7 +4092,7 @@ initial begin
 
     #96247; // skipt to 673750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4107,12 +4107,12 @@ initial begin
     // data_size:    4096
     // release_time: 721875
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4121,7 +4121,7 @@ initial begin
 
     #48122; // skipt to 721875
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4136,12 +4136,12 @@ initial begin
     // data_size:    2048
     // release_time: 723875
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4150,7 +4150,7 @@ initial begin
 
     #1997; // skipt to 723875
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4165,12 +4165,12 @@ initial begin
     // data_size:    153600
     // release_time: 770000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4179,7 +4179,7 @@ initial begin
 
     #46122; // skipt to 770000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4194,12 +4194,12 @@ initial begin
     // data_size:    153600
     // release_time: 866250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4208,7 +4208,7 @@ initial begin
 
     #96247; // skipt to 866250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4223,12 +4223,12 @@ initial begin
     // data_size:    153600
     // release_time: 962500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4237,7 +4237,7 @@ initial begin
 
     #96247; // skipt to 962500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4252,12 +4252,12 @@ initial begin
     // data_size:    4096
     // release_time: 1002500
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4266,7 +4266,7 @@ initial begin
 
     #39997; // skipt to 1002500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4281,12 +4281,12 @@ initial begin
     // data_size:    2048
     // release_time: 1004500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4295,7 +4295,7 @@ initial begin
 
     #1997; // skipt to 1004500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4310,12 +4310,12 @@ initial begin
     // data_size:    153600
     // release_time: 1058750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4324,7 +4324,7 @@ initial begin
 
     #54247; // skipt to 1058750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4339,12 +4339,12 @@ initial begin
     // data_size:    153600
     // release_time: 1155000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4353,7 +4353,7 @@ initial begin
 
     #96247; // skipt to 1155000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4368,12 +4368,12 @@ initial begin
     // data_size:    2048
     // release_time: 1203125
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4382,7 +4382,7 @@ initial begin
 
     #48122; // skipt to 1203125
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4397,12 +4397,12 @@ initial begin
     // data_size:    4096
     // release_time: 1207125
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4411,7 +4411,7 @@ initial begin
 
     #3997; // skipt to 1207125
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4426,12 +4426,12 @@ initial begin
     // data_size:    153600
     // release_time: 1251250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4440,7 +4440,7 @@ initial begin
 
     #44122; // skipt to 1251250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4455,12 +4455,12 @@ initial begin
     // data_size:    153600
     // release_time: 1347500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4469,7 +4469,7 @@ initial begin
 
     #96247; // skipt to 1347500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4484,12 +4484,12 @@ initial begin
     // data_size:    153600
     // release_time: 1443750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4498,7 +4498,7 @@ initial begin
 
     #96247; // skipt to 1443750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4513,12 +4513,12 @@ initial begin
     // data_size:    4096
     // release_time: 1483750
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4527,7 +4527,7 @@ initial begin
 
     #39997; // skipt to 1483750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4542,12 +4542,12 @@ initial begin
     // data_size:    2048
     // release_time: 1485750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4556,7 +4556,7 @@ initial begin
 
     #1997; // skipt to 1485750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4571,12 +4571,12 @@ initial begin
     // data_size:    153600
     // release_time: 1540000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4585,7 +4585,7 @@ initial begin
 
     #54247; // skipt to 1540000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4600,12 +4600,12 @@ initial begin
     // data_size:    153600
     // release_time: 1636250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4614,7 +4614,7 @@ initial begin
 
     #96247; // skipt to 1636250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4629,12 +4629,12 @@ initial begin
     // data_size:    4096
     // release_time: 1684375
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4643,7 +4643,7 @@ initial begin
 
     #48122; // skipt to 1684375
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4658,12 +4658,12 @@ initial begin
     // data_size:    2048
     // release_time: 1686375
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4672,7 +4672,7 @@ initial begin
 
     #1997; // skipt to 1686375
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4687,12 +4687,12 @@ initial begin
     // data_size:    153600
     // release_time: 1732500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4701,7 +4701,7 @@ initial begin
 
     #46122; // skipt to 1732500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4716,12 +4716,12 @@ initial begin
     // data_size:    153600
     // release_time: 1828750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4730,7 +4730,7 @@ initial begin
 
     #96247; // skipt to 1828750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4745,12 +4745,12 @@ initial begin
     // data_size:    153600
     // release_time: 1925000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4759,7 +4759,7 @@ initial begin
 
     #96247; // skipt to 1925000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4774,12 +4774,12 @@ initial begin
     // data_size:    4096
     // release_time: 1965000
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4788,7 +4788,7 @@ initial begin
 
     #39997; // skipt to 1965000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4803,12 +4803,12 @@ initial begin
     // data_size:    2048
     // release_time: 1967000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4817,7 +4817,7 @@ initial begin
 
     #1997; // skipt to 1967000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4832,12 +4832,12 @@ initial begin
     // data_size:    153600
     // release_time: 2021250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4846,7 +4846,7 @@ initial begin
 
     #54247; // skipt to 2021250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4861,12 +4861,12 @@ initial begin
     // data_size:    153600
     // release_time: 2117500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4875,7 +4875,7 @@ initial begin
 
     #96247; // skipt to 2117500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4890,12 +4890,12 @@ initial begin
     // data_size:    4096
     // release_time: 2165625
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4904,7 +4904,7 @@ initial begin
 
     #48122; // skipt to 2165625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4919,12 +4919,12 @@ initial begin
     // data_size:    2048
     // release_time: 2167625
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4933,7 +4933,7 @@ initial begin
 
     #1997; // skipt to 2167625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4948,12 +4948,12 @@ initial begin
     // data_size:    153600
     // release_time: 2213750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4962,7 +4962,7 @@ initial begin
 
     #46122; // skipt to 2213750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -4977,12 +4977,12 @@ initial begin
     // data_size:    153600
     // release_time: 2310000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -4991,7 +4991,7 @@ initial begin
 
     #96247; // skipt to 2310000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5011,12 +5011,12 @@ initial begin
     // data_size:    8192
     // release_time: 40000
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5025,7 +5025,7 @@ initial begin
 
     #40098; // skipt to 40000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5040,12 +5040,12 @@ initial begin
     // data_size:    4096
     // release_time: 44000
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5054,7 +5054,7 @@ initial begin
 
     #3997; // skipt to 44000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5069,12 +5069,12 @@ initial begin
     // data_size:    153600
     // release_time: 96250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5083,7 +5083,7 @@ initial begin
 
     #52247; // skipt to 96250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5098,12 +5098,12 @@ initial begin
     // data_size:    153600
     // release_time: 192500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5112,7 +5112,7 @@ initial begin
 
     #96247; // skipt to 192500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5127,12 +5127,12 @@ initial begin
     // data_size:    4096
     // release_time: 240625
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5141,7 +5141,7 @@ initial begin
 
     #48122; // skipt to 240625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5156,12 +5156,12 @@ initial begin
     // data_size:    153600
     // release_time: 288750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5170,7 +5170,7 @@ initial begin
 
     #48122; // skipt to 288750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5185,12 +5185,12 @@ initial begin
     // data_size:    153600
     // release_time: 385000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5199,7 +5199,7 @@ initial begin
 
     #96247; // skipt to 385000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5214,12 +5214,12 @@ initial begin
     // data_size:    153600
     // release_time: 481250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5228,7 +5228,7 @@ initial begin
 
     #96247; // skipt to 481250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5243,12 +5243,12 @@ initial begin
     // data_size:    4096
     // release_time: 521250
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5257,7 +5257,7 @@ initial begin
 
     #39997; // skipt to 521250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5272,12 +5272,12 @@ initial begin
     // data_size:    153600
     // release_time: 577500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5286,7 +5286,7 @@ initial begin
 
     #56247; // skipt to 577500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5301,12 +5301,12 @@ initial begin
     // data_size:    153600
     // release_time: 673750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5315,7 +5315,7 @@ initial begin
 
     #96247; // skipt to 673750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5330,12 +5330,12 @@ initial begin
     // data_size:    4096
     // release_time: 721875
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5344,7 +5344,7 @@ initial begin
 
     #48122; // skipt to 721875
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5359,12 +5359,12 @@ initial begin
     // data_size:    153600
     // release_time: 770000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5373,7 +5373,7 @@ initial begin
 
     #48122; // skipt to 770000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5388,12 +5388,12 @@ initial begin
     // data_size:    153600
     // release_time: 866250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5402,7 +5402,7 @@ initial begin
 
     #96247; // skipt to 866250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5417,12 +5417,12 @@ initial begin
     // data_size:    153600
     // release_time: 962500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5431,7 +5431,7 @@ initial begin
 
     #96247; // skipt to 962500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5446,12 +5446,12 @@ initial begin
     // data_size:    4096
     // release_time: 1002500
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5460,7 +5460,7 @@ initial begin
 
     #39997; // skipt to 1002500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5475,12 +5475,12 @@ initial begin
     // data_size:    153600
     // release_time: 1058750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5489,7 +5489,7 @@ initial begin
 
     #56247; // skipt to 1058750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5504,12 +5504,12 @@ initial begin
     // data_size:    153600
     // release_time: 1155000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5518,7 +5518,7 @@ initial begin
 
     #96247; // skipt to 1155000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5533,12 +5533,12 @@ initial begin
     // data_size:    8192
     // release_time: 1203125
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5547,7 +5547,7 @@ initial begin
 
     #48122; // skipt to 1203125
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5562,12 +5562,12 @@ initial begin
     // data_size:    4096
     // release_time: 1207125
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5576,7 +5576,7 @@ initial begin
 
     #3997; // skipt to 1207125
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5591,12 +5591,12 @@ initial begin
     // data_size:    153600
     // release_time: 1251250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5605,7 +5605,7 @@ initial begin
 
     #44122; // skipt to 1251250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5620,12 +5620,12 @@ initial begin
     // data_size:    153600
     // release_time: 1347500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5634,7 +5634,7 @@ initial begin
 
     #96247; // skipt to 1347500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5649,12 +5649,12 @@ initial begin
     // data_size:    153600
     // release_time: 1443750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5663,7 +5663,7 @@ initial begin
 
     #96247; // skipt to 1443750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5678,12 +5678,12 @@ initial begin
     // data_size:    4096
     // release_time: 1483750
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5692,7 +5692,7 @@ initial begin
 
     #39997; // skipt to 1483750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5707,12 +5707,12 @@ initial begin
     // data_size:    153600
     // release_time: 1540000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5721,7 +5721,7 @@ initial begin
 
     #56247; // skipt to 1540000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5736,12 +5736,12 @@ initial begin
     // data_size:    153600
     // release_time: 1636250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5750,7 +5750,7 @@ initial begin
 
     #96247; // skipt to 1636250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5765,12 +5765,12 @@ initial begin
     // data_size:    4096
     // release_time: 1684375
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5779,7 +5779,7 @@ initial begin
 
     #48122; // skipt to 1684375
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5794,12 +5794,12 @@ initial begin
     // data_size:    153600
     // release_time: 1732500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5808,7 +5808,7 @@ initial begin
 
     #48122; // skipt to 1732500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5823,12 +5823,12 @@ initial begin
     // data_size:    153600
     // release_time: 1828750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5837,7 +5837,7 @@ initial begin
 
     #96247; // skipt to 1828750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5852,12 +5852,12 @@ initial begin
     // data_size:    153600
     // release_time: 1925000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5866,7 +5866,7 @@ initial begin
 
     #96247; // skipt to 1925000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5881,12 +5881,12 @@ initial begin
     // data_size:    4096
     // release_time: 1965000
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5895,7 +5895,7 @@ initial begin
 
     #39997; // skipt to 1965000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5910,12 +5910,12 @@ initial begin
     // data_size:    153600
     // release_time: 2021250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5924,7 +5924,7 @@ initial begin
 
     #56247; // skipt to 2021250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5939,12 +5939,12 @@ initial begin
     // data_size:    153600
     // release_time: 2117500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5953,7 +5953,7 @@ initial begin
 
     #96247; // skipt to 2117500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5968,12 +5968,12 @@ initial begin
     // data_size:    4096
     // release_time: 2165625
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -5982,7 +5982,7 @@ initial begin
 
     #48122; // skipt to 2165625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -5997,12 +5997,12 @@ initial begin
     // data_size:    153600
     // release_time: 2213750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6011,7 +6011,7 @@ initial begin
 
     #48122; // skipt to 2213750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6026,12 +6026,12 @@ initial begin
     // data_size:    153600
     // release_time: 2310000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6040,7 +6040,7 @@ initial begin
 
     #96247; // skipt to 2310000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6060,12 +6060,12 @@ initial begin
     // data_size:    8192
     // release_time: 136250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6074,7 +6074,7 @@ initial begin
 
     #136348; // skipt to 136250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6089,12 +6089,12 @@ initial begin
     // data_size:    8192
     // release_time: 232500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6103,7 +6103,7 @@ initial begin
 
     #96247; // skipt to 232500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6118,12 +6118,12 @@ initial begin
     // data_size:    8192
     // release_time: 328750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6132,7 +6132,7 @@ initial begin
 
     #96247; // skipt to 328750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6147,12 +6147,12 @@ initial begin
     // data_size:    8192
     // release_time: 425000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6161,7 +6161,7 @@ initial begin
 
     #96247; // skipt to 425000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6176,12 +6176,12 @@ initial begin
     // data_size:    8192
     // release_time: 521250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6190,7 +6190,7 @@ initial begin
 
     #96247; // skipt to 521250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6205,12 +6205,12 @@ initial begin
     // data_size:    8192
     // release_time: 617500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6219,7 +6219,7 @@ initial begin
 
     #96247; // skipt to 617500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6234,12 +6234,12 @@ initial begin
     // data_size:    8192
     // release_time: 713750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6248,7 +6248,7 @@ initial begin
 
     #96247; // skipt to 713750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6263,12 +6263,12 @@ initial begin
     // data_size:    8192
     // release_time: 810000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6277,7 +6277,7 @@ initial begin
 
     #96247; // skipt to 810000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6292,12 +6292,12 @@ initial begin
     // data_size:    8192
     // release_time: 906250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6306,7 +6306,7 @@ initial begin
 
     #96247; // skipt to 906250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6321,12 +6321,12 @@ initial begin
     // data_size:    8192
     // release_time: 1002500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6335,7 +6335,7 @@ initial begin
 
     #96247; // skipt to 1002500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6350,12 +6350,12 @@ initial begin
     // data_size:    8192
     // release_time: 1098750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6364,7 +6364,7 @@ initial begin
 
     #96247; // skipt to 1098750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6379,12 +6379,12 @@ initial begin
     // data_size:    8192
     // release_time: 1195000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6393,7 +6393,7 @@ initial begin
 
     #96247; // skipt to 1195000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6408,12 +6408,12 @@ initial begin
     // data_size:    8192
     // release_time: 1291250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6422,7 +6422,7 @@ initial begin
 
     #96247; // skipt to 1291250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6437,12 +6437,12 @@ initial begin
     // data_size:    8192
     // release_time: 1387500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6451,7 +6451,7 @@ initial begin
 
     #96247; // skipt to 1387500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6466,12 +6466,12 @@ initial begin
     // data_size:    8192
     // release_time: 1483750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6480,7 +6480,7 @@ initial begin
 
     #96247; // skipt to 1483750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6495,12 +6495,12 @@ initial begin
     // data_size:    8192
     // release_time: 1580000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6509,7 +6509,7 @@ initial begin
 
     #96247; // skipt to 1580000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6524,12 +6524,12 @@ initial begin
     // data_size:    8192
     // release_time: 1676250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6538,7 +6538,7 @@ initial begin
 
     #96247; // skipt to 1676250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6553,12 +6553,12 @@ initial begin
     // data_size:    8192
     // release_time: 1772500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6567,7 +6567,7 @@ initial begin
 
     #96247; // skipt to 1772500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6582,12 +6582,12 @@ initial begin
     // data_size:    8192
     // release_time: 1868750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6596,7 +6596,7 @@ initial begin
 
     #96247; // skipt to 1868750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6611,12 +6611,12 @@ initial begin
     // data_size:    8192
     // release_time: 1965000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6625,7 +6625,7 @@ initial begin
 
     #96247; // skipt to 1965000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6640,12 +6640,12 @@ initial begin
     // data_size:    8192
     // release_time: 2061250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6654,7 +6654,7 @@ initial begin
 
     #96247; // skipt to 2061250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6669,12 +6669,12 @@ initial begin
     // data_size:    8192
     // release_time: 2157500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6683,7 +6683,7 @@ initial begin
 
     #96247; // skipt to 2157500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6698,12 +6698,12 @@ initial begin
     // data_size:    8192
     // release_time: 2253750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6712,7 +6712,7 @@ initial begin
 
     #96247; // skipt to 2253750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6727,12 +6727,12 @@ initial begin
     // data_size:    8192
     // release_time: 2350000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6741,7 +6741,7 @@ initial begin
 
     #96247; // skipt to 2350000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6761,12 +6761,12 @@ initial begin
     // data_size:    8192
     // release_time: 4000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6775,7 +6775,7 @@ initial begin
 
     #4098; // skipt to 4000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6790,12 +6790,12 @@ initial begin
     // data_size:    8192
     // release_time: 100250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6804,7 +6804,7 @@ initial begin
 
     #96247; // skipt to 100250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6819,12 +6819,12 @@ initial begin
     // data_size:    2048
     // release_time: 136250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6833,7 +6833,7 @@ initial begin
 
     #35997; // skipt to 136250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6848,12 +6848,12 @@ initial begin
     // data_size:    8192
     // release_time: 196500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6862,7 +6862,7 @@ initial begin
 
     #60247; // skipt to 196500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6877,12 +6877,12 @@ initial begin
     // data_size:    2048
     // release_time: 232500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6891,7 +6891,7 @@ initial begin
 
     #35997; // skipt to 232500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6906,12 +6906,12 @@ initial begin
     // data_size:    8192
     // release_time: 292750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6920,7 +6920,7 @@ initial begin
 
     #60247; // skipt to 292750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6935,12 +6935,12 @@ initial begin
     // data_size:    2048
     // release_time: 328750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6949,7 +6949,7 @@ initial begin
 
     #35997; // skipt to 328750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6964,12 +6964,12 @@ initial begin
     // data_size:    8192
     // release_time: 389000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -6978,7 +6978,7 @@ initial begin
 
     #60247; // skipt to 389000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -6993,12 +6993,12 @@ initial begin
     // data_size:    2048
     // release_time: 425000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7007,7 +7007,7 @@ initial begin
 
     #35997; // skipt to 425000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7022,12 +7022,12 @@ initial begin
     // data_size:    8192
     // release_time: 485250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7036,7 +7036,7 @@ initial begin
 
     #60247; // skipt to 485250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7051,12 +7051,12 @@ initial begin
     // data_size:    2048
     // release_time: 521250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7065,7 +7065,7 @@ initial begin
 
     #35997; // skipt to 521250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7080,12 +7080,12 @@ initial begin
     // data_size:    8192
     // release_time: 581500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7094,7 +7094,7 @@ initial begin
 
     #60247; // skipt to 581500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7109,12 +7109,12 @@ initial begin
     // data_size:    2048
     // release_time: 617500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7123,7 +7123,7 @@ initial begin
 
     #35997; // skipt to 617500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7138,12 +7138,12 @@ initial begin
     // data_size:    8192
     // release_time: 677750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7152,7 +7152,7 @@ initial begin
 
     #60247; // skipt to 677750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7167,12 +7167,12 @@ initial begin
     // data_size:    2048
     // release_time: 713750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7181,7 +7181,7 @@ initial begin
 
     #35997; // skipt to 713750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7196,12 +7196,12 @@ initial begin
     // data_size:    8192
     // release_time: 774000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7210,7 +7210,7 @@ initial begin
 
     #60247; // skipt to 774000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7225,12 +7225,12 @@ initial begin
     // data_size:    2048
     // release_time: 810000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7239,7 +7239,7 @@ initial begin
 
     #35997; // skipt to 810000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7254,12 +7254,12 @@ initial begin
     // data_size:    8192
     // release_time: 870250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7268,7 +7268,7 @@ initial begin
 
     #60247; // skipt to 870250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7283,12 +7283,12 @@ initial begin
     // data_size:    2048
     // release_time: 906250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7297,7 +7297,7 @@ initial begin
 
     #35997; // skipt to 906250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7312,12 +7312,12 @@ initial begin
     // data_size:    8192
     // release_time: 966500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7326,7 +7326,7 @@ initial begin
 
     #60247; // skipt to 966500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7341,12 +7341,12 @@ initial begin
     // data_size:    2048
     // release_time: 1002500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7355,7 +7355,7 @@ initial begin
 
     #35997; // skipt to 1002500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7370,12 +7370,12 @@ initial begin
     // data_size:    8192
     // release_time: 1062750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7384,7 +7384,7 @@ initial begin
 
     #60247; // skipt to 1062750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7399,12 +7399,12 @@ initial begin
     // data_size:    2048
     // release_time: 1098750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7413,7 +7413,7 @@ initial begin
 
     #35997; // skipt to 1098750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7428,12 +7428,12 @@ initial begin
     // data_size:    8192
     // release_time: 1159000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7442,7 +7442,7 @@ initial begin
 
     #60247; // skipt to 1159000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7457,12 +7457,12 @@ initial begin
     // data_size:    2048
     // release_time: 1195000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7471,7 +7471,7 @@ initial begin
 
     #35997; // skipt to 1195000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7486,12 +7486,12 @@ initial begin
     // data_size:    8192
     // release_time: 1255250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7500,7 +7500,7 @@ initial begin
 
     #60247; // skipt to 1255250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7515,12 +7515,12 @@ initial begin
     // data_size:    2048
     // release_time: 1291250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7529,7 +7529,7 @@ initial begin
 
     #35997; // skipt to 1291250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7544,12 +7544,12 @@ initial begin
     // data_size:    8192
     // release_time: 1351500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7558,7 +7558,7 @@ initial begin
 
     #60247; // skipt to 1351500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7573,12 +7573,12 @@ initial begin
     // data_size:    2048
     // release_time: 1387500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7587,7 +7587,7 @@ initial begin
 
     #35997; // skipt to 1387500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7602,12 +7602,12 @@ initial begin
     // data_size:    8192
     // release_time: 1447750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7616,7 +7616,7 @@ initial begin
 
     #60247; // skipt to 1447750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7631,12 +7631,12 @@ initial begin
     // data_size:    2048
     // release_time: 1483750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7645,7 +7645,7 @@ initial begin
 
     #35997; // skipt to 1483750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7660,12 +7660,12 @@ initial begin
     // data_size:    8192
     // release_time: 1544000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7674,7 +7674,7 @@ initial begin
 
     #60247; // skipt to 1544000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7689,12 +7689,12 @@ initial begin
     // data_size:    2048
     // release_time: 1580000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7703,7 +7703,7 @@ initial begin
 
     #35997; // skipt to 1580000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7718,12 +7718,12 @@ initial begin
     // data_size:    8192
     // release_time: 1640250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7732,7 +7732,7 @@ initial begin
 
     #60247; // skipt to 1640250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7747,12 +7747,12 @@ initial begin
     // data_size:    2048
     // release_time: 1676250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7761,7 +7761,7 @@ initial begin
 
     #35997; // skipt to 1676250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7776,12 +7776,12 @@ initial begin
     // data_size:    8192
     // release_time: 1736500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7790,7 +7790,7 @@ initial begin
 
     #60247; // skipt to 1736500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7805,12 +7805,12 @@ initial begin
     // data_size:    2048
     // release_time: 1772500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7819,7 +7819,7 @@ initial begin
 
     #35997; // skipt to 1772500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7834,12 +7834,12 @@ initial begin
     // data_size:    8192
     // release_time: 1832750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7848,7 +7848,7 @@ initial begin
 
     #60247; // skipt to 1832750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7863,12 +7863,12 @@ initial begin
     // data_size:    2048
     // release_time: 1868750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7877,7 +7877,7 @@ initial begin
 
     #35997; // skipt to 1868750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7892,12 +7892,12 @@ initial begin
     // data_size:    8192
     // release_time: 1929000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7906,7 +7906,7 @@ initial begin
 
     #60247; // skipt to 1929000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7921,12 +7921,12 @@ initial begin
     // data_size:    2048
     // release_time: 1965000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7935,7 +7935,7 @@ initial begin
 
     #35997; // skipt to 1965000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7950,12 +7950,12 @@ initial begin
     // data_size:    8192
     // release_time: 2025250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7964,7 +7964,7 @@ initial begin
 
     #60247; // skipt to 2025250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -7979,12 +7979,12 @@ initial begin
     // data_size:    2048
     // release_time: 2061250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -7993,7 +7993,7 @@ initial begin
 
     #35997; // skipt to 2061250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8008,12 +8008,12 @@ initial begin
     // data_size:    8192
     // release_time: 2121500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8022,7 +8022,7 @@ initial begin
 
     #60247; // skipt to 2121500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8037,12 +8037,12 @@ initial begin
     // data_size:    2048
     // release_time: 2157500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8051,7 +8051,7 @@ initial begin
 
     #35997; // skipt to 2157500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8066,12 +8066,12 @@ initial begin
     // data_size:    8192
     // release_time: 2217750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8080,7 +8080,7 @@ initial begin
 
     #60247; // skipt to 2217750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8095,12 +8095,12 @@ initial begin
     // data_size:    2048
     // release_time: 2253750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8109,7 +8109,7 @@ initial begin
 
     #35997; // skipt to 2253750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8124,12 +8124,12 @@ initial begin
     // data_size:    8192
     // release_time: 2314000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8138,7 +8138,7 @@ initial begin
 
     #60247; // skipt to 2314000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8153,12 +8153,12 @@ initial begin
     // data_size:    2048
     // release_time: 2350000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8167,7 +8167,7 @@ initial begin
 
     #35997; // skipt to 2350000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8187,12 +8187,12 @@ initial begin
     // data_size:    153600
     // release_time: 0
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8201,7 +8201,7 @@ initial begin
 
     #98; // skipt to 0
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8216,12 +8216,12 @@ initial begin
     // data_size:    153600
     // release_time: 96250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8230,7 +8230,7 @@ initial begin
 
     #96247; // skipt to 96250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8245,12 +8245,12 @@ initial begin
     // data_size:    153600
     // release_time: 136250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8259,7 +8259,7 @@ initial begin
 
     #39997; // skipt to 136250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8274,12 +8274,12 @@ initial begin
     // data_size:    153600
     // release_time: 192500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8288,7 +8288,7 @@ initial begin
 
     #56247; // skipt to 192500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8303,12 +8303,12 @@ initial begin
     // data_size:    153600
     // release_time: 232500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8317,7 +8317,7 @@ initial begin
 
     #39997; // skipt to 232500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8332,12 +8332,12 @@ initial begin
     // data_size:    153600
     // release_time: 288750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8346,7 +8346,7 @@ initial begin
 
     #56247; // skipt to 288750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8361,12 +8361,12 @@ initial begin
     // data_size:    153600
     // release_time: 328750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8375,7 +8375,7 @@ initial begin
 
     #39997; // skipt to 328750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8390,12 +8390,12 @@ initial begin
     // data_size:    153600
     // release_time: 385000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8404,7 +8404,7 @@ initial begin
 
     #56247; // skipt to 385000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8419,12 +8419,12 @@ initial begin
     // data_size:    153600
     // release_time: 425000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8433,7 +8433,7 @@ initial begin
 
     #39997; // skipt to 425000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8448,12 +8448,12 @@ initial begin
     // data_size:    153600
     // release_time: 481250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8462,7 +8462,7 @@ initial begin
 
     #56247; // skipt to 481250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8477,12 +8477,12 @@ initial begin
     // data_size:    153600
     // release_time: 521250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8491,7 +8491,7 @@ initial begin
 
     #39997; // skipt to 521250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8506,12 +8506,12 @@ initial begin
     // data_size:    153600
     // release_time: 577500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8520,7 +8520,7 @@ initial begin
 
     #56247; // skipt to 577500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8535,12 +8535,12 @@ initial begin
     // data_size:    153600
     // release_time: 617500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8549,7 +8549,7 @@ initial begin
 
     #39997; // skipt to 617500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8564,12 +8564,12 @@ initial begin
     // data_size:    153600
     // release_time: 673750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8578,7 +8578,7 @@ initial begin
 
     #56247; // skipt to 673750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8593,12 +8593,12 @@ initial begin
     // data_size:    153600
     // release_time: 713750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8607,7 +8607,7 @@ initial begin
 
     #39997; // skipt to 713750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8622,12 +8622,12 @@ initial begin
     // data_size:    153600
     // release_time: 770000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8636,7 +8636,7 @@ initial begin
 
     #56247; // skipt to 770000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8651,12 +8651,12 @@ initial begin
     // data_size:    153600
     // release_time: 810000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8665,7 +8665,7 @@ initial begin
 
     #39997; // skipt to 810000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8680,12 +8680,12 @@ initial begin
     // data_size:    153600
     // release_time: 866250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8694,7 +8694,7 @@ initial begin
 
     #56247; // skipt to 866250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8709,12 +8709,12 @@ initial begin
     // data_size:    153600
     // release_time: 906250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8723,7 +8723,7 @@ initial begin
 
     #39997; // skipt to 906250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8738,12 +8738,12 @@ initial begin
     // data_size:    153600
     // release_time: 962500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8752,7 +8752,7 @@ initial begin
 
     #56247; // skipt to 962500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8767,12 +8767,12 @@ initial begin
     // data_size:    153600
     // release_time: 1002500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8781,7 +8781,7 @@ initial begin
 
     #39997; // skipt to 1002500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8796,12 +8796,12 @@ initial begin
     // data_size:    153600
     // release_time: 1058750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8810,7 +8810,7 @@ initial begin
 
     #56247; // skipt to 1058750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8825,12 +8825,12 @@ initial begin
     // data_size:    153600
     // release_time: 1098750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8839,7 +8839,7 @@ initial begin
 
     #39997; // skipt to 1098750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8854,12 +8854,12 @@ initial begin
     // data_size:    153600
     // release_time: 1155000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8868,7 +8868,7 @@ initial begin
 
     #56247; // skipt to 1155000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8883,12 +8883,12 @@ initial begin
     // data_size:    153600
     // release_time: 1195000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8897,7 +8897,7 @@ initial begin
 
     #39997; // skipt to 1195000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8912,12 +8912,12 @@ initial begin
     // data_size:    153600
     // release_time: 1251250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8926,7 +8926,7 @@ initial begin
 
     #56247; // skipt to 1251250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8941,12 +8941,12 @@ initial begin
     // data_size:    153600
     // release_time: 1291250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8955,7 +8955,7 @@ initial begin
 
     #39997; // skipt to 1291250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8970,12 +8970,12 @@ initial begin
     // data_size:    153600
     // release_time: 1347500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -8984,7 +8984,7 @@ initial begin
 
     #56247; // skipt to 1347500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -8999,12 +8999,12 @@ initial begin
     // data_size:    153600
     // release_time: 1387500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9013,7 +9013,7 @@ initial begin
 
     #39997; // skipt to 1387500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9028,12 +9028,12 @@ initial begin
     // data_size:    153600
     // release_time: 1443750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9042,7 +9042,7 @@ initial begin
 
     #56247; // skipt to 1443750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9057,12 +9057,12 @@ initial begin
     // data_size:    153600
     // release_time: 1483750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9071,7 +9071,7 @@ initial begin
 
     #39997; // skipt to 1483750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9086,12 +9086,12 @@ initial begin
     // data_size:    153600
     // release_time: 1540000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9100,7 +9100,7 @@ initial begin
 
     #56247; // skipt to 1540000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9115,12 +9115,12 @@ initial begin
     // data_size:    153600
     // release_time: 1580000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9129,7 +9129,7 @@ initial begin
 
     #39997; // skipt to 1580000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9144,12 +9144,12 @@ initial begin
     // data_size:    153600
     // release_time: 1636250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9158,7 +9158,7 @@ initial begin
 
     #56247; // skipt to 1636250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9173,12 +9173,12 @@ initial begin
     // data_size:    153600
     // release_time: 1676250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9187,7 +9187,7 @@ initial begin
 
     #39997; // skipt to 1676250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9202,12 +9202,12 @@ initial begin
     // data_size:    153600
     // release_time: 1732500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9216,7 +9216,7 @@ initial begin
 
     #56247; // skipt to 1732500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9231,12 +9231,12 @@ initial begin
     // data_size:    153600
     // release_time: 1772500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9245,7 +9245,7 @@ initial begin
 
     #39997; // skipt to 1772500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9260,12 +9260,12 @@ initial begin
     // data_size:    153600
     // release_time: 1828750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9274,7 +9274,7 @@ initial begin
 
     #56247; // skipt to 1828750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9289,12 +9289,12 @@ initial begin
     // data_size:    153600
     // release_time: 1868750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9303,7 +9303,7 @@ initial begin
 
     #39997; // skipt to 1868750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9318,12 +9318,12 @@ initial begin
     // data_size:    153600
     // release_time: 1925000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9332,7 +9332,7 @@ initial begin
 
     #56247; // skipt to 1925000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9347,12 +9347,12 @@ initial begin
     // data_size:    153600
     // release_time: 1965000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9361,7 +9361,7 @@ initial begin
 
     #39997; // skipt to 1965000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9376,12 +9376,12 @@ initial begin
     // data_size:    153600
     // release_time: 2021250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9390,7 +9390,7 @@ initial begin
 
     #56247; // skipt to 2021250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9405,12 +9405,12 @@ initial begin
     // data_size:    153600
     // release_time: 2061250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9419,7 +9419,7 @@ initial begin
 
     #39997; // skipt to 2061250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9434,12 +9434,12 @@ initial begin
     // data_size:    153600
     // release_time: 2117500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9448,7 +9448,7 @@ initial begin
 
     #56247; // skipt to 2117500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9463,12 +9463,12 @@ initial begin
     // data_size:    153600
     // release_time: 2157500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9477,7 +9477,7 @@ initial begin
 
     #39997; // skipt to 2157500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9492,12 +9492,12 @@ initial begin
     // data_size:    153600
     // release_time: 2213750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9506,7 +9506,7 @@ initial begin
 
     #56247; // skipt to 2213750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9521,12 +9521,12 @@ initial begin
     // data_size:    153600
     // release_time: 2253750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9535,7 +9535,7 @@ initial begin
 
     #39997; // skipt to 2253750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9550,12 +9550,12 @@ initial begin
     // data_size:    153600
     // release_time: 2310000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9564,7 +9564,7 @@ initial begin
 
     #56247; // skipt to 2310000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9579,12 +9579,12 @@ initial begin
     // data_size:    153600
     // release_time: 2350000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9593,7 +9593,7 @@ initial begin
 
     #39997; // skipt to 2350000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9613,12 +9613,12 @@ initial begin
     // data_size:    2048
     // release_time: 4000
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9627,7 +9627,7 @@ initial begin
 
     #4098; // skipt to 4000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9642,12 +9642,12 @@ initial begin
     // data_size:    8192
     // release_time: 96250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9656,7 +9656,7 @@ initial begin
 
     #92247; // skipt to 96250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9671,12 +9671,12 @@ initial begin
     // data_size:    8192
     // release_time: 192500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9685,7 +9685,7 @@ initial begin
 
     #96247; // skipt to 192500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9700,12 +9700,12 @@ initial begin
     // data_size:    2048
     // release_time: 242625
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9714,7 +9714,7 @@ initial begin
 
     #50122; // skipt to 242625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9729,12 +9729,12 @@ initial begin
     // data_size:    8192
     // release_time: 288750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9743,7 +9743,7 @@ initial begin
 
     #46122; // skipt to 288750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9758,12 +9758,12 @@ initial begin
     // data_size:    8192
     // release_time: 385000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9772,7 +9772,7 @@ initial begin
 
     #96247; // skipt to 385000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9787,12 +9787,12 @@ initial begin
     // data_size:    8192
     // release_time: 481250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9801,7 +9801,7 @@ initial begin
 
     #96247; // skipt to 481250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9816,12 +9816,12 @@ initial begin
     // data_size:    2048
     // release_time: 485250
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9830,7 +9830,7 @@ initial begin
 
     #3997; // skipt to 485250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9845,12 +9845,12 @@ initial begin
     // data_size:    8192
     // release_time: 577500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9859,7 +9859,7 @@ initial begin
 
     #92247; // skipt to 577500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9874,12 +9874,12 @@ initial begin
     // data_size:    8192
     // release_time: 673750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9888,7 +9888,7 @@ initial begin
 
     #96247; // skipt to 673750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9903,12 +9903,12 @@ initial begin
     // data_size:    2048
     // release_time: 723875
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9917,7 +9917,7 @@ initial begin
 
     #50122; // skipt to 723875
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9932,12 +9932,12 @@ initial begin
     // data_size:    8192
     // release_time: 770000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9946,7 +9946,7 @@ initial begin
 
     #46122; // skipt to 770000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9961,12 +9961,12 @@ initial begin
     // data_size:    8192
     // release_time: 866250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -9975,7 +9975,7 @@ initial begin
 
     #96247; // skipt to 866250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -9990,12 +9990,12 @@ initial begin
     // data_size:    8192
     // release_time: 962500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10004,7 +10004,7 @@ initial begin
 
     #96247; // skipt to 962500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10019,12 +10019,12 @@ initial begin
     // data_size:    2048
     // release_time: 966500
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10033,7 +10033,7 @@ initial begin
 
     #3997; // skipt to 966500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10048,12 +10048,12 @@ initial begin
     // data_size:    8192
     // release_time: 1058750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10062,7 +10062,7 @@ initial begin
 
     #92247; // skipt to 1058750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10077,12 +10077,12 @@ initial begin
     // data_size:    8192
     // release_time: 1155000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10091,7 +10091,7 @@ initial begin
 
     #96247; // skipt to 1155000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10106,12 +10106,12 @@ initial begin
     // data_size:    2048
     // release_time: 1209125
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10120,7 +10120,7 @@ initial begin
 
     #54122; // skipt to 1209125
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10135,12 +10135,12 @@ initial begin
     // data_size:    8192
     // release_time: 1251250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10149,7 +10149,7 @@ initial begin
 
     #42122; // skipt to 1251250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10164,12 +10164,12 @@ initial begin
     // data_size:    8192
     // release_time: 1347500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10178,7 +10178,7 @@ initial begin
 
     #96247; // skipt to 1347500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10193,12 +10193,12 @@ initial begin
     // data_size:    8192
     // release_time: 1443750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10207,7 +10207,7 @@ initial begin
 
     #96247; // skipt to 1443750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10222,12 +10222,12 @@ initial begin
     // data_size:    2048
     // release_time: 1447750
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10236,7 +10236,7 @@ initial begin
 
     #3997; // skipt to 1447750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10251,12 +10251,12 @@ initial begin
     // data_size:    8192
     // release_time: 1540000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10265,7 +10265,7 @@ initial begin
 
     #92247; // skipt to 1540000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10280,12 +10280,12 @@ initial begin
     // data_size:    8192
     // release_time: 1636250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10294,7 +10294,7 @@ initial begin
 
     #96247; // skipt to 1636250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10309,12 +10309,12 @@ initial begin
     // data_size:    2048
     // release_time: 1686375
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10323,7 +10323,7 @@ initial begin
 
     #50122; // skipt to 1686375
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10338,12 +10338,12 @@ initial begin
     // data_size:    8192
     // release_time: 1732500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10352,7 +10352,7 @@ initial begin
 
     #46122; // skipt to 1732500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10367,12 +10367,12 @@ initial begin
     // data_size:    8192
     // release_time: 1828750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10381,7 +10381,7 @@ initial begin
 
     #96247; // skipt to 1828750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10396,12 +10396,12 @@ initial begin
     // data_size:    8192
     // release_time: 1925000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10410,7 +10410,7 @@ initial begin
 
     #96247; // skipt to 1925000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10425,12 +10425,12 @@ initial begin
     // data_size:    2048
     // release_time: 1929000
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10439,7 +10439,7 @@ initial begin
 
     #3997; // skipt to 1929000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10454,12 +10454,12 @@ initial begin
     // data_size:    8192
     // release_time: 2021250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10468,7 +10468,7 @@ initial begin
 
     #92247; // skipt to 2021250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10483,12 +10483,12 @@ initial begin
     // data_size:    8192
     // release_time: 2117500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10497,7 +10497,7 @@ initial begin
 
     #96247; // skipt to 2117500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10512,12 +10512,12 @@ initial begin
     // data_size:    2048
     // release_time: 2167625
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10526,7 +10526,7 @@ initial begin
 
     #50122; // skipt to 2167625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10541,12 +10541,12 @@ initial begin
     // data_size:    8192
     // release_time: 2213750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10555,7 +10555,7 @@ initial begin
 
     #46122; // skipt to 2213750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10570,12 +10570,12 @@ initial begin
     // data_size:    8192
     // release_time: 2310000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10584,7 +10584,7 @@ initial begin
 
     #96247; // skipt to 2310000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10604,12 +10604,12 @@ initial begin
     // data_size:    153600
     // release_time: 96250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10618,7 +10618,7 @@ initial begin
 
     #96348; // skipt to 96250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10633,12 +10633,12 @@ initial begin
     // data_size:    153600
     // release_time: 192500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10647,7 +10647,7 @@ initial begin
 
     #96247; // skipt to 192500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10662,12 +10662,12 @@ initial begin
     // data_size:    153600
     // release_time: 288750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10676,7 +10676,7 @@ initial begin
 
     #96247; // skipt to 288750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10691,12 +10691,12 @@ initial begin
     // data_size:    153600
     // release_time: 385000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10705,7 +10705,7 @@ initial begin
 
     #96247; // skipt to 385000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10720,12 +10720,12 @@ initial begin
     // data_size:    153600
     // release_time: 481250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10734,7 +10734,7 @@ initial begin
 
     #96247; // skipt to 481250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10749,12 +10749,12 @@ initial begin
     // data_size:    153600
     // release_time: 577500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10763,7 +10763,7 @@ initial begin
 
     #96247; // skipt to 577500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10778,12 +10778,12 @@ initial begin
     // data_size:    153600
     // release_time: 673750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10792,7 +10792,7 @@ initial begin
 
     #96247; // skipt to 673750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10807,12 +10807,12 @@ initial begin
     // data_size:    153600
     // release_time: 770000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10821,7 +10821,7 @@ initial begin
 
     #96247; // skipt to 770000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10836,12 +10836,12 @@ initial begin
     // data_size:    153600
     // release_time: 866250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10850,7 +10850,7 @@ initial begin
 
     #96247; // skipt to 866250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10865,12 +10865,12 @@ initial begin
     // data_size:    153600
     // release_time: 962500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10879,7 +10879,7 @@ initial begin
 
     #96247; // skipt to 962500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10894,12 +10894,12 @@ initial begin
     // data_size:    153600
     // release_time: 1058750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10908,7 +10908,7 @@ initial begin
 
     #96247; // skipt to 1058750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10923,12 +10923,12 @@ initial begin
     // data_size:    153600
     // release_time: 1155000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10937,7 +10937,7 @@ initial begin
 
     #96247; // skipt to 1155000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10952,12 +10952,12 @@ initial begin
     // data_size:    153600
     // release_time: 1251250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10966,7 +10966,7 @@ initial begin
 
     #96247; // skipt to 1251250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -10981,12 +10981,12 @@ initial begin
     // data_size:    153600
     // release_time: 1347500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -10995,7 +10995,7 @@ initial begin
 
     #96247; // skipt to 1347500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11010,12 +11010,12 @@ initial begin
     // data_size:    153600
     // release_time: 1443750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11024,7 +11024,7 @@ initial begin
 
     #96247; // skipt to 1443750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11039,12 +11039,12 @@ initial begin
     // data_size:    153600
     // release_time: 1540000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11053,7 +11053,7 @@ initial begin
 
     #96247; // skipt to 1540000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11068,12 +11068,12 @@ initial begin
     // data_size:    153600
     // release_time: 1636250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11082,7 +11082,7 @@ initial begin
 
     #96247; // skipt to 1636250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11097,12 +11097,12 @@ initial begin
     // data_size:    153600
     // release_time: 1732500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11111,7 +11111,7 @@ initial begin
 
     #96247; // skipt to 1732500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11126,12 +11126,12 @@ initial begin
     // data_size:    153600
     // release_time: 1828750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11140,7 +11140,7 @@ initial begin
 
     #96247; // skipt to 1828750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11155,12 +11155,12 @@ initial begin
     // data_size:    153600
     // release_time: 1925000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11169,7 +11169,7 @@ initial begin
 
     #96247; // skipt to 1925000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11184,12 +11184,12 @@ initial begin
     // data_size:    153600
     // release_time: 2021250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11198,7 +11198,7 @@ initial begin
 
     #96247; // skipt to 2021250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11213,12 +11213,12 @@ initial begin
     // data_size:    153600
     // release_time: 2117500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11227,7 +11227,7 @@ initial begin
 
     #96247; // skipt to 2117500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11242,12 +11242,12 @@ initial begin
     // data_size:    153600
     // release_time: 2213750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11256,7 +11256,7 @@ initial begin
 
     #96247; // skipt to 2213750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11271,12 +11271,12 @@ initial begin
     // data_size:    153600
     // release_time: 2310000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11285,7 +11285,7 @@ initial begin
 
     #96247; // skipt to 2310000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11305,12 +11305,12 @@ initial begin
     // data_size:    16384
     // release_time: 40000
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 4096.0;  // 16384 bytes, size flit
+    mem_if.data_in = 4097;  // 16384 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11319,7 +11319,7 @@ initial begin
 
     #40098; // skipt to 40000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 4098.0;
+    ddma_if.nbytes_in = 4099;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11334,12 +11334,12 @@ initial begin
     // data_size:    153600
     // release_time: 96250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11348,7 +11348,7 @@ initial begin
 
     #56247; // skipt to 96250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11363,12 +11363,12 @@ initial begin
     // data_size:    153600
     // release_time: 192500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11377,7 +11377,7 @@ initial begin
 
     #96247; // skipt to 192500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11392,12 +11392,12 @@ initial begin
     // data_size:    153600
     // release_time: 288750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11406,7 +11406,7 @@ initial begin
 
     #96247; // skipt to 288750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11421,12 +11421,12 @@ initial begin
     // data_size:    153600
     // release_time: 385000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11435,7 +11435,7 @@ initial begin
 
     #96247; // skipt to 385000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11450,12 +11450,12 @@ initial begin
     // data_size:    153600
     // release_time: 481250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11464,7 +11464,7 @@ initial begin
 
     #96247; // skipt to 481250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11479,12 +11479,12 @@ initial begin
     // data_size:    153600
     // release_time: 577500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11493,7 +11493,7 @@ initial begin
 
     #96247; // skipt to 577500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11508,12 +11508,12 @@ initial begin
     // data_size:    153600
     // release_time: 673750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11522,7 +11522,7 @@ initial begin
 
     #96247; // skipt to 673750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11537,12 +11537,12 @@ initial begin
     // data_size:    153600
     // release_time: 770000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11551,7 +11551,7 @@ initial begin
 
     #96247; // skipt to 770000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11566,12 +11566,12 @@ initial begin
     // data_size:    153600
     // release_time: 866250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11580,7 +11580,7 @@ initial begin
 
     #96247; // skipt to 866250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11595,12 +11595,12 @@ initial begin
     // data_size:    153600
     // release_time: 962500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11609,7 +11609,7 @@ initial begin
 
     #96247; // skipt to 962500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11624,12 +11624,12 @@ initial begin
     // data_size:    153600
     // release_time: 1058750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11638,7 +11638,7 @@ initial begin
 
     #96247; // skipt to 1058750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11653,12 +11653,12 @@ initial begin
     // data_size:    153600
     // release_time: 1155000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11667,7 +11667,7 @@ initial begin
 
     #96247; // skipt to 1155000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11682,12 +11682,12 @@ initial begin
     // data_size:    153600
     // release_time: 1251250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11696,7 +11696,7 @@ initial begin
 
     #96247; // skipt to 1251250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11711,12 +11711,12 @@ initial begin
     // data_size:    153600
     // release_time: 1347500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11725,7 +11725,7 @@ initial begin
 
     #96247; // skipt to 1347500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11740,12 +11740,12 @@ initial begin
     // data_size:    153600
     // release_time: 1443750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11754,7 +11754,7 @@ initial begin
 
     #96247; // skipt to 1443750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11769,12 +11769,12 @@ initial begin
     // data_size:    153600
     // release_time: 1540000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11783,7 +11783,7 @@ initial begin
 
     #96247; // skipt to 1540000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11798,12 +11798,12 @@ initial begin
     // data_size:    153600
     // release_time: 1636250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11812,7 +11812,7 @@ initial begin
 
     #96247; // skipt to 1636250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11827,12 +11827,12 @@ initial begin
     // data_size:    153600
     // release_time: 1732500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11841,7 +11841,7 @@ initial begin
 
     #96247; // skipt to 1732500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11856,12 +11856,12 @@ initial begin
     // data_size:    153600
     // release_time: 1828750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11870,7 +11870,7 @@ initial begin
 
     #96247; // skipt to 1828750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11885,12 +11885,12 @@ initial begin
     // data_size:    153600
     // release_time: 1925000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11899,7 +11899,7 @@ initial begin
 
     #96247; // skipt to 1925000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11914,12 +11914,12 @@ initial begin
     // data_size:    153600
     // release_time: 2021250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11928,7 +11928,7 @@ initial begin
 
     #96247; // skipt to 2021250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11943,12 +11943,12 @@ initial begin
     // data_size:    153600
     // release_time: 2117500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11957,7 +11957,7 @@ initial begin
 
     #96247; // skipt to 2117500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -11972,12 +11972,12 @@ initial begin
     // data_size:    153600
     // release_time: 2213750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -11986,7 +11986,7 @@ initial begin
 
     #96247; // skipt to 2213750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12001,12 +12001,12 @@ initial begin
     // data_size:    153600
     // release_time: 2310000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12015,7 +12015,7 @@ initial begin
 
     #96247; // skipt to 2310000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12035,12 +12035,12 @@ initial begin
     // data_size:    2048
     // release_time: 4000
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12049,7 +12049,7 @@ initial begin
 
     #4098; // skipt to 4000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12064,12 +12064,12 @@ initial begin
     // data_size:    4096
     // release_time: 42000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12078,7 +12078,7 @@ initial begin
 
     #37997; // skipt to 42000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12093,12 +12093,12 @@ initial begin
     // data_size:    8192
     // release_time: 54000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12107,7 +12107,7 @@ initial begin
 
     #11997; // skipt to 54000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12122,12 +12122,12 @@ initial begin
     // data_size:    8192
     // release_time: 150250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12136,7 +12136,7 @@ initial begin
 
     #96247; // skipt to 150250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12151,12 +12151,12 @@ initial begin
     // data_size:    2048
     // release_time: 240625
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12165,7 +12165,7 @@ initial begin
 
     #90372; // skipt to 240625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12180,12 +12180,12 @@ initial begin
     // data_size:    4096
     // release_time: 242625
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12194,7 +12194,7 @@ initial begin
 
     #1997; // skipt to 242625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12209,12 +12209,12 @@ initial begin
     // data_size:    8192
     // release_time: 246500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12223,7 +12223,7 @@ initial begin
 
     #3872; // skipt to 246500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12238,12 +12238,12 @@ initial begin
     // data_size:    8192
     // release_time: 342750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12252,7 +12252,7 @@ initial begin
 
     #96247; // skipt to 342750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12267,12 +12267,12 @@ initial begin
     // data_size:    8192
     // release_time: 439000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12281,7 +12281,7 @@ initial begin
 
     #96247; // skipt to 439000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12296,12 +12296,12 @@ initial begin
     // data_size:    2048
     // release_time: 481250
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12310,7 +12310,7 @@ initial begin
 
     #42247; // skipt to 481250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12325,12 +12325,12 @@ initial begin
     // data_size:    4096
     // release_time: 523250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12339,7 +12339,7 @@ initial begin
 
     #41997; // skipt to 523250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12354,12 +12354,12 @@ initial begin
     // data_size:    8192
     // release_time: 535250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12368,7 +12368,7 @@ initial begin
 
     #11997; // skipt to 535250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12383,12 +12383,12 @@ initial begin
     // data_size:    8192
     // release_time: 631500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12397,7 +12397,7 @@ initial begin
 
     #96247; // skipt to 631500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12412,12 +12412,12 @@ initial begin
     // data_size:    2048
     // release_time: 721875
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12426,7 +12426,7 @@ initial begin
 
     #90372; // skipt to 721875
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12441,12 +12441,12 @@ initial begin
     // data_size:    4096
     // release_time: 723875
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12455,7 +12455,7 @@ initial begin
 
     #1997; // skipt to 723875
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12470,12 +12470,12 @@ initial begin
     // data_size:    8192
     // release_time: 727750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12484,7 +12484,7 @@ initial begin
 
     #3872; // skipt to 727750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12499,12 +12499,12 @@ initial begin
     // data_size:    8192
     // release_time: 824000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12513,7 +12513,7 @@ initial begin
 
     #96247; // skipt to 824000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12528,12 +12528,12 @@ initial begin
     // data_size:    8192
     // release_time: 920250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12542,7 +12542,7 @@ initial begin
 
     #96247; // skipt to 920250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12557,12 +12557,12 @@ initial begin
     // data_size:    2048
     // release_time: 962500
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12571,7 +12571,7 @@ initial begin
 
     #42247; // skipt to 962500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12586,12 +12586,12 @@ initial begin
     // data_size:    4096
     // release_time: 1004500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12600,7 +12600,7 @@ initial begin
 
     #41997; // skipt to 1004500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12615,12 +12615,12 @@ initial begin
     // data_size:    8192
     // release_time: 1016500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12629,7 +12629,7 @@ initial begin
 
     #11997; // skipt to 1016500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12644,12 +12644,12 @@ initial begin
     // data_size:    8192
     // release_time: 1112750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12658,7 +12658,7 @@ initial begin
 
     #96247; // skipt to 1112750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12673,12 +12673,12 @@ initial begin
     // data_size:    8192
     // release_time: 1203125
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12687,7 +12687,7 @@ initial begin
 
     #90372; // skipt to 1203125
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12702,12 +12702,12 @@ initial begin
     // data_size:    4096
     // release_time: 1207125
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12716,7 +12716,7 @@ initial begin
 
     #3997; // skipt to 1207125
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12731,12 +12731,12 @@ initial begin
     // data_size:    8192
     // release_time: 1209000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12745,7 +12745,7 @@ initial begin
 
     #1872; // skipt to 1209000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12760,12 +12760,12 @@ initial begin
     // data_size:    2048
     // release_time: 1211125
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12774,7 +12774,7 @@ initial begin
 
     #2122; // skipt to 1211125
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12789,12 +12789,12 @@ initial begin
     // data_size:    8192
     // release_time: 1305250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12803,7 +12803,7 @@ initial begin
 
     #94122; // skipt to 1305250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12818,12 +12818,12 @@ initial begin
     // data_size:    8192
     // release_time: 1401500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12832,7 +12832,7 @@ initial begin
 
     #96247; // skipt to 1401500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12847,12 +12847,12 @@ initial begin
     // data_size:    2048
     // release_time: 1443750
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12861,7 +12861,7 @@ initial begin
 
     #42247; // skipt to 1443750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12876,12 +12876,12 @@ initial begin
     // data_size:    4096
     // release_time: 1485750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12890,7 +12890,7 @@ initial begin
 
     #41997; // skipt to 1485750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12905,12 +12905,12 @@ initial begin
     // data_size:    8192
     // release_time: 1497750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12919,7 +12919,7 @@ initial begin
 
     #11997; // skipt to 1497750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12934,12 +12934,12 @@ initial begin
     // data_size:    8192
     // release_time: 1594000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12948,7 +12948,7 @@ initial begin
 
     #96247; // skipt to 1594000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12963,12 +12963,12 @@ initial begin
     // data_size:    2048
     // release_time: 1684375
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -12977,7 +12977,7 @@ initial begin
 
     #90372; // skipt to 1684375
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -12992,12 +12992,12 @@ initial begin
     // data_size:    4096
     // release_time: 1686375
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13006,7 +13006,7 @@ initial begin
 
     #1997; // skipt to 1686375
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13021,12 +13021,12 @@ initial begin
     // data_size:    8192
     // release_time: 1690250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13035,7 +13035,7 @@ initial begin
 
     #3872; // skipt to 1690250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13050,12 +13050,12 @@ initial begin
     // data_size:    8192
     // release_time: 1786500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13064,7 +13064,7 @@ initial begin
 
     #96247; // skipt to 1786500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13079,12 +13079,12 @@ initial begin
     // data_size:    8192
     // release_time: 1882750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13093,7 +13093,7 @@ initial begin
 
     #96247; // skipt to 1882750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13108,12 +13108,12 @@ initial begin
     // data_size:    2048
     // release_time: 1925000
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13122,7 +13122,7 @@ initial begin
 
     #42247; // skipt to 1925000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13137,12 +13137,12 @@ initial begin
     // data_size:    4096
     // release_time: 1967000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13151,7 +13151,7 @@ initial begin
 
     #41997; // skipt to 1967000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13166,12 +13166,12 @@ initial begin
     // data_size:    8192
     // release_time: 1979000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13180,7 +13180,7 @@ initial begin
 
     #11997; // skipt to 1979000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13195,12 +13195,12 @@ initial begin
     // data_size:    8192
     // release_time: 2075250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13209,7 +13209,7 @@ initial begin
 
     #96247; // skipt to 2075250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13224,12 +13224,12 @@ initial begin
     // data_size:    2048
     // release_time: 2165625
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 512.0;  // 2048 bytes, size flit
+    mem_if.data_in = 513;  // 2048 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13238,7 +13238,7 @@ initial begin
 
     #90372; // skipt to 2165625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 514.0;
+    ddma_if.nbytes_in = 515;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13253,12 +13253,12 @@ initial begin
     // data_size:    4096
     // release_time: 2167625
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13267,7 +13267,7 @@ initial begin
 
     #1997; // skipt to 2167625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13282,12 +13282,12 @@ initial begin
     // data_size:    8192
     // release_time: 2171500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13296,7 +13296,7 @@ initial begin
 
     #3872; // skipt to 2171500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13311,12 +13311,12 @@ initial begin
     // data_size:    8192
     // release_time: 2267750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13325,7 +13325,7 @@ initial begin
 
     #96247; // skipt to 2267750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13340,12 +13340,12 @@ initial begin
     // data_size:    8192
     // release_time: 2364000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13354,7 +13354,7 @@ initial begin
 
     #96247; // skipt to 2364000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13374,12 +13374,12 @@ initial begin
     // data_size:    32768
     // release_time: 50000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13388,7 +13388,7 @@ initial begin
 
     #50098; // skipt to 50000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13403,12 +13403,12 @@ initial begin
     // data_size:    8192
     // release_time: 104250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13417,7 +13417,7 @@ initial begin
 
     #54247; // skipt to 104250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13432,12 +13432,12 @@ initial begin
     // data_size:    32768
     // release_time: 146250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13446,7 +13446,7 @@ initial begin
 
     #41997; // skipt to 146250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13461,12 +13461,12 @@ initial begin
     // data_size:    8192
     // release_time: 200500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13475,7 +13475,7 @@ initial begin
 
     #54247; // skipt to 200500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13490,12 +13490,12 @@ initial begin
     // data_size:    32768
     // release_time: 242500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13504,7 +13504,7 @@ initial begin
 
     #41997; // skipt to 242500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13519,12 +13519,12 @@ initial begin
     // data_size:    8192
     // release_time: 296750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13533,7 +13533,7 @@ initial begin
 
     #54247; // skipt to 296750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13548,12 +13548,12 @@ initial begin
     // data_size:    32768
     // release_time: 338750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13562,7 +13562,7 @@ initial begin
 
     #41997; // skipt to 338750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13577,12 +13577,12 @@ initial begin
     // data_size:    8192
     // release_time: 393000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13591,7 +13591,7 @@ initial begin
 
     #54247; // skipt to 393000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13606,12 +13606,12 @@ initial begin
     // data_size:    32768
     // release_time: 435000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13620,7 +13620,7 @@ initial begin
 
     #41997; // skipt to 435000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13635,12 +13635,12 @@ initial begin
     // data_size:    8192
     // release_time: 489250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13649,7 +13649,7 @@ initial begin
 
     #54247; // skipt to 489250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13664,12 +13664,12 @@ initial begin
     // data_size:    32768
     // release_time: 531250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13678,7 +13678,7 @@ initial begin
 
     #41997; // skipt to 531250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13693,12 +13693,12 @@ initial begin
     // data_size:    8192
     // release_time: 585500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13707,7 +13707,7 @@ initial begin
 
     #54247; // skipt to 585500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13722,12 +13722,12 @@ initial begin
     // data_size:    32768
     // release_time: 627500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13736,7 +13736,7 @@ initial begin
 
     #41997; // skipt to 627500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13751,12 +13751,12 @@ initial begin
     // data_size:    8192
     // release_time: 681750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13765,7 +13765,7 @@ initial begin
 
     #54247; // skipt to 681750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13780,12 +13780,12 @@ initial begin
     // data_size:    32768
     // release_time: 723750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13794,7 +13794,7 @@ initial begin
 
     #41997; // skipt to 723750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13809,12 +13809,12 @@ initial begin
     // data_size:    8192
     // release_time: 778000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13823,7 +13823,7 @@ initial begin
 
     #54247; // skipt to 778000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13838,12 +13838,12 @@ initial begin
     // data_size:    32768
     // release_time: 820000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13852,7 +13852,7 @@ initial begin
 
     #41997; // skipt to 820000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13867,12 +13867,12 @@ initial begin
     // data_size:    8192
     // release_time: 874250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13881,7 +13881,7 @@ initial begin
 
     #54247; // skipt to 874250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13896,12 +13896,12 @@ initial begin
     // data_size:    32768
     // release_time: 916250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13910,7 +13910,7 @@ initial begin
 
     #41997; // skipt to 916250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13925,12 +13925,12 @@ initial begin
     // data_size:    8192
     // release_time: 970500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13939,7 +13939,7 @@ initial begin
 
     #54247; // skipt to 970500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13954,12 +13954,12 @@ initial begin
     // data_size:    32768
     // release_time: 1012500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13968,7 +13968,7 @@ initial begin
 
     #41997; // skipt to 1012500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -13983,12 +13983,12 @@ initial begin
     // data_size:    8192
     // release_time: 1066750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -13997,7 +13997,7 @@ initial begin
 
     #54247; // skipt to 1066750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14012,12 +14012,12 @@ initial begin
     // data_size:    32768
     // release_time: 1108750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14026,7 +14026,7 @@ initial begin
 
     #41997; // skipt to 1108750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14041,12 +14041,12 @@ initial begin
     // data_size:    8192
     // release_time: 1163000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14055,7 +14055,7 @@ initial begin
 
     #54247; // skipt to 1163000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14070,12 +14070,12 @@ initial begin
     // data_size:    32768
     // release_time: 1205000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14084,7 +14084,7 @@ initial begin
 
     #41997; // skipt to 1205000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14099,12 +14099,12 @@ initial begin
     // data_size:    8192
     // release_time: 1259250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14113,7 +14113,7 @@ initial begin
 
     #54247; // skipt to 1259250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14128,12 +14128,12 @@ initial begin
     // data_size:    32768
     // release_time: 1301250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14142,7 +14142,7 @@ initial begin
 
     #41997; // skipt to 1301250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14157,12 +14157,12 @@ initial begin
     // data_size:    8192
     // release_time: 1355500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14171,7 +14171,7 @@ initial begin
 
     #54247; // skipt to 1355500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14186,12 +14186,12 @@ initial begin
     // data_size:    32768
     // release_time: 1397500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14200,7 +14200,7 @@ initial begin
 
     #41997; // skipt to 1397500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14215,12 +14215,12 @@ initial begin
     // data_size:    8192
     // release_time: 1451750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14229,7 +14229,7 @@ initial begin
 
     #54247; // skipt to 1451750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14244,12 +14244,12 @@ initial begin
     // data_size:    32768
     // release_time: 1493750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14258,7 +14258,7 @@ initial begin
 
     #41997; // skipt to 1493750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14273,12 +14273,12 @@ initial begin
     // data_size:    8192
     // release_time: 1548000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14287,7 +14287,7 @@ initial begin
 
     #54247; // skipt to 1548000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14302,12 +14302,12 @@ initial begin
     // data_size:    32768
     // release_time: 1590000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14316,7 +14316,7 @@ initial begin
 
     #41997; // skipt to 1590000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14331,12 +14331,12 @@ initial begin
     // data_size:    8192
     // release_time: 1644250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14345,7 +14345,7 @@ initial begin
 
     #54247; // skipt to 1644250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14360,12 +14360,12 @@ initial begin
     // data_size:    32768
     // release_time: 1686250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14374,7 +14374,7 @@ initial begin
 
     #41997; // skipt to 1686250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14389,12 +14389,12 @@ initial begin
     // data_size:    8192
     // release_time: 1740500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14403,7 +14403,7 @@ initial begin
 
     #54247; // skipt to 1740500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14418,12 +14418,12 @@ initial begin
     // data_size:    32768
     // release_time: 1782500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14432,7 +14432,7 @@ initial begin
 
     #41997; // skipt to 1782500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14447,12 +14447,12 @@ initial begin
     // data_size:    8192
     // release_time: 1836750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14461,7 +14461,7 @@ initial begin
 
     #54247; // skipt to 1836750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14476,12 +14476,12 @@ initial begin
     // data_size:    32768
     // release_time: 1878750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14490,7 +14490,7 @@ initial begin
 
     #41997; // skipt to 1878750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14505,12 +14505,12 @@ initial begin
     // data_size:    8192
     // release_time: 1933000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14519,7 +14519,7 @@ initial begin
 
     #54247; // skipt to 1933000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14534,12 +14534,12 @@ initial begin
     // data_size:    32768
     // release_time: 1975000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14548,7 +14548,7 @@ initial begin
 
     #41997; // skipt to 1975000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14563,12 +14563,12 @@ initial begin
     // data_size:    8192
     // release_time: 2029250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14577,7 +14577,7 @@ initial begin
 
     #54247; // skipt to 2029250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14592,12 +14592,12 @@ initial begin
     // data_size:    32768
     // release_time: 2071250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14606,7 +14606,7 @@ initial begin
 
     #41997; // skipt to 2071250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14621,12 +14621,12 @@ initial begin
     // data_size:    8192
     // release_time: 2125500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14635,7 +14635,7 @@ initial begin
 
     #54247; // skipt to 2125500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14650,12 +14650,12 @@ initial begin
     // data_size:    32768
     // release_time: 2167500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14664,7 +14664,7 @@ initial begin
 
     #41997; // skipt to 2167500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14679,12 +14679,12 @@ initial begin
     // data_size:    8192
     // release_time: 2221750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14693,7 +14693,7 @@ initial begin
 
     #54247; // skipt to 2221750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14708,12 +14708,12 @@ initial begin
     // data_size:    32768
     // release_time: 2263750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14722,7 +14722,7 @@ initial begin
 
     #41997; // skipt to 2263750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14737,12 +14737,12 @@ initial begin
     // data_size:    8192
     // release_time: 2318000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14751,7 +14751,7 @@ initial begin
 
     #54247; // skipt to 2318000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14766,12 +14766,12 @@ initial begin
     // data_size:    32768
     // release_time: 2360000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14780,7 +14780,7 @@ initial begin
 
     #41997; // skipt to 2360000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14800,12 +14800,12 @@ initial begin
     // data_size:    4096
     // release_time: 40000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14814,7 +14814,7 @@ initial begin
 
     #40098; // skipt to 40000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14829,12 +14829,12 @@ initial begin
     // data_size:    8192
     // release_time: 42000
     mem_if.wb_in = 1;
-    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (3 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14843,7 +14843,7 @@ initial begin
 
     #1997; // skipt to 42000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14858,12 +14858,12 @@ initial begin
     // data_size:    153600
     // release_time: 96250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14872,7 +14872,7 @@ initial begin
 
     #54247; // skipt to 96250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14887,12 +14887,12 @@ initial begin
     // data_size:    153600
     // release_time: 192500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14901,7 +14901,7 @@ initial begin
 
     #96247; // skipt to 192500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14916,12 +14916,12 @@ initial begin
     // data_size:    4096
     // release_time: 240625
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14930,7 +14930,7 @@ initial begin
 
     #48122; // skipt to 240625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14945,12 +14945,12 @@ initial begin
     // data_size:    153600
     // release_time: 288750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14959,7 +14959,7 @@ initial begin
 
     #48122; // skipt to 288750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -14974,12 +14974,12 @@ initial begin
     // data_size:    153600
     // release_time: 385000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -14988,7 +14988,7 @@ initial begin
 
     #96247; // skipt to 385000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15003,12 +15003,12 @@ initial begin
     // data_size:    153600
     // release_time: 481250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15017,7 +15017,7 @@ initial begin
 
     #96247; // skipt to 481250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15032,12 +15032,12 @@ initial begin
     // data_size:    4096
     // release_time: 521250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15046,7 +15046,7 @@ initial begin
 
     #39997; // skipt to 521250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15061,12 +15061,12 @@ initial begin
     // data_size:    153600
     // release_time: 577500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15075,7 +15075,7 @@ initial begin
 
     #56247; // skipt to 577500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15090,12 +15090,12 @@ initial begin
     // data_size:    153600
     // release_time: 673750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15104,7 +15104,7 @@ initial begin
 
     #96247; // skipt to 673750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15119,12 +15119,12 @@ initial begin
     // data_size:    4096
     // release_time: 721875
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15133,7 +15133,7 @@ initial begin
 
     #48122; // skipt to 721875
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15148,12 +15148,12 @@ initial begin
     // data_size:    153600
     // release_time: 770000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15162,7 +15162,7 @@ initial begin
 
     #48122; // skipt to 770000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15177,12 +15177,12 @@ initial begin
     // data_size:    153600
     // release_time: 866250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15191,7 +15191,7 @@ initial begin
 
     #96247; // skipt to 866250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15206,12 +15206,12 @@ initial begin
     // data_size:    153600
     // release_time: 962500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15220,7 +15220,7 @@ initial begin
 
     #96247; // skipt to 962500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15235,12 +15235,12 @@ initial begin
     // data_size:    4096
     // release_time: 1002500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15249,7 +15249,7 @@ initial begin
 
     #39997; // skipt to 1002500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15264,12 +15264,12 @@ initial begin
     // data_size:    153600
     // release_time: 1058750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15278,7 +15278,7 @@ initial begin
 
     #56247; // skipt to 1058750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15293,12 +15293,12 @@ initial begin
     // data_size:    153600
     // release_time: 1155000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15307,7 +15307,7 @@ initial begin
 
     #96247; // skipt to 1155000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15322,12 +15322,12 @@ initial begin
     // data_size:    4096
     // release_time: 1203125
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15336,7 +15336,7 @@ initial begin
 
     #48122; // skipt to 1203125
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15351,12 +15351,12 @@ initial begin
     // data_size:    153600
     // release_time: 1251250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15365,7 +15365,7 @@ initial begin
 
     #48122; // skipt to 1251250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15380,12 +15380,12 @@ initial begin
     // data_size:    153600
     // release_time: 1347500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15394,7 +15394,7 @@ initial begin
 
     #96247; // skipt to 1347500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15409,12 +15409,12 @@ initial begin
     // data_size:    153600
     // release_time: 1443750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15423,7 +15423,7 @@ initial begin
 
     #96247; // skipt to 1443750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15438,12 +15438,12 @@ initial begin
     // data_size:    4096
     // release_time: 1483750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15452,7 +15452,7 @@ initial begin
 
     #39997; // skipt to 1483750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15467,12 +15467,12 @@ initial begin
     // data_size:    153600
     // release_time: 1540000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15481,7 +15481,7 @@ initial begin
 
     #56247; // skipt to 1540000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15496,12 +15496,12 @@ initial begin
     // data_size:    153600
     // release_time: 1636250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15510,7 +15510,7 @@ initial begin
 
     #96247; // skipt to 1636250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15525,12 +15525,12 @@ initial begin
     // data_size:    4096
     // release_time: 1684375
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15539,7 +15539,7 @@ initial begin
 
     #48122; // skipt to 1684375
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15554,12 +15554,12 @@ initial begin
     // data_size:    153600
     // release_time: 1732500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15568,7 +15568,7 @@ initial begin
 
     #48122; // skipt to 1732500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15583,12 +15583,12 @@ initial begin
     // data_size:    153600
     // release_time: 1828750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15597,7 +15597,7 @@ initial begin
 
     #96247; // skipt to 1828750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15612,12 +15612,12 @@ initial begin
     // data_size:    153600
     // release_time: 1925000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15626,7 +15626,7 @@ initial begin
 
     #96247; // skipt to 1925000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15641,12 +15641,12 @@ initial begin
     // data_size:    4096
     // release_time: 1965000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15655,7 +15655,7 @@ initial begin
 
     #39997; // skipt to 1965000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15670,12 +15670,12 @@ initial begin
     // data_size:    153600
     // release_time: 2021250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15684,7 +15684,7 @@ initial begin
 
     #56247; // skipt to 2021250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15699,12 +15699,12 @@ initial begin
     // data_size:    153600
     // release_time: 2117500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15713,7 +15713,7 @@ initial begin
 
     #96247; // skipt to 2117500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15728,12 +15728,12 @@ initial begin
     // data_size:    4096
     // release_time: 2165625
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 3;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 1024.0;  // 4096 bytes, size flit
+    mem_if.data_in = 1025;  // 4096 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15742,7 +15742,7 @@ initial begin
 
     #48122; // skipt to 2165625
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 1026.0;
+    ddma_if.nbytes_in = 1027;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15757,12 +15757,12 @@ initial begin
     // data_size:    153600
     // release_time: 2213750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15771,7 +15771,7 @@ initial begin
 
     #48122; // skipt to 2213750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15786,12 +15786,12 @@ initial begin
     // data_size:    153600
     // release_time: 2310000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15800,7 +15800,7 @@ initial begin
 
     #96247; // skipt to 2310000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15820,12 +15820,12 @@ initial begin
     // data_size:    153600
     // release_time: 0
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15834,7 +15834,7 @@ initial begin
 
     #98; // skipt to 0
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15849,12 +15849,12 @@ initial begin
     // data_size:    153600
     // release_time: 96250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15863,7 +15863,7 @@ initial begin
 
     #96247; // skipt to 96250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15878,12 +15878,12 @@ initial begin
     // data_size:    153600
     // release_time: 136250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15892,7 +15892,7 @@ initial begin
 
     #39997; // skipt to 136250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15907,12 +15907,12 @@ initial begin
     // data_size:    65536
     // release_time: 176000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 16384.0;  // 65536 bytes, size flit
+    mem_if.data_in = 16385;  // 65536 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15921,7 +15921,7 @@ initial begin
 
     #39747; // skipt to 176000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 16386.0;
+    ddma_if.nbytes_in = 16387;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15936,12 +15936,12 @@ initial begin
     // data_size:    153600
     // release_time: 192500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15950,7 +15950,7 @@ initial begin
 
     #16497; // skipt to 192500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15965,12 +15965,12 @@ initial begin
     // data_size:    153600
     // release_time: 232500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -15979,7 +15979,7 @@ initial begin
 
     #39997; // skipt to 232500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -15994,12 +15994,12 @@ initial begin
     // data_size:    65536
     // release_time: 272000
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 16384.0;  // 65536 bytes, size flit
+    mem_if.data_in = 16385;  // 65536 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16008,7 +16008,7 @@ initial begin
 
     #39497; // skipt to 272000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 16386.0;
+    ddma_if.nbytes_in = 16387;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16023,12 +16023,12 @@ initial begin
     // data_size:    153600
     // release_time: 288750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16037,7 +16037,7 @@ initial begin
 
     #16747; // skipt to 288750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16052,12 +16052,12 @@ initial begin
     // data_size:    153600
     // release_time: 328750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16066,7 +16066,7 @@ initial begin
 
     #39997; // skipt to 328750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16081,12 +16081,12 @@ initial begin
     // data_size:    153600
     // release_time: 385000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16095,7 +16095,7 @@ initial begin
 
     #56247; // skipt to 385000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16110,12 +16110,12 @@ initial begin
     // data_size:    153600
     // release_time: 425000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16124,7 +16124,7 @@ initial begin
 
     #39997; // skipt to 425000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16139,12 +16139,12 @@ initial begin
     // data_size:    153600
     // release_time: 481250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16153,7 +16153,7 @@ initial begin
 
     #56247; // skipt to 481250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16168,12 +16168,12 @@ initial begin
     // data_size:    153600
     // release_time: 521250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16182,7 +16182,7 @@ initial begin
 
     #39997; // skipt to 521250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16197,12 +16197,12 @@ initial begin
     // data_size:    153600
     // release_time: 577500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16211,7 +16211,7 @@ initial begin
 
     #56247; // skipt to 577500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16226,12 +16226,12 @@ initial begin
     // data_size:    153600
     // release_time: 617500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16240,7 +16240,7 @@ initial begin
 
     #39997; // skipt to 617500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16255,12 +16255,12 @@ initial begin
     // data_size:    153600
     // release_time: 673750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16269,7 +16269,7 @@ initial begin
 
     #56247; // skipt to 673750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16284,12 +16284,12 @@ initial begin
     // data_size:    153600
     // release_time: 713750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16298,7 +16298,7 @@ initial begin
 
     #39997; // skipt to 713750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16313,12 +16313,12 @@ initial begin
     // data_size:    153600
     // release_time: 770000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16327,7 +16327,7 @@ initial begin
 
     #56247; // skipt to 770000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16342,12 +16342,12 @@ initial begin
     // data_size:    153600
     // release_time: 810000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16356,7 +16356,7 @@ initial begin
 
     #39997; // skipt to 810000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16371,12 +16371,12 @@ initial begin
     // data_size:    153600
     // release_time: 866250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16385,7 +16385,7 @@ initial begin
 
     #56247; // skipt to 866250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16400,12 +16400,12 @@ initial begin
     // data_size:    153600
     // release_time: 906250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16414,7 +16414,7 @@ initial begin
 
     #39997; // skipt to 906250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16429,12 +16429,12 @@ initial begin
     // data_size:    153600
     // release_time: 962500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16443,7 +16443,7 @@ initial begin
 
     #56247; // skipt to 962500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16458,12 +16458,12 @@ initial begin
     // data_size:    153600
     // release_time: 1002500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16472,7 +16472,7 @@ initial begin
 
     #39997; // skipt to 1002500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16487,12 +16487,12 @@ initial begin
     // data_size:    153600
     // release_time: 1058750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16501,7 +16501,7 @@ initial begin
 
     #56247; // skipt to 1058750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16516,12 +16516,12 @@ initial begin
     // data_size:    153600
     // release_time: 1098750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16530,7 +16530,7 @@ initial begin
 
     #39997; // skipt to 1098750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16545,12 +16545,12 @@ initial begin
     // data_size:    153600
     // release_time: 1155000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16559,7 +16559,7 @@ initial begin
 
     #56247; // skipt to 1155000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16574,12 +16574,12 @@ initial begin
     // data_size:    153600
     // release_time: 1195000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16588,7 +16588,7 @@ initial begin
 
     #39997; // skipt to 1195000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16603,12 +16603,12 @@ initial begin
     // data_size:    153600
     // release_time: 1251250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16617,7 +16617,7 @@ initial begin
 
     #56247; // skipt to 1251250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16632,12 +16632,12 @@ initial begin
     // data_size:    153600
     // release_time: 1291250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16646,7 +16646,7 @@ initial begin
 
     #39997; // skipt to 1291250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16661,12 +16661,12 @@ initial begin
     // data_size:    153600
     // release_time: 1347500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16675,7 +16675,7 @@ initial begin
 
     #56247; // skipt to 1347500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16690,12 +16690,12 @@ initial begin
     // data_size:    153600
     // release_time: 1387500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16704,7 +16704,7 @@ initial begin
 
     #39997; // skipt to 1387500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16719,12 +16719,12 @@ initial begin
     // data_size:    65536
     // release_time: 1427125
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 16384.0;  // 65536 bytes, size flit
+    mem_if.data_in = 16385;  // 65536 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16733,7 +16733,7 @@ initial begin
 
     #39622; // skipt to 1427125
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 16386.0;
+    ddma_if.nbytes_in = 16387;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16748,12 +16748,12 @@ initial begin
     // data_size:    153600
     // release_time: 1443750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16762,7 +16762,7 @@ initial begin
 
     #16622; // skipt to 1443750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16777,12 +16777,12 @@ initial begin
     // data_size:    153600
     // release_time: 1483750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16791,7 +16791,7 @@ initial begin
 
     #39997; // skipt to 1483750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16806,12 +16806,12 @@ initial begin
     // data_size:    65536
     // release_time: 1523125
     mem_if.wb_in = 1;
-    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (0 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 16384.0;  // 65536 bytes, size flit
+    mem_if.data_in = 16385;  // 65536 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16820,7 +16820,7 @@ initial begin
 
     #39372; // skipt to 1523125
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 16386.0;
+    ddma_if.nbytes_in = 16387;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16835,12 +16835,12 @@ initial begin
     // data_size:    153600
     // release_time: 1540000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16849,7 +16849,7 @@ initial begin
 
     #16872; // skipt to 1540000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16864,12 +16864,12 @@ initial begin
     // data_size:    153600
     // release_time: 1580000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16878,7 +16878,7 @@ initial begin
 
     #39997; // skipt to 1580000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16893,12 +16893,12 @@ initial begin
     // data_size:    153600
     // release_time: 1636250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16907,7 +16907,7 @@ initial begin
 
     #56247; // skipt to 1636250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16922,12 +16922,12 @@ initial begin
     // data_size:    153600
     // release_time: 1676250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16936,7 +16936,7 @@ initial begin
 
     #39997; // skipt to 1676250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16951,12 +16951,12 @@ initial begin
     // data_size:    153600
     // release_time: 1732500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16965,7 +16965,7 @@ initial begin
 
     #56247; // skipt to 1732500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -16980,12 +16980,12 @@ initial begin
     // data_size:    153600
     // release_time: 1772500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -16994,7 +16994,7 @@ initial begin
 
     #39997; // skipt to 1772500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17009,12 +17009,12 @@ initial begin
     // data_size:    153600
     // release_time: 1828750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17023,7 +17023,7 @@ initial begin
 
     #56247; // skipt to 1828750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17038,12 +17038,12 @@ initial begin
     // data_size:    153600
     // release_time: 1868750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17052,7 +17052,7 @@ initial begin
 
     #39997; // skipt to 1868750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17067,12 +17067,12 @@ initial begin
     // data_size:    153600
     // release_time: 1925000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17081,7 +17081,7 @@ initial begin
 
     #56247; // skipt to 1925000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17096,12 +17096,12 @@ initial begin
     // data_size:    153600
     // release_time: 1965000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17110,7 +17110,7 @@ initial begin
 
     #39997; // skipt to 1965000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17125,12 +17125,12 @@ initial begin
     // data_size:    153600
     // release_time: 2021250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17139,7 +17139,7 @@ initial begin
 
     #56247; // skipt to 2021250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17154,12 +17154,12 @@ initial begin
     // data_size:    153600
     // release_time: 2061250
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17168,7 +17168,7 @@ initial begin
 
     #39997; // skipt to 2061250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17183,12 +17183,12 @@ initial begin
     // data_size:    153600
     // release_time: 2117500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17197,7 +17197,7 @@ initial begin
 
     #56247; // skipt to 2117500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17212,12 +17212,12 @@ initial begin
     // data_size:    153600
     // release_time: 2157500
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17226,7 +17226,7 @@ initial begin
 
     #39997; // skipt to 2157500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17241,12 +17241,12 @@ initial begin
     // data_size:    153600
     // release_time: 2213750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17255,7 +17255,7 @@ initial begin
 
     #56247; // skipt to 2213750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17270,12 +17270,12 @@ initial begin
     // data_size:    153600
     // release_time: 2253750
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17284,7 +17284,7 @@ initial begin
 
     #39997; // skipt to 2253750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17299,12 +17299,12 @@ initial begin
     // data_size:    153600
     // release_time: 2310000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 0;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17313,7 +17313,7 @@ initial begin
 
     #56247; // skipt to 2310000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17328,12 +17328,12 @@ initial begin
     // data_size:    153600
     // release_time: 2350000
     mem_if.wb_in = 1;
-    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (1 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 38400.0;  // 153600 bytes, size flit
+    mem_if.data_in = 38401;  // 153600 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17342,7 +17342,7 @@ initial begin
 
     #39997; // skipt to 2350000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 38402.0;
+    ddma_if.nbytes_in = 38403;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17362,12 +17362,12 @@ initial begin
     // data_size:    32768
     // release_time: 40000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17376,7 +17376,7 @@ initial begin
 
     #40098; // skipt to 40000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17391,12 +17391,12 @@ initial begin
     // data_size:    32768
     // release_time: 136250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17405,7 +17405,7 @@ initial begin
 
     #96247; // skipt to 136250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17420,12 +17420,12 @@ initial begin
     // data_size:    8192
     // release_time: 146250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17434,7 +17434,7 @@ initial begin
 
     #9997; // skipt to 146250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17449,12 +17449,12 @@ initial begin
     // data_size:    32768
     // release_time: 232500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17463,7 +17463,7 @@ initial begin
 
     #86247; // skipt to 232500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17478,12 +17478,12 @@ initial begin
     // data_size:    8192
     // release_time: 242500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17492,7 +17492,7 @@ initial begin
 
     #9997; // skipt to 242500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17507,12 +17507,12 @@ initial begin
     // data_size:    32768
     // release_time: 328750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17521,7 +17521,7 @@ initial begin
 
     #86247; // skipt to 328750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17536,12 +17536,12 @@ initial begin
     // data_size:    8192
     // release_time: 338750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17550,7 +17550,7 @@ initial begin
 
     #9997; // skipt to 338750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17565,12 +17565,12 @@ initial begin
     // data_size:    32768
     // release_time: 425000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17579,7 +17579,7 @@ initial begin
 
     #86247; // skipt to 425000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17594,12 +17594,12 @@ initial begin
     // data_size:    8192
     // release_time: 435000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17608,7 +17608,7 @@ initial begin
 
     #9997; // skipt to 435000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17623,12 +17623,12 @@ initial begin
     // data_size:    32768
     // release_time: 521250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17637,7 +17637,7 @@ initial begin
 
     #86247; // skipt to 521250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17652,12 +17652,12 @@ initial begin
     // data_size:    8192
     // release_time: 531250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17666,7 +17666,7 @@ initial begin
 
     #9997; // skipt to 531250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17681,12 +17681,12 @@ initial begin
     // data_size:    32768
     // release_time: 617500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17695,7 +17695,7 @@ initial begin
 
     #86247; // skipt to 617500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17710,12 +17710,12 @@ initial begin
     // data_size:    8192
     // release_time: 627500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17724,7 +17724,7 @@ initial begin
 
     #9997; // skipt to 627500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17739,12 +17739,12 @@ initial begin
     // data_size:    32768
     // release_time: 713750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17753,7 +17753,7 @@ initial begin
 
     #86247; // skipt to 713750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17768,12 +17768,12 @@ initial begin
     // data_size:    8192
     // release_time: 723750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17782,7 +17782,7 @@ initial begin
 
     #9997; // skipt to 723750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17797,12 +17797,12 @@ initial begin
     // data_size:    32768
     // release_time: 810000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17811,7 +17811,7 @@ initial begin
 
     #86247; // skipt to 810000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17826,12 +17826,12 @@ initial begin
     // data_size:    8192
     // release_time: 820000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17840,7 +17840,7 @@ initial begin
 
     #9997; // skipt to 820000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17855,12 +17855,12 @@ initial begin
     // data_size:    32768
     // release_time: 906250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17869,7 +17869,7 @@ initial begin
 
     #86247; // skipt to 906250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17884,12 +17884,12 @@ initial begin
     // data_size:    8192
     // release_time: 916250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17898,7 +17898,7 @@ initial begin
 
     #9997; // skipt to 916250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17913,12 +17913,12 @@ initial begin
     // data_size:    32768
     // release_time: 1002500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17927,7 +17927,7 @@ initial begin
 
     #86247; // skipt to 1002500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17942,12 +17942,12 @@ initial begin
     // data_size:    8192
     // release_time: 1012500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17956,7 +17956,7 @@ initial begin
 
     #9997; // skipt to 1012500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -17971,12 +17971,12 @@ initial begin
     // data_size:    32768
     // release_time: 1098750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -17985,7 +17985,7 @@ initial begin
 
     #86247; // skipt to 1098750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18000,12 +18000,12 @@ initial begin
     // data_size:    8192
     // release_time: 1108750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18014,7 +18014,7 @@ initial begin
 
     #9997; // skipt to 1108750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18029,12 +18029,12 @@ initial begin
     // data_size:    32768
     // release_time: 1195000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18043,7 +18043,7 @@ initial begin
 
     #86247; // skipt to 1195000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18058,12 +18058,12 @@ initial begin
     // data_size:    8192
     // release_time: 1205000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18072,7 +18072,7 @@ initial begin
 
     #9997; // skipt to 1205000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18087,12 +18087,12 @@ initial begin
     // data_size:    32768
     // release_time: 1291250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18101,7 +18101,7 @@ initial begin
 
     #86247; // skipt to 1291250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18116,12 +18116,12 @@ initial begin
     // data_size:    8192
     // release_time: 1301250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18130,7 +18130,7 @@ initial begin
 
     #9997; // skipt to 1301250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18145,12 +18145,12 @@ initial begin
     // data_size:    32768
     // release_time: 1387500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18159,7 +18159,7 @@ initial begin
 
     #86247; // skipt to 1387500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18174,12 +18174,12 @@ initial begin
     // data_size:    8192
     // release_time: 1397500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18188,7 +18188,7 @@ initial begin
 
     #9997; // skipt to 1397500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18203,12 +18203,12 @@ initial begin
     // data_size:    32768
     // release_time: 1483750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18217,7 +18217,7 @@ initial begin
 
     #86247; // skipt to 1483750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18232,12 +18232,12 @@ initial begin
     // data_size:    8192
     // release_time: 1493750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18246,7 +18246,7 @@ initial begin
 
     #9997; // skipt to 1493750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18261,12 +18261,12 @@ initial begin
     // data_size:    32768
     // release_time: 1580000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18275,7 +18275,7 @@ initial begin
 
     #86247; // skipt to 1580000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18290,12 +18290,12 @@ initial begin
     // data_size:    8192
     // release_time: 1590000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18304,7 +18304,7 @@ initial begin
 
     #9997; // skipt to 1590000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18319,12 +18319,12 @@ initial begin
     // data_size:    32768
     // release_time: 1676250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18333,7 +18333,7 @@ initial begin
 
     #86247; // skipt to 1676250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18348,12 +18348,12 @@ initial begin
     // data_size:    8192
     // release_time: 1686250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18362,7 +18362,7 @@ initial begin
 
     #9997; // skipt to 1686250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18377,12 +18377,12 @@ initial begin
     // data_size:    32768
     // release_time: 1772500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18391,7 +18391,7 @@ initial begin
 
     #86247; // skipt to 1772500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18406,12 +18406,12 @@ initial begin
     // data_size:    8192
     // release_time: 1782500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18420,7 +18420,7 @@ initial begin
 
     #9997; // skipt to 1782500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18435,12 +18435,12 @@ initial begin
     // data_size:    32768
     // release_time: 1868750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18449,7 +18449,7 @@ initial begin
 
     #86247; // skipt to 1868750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18464,12 +18464,12 @@ initial begin
     // data_size:    8192
     // release_time: 1878750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18478,7 +18478,7 @@ initial begin
 
     #9997; // skipt to 1878750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18493,12 +18493,12 @@ initial begin
     // data_size:    32768
     // release_time: 1965000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18507,7 +18507,7 @@ initial begin
 
     #86247; // skipt to 1965000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18522,12 +18522,12 @@ initial begin
     // data_size:    8192
     // release_time: 1975000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18536,7 +18536,7 @@ initial begin
 
     #9997; // skipt to 1975000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18551,12 +18551,12 @@ initial begin
     // data_size:    32768
     // release_time: 2061250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18565,7 +18565,7 @@ initial begin
 
     #86247; // skipt to 2061250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18580,12 +18580,12 @@ initial begin
     // data_size:    8192
     // release_time: 2071250
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18594,7 +18594,7 @@ initial begin
 
     #9997; // skipt to 2071250
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18609,12 +18609,12 @@ initial begin
     // data_size:    32768
     // release_time: 2157500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18623,7 +18623,7 @@ initial begin
 
     #86247; // skipt to 2157500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18638,12 +18638,12 @@ initial begin
     // data_size:    8192
     // release_time: 2167500
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18652,7 +18652,7 @@ initial begin
 
     #9997; // skipt to 2167500
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18667,12 +18667,12 @@ initial begin
     // data_size:    32768
     // release_time: 2253750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 2;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 8192.0;  // 32768 bytes, size flit
+    mem_if.data_in = 8193;  // 32768 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18681,7 +18681,7 @@ initial begin
 
     #86247; // skipt to 2253750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 8194.0;
+    ddma_if.nbytes_in = 8195;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18696,12 +18696,12 @@ initial begin
     // data_size:    8192
     // release_time: 2263750
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18710,7 +18710,7 @@ initial begin
 
     #9997; // skipt to 2263750
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 
@@ -18725,12 +18725,12 @@ initial begin
     // data_size:    8192
     // release_time: 2360000
     mem_if.wb_in = 1;
-    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;  // header flit
+    mem_if.data_in = (2 << (FLIT_WIDTH / 4)) | 1;
     mem_if.addr_in = 'h0;
     #1;
 
     mem_if.wb_in = 1;
-    mem_if.data_in = 2048.0;  // 8192 bytes, size flit
+    mem_if.data_in = 2049;  // 8192 bytes, size flit
     mem_if.addr_in = 'h0 + 'h1;
     #1;
 
@@ -18739,7 +18739,7 @@ initial begin
 
     #96247; // skipt to 2360000
     ddma_if.addr_in = 'h0;
-    ddma_if.nbytes_in = 2050.0;
+    ddma_if.nbytes_in = 2051;
     ddma_if.cmd_in = 1;
     #1;
 

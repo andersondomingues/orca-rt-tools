@@ -38,8 +38,9 @@ vsim -voptargs=+acc=lprn -t ps -debugDB work.ddma_noc_top
 quietly set StdArithNoWarnings 1
 quietly set StdVitalGlitchNoWarnings 1
 
-do wave.do
+#do wave.do
 #view -new schematic
+do ../../../packets/mockup.wave.do
 
 run 0 ns
 

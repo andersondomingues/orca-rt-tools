@@ -1,3 +1,76 @@
+def genWaveform(expDir, noc):
+    ss = "onerror {resume}\n"
+    ss += "quietly WaveActivateNextPane {} 0\n"
+    ss += "add wave -noupdate /ddma_noc_top/clock\n"
+    ss += "add wave -noupdate /ddma_noc_top/reset\n"
+
+    for n in noc.nodes(data=True):
+        node, data = n
+        x, y = data
+        print(node, data, x, y)
+
+        x = data["X"]
+        y = data["Y"]
+
+        ss += f"add wave -noupdate -group {x}{y}_ddma_if {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/addr_in}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_ddma_if -radix decimal {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_ddma_if {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_ddma_if {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/status_out}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_ddma_if {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/irq_out}}\n"
+
+        ss += f"add wave -noupdate -group {x}{y}_ddma_state -radix decimal {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/temp_addr_in}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_ddma_state -radix hexadecimal {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/temp_nbytes_in}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_ddma_state {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/i_flip_counter}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_ddma_state {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/i_token}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_ddma_state {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/sstate}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_ddma_state {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/rstate}}\n"
+
+        ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/clock}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/reset}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/data_in}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/addr_in}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/data_out}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/enable_in}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/wb_in}}\n"
+
+        ss += f"add wave -noupdate -group router_{x}{y} -color Magenta {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/SwitchControl/ES}}\n"
+        ss += f"add wave -noupdate -group router_{x}{y} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/FLocal/EA}}\n"
+        ss += f"add wave -noupdate -group router_{x}{y} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/FLocal/counter_flit}}\n"
+        ss += f"add wave -noupdate -group router_{x}{y} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/rx}}\n"
+        ss += f"add wave -noupdate -group router_{x}{y} -childformat {{{{{{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/data_in(4)}} -radix hexadecimal}}}} -subitemconfig {{{{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)}} {{-height 17 -radix hexadecimal}}}} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/data_in}}\n"
+        ss += f"add wave -noupdate -group router_{x}{y} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/credit_o}}\n"
+        ss += f"add wave -noupdate -group router_{x}{y} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/tx}}\n"
+        ss += f"add wave -noupdate -group router_{x}{y} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/data_out}}\n"
+        ss += f"add wave -noupdate -group router_{x}{y} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/credit_i}}\n"
+
+    ss += "TreeUpdate [SetDefaultTree]\n"
+    ss += "WaveRestoreCursors {{End Test 1} {1237119267 ps} 0 Cyan Cyan} {Trace {2308654954 ps} 0}\n"
+    ss += "quietly wave cursor active 1\n"
+
+    ss += "configure wave -namecolwidth 257\n"
+    ss += "configure wave -valuecolwidth 111\n"
+    ss += "configure wave -justifyvalue left\n"
+    ss += "configure wave -signalnamewidth 3\n"
+    ss += "configure wave -snapdistance 10\n"
+    ss += "configure wave -datasetprefix 0\n"
+    ss += "configure wave -rowmargin 4\n"
+    ss += "configure wave -childrowmargin 2\n"
+    ss += "configure wave -gridoffset 0\n"
+    ss += "configure wave -gridperiod 1\n"
+    ss += "configure wave -griddelta 40\n"
+    ss += "configure wave -timeline 0\n"
+    ss += "configure wave -timelineunits ns\n"
+
+    ss += "update\n"
+    ss += "WaveRestoreZoom {1189093392 ps} {1256113423 ps}"
+
+    filename = expDir + "/mockup.wave.do"
+    file = open(filename, "w")
+    file.write(ss)
+    file.close()
+
+
 def exportPackets(expDir, lws, prob, lwf):
     packets = []
     base_addr = "'h0"
@@ -6,12 +79,14 @@ def exportPackets(expDir, lws, prob, lwf):
     STARTING_DELAY = 100
 
     # for all links, get packets whose first output link if L-*
-    for l in range(0, len(lws)):
-        source, target, data = prob["links"][l]  # link data
+    for link in range(0, len(lws)):
+        source, target, data = prob["links"][link]  # link data
 
         if source == "L":  # only links from output ports
             for p in range(0, len(lws[0])):
-                if lws[l][p] is None:  # packet whose the output port is in the path
+                if (
+                    lws[link][p] is not None
+                ):  # packet whose the output port is in the path
                     # print(prob['packets'][p])
                     #   name, flow, source (task name), target (task name),
                     #   min_start, abs_deadline, datasize, path, net_time
@@ -37,7 +112,7 @@ def exportPackets(expDir, lws, prob, lwf):
                             "data_size": prob["packets"][p][
                                 "datasize"
                             ],  # number of bytes
-                            "release_time": lws[l][p],  # computed release time
+                            "release_time": lws[link][p],  # computed release time
                         }
                     )
 
@@ -121,7 +196,7 @@ def exportPackets(expDir, lws, prob, lwf):
                 file.write("    #1;\n\n")
                 cycles += 1
 
-                num_flits: int = e["data_size"] / 4
+                num_flits: int = int(e["data_size"] / 4 + 1)
 
                 # write size flit
                 file.write("    mem_if.wb_in = 1;\n")
