@@ -1,6 +1,6 @@
 import sys
 
-from lib.terminal import error, header, info, warn
+from lib.terminal import error, header, info, warn, debug
 
 from modules.io import configurator, appparser, nocparser, mapparser, svg, systemverilog
 from modules.frequency import guesser
@@ -10,15 +10,23 @@ from modules.backend.ags import ags, heuristics
 from modules.backend.minizinc import minizinc
 
 RTTOOLS_ENABLE_MINIZINC = False
-RTTOOLS_PRUNNING_FACTOR = 2000
 
+
+# ==== Indrusiak params ===========
+# RTTOOLS_PRUNNING_FACTOR = 2000
+# RTTOOLS_FAIL_THRESHOULD = 500
+# RTTOOLS_SCALING_TOLERANCE = 0.01
+# RTTOOLS_DEFAULT_FREQUENCY = 3000000
+# RTTOOLS_HEURISTIC = heuristics.mbcf
+# SVG_SCALE = 0.01
+
+# ==== brute force params
+RTTOOLS_PRUNNING_FACTOR = 1
 RTTOOLS_FAIL_THRESHOULD = 500
 RTTOOLS_SCALING_TOLERANCE = 0.01
 RTTOOLS_DEFAULT_FREQUENCY = 3000000
 RTTOOLS_HEURISTIC = heuristics.mbcf
-
-# SVG_SCALE = 0.001
-SVG_SCALE = 0.01
+SVG_SCALE = 1.0
 
 
 def parseMinimumReleaseTime(sched, p, hp):
@@ -79,6 +87,7 @@ def main():
 
     last_working_frequency = None
     last_working_schedule = None
+    last_skipped_list = None
     last_working_instance = None
     last_working_hp = None
 
@@ -119,25 +128,26 @@ def main():
             sched, skipped = schedule
 
             if len(skipped) == 0:
-                warn(
+                info(
                     "Found a schedule at " + str(cfreq) + "Hz. Scaling frequency down."
                 )
                 last_working_frequency = cfreq
                 last_working_schedule = sched
+                last_skipped_list = skipped
                 last_working_instance = instance
                 last_working_hp = hp
                 nfreq = cfreq
             else:
                 # unfeasible
-                warn("Could not find a schedule at " + str(cfreq) + "Hz.")
-                warn("Skip list is not empty (" + str(len(skipped)) + ")!")
-                warn("Scaling frequency up...")
+                error("Could not find a schedule at " + str(cfreq) + "Hz.")
+                error("Skip list is not empty (" + str(len(skipped)) + ")!")
+                error("Scaling frequency up...")
                 pfreq = cfreq
 
         else:
             # unfeasible
-            warn("Could not find a schedule at " + str(cfreq) + "Hz.")
-            warn("Scaling frequency up...")
+            error("Could not find a schedule at " + str(cfreq) + "Hz.")
+            error("Scaling frequency up...")
             pfreq = cfreq
 
         cfreq = (nfreq + pfreq) / 2
@@ -146,11 +156,15 @@ def main():
             break
 
     if last_working_frequency is not None:
-        info("Unable to optmize minimum frequency any further.")
+        warn("Unable to optmize minimum frequency any further.")
         info("Minimum frequency found at " + str(last_working_frequency) + "Hz")
 
+        debug(packets)
+
         filename = "results.svg"
-        svg.saveSvg(filename, last_working_schedule, problem, skipped, SVG_SCALE)
+        svg.saveSvg(
+            filename, last_working_schedule, problem, last_skipped_list, SVG_SCALE
+        )
         info("Schedule visualization exported to `" + filename + "`")
 
         expDir = "pkt-sim/packets"
@@ -158,6 +172,7 @@ def main():
             expDir, last_working_schedule, problem, last_working_frequency
         )
         systemverilog.genWaveform(expDir, noc)
+        systemverilog.genRunFile(expDir, hp)
         info("SystemVerilog mimics exported to `" + expDir + "`")
 
     else:

@@ -1,3 +1,26 @@
+from lib.terminal import warn, info, debug
+import glob
+import os
+
+
+def genRunFile(expDir, hp):
+    filename = expDir + "/mockup.run.do"
+    grep_run_files = glob.glob(expDir + "/*.run.do")
+
+    for file in grep_run_files:
+        warn("Removing outdated file `" + file + "`")
+        os.unlink(file)
+
+    # 100 comes from the initial delay
+    # 100 more to generate scrolling after the wave body
+    ss = "run " + str(hp + 200) + "ns"
+
+    file = open(filename, "w")
+    file.write(ss)
+    file.close()
+    info("Generating `" + filename + "`")
+
+
 def genWaveform(expDir, noc):
     ss = "onerror {resume}\n"
     ss += "quietly WaveActivateNextPane {} 0\n"
@@ -7,7 +30,6 @@ def genWaveform(expDir, noc):
     for n in noc.nodes(data=True):
         node, data = n
         x, y = data
-        print(node, data, x, y)
 
         x = data["X"]
         y = data["Y"]
@@ -78,6 +100,13 @@ def exportPackets(expDir, lws, prob, lwf):
 
     STARTING_DELAY = 100
 
+    # delete all meta files
+    meta_files = glob.glob(expDir + "/meta_*")
+
+    for file in meta_files:
+        os.unlink(file)
+        warn("Removing outdated file `" + file + "`")
+
     # for all links, get packets whose first output link if L-*
     for link in range(0, len(lws)):
         source, target, data = prob["links"][link]  # link data
@@ -122,8 +151,8 @@ def exportPackets(expDir, lws, prob, lwf):
     # sort array by link name
     packets.sort(key=index)
 
-    current_source = None
-    packets_to_process = []
+    for p in packets:
+        debug(p)
 
     # sorting criterion
     def reltime(p):
@@ -154,10 +183,17 @@ def exportPackets(expDir, lws, prob, lwf):
     file.write("  ddma_if.nbytes_in = 0;\n")
     file.write("  ddma_if.cmd_in = 0;\n")
 
+    current_source = None
+    packets_to_process = []
+
+    debug("--------")
+
     for p in packets:
         # make sure that first node won't be skipped
         if current_source is None:
             current_source = p["source_node"]
+
+        debug(p)
 
         # if the source has changed, or we reach the lst node,
         # sort the list, save file, clear the list
@@ -169,6 +205,9 @@ def exportPackets(expDir, lws, prob, lwf):
                 )
             )
             file.write("  if (ADDRESS == {0}) begin\n\n".format(current_source))
+
+            if p == packets[-1]:
+                packets_to_process.append(p)
 
             # sort the list
             packets_to_process.sort(key=reltime)
@@ -246,9 +285,12 @@ def exportPackets(expDir, lws, prob, lwf):
 
             file.write("  end\n\n")  # close if for this packets
 
-            filemeta = open(expDir + "/meta_" + current_source + ".txt", "w")
+            mfile_name = expDir + "/meta_" + current_source + ".txt"
+            filemeta = open(mfile_name, "w")
             for pmeta in packets_to_process:
                 filemeta.write(pmeta["name"] + ": " + str(pmeta) + "\n")
+
+            info("Generating `" + mfile_name + "`")
             filemeta.close()
 
             # clear the list
@@ -257,9 +299,10 @@ def exportPackets(expDir, lws, prob, lwf):
             # update current source node
             current_source = p["source_node"]
 
-        # otherwise, append current packet to the source node list
-        else:
-            packets_to_process.append(p)
+            # otherwise, append current packet to the source node list
+            # else:
+
+        packets_to_process.append(p)
 
     file.write("\n\nend\n\n")
     file.write("endmodule\n\n")

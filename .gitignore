@@ -1,8 +1,14 @@
+# modelsim files
 modelsim.ini
 transcript
 work/
 .vscode/
 *.wlf
-pkt-sim/rcp_packet.txt
-**/__pycache__
 *.dbg
+
+
+# python
+**/__pycache__
+
+# application-specific
+**/pkt-sim/packets/*
