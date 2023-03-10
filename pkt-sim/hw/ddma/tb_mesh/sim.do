@@ -47,6 +47,7 @@ run 0 ns
 quietly set StdArithNoWarnings 1
 quietly set StdVitalGlitchNoWarnings 1
 
-run 2500 us
+#run 2500 us
+do ../../../packets/mockup.run.do
 
 
