@@ -11,4 +11,4 @@ work/
 **/__pycache__
 
 # application-specific
-**/pkt-sim/packets/*
+**/packets/**
