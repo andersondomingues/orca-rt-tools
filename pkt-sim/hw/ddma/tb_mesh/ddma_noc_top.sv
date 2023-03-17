@@ -5,8 +5,8 @@ module ddma_noc_top #(parameter
   MEMORY_BUS_WIDTH = 32,  // memory data bus width
   MEMORY_SIZE = 'h8000,     // total memory size = 32 bits * 1024
   MEMORY_BASE = 0,        // starting address
-  NOC_DIM_X = 4,
-  NOC_DIM_Y = 4,
+  NOC_DIM_X = 2,
+  NOC_DIM_Y = 2,
   INTERLEAVING_GRAIN = 10
 )();
 
@@ -16,7 +16,7 @@ module ddma_noc_top #(parameter
   bit clock = 0;
   bit reset = 1; 
 
-  // clock generator 
+  // clock generator
   always #0.5 clock = ~clock;
 
   // reset goes down after 2nd cycle

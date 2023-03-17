@@ -169,8 +169,8 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
             rstate <= REC_SIZE;
           end else begin 
             router_if.credit_i <= 0;
-          end 
-        end 
+          end
+        end
 
         /** header is at the interface, must receive it and proceed to the next state **/ 
         REC_SIZE: begin

@@ -186,14 +186,10 @@ def exportPackets(expDir, lws, prob, lwf):
     current_source = None
     packets_to_process = []
 
-    debug("--------")
-
     for p in packets:
         # make sure that first node won't be skipped
         if current_source is None:
             current_source = p["source_node"]
-
-        debug(p)
 
         # if the source has changed, or we reach the lst node,
         # sort the list, save file, clear the list
@@ -204,7 +200,18 @@ def exportPackets(expDir, lws, prob, lwf):
                     current_source
                 )
             )
-            file.write("  if (ADDRESS == {0}) begin\n\n".format(current_source))
+
+            addr_x = packets_to_process[0]["source_xy"]["X"]  # {'X': 0, 'Y': 1}
+            addr_y = packets_to_process[0]["source_xy"]["Y"]
+
+            print("source: ", current_source)
+            print("addr_x: ", addr_x)
+            print("addr_y: ", addr_y)
+
+            source_xy_addr = int(addr_x << 8 | addr_y)
+
+            # file.write("  if (ADDRESS == {0}) begin\n\n".format(current_source))
+            file.write("  if (ADDRESS == {0}) begin\n\n".format(source_xy_addr))
 
             if p == packets[-1]:
                 packets_to_process.append(p)
