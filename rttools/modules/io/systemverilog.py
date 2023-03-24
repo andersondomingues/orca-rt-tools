@@ -38,7 +38,7 @@ def genWaveform(expDir, noc):
         ss += f"add wave -noupdate -group {x}{y}_ddma_if -radix decimal {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}}\n"
         ss += f"add wave -noupdate -group {x}{y}_ddma_if {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}}\n"
         ss += f"add wave -noupdate -group {x}{y}_ddma_if {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/status_out}}\n"
-        ss += f"add wave -noupdate -group {x}{y}_ddma_if {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/irq_out}}\n"
+        #        ss += f"add wave -noupdate -group {x}{y}_ddma_if {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/irq_out}}\n"
 
         ss += f"add wave -noupdate -group {x}{y}_ddma_state -radix decimal {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/temp_addr_in}}\n"
         ss += f"add wave -noupdate -group {x}{y}_ddma_state -radix hexadecimal {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/temp_nbytes_in}}\n"
@@ -48,8 +48,8 @@ def genWaveform(expDir, noc):
         ss += f"add wave -noupdate -group {x}{y}_ddma_state {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/rstate}}\n"
 
         ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}}\n"
-        ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/clock}}\n"
-        ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/reset}}\n"
+        #        ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/clock}}\n"
+        #        ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/reset}}\n"
         ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/data_in}}\n"
         ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/addr_in}}\n"
         ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/data_out}}\n"
@@ -57,8 +57,8 @@ def genWaveform(expDir, noc):
         ss += f"add wave -noupdate -group {x}{y}_mem_ddma {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/mem_if_dma/wb_in}}\n"
 
         ss += f"add wave -noupdate -group router_{x}{y} -color Magenta {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/SwitchControl/ES}}\n"
-        ss += f"add wave -noupdate -group router_{x}{y} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/FLocal/EA}}\n"
-        ss += f"add wave -noupdate -group router_{x}{y} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/FLocal/counter_flit}}\n"
+        #   ss += f"add wave -noupdate -group router_{x}{y} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/FLocal/EA}}\n"
+        #   ss += f"add wave -noupdate -group router_{x}{y} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/FLocal/counter_flit}}\n"
         ss += f"add wave -noupdate -group router_{x}{y} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/rx}}\n"
         ss += f"add wave -noupdate -group router_{x}{y} -childformat {{{{{{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/data_in(4)}} -radix hexadecimal}}}} -subitemconfig {{{{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)}} {{-height 17 -radix hexadecimal}}}} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/data_in}}\n"
         ss += f"add wave -noupdate -group router_{x}{y} {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/router_mod/router_mod/credit_o}}\n"
@@ -178,13 +178,15 @@ def exportPackets(expDir, lws, prob, lwf):
     file.write("initial begin\n\n")
     file.write("  // delay to handle initialization offset\n")
     # file.write('  #{0}\n\n'.format(STARTING_DELAY))
-    file.write("  mem_if.enable_in = 1;\n")
-    file.write("  ddma_if.addr_in = 0;\n")
-    file.write("  ddma_if.nbytes_in = 0;\n")
-    file.write("  ddma_if.cmd_in = 0;\n")
+    file.write("  mem_if.enable_in <= 1;\n")
+    file.write("  ddma_if.addr_in <= 0;\n")
+    file.write("  ddma_if.nbytes_in <= 0;\n")
+    file.write("  ddma_if.cmd_in <= 0;\n")
 
     current_source = None
     packets_to_process = []
+
+    # file.write("  if ")
 
     for p in packets:
         # make sure that first node won't be skipped
@@ -201,17 +203,13 @@ def exportPackets(expDir, lws, prob, lwf):
                 )
             )
 
-            addr_x = packets_to_process[0]["source_xy"]["X"]  # {'X': 0, 'Y': 1}
-            addr_y = packets_to_process[0]["source_xy"]["Y"]
+            xs = packets_to_process[0]["source_xy"]["X"]  # {'X': 0, 'Y': 1}
+            ys = packets_to_process[0]["source_xy"]["Y"]
 
-            print("source: ", current_source)
-            print("addr_x: ", addr_x)
-            print("addr_y: ", addr_y)
-
-            source_xy_addr = int(addr_x << 8 | addr_y)
+            source_xy_addr = (xs << 8) | ys
 
             # file.write("  if (ADDRESS == {0}) begin\n\n".format(current_source))
-            file.write("  if (ADDRESS == {0}) begin\n\n".format(source_xy_addr))
+            file.write(" if (ADDRESS == {0}) begin\n\n".format(source_xy_addr))
 
             if p == packets[-1]:
                 packets_to_process.append(p)
@@ -232,30 +230,34 @@ def exportPackets(expDir, lws, prob, lwf):
                 file.write("    // release_time: {0}\n".format(str(e["release_time"])))
 
                 # write header flit
-                file.write("    mem_if.wb_in = 1;\n")
+                file.write("    mem_if.wb_in <= 1;\n")
+
                 file.write(
-                    "    mem_if.data_in = ({x} << (FLIT_WIDTH / 4)) | {y};\n".format(
-                        x=e["target_xy"]["X"], y=e["target_xy"]["Y"]
-                    )
+                    (
+                        "    mem_if.data_in <= "
+                        + " ((({xs} << (FLIT_WIDTH / 4)) | {ys}) << FLIT_WIDTH / 2) |"
+                        + " ((({x} << (FLIT_WIDTH / 4)) | {y}));\n"
+                    ).format(x=e["target_xy"]["X"], y=e["target_xy"]["Y"], xs=xs, ys=ys)
                 )
-                file.write("    mem_if.addr_in = {0};\n".format(base_addr))
+
+                file.write("    mem_if.addr_in <= {0};\n".format(base_addr))
                 file.write("    #1;\n\n")
                 cycles += 1
 
                 num_flits: int = int(e["data_size"] / 4 + 1)
 
                 # write size flit
-                file.write("    mem_if.wb_in = 1;\n")
+                file.write("    mem_if.wb_in <= 1;\n")
                 file.write(
-                    "    mem_if.data_in = {0};  // {1} bytes, size flit\n".format(
+                    "    mem_if.data_in <= {0};  // {1} bytes, size flit\n".format(
                         str(num_flits), str(int(e["data_size"]))
                     )
                 )
-                file.write("    mem_if.addr_in = {0} + 'h1;\n".format(base_addr))
+                file.write("    mem_if.addr_in <= {0} + 'h1;\n".format(base_addr))
                 file.write("    #1;\n\n")
                 cycles += 1
 
-                file.write("    mem_if.wb_in = 0;  // lock memory write\n\n\n")
+                file.write("    mem_if.wb_in <= 0;  // lock memory write\n\n\n")
                 # file.write('    mem_if.data_in = \'z;\n')
                 # file.write('    mem_if.addr_in = \'z;\n')
 
@@ -271,26 +273,29 @@ def exportPackets(expDir, lws, prob, lwf):
                 cycles = e["release_time"] + STARTING_DELAY
 
                 # configure ddma
-                file.write("    ddma_if.addr_in = 'h0;\n")
+                file.write("    ddma_if.addr_in <= 'h0;\n")
 
                 # +2 header overhead
-                file.write("    ddma_if.nbytes_in = {0};\n".format(num_flits + 2))
-                file.write("    ddma_if.cmd_in = 1;\n")
+                file.write("    ddma_if.nbytes_in <= {0};\n".format(num_flits + 2))
+                file.write("    ddma_if.cmd_in <= 1;\n")
                 file.write("    #1;\n\n")
 
-                file.write("    ddma_if.addr_in = 0;\n")
-                file.write("    ddma_if.nbytes_in = 0;\n")
-                file.write("    ddma_if.cmd_in = 0; \n")
+                file.write("    ddma_if.addr_in <= 0;\n")
+                file.write("    ddma_if.nbytes_in <= 0;\n")
+                file.write("    ddma_if.cmd_in <= 0; \n")
                 # file.write('    #1;\n\n')
 
                 cycles += 1
+
+                file.write("    #10; \n")
+                cycles += 10
 
                 # !! must acknowledge ddma protocol here
                 # lock memory access
                 # configure current packet
                 # ddma_addr
 
-            file.write("  end\n\n")  # close if for this packets
+            file.write("\n end else \n\n")  # close if for this packets
 
             mfile_name = expDir + "/meta_" + current_source + ".txt"
             filemeta = open(mfile_name, "w")
@@ -310,6 +315,17 @@ def exportPackets(expDir, lws, prob, lwf):
             # else:
 
         packets_to_process.append(p)
+
+    file.write("  begin\n")
+    file.write("    mem_if.wb_in = 0;\n")
+    file.write("    mem_if.data_in = 0;\n")
+    file.write("    mem_if.addr_in = 0;\n")
+    file.write("    mem_if.wb_in = 0;\n")
+
+    file.write("    ddma_if.addr_in = 0;\n")
+    file.write("    ddma_if.nbytes_in = 0;\n")
+    file.write("    ddma_if.cmd_in = 0;\n")
+    file.write("  end\n")
 
     file.write("\n\nend\n\n")
     file.write("endmodule\n\n")

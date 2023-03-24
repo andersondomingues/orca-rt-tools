@@ -23,7 +23,7 @@ always @(posedge clock) begin
   end
 end
 
-always @(posedge clock) begin
+always_comb begin
   mem_if_a.data_out <= mem[mem_if_a.addr_in % SIZE];
   mem_if_b.data_out <= mem[mem_if_b.addr_in % SIZE];
 end

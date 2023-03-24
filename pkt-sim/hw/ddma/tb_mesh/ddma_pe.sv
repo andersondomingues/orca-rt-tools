@@ -1,7 +1,7 @@
 module ddma_pe #(parameter
   MEMORY_BUS_WIDTH = 32, 
   FLIT_WIDTH = 32,
-  MEMORY_SIZE = 1024,
+  MEMORY_SIZE = 2048,
   ADDRESS = 0,
   INTERLEAVING_GRAIN = 10
 )(
@@ -10,15 +10,13 @@ module ddma_pe #(parameter
   interface_pe.PE pe_if
 );
 
-  
-
   interface_router #(FLIT_WIDTH) router_if(clock, reset); // router and pe
 
   // interface to actual modules
   interface_router_port #(FLIT_WIDTH) router_port_if(clock, reset); // router and ddma
   interface_memory #(MEMORY_BUS_WIDTH) mem_if_dma(clock, reset); // mem and ddma
   interface_memory #(MEMORY_BUS_WIDTH) mem_if_mmio(clock, reset); // mem and mmio
-  interface_ddma   #(MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS) ddma_if(clock, reset); //tcd and ddma
+  interface_ddma   #(MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN, ADDRESS) ddma_if(clock, reset); //tcd and ddma
 
   logic cpu_irq;
 
@@ -30,7 +28,7 @@ module ddma_pe #(parameter
   );
 
   // creates new ddma module
-  ddma #(MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN) ddma_mod(
+  ddma #(MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN, ADDRESS) ddma_mod(
     .clock(clock), .reset(reset), 
     .router_if(router_port_if.DDMA),
     .mem_if(mem_if_dma.DUT),

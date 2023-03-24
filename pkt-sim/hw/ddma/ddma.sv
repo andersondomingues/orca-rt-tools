@@ -4,7 +4,9 @@
  * processes. Access to the port is given to one of the processess in a round-robin
  * fashion priority schema. The cpu must configure the DMA to send packets. The 
  * interruption wire raises when a packet is tranferred to the memory. */
-module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
+module ddma #(parameter MEMORY_BUS_WIDTH, 
+  FLIT_WIDTH, INTERLEAVING_GRAIN, ADDRESS
+)(
   input logic clock,
   input logic reset,
 
@@ -14,10 +16,6 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
   
   output logic irq
 );
-  // ========== TO BE REMOVED ===================================
-
-  integer RECV_BUFFER_SIZE = 1024;
-  integer memory_pointer_recv = 100;
 
   //==============================================================
 
@@ -44,25 +42,28 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
     IRQ_REC = 4
   } recv_state_t;
 
-  // token status (which process has priority)
+  // token status (which process has priority, either send or recv)
   token_t i_token;
 
   // remaining cycles until interleaving priority switching  
   integer i_flip_counter;
 
   // recv state variables 
-  recv_state_t rstate;
-  integer flits_to_recv;
-  integer packet_size;
+  recv_state_t rstate = IDLE_REC;
+  integer flits_to_recv = 0;
 
-  // token request for recv and send states 
-  logic has_data_to_send;
-  logic has_data_to_recv;
+  integer RECV_BASE_POINTER = 1024;
+  integer RECV_BUFFER_SIZE = 500;
+  integer recv_addr = RECV_BASE_POINTER;
 
   // send state variables 
   send_state_t sstate = WAIT_CONFIG;
   integer temp_addr_in = 0;
   integer temp_nbytes_in = 0;
+
+  // token request for recv and send states 
+  logic has_data_to_send;
+  logic has_data_to_recv;
 
   assign has_data_to_send = (sstate != WAIT_CONFIG && sstate != HANDSHAKE);
   assign has_data_to_recv = (rstate != IDLE_REC && rstate != IRQ_REC);
@@ -118,12 +119,21 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
         end 
 
         SENDING: begin 
+
+          if ($past(sstate) == WAIT_CONFIG) begin
+            $display("S %b (%d) -> %b (%d) : %d ut", 
+              ADDRESS, ADDRESS,
+              (mem_if.data_out << 16) >> 16,
+              (mem_if.data_out << 16) >> 16,
+              $time / 1000);
+          end
+
           ddma_if.status_out <=  1;
           if (i_token == TOKEN_SEND) begin
             if (temp_nbytes_in > 0) begin
               if (router_if.credit_o == 1) begin
                 router_if.rx <= 1;
-                temp_addr_in += 1;
+                temp_addr_in += 1; 
                 temp_nbytes_in -= 1;
               end else begin
                 router_if.rx <= 0;
@@ -137,7 +147,8 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
           end 
         end 
 
-        HANDSHAKE: begin 
+        HANDSHAKE: begin
+          ddma_if.status_out <= 0;
           router_if.rx <= 0;
           sstate <= WAIT_CONFIG;
         end 
@@ -147,26 +158,35 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
     end 
   end 
 
-  // recv process 
+
+  // !<<
+  logic[FLIT_WIDTH -1 :0] r_data_o;
+
   always @(posedge clock) begin
     if(~reset) begin
       case (rstate)
-        /** keep credit on until the router send the first flit **/
+        
         IDLE_REC: begin
-          router_if.credit_i <= 1;
-          if(router_if.tx == 1) begin  // first flit arrived at the if         
-            // rstate <= REC_HEADER;
-            rstate <= IDLE_REC;
-          end 
+          router_if.credit_i <= 0;  // keep credit down until first flit arrives
+          if(router_if.tx == 1) begin  
+            rstate <= REC_HEADER;
+            recv_addr = RECV_BASE_POINTER;
+          end
         end
 
         /** header is at the interface, must receive it and proceed to the next state **/ 
         REC_HEADER: begin
           if(i_token == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
-            flits_to_recv <= router_if.data_o;
-            packet_size <= router_if.data_o;
+            recv_addr <= (recv_addr + 1);
             rstate <= REC_SIZE;
+            r_data_o <= router_if.data_o;
+
+            $display("R %b (%d) <- %b (%d) : %d ut", 
+              ADDRESS, ADDRESS,
+              (router_if.data_o >> 16), (router_if.data_o >> 16),
+              $time / 1000);
+
           end else begin 
             router_if.credit_i <= 0;
           end
@@ -176,23 +196,29 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
         REC_SIZE: begin
           if(i_token == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
+            recv_addr <= (recv_addr + 1);
             flits_to_recv <= router_if.data_o;
-            packet_size <= router_if.data_o;
-            rstate <= REC_PAYLOAD;
+            rstate <= REC_PAYLOAD;            
+
+            $display("R %b (%d) <- %d flits %d ut", 
+              ADDRESS, ADDRESS,
+              router_if.data_o,
+              $time / 1000);
+
           end else begin 
             router_if.credit_i <= 0;
-          end 
+          end
         end 
 
-
         REC_PAYLOAD: begin
+
+
+
           if(flits_to_recv >= 0) begin
             if(i_token == TOKEN_RECV && router_if.tx == 1) begin
               router_if.credit_i <= 1;
-              flits_to_recv = flits_to_recv -1;
-
-              memory_pointer_recv <= (memory_pointer_recv < RECV_BUFFER_SIZE)
-                ? memory_pointer_recv : RECV_BUFFER_SIZE;
+              recv_addr <= (recv_addr + 1);
+              flits_to_recv <= flits_to_recv -1;
             end else begin 
               router_if.credit_i <= 0;  
             end 
@@ -207,10 +233,16 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
           ddma_if.irq_out <= 0;
           ddma_if.status_out <= ddma_if.status_out & 2'b01;
           rstate <= IDLE_REC;
+
+          $display("R %b (%d) <- %b (%d) : %d ut", 
+              ADDRESS, ADDRESS,
+              (r_data_o >> 16), (r_data_o >> 16),
+              $time / 1000);
+
         end 
       endcase
     end else begin 
-      rstate = IDLE_REC;
+      rstate <= IDLE_REC;
     end 
   end 
 
@@ -218,16 +250,23 @@ module ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN)(
   // address can come from either send or receiving processess. 
   // memory will be set to write mode only when receiving flits,
   // otherwise it'll reside in read mode 
-  assign mem_if.addr_in = (i_token == TOKEN_RECV) ? memory_pointer_recv : temp_addr_in;
+  assign mem_if.addr_in = (i_token == TOKEN_RECV) ? recv_addr : temp_addr_in;
   assign mem_if.wb_in = (i_token == TOKEN_RECV) && (has_data_to_recv) && (router_if.tx == 1);
   //end 
 
+  // logic[FLIT_WIDTH-1:0] reg_mem_router;
+
   // router input data always comes from the sending process, which 
   // reads data from the memory  
+
+  always @(posedge clock) begin
+    router_if.data_i <= mem_if.data_out; 
+  end
+
   assign router_if.clock_rx = clock;
-  assign router_if.data_i = mem_if.data_out;
-  assign mem_if.enable_in = 1;
   assign mem_if.data_in = router_if.data_o;
+  assign mem_if.enable_in = 1;
+  
 
 endmodule: ddma
 

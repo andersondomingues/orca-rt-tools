@@ -1,5 +1,7 @@
 
-interface interface_ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS)
+interface interface_ddma #(parameter MEMORY_BUS_WIDTH, 
+  FLIT_WIDTH, INTERLEAVING_GRAIN, ADDRESS)
+  
 (input clock, input reset);
   
   //to dma
@@ -9,8 +11,6 @@ interface interface_ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS)
   logic[4:0] status_out;
   logic[4:0] irq_out;
 
-  integer counter = 0;
-
   modport DDMA (
     input clock, reset, addr_in, nbytes_in, cmd_in,
     output status_out, irq_out);
@@ -18,17 +18,5 @@ interface interface_ddma #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH, ADDRESS)
   modport TCD (
     output addr_in, nbytes_in, cmd_in,
     input clock, reset, status_out, irq_out);
-
-  always @(posedge clock) begin
-    counter <= counter + 1;
-  end 
-
-  always @(posedge clock) begin
-    if(ADDRESS == 0) begin
-      if(cmd_in == 1 && $past(cmd_in) != cmd_in) begin
-        $display(counter);
-      end
-    end 
-  end 
 
 endinterface: interface_ddma
