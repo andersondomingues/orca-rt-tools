@@ -39,7 +39,8 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
     REC_HEADER = 1,
     REC_SIZE = 2,
     REC_PAYLOAD = 3,
-    IRQ_REC = 4
+    IRQ_REC = 4,
+    REC_HEADER_SYNC = 5
   } recv_state_t;
 
   // token status (which process has priority, either send or recv)
@@ -59,7 +60,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
   // send state variables 
   send_state_t sstate = WAIT_CONFIG;
   integer temp_addr_in = 0;
-  integer temp_nbytes_in = 0;
+  integer temp_num_flits_in = 0;
 
   // token request for recv and send states 
   logic has_data_to_send;
@@ -77,39 +78,42 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
     if(~reset) begin
       if(i_flip_counter == 1) begin
         if (i_token == TOKEN_SEND && has_data_to_recv) begin
-          i_token = TOKEN_RECV;
-          i_flip_counter = INTERLEAVING_GRAIN; // reset counter
+          i_token <= TOKEN_RECV;
+          i_flip_counter <= INTERLEAVING_GRAIN; // reset counter
         end else if (i_token == TOKEN_RECV && has_data_to_send) begin
-          i_token = TOKEN_SEND;
-          i_flip_counter = INTERLEAVING_GRAIN; // reset counter
+          i_token <= TOKEN_SEND;
+          i_flip_counter <= INTERLEAVING_GRAIN; // reset counter
         end
       end else begin
         if(i_flip_counter != 1) begin 
-          i_flip_counter = i_flip_counter - 1; // decrease one time unit
+          i_flip_counter <= i_flip_counter - 1; // decrease one time unit
         end 
 
         if (i_token == TOKEN_SEND && ~has_data_to_send && has_data_to_recv) begin
-          i_token = TOKEN_RECV;
-          i_flip_counter = INTERLEAVING_GRAIN; // reset counter
+          i_token <= TOKEN_RECV;
+          i_flip_counter <= INTERLEAVING_GRAIN; // reset counter
         end else if (i_token == TOKEN_RECV && ~has_data_to_recv && has_data_to_send) begin
-          i_token = TOKEN_SEND;
-          i_flip_counter = INTERLEAVING_GRAIN; // reset counter
+          i_token <= TOKEN_SEND;
+          i_flip_counter <= INTERLEAVING_GRAIN; // reset counter
         end 
       end
     end else begin
-      i_flip_counter = 1;
-      i_token = TOKEN_SEND;
+      i_flip_counter <= 1;
+      i_token <= TOKEN_SEND;
     end 
   end
+
+  logic send_first_flit = 0;
 
   // send state process 
   always @(posedge clock) begin
     if(~reset) begin
       case (sstate)
+
         WAIT_CONFIG: begin
           if(ddma_if.cmd_in == 1) begin
             temp_addr_in <= ddma_if.addr_in;
-            temp_nbytes_in <= ddma_if.nbytes_in;
+            temp_num_flits_in <= ddma_if.nbytes_in;
             sstate <= SENDING;
             ddma_if.status_out <= 1;
           end else begin 
@@ -118,40 +122,46 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
           router_if.rx <= 0;
         end 
 
+
         SENDING: begin 
 
-          if ($past(sstate) == WAIT_CONFIG) begin
-            $display("S %b (%d) -> %b (%d) : %d ut", 
-              ADDRESS, ADDRESS,
-              (mem_if.data_out << 16) >> 16,
-              (mem_if.data_out << 16) >> 16,
-              $time / 1000);
-          end
+          // if($past(sstate) == WAIT_CONFIG) begin
+          //   $display("S %b %d [%d words]-> ", ADDRESS, ADDRESS, temp_num_flits_in);
+          // end
 
           ddma_if.status_out <=  1;
-          if (i_token == TOKEN_SEND) begin
-            if (temp_nbytes_in > 0) begin
-              if (router_if.credit_o == 1) begin
-                router_if.rx <= 1;
-                temp_addr_in += 1; 
-                temp_nbytes_in -= 1;
-              end else begin
-                router_if.rx <= 0;
-              end
-            end else begin
-              router_if.rx <= 0;
-              sstate <= HANDSHAKE;
-            end 
-          end else begin 
+
+          if (temp_num_flits_in == 0) begin
             router_if.rx <= 0;
-          end 
+            sstate <= HANDSHAKE;
+          end else begin 
+            if (i_token == TOKEN_SEND && router_if.credit_o == 1) begin
+
+              // !<<
+              if(send_first_flit == 0) begin
+                send_first_flit = 1;
+                $display("SEN %0d -> %0d (%0d ut)", ADDRESS, (mem_if.data_out << 16) >> 16, $time / 1000);
+              end 
+              
+
+              router_if.rx <= 1;
+              temp_addr_in += 1; 
+              temp_num_flits_in -= 1;
+
+            end else begin 
+              router_if.rx <= 0;
+            end
+          end
         end 
 
         HANDSHAKE: begin
           ddma_if.status_out <= 0;
           router_if.rx <= 0;
           sstate <= WAIT_CONFIG;
+          send_first_flit = 0;
+          $display("HAN %0d (%0d ut)", ADDRESS, $time / 1000);
         end 
+
       endcase
     end else begin 
       sstate = WAIT_CONFIG;
@@ -170,21 +180,21 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
           router_if.credit_i <= 0;  // keep credit down until first flit arrives
           if(router_if.tx == 1) begin  
             rstate <= REC_HEADER;
-            recv_addr = RECV_BASE_POINTER;
+            recv_addr <= RECV_BASE_POINTER;
           end
         end
 
-        /** header is at the interface, must receive it and proceed to the next state **/ 
+        /** header arrived, must receive it and proceed to the next state **/ 
         REC_HEADER: begin
           if(i_token == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
             recv_addr <= (recv_addr + 1);
-            rstate <= REC_SIZE;
+            rstate <= REC_HEADER_SYNC;
             r_data_o <= router_if.data_o;
 
-            $display("R %b (%d) <- %b (%d) : %d ut", 
-              ADDRESS, ADDRESS,
-              (router_if.data_o >> 16), (router_if.data_o >> 16),
+            $display("REC %0d, from %0d (%0d ut)",
+              ADDRESS, 
+              (router_if.data_o >> 16),
               $time / 1000);
 
           end else begin 
@@ -192,7 +202,14 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
           end
         end
 
-        /** header is at the interface, must receive it and proceed to the next state **/ 
+        /** header is actually received in this state. **/
+        REC_HEADER_SYNC: begin
+          router_if.credit_i <= 0;
+          if(i_token == TOKEN_RECV && router_if.tx == 1) begin
+            rstate <= REC_SIZE;
+          end
+        end 
+
         REC_SIZE: begin
           if(i_token == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
@@ -200,9 +217,8 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
             flits_to_recv <= router_if.data_o;
             rstate <= REC_PAYLOAD;            
 
-            $display("R %b (%d) <- %d flits %d ut", 
-              ADDRESS, ADDRESS,
-              router_if.data_o,
+            $display("SIZ %0d, %0d flits (%0d ut)", 
+              ADDRESS, router_if.data_o,
               $time / 1000);
 
           end else begin 
@@ -211,9 +227,6 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
         end 
 
         REC_PAYLOAD: begin
-
-
-
           if(flits_to_recv >= 0) begin
             if(i_token == TOKEN_RECV && router_if.tx == 1) begin
               router_if.credit_i <= 1;
@@ -234,10 +247,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
           ddma_if.status_out <= ddma_if.status_out & 2'b01;
           rstate <= IDLE_REC;
 
-          $display("R %b (%d) <- %b (%d) : %d ut", 
-              ADDRESS, ADDRESS,
-              (r_data_o >> 16), (r_data_o >> 16),
-              $time / 1000);
+          $display("IRQ %0d (%0d ut)", ADDRESS, $time / 1000);
 
         end 
       endcase
@@ -251,7 +261,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
   // memory will be set to write mode only when receiving flits,
   // otherwise it'll reside in read mode 
   assign mem_if.addr_in = (i_token == TOKEN_RECV) ? recv_addr : temp_addr_in;
-  assign mem_if.wb_in = (i_token == TOKEN_RECV) && (has_data_to_recv) && (router_if.tx == 1);
+  assign mem_if.wb_in = (i_token == TOKEN_RECV && router_if.tx == 1);
   //end 
 
   // logic[FLIT_WIDTH-1:0] reg_mem_router;
@@ -261,10 +271,10 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
 
   always @(posedge clock) begin
     router_if.data_i <= mem_if.data_out; 
+    mem_if.data_in <= router_if.data_o;
   end
 
   assign router_if.clock_rx = clock;
-  assign mem_if.data_in = router_if.data_o;
   assign mem_if.enable_in = 1;
   
 

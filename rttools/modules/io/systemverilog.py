@@ -41,7 +41,7 @@ def genWaveform(expDir, noc):
         #        ss += f"add wave -noupdate -group {x}{y}_ddma_if {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/irq_out}}\n"
 
         ss += f"add wave -noupdate -group {x}{y}_ddma_state -radix decimal {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/temp_addr_in}}\n"
-        ss += f"add wave -noupdate -group {x}{y}_ddma_state -radix hexadecimal {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/temp_nbytes_in}}\n"
+        ss += f"add wave -noupdate -group {x}{y}_ddma_state -radix hexadecimal {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/temp_num_flits_in}}\n"
         ss += f"add wave -noupdate -group {x}{y}_ddma_state {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/i_flip_counter}}\n"
         ss += f"add wave -noupdate -group {x}{y}_ddma_state {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/i_token}}\n"
         ss += f"add wave -noupdate -group {x}{y}_ddma_state {{/ddma_noc_top/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/sstate}}\n"

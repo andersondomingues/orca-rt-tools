@@ -1,2 +1,2 @@
 f4:0: {'name': 'f4:0', 'source_node': '2', 'target_node': '1', 'source_xy': {'X': 0, 'Y': 1}, 'target_xy': {'X': 1, 'Y': 0}, 'data_size': 32, 'release_time': 0}
-f3:0: {'name': 'f3:0', 'source_node': '2', 'target_node': '3', 'source_xy': {'X': 0, 'Y': 1}, 'target_xy': {'X': 1, 'Y': 1}, 'data_size': 24, 'release_time': 33}
+f3:0: {'name': 'f3:0', 'source_node': '2', 'target_node': '3', 'source_xy': {'X': 0, 'Y': 1}, 'target_xy': {'X': 1, 'Y': 1}, 'data_size': 24, 'release_time': 36}
