@@ -13,6 +13,7 @@ def genRunFile(expDir, hp):
 
     # 100 comes from the initial delay
     # 100 more to generate scrolling after the wave body
+    debug("exported run for ", hp, " ns")
     ss = "run " + str(hp + 200) + "ns"
 
     file = open(filename, "w")

@@ -25,20 +25,20 @@ class colors:
 
 
 def info(*msg, end=TERMINAL_ENDLINE):
-    raw_print("warn", msg, colors.INFO, end)
+    raw_print("info", msg, colors.INFO, end)
 
 
 def error(*msg, end=TERMINAL_ENDLINE):
-    raw_print("warn", msg, colors.ERROR, end)
+    raw_print("error", msg, colors.ERROR, end)
 
 
 def header(*msg, end=TERMINAL_ENDLINE):
-    raw_print("warn", msg, colors.HEADER, end)
+    raw_print("", msg, colors.HEADER, end)
 
 
 def debug(*msg, end=TERMINAL_ENDLINE):
     if TERMINAL_ENABLE_DEBUG:
-        raw_print("warn", msg, colors.DEBUG, end)
+        raw_print("debug", msg, colors.DEBUG, end)
 
 
 def warn(*msg, end=TERMINAL_ENDLINE):

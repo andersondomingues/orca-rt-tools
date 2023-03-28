@@ -1,9 +1,9 @@
 module ddma_pe #(parameter
-  MEMORY_BUS_WIDTH = 32, 
-  FLIT_WIDTH = 32,
-  MEMORY_SIZE = 2048,
+  MEMORY_BUS_WIDTH, 
+  FLIT_WIDTH,
+  MEMORY_SIZE,
   ADDRESS = 0,
-  INTERLEAVING_GRAIN = 10
+  INTERLEAVING_GRAIN
 )(
   input logic clock,
   input logic reset,

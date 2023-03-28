@@ -5,9 +5,9 @@ module ddma_noc_top #(parameter
   MEMORY_BUS_WIDTH = 32,  // memory data bus width
   MEMORY_SIZE = 'h8000,     // total memory size = 32 bits * 1024
   MEMORY_BASE = 0,        // starting address
-  NOC_DIM_X = 2,
-  NOC_DIM_Y = 2,
-  INTERLEAVING_GRAIN = 10
+  NOC_DIM_X = 4,
+  NOC_DIM_Y = 4,
+  INTERLEAVING_GRAIN = 3  
 )();
 
   // router ports enumeration cannot be imported from Hermes definitions
@@ -40,7 +40,6 @@ module ddma_noc_top #(parameter
           .clock(clock), .reset(reset),
           .pe_if(pe_if.PE)
         );
-
       end
     end
   endgenerate
