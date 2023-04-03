@@ -1,375 +1,203 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
-add wave -noupdate /ddma_noc_top/clock
-add wave -noupdate /ddma_noc_top/reset
-add wave -noupdate -group 00_ddma_if {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 00_ddma_if -radix decimal {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 00_ddma_if {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 00_ddma_if {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 00_ddma_state -radix decimal {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 00_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 00_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 00_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 00_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 00_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 00_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 00_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 00_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 00_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 00_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 00_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_00 -color Magenta {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_00 {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_00 -childformat {{{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_00 {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_00 {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_00 {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_00 {/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 10_ddma_if {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 10_ddma_if -radix decimal {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 10_ddma_if {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 10_ddma_if {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 10_ddma_state -radix decimal {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 10_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 10_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 10_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 10_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 10_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 10_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 10_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 10_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 10_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 10_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 10_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_10 -color Magenta {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_10 {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_10 -childformat {{{/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_10 {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_10 {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_10 {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_10 {/ddma_noc_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 20_ddma_if {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 20_ddma_if -radix decimal {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 20_ddma_if {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 20_ddma_if {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 20_ddma_state -radix decimal {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 20_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 20_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 20_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 20_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 20_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 20_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 20_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 20_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 20_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 20_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 20_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_20 -color Magenta {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_20 {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_20 -childformat {{{/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_20 {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_20 {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_20 {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_20 {/ddma_noc_top/pe_x[2]/pe_y[0]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 30_ddma_if {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 30_ddma_if -radix decimal {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 30_ddma_if {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 30_ddma_if {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 30_ddma_state -radix decimal {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 30_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 30_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 30_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 30_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 30_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 30_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 30_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 30_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 30_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 30_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 30_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_30 -color Magenta {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_30 {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_30 -childformat {{{/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_30 {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_30 {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_30 {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_30 {/ddma_noc_top/pe_x[3]/pe_y[0]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 01_ddma_if {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 01_ddma_if -radix decimal {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 01_ddma_if {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 01_ddma_if {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 01_ddma_state -radix decimal {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 01_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 01_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 01_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 01_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 01_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 01_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 01_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 01_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 01_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 01_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 01_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_01 -color Magenta {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_01 {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_01 -childformat {{{/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_01 {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_01 {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_01 {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_01 {/ddma_noc_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 11_ddma_if {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 11_ddma_if -radix decimal {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 11_ddma_if {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 11_ddma_if {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 11_ddma_state -radix decimal {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 11_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 11_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 11_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 11_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 11_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 11_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 11_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 11_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 11_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 11_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 11_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_11 -color Magenta {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_11 {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_11 -childformat {{{/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_11 {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_11 {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_11 {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_11 {/ddma_noc_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 21_ddma_if {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 21_ddma_if -radix decimal {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 21_ddma_if {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 21_ddma_if {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 21_ddma_state -radix decimal {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 21_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 21_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 21_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 21_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 21_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 21_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 21_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 21_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 21_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 21_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 21_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_21 -color Magenta {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_21 {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_21 -childformat {{{/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_21 {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_21 {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_21 {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_21 {/ddma_noc_top/pe_x[2]/pe_y[1]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 31_ddma_if {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 31_ddma_if -radix decimal {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 31_ddma_if {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 31_ddma_if {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 31_ddma_state -radix decimal {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 31_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 31_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 31_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 31_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 31_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 31_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 31_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 31_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 31_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 31_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 31_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_31 -color Magenta {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_31 {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_31 -childformat {{{/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_31 {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_31 {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_31 {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_31 {/ddma_noc_top/pe_x[3]/pe_y[1]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 02_ddma_if {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 02_ddma_if -radix decimal {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 02_ddma_if {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 02_ddma_if {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 02_ddma_state -radix decimal {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 02_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 02_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 02_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 02_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 02_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 02_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 02_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 02_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 02_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 02_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 02_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_02 -color Magenta {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_02 {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_02 -childformat {{{/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_02 {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_02 {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_02 {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_02 {/ddma_noc_top/pe_x[0]/pe_y[2]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 12_ddma_if {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 12_ddma_if -radix decimal {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 12_ddma_if {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 12_ddma_if {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 12_ddma_state -radix decimal {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 12_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 12_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 12_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 12_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 12_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 12_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 12_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 12_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 12_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 12_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 12_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_12 -color Magenta {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_12 {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_12 -childformat {{{/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_12 {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_12 {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_12 {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_12 {/ddma_noc_top/pe_x[1]/pe_y[2]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 22_ddma_if {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 22_ddma_if -radix decimal {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 22_ddma_if {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 22_ddma_if {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 22_ddma_state -radix decimal {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 22_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 22_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 22_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 22_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 22_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 22_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 22_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 22_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 22_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 22_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 22_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_22 -color Magenta {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_22 {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_22 -childformat {{{/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_22 {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_22 {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_22 {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_22 {/ddma_noc_top/pe_x[2]/pe_y[2]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 32_ddma_if {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 32_ddma_if -radix decimal {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 32_ddma_if {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 32_ddma_if {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 32_ddma_state -radix decimal {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 32_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 32_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 32_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 32_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 32_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 32_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 32_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 32_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 32_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 32_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 32_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_32 -color Magenta {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_32 {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_32 -childformat {{{/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_32 {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_32 {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_32 {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_32 {/ddma_noc_top/pe_x[3]/pe_y[2]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 03_ddma_if {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 03_ddma_if -radix decimal {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 03_ddma_if {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 03_ddma_if {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 03_ddma_state -radix decimal {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 03_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 03_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 03_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 03_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 03_ddma_state {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 03_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 03_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 03_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 03_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 03_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 03_mem_ddma {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_03 -color Magenta {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_03 {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_03 -childformat {{{/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_03 {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_03 {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_03 {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_03 {/ddma_noc_top/pe_x[0]/pe_y[3]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 13_ddma_if {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 13_ddma_if -radix decimal {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 13_ddma_if {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 13_ddma_if {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 13_ddma_state -radix decimal {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 13_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 13_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 13_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 13_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 13_ddma_state {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 13_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 13_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 13_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 13_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 13_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 13_mem_ddma {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_13 -color Magenta {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_13 {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_13 -childformat {{{/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_13 {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_13 {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_13 {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_13 {/ddma_noc_top/pe_x[1]/pe_y[3]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 23_ddma_if {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 23_ddma_if -radix decimal {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 23_ddma_if {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 23_ddma_if {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 23_ddma_state -radix decimal {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 23_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 23_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 23_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 23_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 23_ddma_state {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 23_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 23_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 23_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 23_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 23_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 23_mem_ddma {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_23 -color Magenta {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_23 {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_23 -childformat {{{/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_23 {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_23 {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_23 {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_23 {/ddma_noc_top/pe_x[2]/pe_y[3]/pe_mod/router_mod/router_mod/credit_i}
-add wave -noupdate -group 33_ddma_if {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/addr_in}
-add wave -noupdate -group 33_ddma_if -radix decimal {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}
-add wave -noupdate -group 33_ddma_if {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}
-add wave -noupdate -group 33_ddma_if {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/ddma_tb_mod/ddma_if/status_out}
-add wave -noupdate -group 33_ddma_state -radix decimal {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/ddma_mod/temp_addr_in}
-add wave -noupdate -group 33_ddma_state -radix hexadecimal {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/ddma_mod/temp_num_flits_in}
-add wave -noupdate -group 33_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/ddma_mod/i_flip_counter}
-add wave -noupdate -group 33_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/ddma_mod/i_token}
-add wave -noupdate -group 33_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/ddma_mod/sstate}
-add wave -noupdate -group 33_ddma_state {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/ddma_mod/rstate}
-add wave -noupdate -group 33_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
-add wave -noupdate -group 33_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/mem_if_dma/data_in}
-add wave -noupdate -group 33_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/mem_if_dma/addr_in}
-add wave -noupdate -group 33_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/mem_if_dma/data_out}
-add wave -noupdate -group 33_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/mem_if_dma/enable_in}
-add wave -noupdate -group 33_mem_ddma {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/mem_if_dma/wb_in}
-add wave -noupdate -group router_33 -color Magenta {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/router_mod/router_mod/SwitchControl/ES}
-add wave -noupdate -group router_33 {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group router_33 -childformat {{{/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/ddma_noc_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -group router_33 {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/router_mod/router_mod/credit_o}
-add wave -noupdate -group router_33 {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/router_mod/router_mod/tx}
-add wave -noupdate -group router_33 {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -group router_33 {/ddma_noc_top/pe_x[3]/pe_y[3]/pe_mod/router_mod/router_mod/credit_i}
+add wave -noupdate /manycore_top/clock
+add wave -noupdate /manycore_top/reset
+add wave -noupdate -divider {Node 0-0}
+add wave -noupdate -group 00_ddma_state -radix decimal {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/temp_addr_in}
+add wave -noupdate -group 00_ddma_state -radix hexadecimal {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/temp_num_flits_in}
+add wave -noupdate -group 00_ddma_state {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/i_flip_counter}
+add wave -noupdate -group 00_ddma_state {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/i_token}
+add wave -noupdate -group 00_ddma_state {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/sstate}
+add wave -noupdate -group 00_ddma_state {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/ddma_mod/rstate}
+add wave -noupdate -group 00_mem_ddma {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
+add wave -noupdate -group 00_mem_ddma {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/data_in}
+add wave -noupdate -group 00_mem_ddma {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/addr_in}
+add wave -noupdate -group 00_mem_ddma {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/data_out}
+add wave -noupdate -group 00_mem_ddma {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/enable_in}
+add wave -noupdate -group 00_mem_ddma {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/mem_if_dma/wb_in}
+add wave -noupdate -group 00_router -color Magenta {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/SwitchControl/ES}
+add wave -noupdate -group 00_router {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/FLocal/EA}
+add wave -noupdate -group 00_router {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/FLocal/counter_flit}
+add wave -noupdate -group 00_router {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/rx}
+add wave -noupdate -group 00_router -childformat {{{/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in}
+add wave -noupdate -group 00_router {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/credit_o}
+add wave -noupdate -group 00_router {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/tx}
+add wave -noupdate -group 00_router {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_out}
+add wave -noupdate -group 00_router {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/credit_i}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/stall_i}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/addr_o}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/data_i}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/data_o}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/data_w_o}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/data_mode_o}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/extio_in}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/extio_out}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/stall_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/mwait_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/irq_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/irq_ack_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/exception_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/data_b_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/data_h_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/data_access_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/irq_vector_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/inst_addr_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/inst_in_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/data_addr_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/data_in_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/data_out_cpu}
+add wave -noupdate -group 00_cpu {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/cpu_mod/processor/data_w_cpu}
+add wave -noupdate -group 00_tcd {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/tcd_mod/timer}
+add wave -noupdate -group 00_tcd {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/tcd_mod/timer_unlock}
+add wave -noupdate -group 00_tcd {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/tcd_mod/HYPERPERIOD}
+add wave -noupdate -group 00_tcd {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/tcd_mod/tcd_state}
+add wave -noupdate -divider {Node 1-0}
+add wave -noupdate -group 10_ddma_state -radix decimal {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/temp_addr_in}
+add wave -noupdate -group 10_ddma_state -radix hexadecimal {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/temp_num_flits_in}
+add wave -noupdate -group 10_ddma_state {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/i_flip_counter}
+add wave -noupdate -group 10_ddma_state {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/i_token}
+add wave -noupdate -group 10_ddma_state {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/sstate}
+add wave -noupdate -group 10_ddma_state {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/rstate}
+add wave -noupdate -group 10_mem_ddma {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
+add wave -noupdate -group 10_mem_ddma {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/mem_if_dma/data_in}
+add wave -noupdate -group 10_mem_ddma {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/mem_if_dma/addr_in}
+add wave -noupdate -group 10_mem_ddma {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/mem_if_dma/data_out}
+add wave -noupdate -group 10_mem_ddma {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/mem_if_dma/enable_in}
+add wave -noupdate -group 10_mem_ddma {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/mem_if_dma/wb_in}
+add wave -noupdate -group 10_router -color Magenta {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/SwitchControl/ES}
+add wave -noupdate -group 10_router {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/FLocal/EA}
+add wave -noupdate -group 10_router {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/FLocal/counter_flit}
+add wave -noupdate -group 10_router {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/rx}
+add wave -noupdate -group 10_router -childformat {{{/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/data_in}
+add wave -noupdate -group 10_router {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/credit_o}
+add wave -noupdate -group 10_router {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/tx}
+add wave -noupdate -group 10_router {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/data_out}
+add wave -noupdate -group 10_router {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/credit_i}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/stall_i}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/addr_o}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/data_i}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/data_o}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/data_w_o}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/data_mode_o}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/extio_in}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/extio_out}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/stall_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/mwait_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/irq_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/irq_ack_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/exception_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/data_b_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/data_h_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/data_access_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/irq_vector_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/inst_addr_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/inst_in_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/data_addr_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/data_in_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/data_out_cpu}
+add wave -noupdate -group 10_cpu {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/cpu_mod/processor/data_w_cpu}
+add wave -noupdate -group 10_tcd {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/tcd_mod/timer}
+add wave -noupdate -group 10_tcd {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/tcd_mod/timer_unlock}
+add wave -noupdate -group 10_tcd {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/tcd_mod/HYPERPERIOD}
+add wave -noupdate -group 10_tcd {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/tcd_mod/tcd_state}
+add wave -noupdate -divider {Node 0-1}
+add wave -noupdate -group 01_ddma_state -radix decimal {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/temp_addr_in}
+add wave -noupdate -group 01_ddma_state -radix hexadecimal {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/temp_num_flits_in}
+add wave -noupdate -group 01_ddma_state {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/i_flip_counter}
+add wave -noupdate -group 01_ddma_state {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/i_token}
+add wave -noupdate -group 01_ddma_state {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/sstate}
+add wave -noupdate -group 01_ddma_state {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/rstate}
+add wave -noupdate -group 01_mem_ddma {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
+add wave -noupdate -group 01_mem_ddma {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/mem_if_dma/data_in}
+add wave -noupdate -group 01_mem_ddma {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/mem_if_dma/addr_in}
+add wave -noupdate -group 01_mem_ddma {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/mem_if_dma/data_out}
+add wave -noupdate -group 01_mem_ddma {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/mem_if_dma/enable_in}
+add wave -noupdate -group 01_mem_ddma {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/mem_if_dma/wb_in}
+add wave -noupdate -group 01_router -color Magenta {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/SwitchControl/ES}
+add wave -noupdate -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/FLocal/EA}
+add wave -noupdate -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/FLocal/counter_flit}
+add wave -noupdate -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/rx}
+add wave -noupdate -group 01_router -childformat {{{/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_in}
+add wave -noupdate -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/credit_o}
+add wave -noupdate -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/tx}
+add wave -noupdate -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_out}
+add wave -noupdate -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/credit_i}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/stall_i}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/addr_o}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/data_i}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/data_o}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/data_w_o}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/data_mode_o}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/extio_in}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/extio_out}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/stall_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/mwait_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/irq_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/irq_ack_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/exception_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/data_b_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/data_h_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/data_access_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/irq_vector_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/inst_addr_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/inst_in_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/data_addr_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/data_in_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/data_out_cpu}
+add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/data_w_cpu}
+add wave -noupdate -group 01_tcd {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/tcd_mod/timer}
+add wave -noupdate -group 01_tcd {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/tcd_mod/timer_unlock}
+add wave -noupdate -group 01_tcd {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/tcd_mod/HYPERPERIOD}
+add wave -noupdate -group 01_tcd {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/tcd_mod/tcd_state}
+add wave -noupdate -divider {Node 1-1}
+add wave -noupdate -group 11_ddma_state -radix decimal {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/temp_addr_in}
+add wave -noupdate -group 11_ddma_state -radix hexadecimal {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/temp_num_flits_in}
+add wave -noupdate -group 11_ddma_state {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/i_flip_counter}
+add wave -noupdate -group 11_ddma_state {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/i_token}
+add wave -noupdate -group 11_ddma_state {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/sstate}
+add wave -noupdate -group 11_ddma_state {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/rstate}
+add wave -noupdate -group 11_mem_ddma {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/mem_if_dma/MEMORY_BUS_WIDTH}
+add wave -noupdate -group 11_mem_ddma {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/mem_if_dma/data_in}
+add wave -noupdate -group 11_mem_ddma {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/mem_if_dma/addr_in}
+add wave -noupdate -group 11_mem_ddma {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/mem_if_dma/data_out}
+add wave -noupdate -group 11_mem_ddma {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/mem_if_dma/enable_in}
+add wave -noupdate -group 11_mem_ddma {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/mem_if_dma/wb_in}
+add wave -noupdate -group 11_router -color Magenta {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/SwitchControl/ES}
+add wave -noupdate -group 11_router {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/FLocal/EA}
+add wave -noupdate -group 11_router {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/FLocal/counter_flit}
+add wave -noupdate -group 11_router {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/rx}
+add wave -noupdate -group 11_router -childformat {{{/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/data_in}
+add wave -noupdate -group 11_router {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/credit_o}
+add wave -noupdate -group 11_router {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/tx}
+add wave -noupdate -group 11_router {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/data_out}
+add wave -noupdate -group 11_router {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/credit_i}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/stall_i}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/addr_o}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/data_i}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/data_o}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/data_w_o}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/data_mode_o}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/extio_in}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/extio_out}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/stall_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/mwait_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/irq_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/irq_ack_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/exception_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/data_b_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/data_h_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/data_access_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/irq_vector_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/inst_addr_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/inst_in_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/data_addr_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/data_in_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/data_out_cpu}
+add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/data_w_cpu}
+add wave -noupdate -group 11_tcd {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/tcd_mod/timer}
+add wave -noupdate -group 11_tcd {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/tcd_mod/timer_unlock}
+add wave -noupdate -group 11_tcd {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/tcd_mod/HYPERPERIOD}
+add wave -noupdate -group 11_tcd {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/tcd_mod/tcd_state}
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{End Test 1} {1237119267 ps} 0 Cyan Cyan} {Trace {2308654954 ps} 0}
 quietly wave cursor active 1
