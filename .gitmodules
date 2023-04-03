@@ -1,0 +1,3 @@
+[submodule "software/ucx-os"]
+	path = software/ucx-os
+	url = https://github.com/sjohann81/ucx-os
