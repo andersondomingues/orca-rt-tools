@@ -110,7 +110,6 @@ module manycore_top #(parameter
           assign pe_x[i].pe_y[j-1].pe_if.credit_i[NORTH] = pe_x[i].pe_y[j].pe_if.credit_o[SOUTH];
           assign pe_x[i].pe_y[j-1].pe_if.rx[NORTH] = pe_x[i].pe_y[j].pe_if.tx[SOUTH];
           assign pe_x[i].pe_y[j-1].pe_if.clock_rx[NORTH] = pe_x[i].pe_y[j].pe_if.clock_tx[SOUTH];
-
         end 
 
         if(j == NOC_DIM_Y-1) begin
