@@ -36,6 +36,11 @@ vcom -mixedsvvh -work work -93 -explicit ../hw/router/hermes/Hermes_switchcontro
 vcom -mixedsvvh -work work -93 -explicit ../hw/router/hermes/Hermes_crossbar.vhd
 vcom -mixedsvvh -work work -93 -explicit ../hw/router/hermes/RouterCC.vhd
 
+# PERIPHERALS
+vcom -mixedsvvh -work work -93 -explicit ../hw/peripherals/peripherals_minimal.vhd
+vlog -mixedsvvh -sv -work work ../hw/peripherals/interface_peripherals.sv
+vlog -mixedsvvh -sv -work work ../hw/peripherals/peripherals.sv
+
 # PE MOCK
 vlog -mixedsvvh -sv -work work ../hw/interface_pe.sv
 
