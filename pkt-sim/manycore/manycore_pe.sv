@@ -9,29 +9,25 @@ module manycore_pe #(parameter
   input logic reset,
   interface_pe.PE pe_if
 );
-  integer TCD_CONFIG_ADDR = 32'hFF;
 
-  logic[31:0] ddma_status;
-
-  logic cpu_irq;
-  logic[2:0] cpu_data_mode_out;
-  logic[7:0] cpu_extio_in;
-  logic[7:0] cpu_extio_out;
-
-
+  // =========================================================
+  //                    INTERFACES
+  // =========================================================
   interface_router #(FLIT_WIDTH) router_if(clock, reset); // router and pe
   interface_router_port #(FLIT_WIDTH) router_port_if(clock, reset); // router and ddma
   interface_ddma   #(MEMORY_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN, ADDRESS) ddma_if(clock, reset); //tcd and ddma
-
   interface_memory #(MEMORY_WIDTH) mem_if_dma(clock, reset); // mem and ddma
   interface_memory #(MEMORY_WIDTH) mem_if_mmio(clock, reset); // mem and mmio
-
+  interface_peripherals #(MEMORY_WIDTH) perif_if(clock, reset);
   interface_core_rv32e #(MEMORY_WIDTH) cpu_if(clock, reset); // cpu to mmio
-  
   interface_tcd #(MEMORY_WIDTH) tcd_if(clock, reset);
-  // modport TCD (
-  //   input clock, reset, data_in, input_in, 
-  //   output status_out);
+
+  // =========================================================
+  //                    MODULES
+  // =========================================================
+  peripherals #(MEMORY_WIDTH) prif_mod(
+    .pheripherals_if(perif_if.PERIPHERALS)
+  );
 
   tcd #(MEMORY_WIDTH) tcd_mod(
     .clock(clock), .reset(reset),
@@ -63,45 +59,57 @@ module manycore_pe #(parameter
     .cpu_if(cpu_if.CPU)
   );
 
-  // mmio wiring
-  assign mem_if_mmio.addr_in = (cpu_if.addr_out < TCD_CONFIG_ADDR) ? cpu_if.addr_out : 0;
-  assign mem_if_mmio.wb_in = (cpu_if.addr_out < TCD_CONFIG_ADDR) ? cpu_if.wb_out : 0;
+  // =========================================================
+  //                    MEME / CPU / PERIPHERALS
+  // =========================================================
+  const int PERIPHERALS_ADDR_RANGE_START = 'he1000000;
+  assign cpu_if.extio_in = { 'h0000000, 'b00, ddma_if.irq_out, perif_if.irq };
+  assign cpu_if.stall_in = 0;
+  
+  assign perif_if.addr_in = cpu_if.addr_out;
+  assign mem_if_mmio.addr_in = cpu_if.addr_out;
+
+  assign cpu_if.data_in = (cpu_if.addr_out < PERIPHERALS_ADDR_RANGE_START) 
+    ? mem_if_mmio.data_out 
+    : perif_if.data_out;
+
   assign mem_if_mmio.data_in = cpu_if.data_out;
-  assign cpu_if.data_in = (cpu_if.addr_out < TCD_CONFIG_ADDR) ? mem_if_mmio.data_out : ddma_if.status_out; 
+  assign perif_if.data_in = cpu_if.data_out;
 
-  // temporary bings for unused cpu wiring
-  always_comb begin
-    cpu_if.stall_in <= 0;
-    cpu_data_mode_out <= cpu_if.data_mode_out;
-    cpu_if.extio_in <= cpu_extio_in;
-    cpu_extio_out <= cpu_if.extio_out;
-  end
+  assign mem_if_mmio.wb_in = (cpu_if.addr_out < PERIPHERALS_ADDR_RANGE_START) 
+    ? cpu_if.wb_out
+    : 0;
 
-  // connect router inout to the pe (only SNWE ports)
-  always_comb begin
-    pe_if.clock_tx[3:0] = router_if.clock_tx[3:0];
-    pe_if.tx[3:0] = router_if.tx[3:0];
-    pe_if.data_o[3:0] = router_if.data_o[3:0];
-    pe_if.credit_o[3:0] = router_if.credit_o[3:0];
+  assign perif_if.wr_in = (cpu_if.addr_out < PERIPHERALS_ADDR_RANGE_START) 
+    ? 0
+    : cpu_if.wb_out;
 
-    router_if.clock_rx[3:0] = pe_if.clock_rx[3:0];
-    router_if.rx[3:0] = pe_if.rx[3:0];
-    router_if.data_i[3:0] = pe_if.data_i[3:0];
-    router_if.credit_i[3:0] = pe_if.credit_i[3:0];
-  end
+  assign perif_if.sel_in = (cpu_if.addr_out[31:24] == 'he1);
 
-  // connect router local port to the ddma
-  always_comb begin
-    router_port_if.clock_tx <= router_if.clock_tx[4];
-    router_port_if.tx <= router_if.tx[4];
-    router_port_if.data_o <= router_if.data_o[4];
-    router_port_if.credit_o <= router_if.credit_o[4];
+  // =========================================================
+  //                    ROUTER CONNECTION
+  // =========================================================
+  // connect router inout to the pe (only S, N, W, and E ports)
+  assign pe_if.clock_tx[3:0] = router_if.clock_tx[3:0];
+  assign pe_if.tx[3:0] = router_if.tx[3:0];
+  assign pe_if.data_o[3:0] = router_if.data_o[3:0];
+  assign pe_if.credit_o[3:0] = router_if.credit_o[3:0];
 
-    router_if.clock_rx[4] <= router_port_if.clock_rx;
-    router_if.rx[4] <= router_port_if.rx;
-    router_if.data_i[4] <= router_port_if.data_i;
-    router_if.credit_i[4] <= router_port_if.credit_i;
-  end
+  assign router_if.clock_rx[3:0] = pe_if.clock_rx[3:0];
+  assign router_if.rx[3:0] = pe_if.rx[3:0];
+  assign router_if.data_i[3:0] = pe_if.data_i[3:0];
+  assign router_if.credit_i[3:0] = pe_if.credit_i[3:0];
+
+  // connect router local port to the ddma (only L port)
+  assign router_port_if.clock_tx = router_if.clock_tx[4];
+  assign router_port_if.tx = router_if.tx[4];
+  assign router_port_if.data_o = router_if.data_o[4];
+  assign router_port_if.credit_o = router_if.credit_o[4];
+
+  assign router_if.clock_rx[4] = router_port_if.clock_rx;
+  assign router_if.rx[4] = router_port_if.rx;
+  assign router_if.data_i[4] = router_port_if.data_i;
+  assign router_if.credit_i[4] = router_port_if.credit_i;
 
 
 endmodule: manycore_pe
