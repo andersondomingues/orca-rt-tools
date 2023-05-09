@@ -35,7 +35,7 @@ module manycore_pe #(parameter
     .ddma_if(ddma_if)
   );
 
-  dual_port_ram #(MEMORY_WIDTH, MEMORY_SIZE) memory_mod(
+  dual_port_ram #(MEMORY_WIDTH, MEMORY_SIZE, ADDRESS) memory_mod(
     .clock(clock), .reset(reset),
     .mem_if_a(mem_if_dma.MEM),
     .mem_if_b(mem_if_mmio.MEM)
@@ -63,15 +63,26 @@ module manycore_pe #(parameter
   //                    MEME / CPU / PERIPHERALS
   // =========================================================
   const int PERIPHERALS_ADDR_RANGE_START = 'he1000000;
-  assign cpu_if.extio_in = { 'h0000000, 'b00, ddma_if.irq_out, perif_if.irq };
+
+  // assign cpu_if.extio.in = { 'b000000, ddma_if.irq_out, perif_if.irq};
+  assign cpu_if.extio_in[7:2] = 'b000000;
+  assign cpu_if.extio_in[1] = ddma_if.irq_out;
+  assign cpu_if.extio_in[0] = perif_if.irq;
+  
   assign cpu_if.stall_in = 0;
   
   assign perif_if.addr_in = cpu_if.addr_out;
   assign mem_if_mmio.addr_in = cpu_if.addr_out;
 
-  assign cpu_if.data_in = (cpu_if.addr_out < PERIPHERALS_ADDR_RANGE_START) 
-    ? mem_if_mmio.data_out 
-    : perif_if.data_out;
+  always_comb begin
+    if (cpu_if.addr_out == PERIPHERALS_ADDR_RANGE_START) begin 
+      cpu_if.data_in = ADDRESS;
+    end else if (cpu_if.addr_out < PERIPHERALS_ADDR_RANGE_START) begin 
+      cpu_if.data_in = mem_if_mmio.data_out;
+    end else begin
+      cpu_if.data_in = perif_if.data_out;
+    end
+  end 
 
   assign mem_if_mmio.data_in = cpu_if.data_out;
   assign perif_if.data_in = cpu_if.data_out;
@@ -85,6 +96,7 @@ module manycore_pe #(parameter
     : cpu_if.wb_out;
 
   assign perif_if.sel_in = (cpu_if.addr_out[31:24] == 'he1);
+  assign perif_if.gpioa_in = 0;
 
   // =========================================================
   //                    ROUTER CONNECTION
@@ -111,6 +123,14 @@ module manycore_pe #(parameter
   assign router_if.data_i[4] = router_port_if.data_i;
   assign router_if.credit_i[4] = router_port_if.credit_i;
 
+
+  always @(posedge clock) begin
+    if (~reset) begin
+      if ($rose(perif_if.irq) || $fell(perif_if.irq)) begin
+        $display("[%h] %d %d", ADDRESS, perif_if.irq, $time);
+      end 
+    end
+  end
 
 endmodule: manycore_pe
 

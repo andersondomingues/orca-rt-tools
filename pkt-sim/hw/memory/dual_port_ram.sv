@@ -1,17 +1,39 @@
-module dual_port_ram #(parameter MEMORY_BUS_WIDTH, SIZE)(
+module dual_port_ram #(parameter MEMORY_BUS_WIDTH, SIZE, ADDRESS)(
   input logic clock,
   input logic reset,
   interface_memory.MEM mem_if_a,
   interface_memory.MEM mem_if_b
 );
 
-reg[SIZE][MEMORY_BUS_WIDTH-1:0] mem;
+function string get_image_name(int addr); 
+  automatic int x = addr & 'h000F;
+  automatic int y = (addr >> 8 ) & 'h000F;
+
+  automatic string sx;
+  automatic string sy;
+
+  sx.itoa(x);
+  sy.itoa(y);
+  get_image_name = { "../software/ucx-os/img/build-", sx, "-", sy, "/code.txt" };
+endfunction 
+
+
+
+reg[MEMORY_BUS_WIDTH-1:0] mem[SIZE];
 
 initial begin
+
+  automatic string filename = get_image_name(ADDRESS); 
+
   for(integer j = 0; j < SIZE; j = j+1) begin
     // mem[j] = {MEMORY_BUS_WIDTH{1'b1}};
-    mem[j] = j-1;
+    // mem[j] = j-1;
+    mem[j] = 'h0000;
   end 
+
+  $display("filename: %s", filename);
+  $readmemh(filename, mem);
+
 end 
 
 always @(posedge clock) begin

@@ -63,6 +63,17 @@ add wave -noupdate -group 00_tcd {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/tcd_mod/t
 add wave -noupdate -group 00_tcd {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/tcd_mod/HYPERPERIOD}
 add wave -noupdate -group 00_tcd {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/tcd_mod/tcd_state}
 add wave -noupdate -divider {Node 1-0}
+add wave -noupdate -expand -group 10_perif {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/perif_if/clock}
+add wave -noupdate -expand -group 10_perif {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/perif_if/reset}
+add wave -noupdate -expand -group 10_perif {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/perif_if/addr_in}
+add wave -noupdate -expand -group 10_perif {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/perif_if/data_in}
+add wave -noupdate -expand -group 10_perif {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/perif_if/data_out}
+add wave -noupdate -expand -group 10_perif {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/perif_if/sel_in}
+add wave -noupdate -expand -group 10_perif {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/perif_if/wr_in}
+add wave -noupdate -expand -group 10_perif {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/perif_if/irq}
+add wave -noupdate -expand -group 10_perif {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/perif_if/gpioa_in}
+add wave -noupdate -expand -group 10_perif {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/perif_if/gpioa_out}
+add wave -noupdate -expand -group 10_perif {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/perif_if/gpioa_ddr}
 add wave -noupdate -group 10_ddma_state -radix decimal {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/temp_addr_in}
 add wave -noupdate -group 10_ddma_state -radix hexadecimal {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/temp_num_flits_in}
 add wave -noupdate -group 10_ddma_state {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/ddma_mod/i_flip_counter}
@@ -79,7 +90,7 @@ add wave -noupdate -group 10_router -color Magenta {/manycore_top/pe_x[1]/pe_y[0
 add wave -noupdate -group 10_router {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/FLocal/EA}
 add wave -noupdate -group 10_router {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/FLocal/counter_flit}
 add wave -noupdate -group 10_router {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group 10_router -childformat {{{/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/data_in}
+add wave -noupdate -group 10_router -childformat {{{/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/data_in}
 add wave -noupdate -group 10_router {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/credit_o}
 add wave -noupdate -group 10_router {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/tx}
 add wave -noupdate -group 10_router {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/router_mod/router_mod/data_out}
@@ -112,6 +123,17 @@ add wave -noupdate -group 10_tcd {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/tcd_mod/t
 add wave -noupdate -group 10_tcd {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/tcd_mod/HYPERPERIOD}
 add wave -noupdate -group 10_tcd {/manycore_top/pe_x[1]/pe_y[0]/pe_mod/tcd_mod/tcd_state}
 add wave -noupdate -divider {Node 0-1}
+add wave -noupdate -expand -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/clock}
+add wave -noupdate -expand -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/reset}
+add wave -noupdate -expand -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/addr_in}
+add wave -noupdate -expand -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/data_in}
+add wave -noupdate -expand -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/data_out}
+add wave -noupdate -expand -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/sel_in}
+add wave -noupdate -expand -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/wr_in}
+add wave -noupdate -expand -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/irq}
+add wave -noupdate -expand -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/gpioa_in}
+add wave -noupdate -expand -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/gpioa_out}
+add wave -noupdate -expand -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/gpioa_ddr}
 add wave -noupdate -group 01_ddma_state -radix decimal {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/temp_addr_in}
 add wave -noupdate -group 01_ddma_state -radix hexadecimal {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/temp_num_flits_in}
 add wave -noupdate -group 01_ddma_state {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/ddma_mod/i_flip_counter}
@@ -128,7 +150,7 @@ add wave -noupdate -group 01_router -color Magenta {/manycore_top/pe_x[0]/pe_y[1
 add wave -noupdate -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/FLocal/EA}
 add wave -noupdate -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/FLocal/counter_flit}
 add wave -noupdate -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group 01_router -childformat {{{/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_in}
+add wave -noupdate -group 01_router -childformat {{{/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_in}
 add wave -noupdate -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/credit_o}
 add wave -noupdate -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/tx}
 add wave -noupdate -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_out}
@@ -161,6 +183,17 @@ add wave -noupdate -group 01_tcd {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/tcd_mod/t
 add wave -noupdate -group 01_tcd {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/tcd_mod/HYPERPERIOD}
 add wave -noupdate -group 01_tcd {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/tcd_mod/tcd_state}
 add wave -noupdate -divider {Node 1-1}
+add wave -noupdate -expand -group 11_perif {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/perif_if/clock}
+add wave -noupdate -expand -group 11_perif {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/perif_if/reset}
+add wave -noupdate -expand -group 11_perif {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/perif_if/addr_in}
+add wave -noupdate -expand -group 11_perif {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/perif_if/data_in}
+add wave -noupdate -expand -group 11_perif {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/perif_if/data_out}
+add wave -noupdate -expand -group 11_perif {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/perif_if/sel_in}
+add wave -noupdate -expand -group 11_perif {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/perif_if/wr_in}
+add wave -noupdate -expand -group 11_perif {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/perif_if/irq}
+add wave -noupdate -expand -group 11_perif {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/perif_if/gpioa_in}
+add wave -noupdate -expand -group 11_perif {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/perif_if/gpioa_out}
+add wave -noupdate -expand -group 11_perif {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/perif_if/gpioa_ddr}
 add wave -noupdate -group 11_ddma_state -radix decimal {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/temp_addr_in}
 add wave -noupdate -group 11_ddma_state -radix hexadecimal {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/temp_num_flits_in}
 add wave -noupdate -group 11_ddma_state {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/ddma_mod/i_flip_counter}
@@ -177,7 +210,7 @@ add wave -noupdate -group 11_router -color Magenta {/manycore_top/pe_x[1]/pe_y[1
 add wave -noupdate -group 11_router {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/FLocal/EA}
 add wave -noupdate -group 11_router {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/FLocal/counter_flit}
 add wave -noupdate -group 11_router {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/rx}
-add wave -noupdate -group 11_router -childformat {{{/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/data_in}
+add wave -noupdate -group 11_router -childformat {{{/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -subitemconfig {{/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-height 17 -radix hexadecimal}} {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/data_in}
 add wave -noupdate -group 11_router {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/credit_o}
 add wave -noupdate -group 11_router {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/tx}
 add wave -noupdate -group 11_router {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/router_mod/router_mod/data_out}
@@ -210,7 +243,7 @@ add wave -noupdate -group 11_tcd {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/tcd_mod/t
 add wave -noupdate -group 11_tcd {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/tcd_mod/HYPERPERIOD}
 add wave -noupdate -group 11_tcd {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/tcd_mod/tcd_state}
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{End Test 1} {3015101208 ps} 0 Cyan Cyan} {Trace {280910050 ps} 0}
+WaveRestoreCursors {{End Test 1} {1237119267 ps} 0 Cyan Cyan} {Trace {2308654954 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 257
 configure wave -valuecolwidth 111
@@ -226,4 +259,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {8127664125 ps}
+WaveRestoreZoom {1189093392 ps} {1256113423 ps}

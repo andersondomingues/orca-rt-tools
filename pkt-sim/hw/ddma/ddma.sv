@@ -177,6 +177,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
       case (rstate)
         
         IDLE_REC: begin
+          ddma_if.irq_out <= 0;
           router_if.credit_i <= 0;  // keep credit down until first flit arrives
           if(router_if.tx == 1) begin  
             rstate <= REC_HEADER;
@@ -186,6 +187,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
 
         /** header arrived, must receive it and proceed to the next state **/ 
         REC_HEADER: begin
+          ddma_if.irq_out <= 0;
           if(i_token == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
             recv_addr <= (recv_addr + 1);
@@ -204,6 +206,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
 
         /** header is actually received in this state. **/
         REC_HEADER_SYNC: begin
+          ddma_if.irq_out <= 0;
           router_if.credit_i <= 0;
           if(i_token == TOKEN_RECV && router_if.tx == 1) begin
             rstate <= REC_SIZE;
@@ -211,6 +214,7 @@ module ddma #(parameter MEMORY_BUS_WIDTH,
         end 
 
         REC_SIZE: begin
+          ddma_if.irq_out <= 0;
           if(i_token == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
             recv_addr <= (recv_addr + 1);
