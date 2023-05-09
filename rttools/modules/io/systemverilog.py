@@ -40,11 +40,17 @@ def genWaveform(expDir, noc):
 
         ss += f"add wave -noupdate -divider {{Node {x}-{y}}}\n"
 
-        # ss += f"add wave -noupdate -group {x}{y}_ddma_if {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/addr_in}}\n"
-        # ss += f"add wave -noupdate -group {x}{y}_ddma_if -radix decimal {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/nbytes_in}}\n"
-        # ss += f"add wave -noupdate -group {x}{y}_ddma_if {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/cmd_in}}\n"
-        # ss += f"add wave -noupdate -group {x}{y}_ddma_if {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/status_out}}\n"
-        #        ss += f"add wave -noupdate -group {x}{y}_ddma_if {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_tb_mod/ddma_if/irq_out}}\n"
+        ss += f"add wave -noupdate -expand -group {x}{y}_perif {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/perif_if/clock}}\n"
+        ss += f"add wave -noupdate -expand -group {x}{y}_perif {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/perif_if/reset}}\n"
+        ss += f"add wave -noupdate -expand -group {x}{y}_perif {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/perif_if/addr_in}}\n"
+        ss += f"add wave -noupdate -expand -group {x}{y}_perif {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/perif_if/data_in}}\n"
+        ss += f"add wave -noupdate -expand -group {x}{y}_perif {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/perif_if/data_out}}\n"
+        ss += f"add wave -noupdate -expand -group {x}{y}_perif {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/perif_if/sel_in}}\n"
+        ss += f"add wave -noupdate -expand -group {x}{y}_perif {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/perif_if/wr_in}}\n"
+        ss += f"add wave -noupdate -expand -group {x}{y}_perif {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/perif_if/irq}}\n"
+        ss += f"add wave -noupdate -expand -group {x}{y}_perif {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/perif_if/gpioa_in}}\n"
+        ss += f"add wave -noupdate -expand -group {x}{y}_perif {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/perif_if/gpioa_out}}\n"
+        ss += f"add wave -noupdate -expand -group {x}{y}_perif {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/perif_if/gpioa_ddr}}\n"
 
         ss += f"add wave -noupdate -group {x}{y}_ddma_state -radix decimal {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/temp_addr_in}}\n"
         ss += f"add wave -noupdate -group {x}{y}_ddma_state -radix hexadecimal {{/{noc_top_mod_name}/pe_x[{x}]/pe_y[{y}]/pe_mod/ddma_mod/temp_num_flits_in}}\n"
