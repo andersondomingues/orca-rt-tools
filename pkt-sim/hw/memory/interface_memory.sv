@@ -4,7 +4,7 @@ interface interface_memory #(parameter MEMORY_BUS_WIDTH)
   logic[MEMORY_BUS_WIDTH-3:0] addr_in;
   logic[MEMORY_BUS_WIDTH-1:0] data_out;
   logic enable_in;
-  logic wb_in;
+  logic[3:0] wb_in;
 
   modport MEM (
     input data_in, addr_in, enable_in, wb_in, clock, reset,

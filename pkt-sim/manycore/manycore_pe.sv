@@ -72,20 +72,24 @@ module manycore_pe #(parameter
   assign cpu_if.stall_in = 0;
   
   assign perif_if.addr_in = cpu_if.addr_out;
+
+  // Memory is addressed for 32-bit width words, so we divide the 
+  // request address by 4
   assign mem_if_mmio.addr_in = cpu_if.addr_out;
 
+  // stream operator { << 8 {data}} provides endianess
   always_comb begin
     if (cpu_if.addr_out == PERIPHERALS_ADDR_RANGE_START) begin 
-      cpu_if.data_in = ADDRESS;
+      cpu_if.data_in = { << 8 {ADDRESS}};
     end else if (cpu_if.addr_out < PERIPHERALS_ADDR_RANGE_START) begin 
-      cpu_if.data_in = mem_if_mmio.data_out;
+      cpu_if.data_in = { << 8 {mem_if_mmio.data_out}};
     end else begin
-      cpu_if.data_in = perif_if.data_out;
+      cpu_if.data_in = { << 8 {perif_if.data_out}};
     end
   end 
 
-  assign mem_if_mmio.data_in = cpu_if.data_out;
-  assign perif_if.data_in = cpu_if.data_out;
+  assign mem_if_mmio.data_in = { << 8 {cpu_if.data_out}};
+  assign perif_if.data_in = { << 8 {cpu_if.data_out}};
 
   assign mem_if_mmio.wb_in = (cpu_if.addr_out < PERIPHERALS_ADDR_RANGE_START) 
     ? cpu_if.wb_out
