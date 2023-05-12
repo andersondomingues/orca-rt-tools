@@ -22,6 +22,8 @@ module manycore_pe #(parameter
   interface_core_rv32e #(MEMORY_WIDTH) cpu_if(clock, reset); // cpu to mmio
   interface_tcd #(MEMORY_WIDTH) tcd_if(clock, reset);
 
+  interface_memory #(MEMORY_WIDTH) mem_if_boot(clock, reset); // boot rom
+  
   // =========================================================
   //                    MODULES
   // =========================================================
@@ -58,6 +60,20 @@ module manycore_pe #(parameter
     .clock(clock), .reset(reset),
     .cpu_if(cpu_if.CPU)
   );
+
+  // =========================================================
+  //                    PRINTF 
+  // =========================================================
+  always @(posedge clock) begin
+    if (cpu_if.addr_out == 'h000012c8) begin
+      $display("%c %c %c %c", 
+        cpu_if.data_out[31:24],
+        cpu_if.data_out[23:16],
+        cpu_if.data_out[15:8],
+        cpu_if.data_out[7:0]
+      );
+    end
+  end 
 
   // =========================================================
   //                    MEME / CPU / PERIPHERALS

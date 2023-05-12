@@ -1,8 +1,7 @@
-module dual_port_ram #(parameter MEMORY_BUS_WIDTH, SIZE, ADDRESS)(
+module single_port_ram #(parameter MEMORY_BUS_WIDTH, SIZE, ADDRESS)(
   input logic clock,
   input logic reset,
-  interface_memory.MEM mem_if_a,
-  interface_memory.MEM mem_if_b
+  interface_memory.MEM mem_if
 );
 
 function string get_image_name(int addr); 
@@ -47,13 +46,6 @@ initial begin
     j = j + 1;
   end
 
-  // i = 0;
-  // if(ADDRESS == 0) begin
-  //   while (i < SIZE) begin
-  //     $display("%h %h %h %h", mem[i], mem[i + 1], mem[i + 2], mem[i + 3]);
-  //     i = i + 4;
-  //   end
-  // end
 end 
 
 always @(posedge clock) begin
@@ -73,22 +65,6 @@ always @(posedge clock) begin
   end
 end
 
-always @(posedge clock) begin
-  if (mem_if_b.enable_in) begin
-    if(mem_if_b.wb_in[3]) begin
-      mem[mem_if_b.addr_in] <= mem_if_b.data_in[31:24];
-    end
-    if(mem_if_b.wb_in[2]) begin
-      mem[mem_if_b.addr_in + 1] <= mem_if_b.data_in[23:16];
-    end
-    if(mem_if_b.wb_in[1]) begin
-      mem[mem_if_b.addr_in + 2] <= mem_if_b.data_in[15:8];
-    end
-    if(mem_if_b.wb_in[0]) begin
-      mem[mem_if_b.addr_in + 3] <= mem_if_b.data_in[7:0];
-    end
-  end
-end
 
 always_comb begin
   mem_if_a.data_out <= {
@@ -96,12 +72,6 @@ always_comb begin
     mem[mem_if_a.addr_in + 1],
     mem[mem_if_a.addr_in + 2],
     mem[mem_if_a.addr_in + 3]
-  };
-  mem_if_b.data_out <= {
-    mem[mem_if_b.addr_in],
-    mem[mem_if_b.addr_in + 1],
-    mem[mem_if_b.addr_in + 2],
-    mem[mem_if_b.addr_in + 3]
   };
 end
 
