@@ -1,7 +1,8 @@
 module manycore_pe #(parameter
   MEMORY_WIDTH, 
   FLIT_WIDTH,
-  MEMORY_SIZE,
+  RAM_MSIZE,
+  BOOT_MSIZE,
   ADDRESS = 0,
   INTERLEAVING_GRAIN
 )(
@@ -9,6 +10,13 @@ module manycore_pe #(parameter
   input logic reset,
   interface_pe.PE pe_if
 );
+
+  // =========================================================
+  //                    LIMITS
+  // =========================================================
+  const int BOOT_START = 'h00000000;
+  const int RAM_START  = 'h40000000;
+  const int PERIPH_START = 'he1000000;
 
   // =========================================================
   //                    INTERFACES
@@ -23,7 +31,7 @@ module manycore_pe #(parameter
   interface_tcd #(MEMORY_WIDTH) tcd_if(clock, reset);
 
   interface_memory #(MEMORY_WIDTH) mem_if_boot(clock, reset); // boot rom
-  
+
   // =========================================================
   //                    MODULES
   // =========================================================
@@ -37,11 +45,17 @@ module manycore_pe #(parameter
     .ddma_if(ddma_if)
   );
 
-  dual_port_ram #(MEMORY_WIDTH, MEMORY_SIZE, ADDRESS) memory_mod(
+  dual_port_ram #(MEMORY_WIDTH, RAM_MSIZE, ADDRESS) memory_mod(
     .clock(clock), .reset(reset),
     .mem_if_a(mem_if_dma.MEM),
     .mem_if_b(mem_if_mmio.MEM)
   );
+
+  single_port_ram #(MEMORY_WIDTH, BOOT_MSIZE, ADDRESS) boot_mod(
+    .clock(clock), .reset(reset),
+    .mem_if(mem_if_boot.MEM)
+  );
+
 
   ddma #(MEMORY_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN, ADDRESS) ddma_mod(
     .clock(clock), .reset(reset), 
@@ -65,7 +79,7 @@ module manycore_pe #(parameter
   //                    PRINTF 
   // =========================================================
   always @(posedge clock) begin
-    if (cpu_if.addr_out == 'h000012c8) begin
+    if (cpu_if.addr_out == 'he1030400) begin
       $display("%c %c %c %c", 
         cpu_if.data_out[31:24],
         cpu_if.data_out[23:16],
@@ -78,7 +92,6 @@ module manycore_pe #(parameter
   // =========================================================
   //                    MEME / CPU / PERIPHERALS
   // =========================================================
-  const int PERIPHERALS_ADDR_RANGE_START = 'he1000000;
 
   // assign cpu_if.extio.in = { 'b000000, ddma_if.irq_out, perif_if.irq};
   assign cpu_if.extio_in[7:2] = 'b000000;
@@ -89,29 +102,34 @@ module manycore_pe #(parameter
   
   assign perif_if.addr_in = cpu_if.addr_out;
 
-  // Memory is addressed for 32-bit width words, so we divide the 
-  // request address by 4
-  assign mem_if_mmio.addr_in = cpu_if.addr_out;
-
-  // stream operator { << 8 {data}} provides endianess
   always_comb begin
-    if (cpu_if.addr_out == PERIPHERALS_ADDR_RANGE_START) begin 
-      cpu_if.data_in = { << 8 {ADDRESS}};
-    end else if (cpu_if.addr_out < PERIPHERALS_ADDR_RANGE_START) begin 
+    if (cpu_if.addr_out < RAM_START) begin
+      cpu_if.data_in = { << 8 {mem_if_boot.data_out}};
+    end else if (cpu_if.addr_out < PERIPH_START) begin 
       cpu_if.data_in = { << 8 {mem_if_mmio.data_out}};
     end else begin
       cpu_if.data_in = { << 8 {perif_if.data_out}};
     end
+    // if (cpu_if.addr_out == PERIPHERALS_ADDR_RANGE_START) begin 
+    //   cpu_if.data_in = { << 8 {ADDRESS}};
   end 
 
-  assign mem_if_mmio.data_in = { << 8 {cpu_if.data_out}};
-  assign perif_if.data_in = { << 8 {cpu_if.data_out}};
+  // ! disable rom after boot up?
+  assign mem_if_boot.enable_in = 1; 
+  assign mem_if_boot.wb_in = 0;
+  assign mem_if_boot.data_in = 0;
+  assign mem_if_boot.addr_in = (cpu_if.addr_out > BOOT_START && cpu_if.addr_out < BOOT_START + BOOT_MSIZE)
+    ? cpu_if.addr_out
+    : 0;
 
-  assign mem_if_mmio.wb_in = (cpu_if.addr_out < PERIPHERALS_ADDR_RANGE_START) 
+  assign mem_if_mmio.addr_in = cpu_if.addr_out & 'h00001111;
+  assign mem_if_mmio.data_in = { << 8 {cpu_if.data_out}};
+  assign mem_if_mmio.wb_in = (cpu_if.addr_out < PERIPH_START) 
     ? cpu_if.wb_out
     : 0;
 
-  assign perif_if.wr_in = (cpu_if.addr_out < PERIPHERALS_ADDR_RANGE_START) 
+  assign perif_if.data_in =  { << 8 {cpu_if.data_out}};
+  assign perif_if.wr_in = (cpu_if.addr_out < PERIPH_START) 
     ? 0
     : cpu_if.wb_out;
 
@@ -142,15 +160,6 @@ module manycore_pe #(parameter
   assign router_if.rx[4] = router_port_if.rx;
   assign router_if.data_i[4] = router_port_if.data_i;
   assign router_if.credit_i[4] = router_port_if.credit_i;
-
-
-  always @(posedge clock) begin
-    if (~reset) begin
-      if ($rose(perif_if.irq) || $fell(perif_if.irq)) begin
-        $display("[%h] %d %d", ADDRESS, perif_if.irq, $time);
-      end 
-    end
-  end
 
 endmodule: manycore_pe
 

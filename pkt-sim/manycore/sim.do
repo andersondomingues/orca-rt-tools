@@ -24,6 +24,7 @@ vlog -mixedsvvh -sv -work work ../hw/ddma/interface_router_port.sv
 vlog -mixedsvvh -sv -work work ../hw/ddma/interface_ddma.sv
 
 # MEMORY CORE SOURCE
+vlog -mixedsvvh -sv -work work ../hw/memory/single_port_ram.sv
 vlog -mixedsvvh -sv -work work ../hw/memory/dual_port_ram.sv
 vlog -mixedsvvh -sv -work work ../hw/memory/interface_memory.sv
 

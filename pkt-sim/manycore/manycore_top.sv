@@ -5,6 +5,7 @@ module manycore_top #(parameter
   MEMORY_BUS_WIDTH = 32,  // memory data bus width
   MEMORY_SIZE = 32000,     // in bytes, 32k (see LD)
   MEMORY_BASE = 0,        // starting address
+  BOOT_SIZE = 1200,
   NOC_DIM_X = 2,
   NOC_DIM_Y = 2,
   INTERLEAVING_GRAIN = 3  
@@ -32,7 +33,7 @@ module manycore_top #(parameter
         interface_pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH) pe_if(clock, reset);
         localparam ADDRESS = (i << (FLIT_WIDTH / 4)) | j;
 
-        manycore_pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH, MEMORY_SIZE, ADDRESS, INTERLEAVING_GRAIN) pe_mod(
+        manycore_pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH, MEMORY_SIZE, BOOT_SIZE, ADDRESS, INTERLEAVING_GRAIN) pe_mod(
           .clock(clock), .reset(reset),
           .pe_if(pe_if.PE)
         );

@@ -12,14 +12,15 @@ module core_rv32e #(parameter MEMORY_WIDTH) (
     .stall_i(cpu_if.stall_in),
 
     .addr_o(cpu_if.addr_out),
-    .data_i(cpu_if.data_in),
-    .data_o(cpu_if.data_out),
     .data_w_o(cpu_if.wb_out),
 
     .data_mode_o(cpu_if.data_mode_out),
 
     .extio_in(cpu_if.extio_in),
-    .extio_out(cpu_if.extio_out)    
+    .extio_out(cpu_if.extio_out),
+
+    .data_i(cpu_if.data_in),
+    .data_o(cpu_if.data_out)
   );
 
 endmodule: core_rv32e
