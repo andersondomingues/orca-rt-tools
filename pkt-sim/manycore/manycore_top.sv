@@ -3,7 +3,7 @@
 module manycore_top #(parameter 
   FLIT_WIDTH = 32,        // 32-bit flit width
   MEMORY_BUS_WIDTH = 32,  // memory data bus width
-  MEMORY_SIZE = 32000,     // in bytes, 32k (see LD)
+  MEMORY_SIZE = 65536,     // in bytes, 65k (see LD)
   MEMORY_BASE = 0,        // starting address
   BOOT_SIZE = 1200,
   NOC_DIM_X = 2,

@@ -6,9 +6,18 @@ work/
 *.wlf
 *.dbg
 
-
 # python
 **/__pycache__
 
 # application-specific
 **/packets/**
+
+# C/C++ 
+**/hfrisc-software/*.o
+**/hfrisc-software/*.elf
+**/hfrisc-software/*.bin
+**/hfrisc-software/*.lst
+**/hfrisc-software/*.map
+**/hfrisc-software/*.sec
+**/hfrisc-software/*.cnt
+**/hfrisc-software/**boot**.txt
