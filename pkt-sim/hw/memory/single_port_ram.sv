@@ -8,7 +8,7 @@ reg[7:0] mem[SIZE];
 
 initial begin
 
-  automatic string filename = { "../software/ucx-os/img/boot.txt" };
+  automatic string filename = { "../software/hfrisc-software/boot.txt" };
 
   automatic reg[31:0] mem_aux[SIZE/4];
   automatic integer i;
@@ -19,7 +19,7 @@ initial begin
     mem_aux[j] = 'h0000;
   end 
 
-  $display("boot: %s", filename);
+  $display("boot_img: %s (%0d B)", filename, SIZE);
   $readmemh(filename, mem_aux);
 
   // copy read contents into the 8-bit addressed memory
@@ -33,28 +33,24 @@ initial begin
     i = i + 4;
     j = j + 1;
   end
-
 end 
 
 always @(posedge clock) begin
   if (mem_if.enable_in) begin
     if(mem_if.wb_in[3]) begin
-      mem[mem_if.addr_in] <= mem_if.data_in[31:24];
+      mem[mem_if.addr_in + 3] <= mem_if.data_in[31:24];
     end
     if(mem_if.wb_in[2]) begin
-      mem[mem_if.addr_in + 1] <= mem_if.data_in[23:16];
+      mem[mem_if.addr_in + 2] <= mem_if.data_in[23:16];
     end
     if(mem_if.wb_in[1]) begin
-      mem[mem_if.addr_in + 2] <= mem_if.data_in[15:8];
+      mem[mem_if.addr_in + 1] <= mem_if.data_in[15:8];
     end
     if(mem_if.wb_in[0]) begin
-      mem[mem_if.addr_in + 3] <= mem_if.data_in[7:0];
+      mem[mem_if.addr_in + 0] <= mem_if.data_in[7:0];
     end
   end
-end
-
-
-always_comb begin
+  
   mem_if.data_out <= {
     mem[mem_if.addr_in + 3],
     mem[mem_if.addr_in + 2],

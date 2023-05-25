@@ -32,7 +32,7 @@ initial begin
     mem_aux[j] = 'h0000;
   end 
 
-  $display("filename: %s", filename);
+  $display("ram_img: %s (%0d B)", filename, SIZE);
   $readmemh(filename, mem_aux);
 
   // copy read contents into the 8-bit addressed memory
@@ -47,13 +47,7 @@ initial begin
     j = j + 1;
   end
 
-  // i = 0;
-  // if(ADDRESS == 0) begin
-  //   while (i < SIZE) begin
-  //     $display("%h %h %h %h", mem[i], mem[i + 1], mem[i + 2], mem[i + 3]);
-  //     i = i + 4;
-  //   end
-  // end
+  // $display("ram size: %0d %h", SIZE, SIZE);
 end 
 
 always @(posedge clock) begin
@@ -76,22 +70,20 @@ end
 always @(posedge clock) begin
   if (mem_if_b.enable_in) begin
     if(mem_if_b.wb_in[3]) begin
-      mem[mem_if_b.addr_in] <= mem_if_b.data_in[31:24];
+      mem[mem_if_b.addr_in + 3] <= mem_if_b.data_in[31:24];
     end
     if(mem_if_b.wb_in[2]) begin
-      mem[mem_if_b.addr_in + 1] <= mem_if_b.data_in[23:16];
+      mem[mem_if_b.addr_in + 2] <= mem_if_b.data_in[23:16];
     end
     if(mem_if_b.wb_in[1]) begin
-      mem[mem_if_b.addr_in + 2] <= mem_if_b.data_in[15:8];
+      mem[mem_if_b.addr_in + 1] <= mem_if_b.data_in[15:8];
     end
     if(mem_if_b.wb_in[0]) begin
-      mem[mem_if_b.addr_in + 3] <= mem_if_b.data_in[7:0];
+      mem[mem_if_b.addr_in + 0] <= mem_if_b.data_in[7:0];
     end
   end
-end
 
-always_comb begin
-  mem_if_a.data_out <= {
+    mem_if_a.data_out <= {
     mem[mem_if_a.addr_in + 3],
     mem[mem_if_a.addr_in + 2],
     mem[mem_if_a.addr_in + 1],
