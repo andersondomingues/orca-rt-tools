@@ -15,18 +15,26 @@ module manycore_pe #(parameter
   //                    LIMITS
   // =========================================================
   const int BOOT_START = 'h00000000;
-  //const int BOOT_END = BOOT_START + BOOT_MSIZE -1;
   const int BOOT_END = 'h1fffffff;
   const int RAM_START  = 'h40000000;
-  // const int RAM_END = RAM_START + RAM_MSIZE -1;
   const int RAM_END = 'h5fffffff;
   const int PERIPH_START = 'he1000000;
-  const int PERIPH_END = 'he1ffffff;
-  // const int PERIPH_END = 'hffffffff;
+  const int PERIPH_END = 'hffffffff; // 'he1ffffff;
+  const int PRINTCHAR_ADDR = 'hf00000d0;
 
-  const int PRINTCHAR_ADDR = 'hF00000D0;
+  int print_file = 0;
 
   initial begin
+    automatic int x = ADDRESS & 'h000F;
+    automatic int y = (ADDRESS >> 8 ) & 'h000F;
+
+    automatic string sx;
+    automatic string sy;
+
+    sx.itoa(x);
+    sy.itoa(y);
+    print_file = $fopen({"../logs/output-", sx, "-", sy, ".txt"}, "w+");
+
     if (ADDRESS == 0) begin
       $display("BOOT_START %h", BOOT_START);
       $display("BOOT_MSIZE %h", BOOT_MSIZE);
@@ -116,7 +124,10 @@ module manycore_pe #(parameter
   // printchar output
   always @(posedge clock) begin 
     if (dly_address == PRINTCHAR_ADDR) begin 
-      $display("[%0d ns] printchar %c", ($time/1000), cpu_if.data_out[31:24]);
+      // $display("[%0d ns] printchar %c", ($time/1000), cpu_if.data_out[31:24]);
+      if(print_file != 0) begin
+        $fwrite(print_file,"%c", cpu_if.data_out[31:24]);
+      end 
     end
   end 
 
