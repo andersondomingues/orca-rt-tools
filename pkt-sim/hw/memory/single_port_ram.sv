@@ -50,12 +50,14 @@ always @(posedge clock) begin
       mem[mem_if.addr_in + 0] <= mem_if.data_in[7:0];
     end
   end
-  
+end 
+
+always @(posedge clock) begin
   mem_if.data_out <= {
     mem[mem_if.addr_in + 3],
     mem[mem_if.addr_in + 2],
     mem[mem_if.addr_in + 1],
-    mem[mem_if.addr_in]
+    mem[mem_if.addr_in + 0]
   };
 end
 

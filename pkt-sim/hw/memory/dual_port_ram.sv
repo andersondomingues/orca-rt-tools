@@ -51,23 +51,26 @@ initial begin
 end 
 
 always @(posedge clock) begin
+
+  // if(mem_if_b.wb_in != 0) begin
+  //   $display("wrote %h with val = ", mem_if_b.addr_in, mem_if_b.data_in);
+  // end
+
   if (mem_if_a.enable_in) begin
     if(mem_if_a.wb_in[3]) begin
-      mem[mem_if_a.addr_in] <= mem_if_a.data_in[31:24];
+      mem[mem_if_a.addr_in + 3] <= mem_if_a.data_in[31:24];
     end
     if(mem_if_a.wb_in[2]) begin
-      mem[mem_if_a.addr_in + 1] <= mem_if_a.data_in[23:16];
+      mem[mem_if_a.addr_in + 2] <= mem_if_a.data_in[23:16];
     end
     if(mem_if_a.wb_in[1]) begin
-      mem[mem_if_a.addr_in + 2] <= mem_if_a.data_in[15:8];
+      mem[mem_if_a.addr_in + 1] <= mem_if_a.data_in[15:8];
     end
     if(mem_if_a.wb_in[0]) begin
-      mem[mem_if_a.addr_in + 3] <= mem_if_a.data_in[7:0];
+      mem[mem_if_a.addr_in + 0] <= mem_if_a.data_in[7:0];
     end
   end
-end
 
-always @(posedge clock) begin
   if (mem_if_b.enable_in) begin
     if(mem_if_b.wb_in[3]) begin
       mem[mem_if_b.addr_in + 3] <= mem_if_b.data_in[31:24];
@@ -83,7 +86,10 @@ always @(posedge clock) begin
     end
   end
 
-    mem_if_a.data_out <= {
+end
+
+always @(posedge clock) begin
+  mem_if_a.data_out <= {
     mem[mem_if_a.addr_in + 3],
     mem[mem_if_a.addr_in + 2],
     mem[mem_if_a.addr_in + 1],
