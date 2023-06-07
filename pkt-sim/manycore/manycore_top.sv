@@ -1,4 +1,4 @@
-`timescale 1ns/10ps
+`timescale 1ns/100ps
 
 module manycore_top #(parameter 
   FLIT_WIDTH = 32,        // 32-bit flit width
@@ -57,8 +57,8 @@ module manycore_top #(parameter
           assign pe_x[i].pe_y[j].pe_if.credit_i[WEST] = 1'b0;
           assign pe_x[i].pe_y[j].pe_if.rx[WEST] = 1'b0;
           assign pe_x[i].pe_y[j].pe_if.clock_rx[WEST] = 1'b0;
-
-          $info("[", i, ",", j, "][WEST] => grounded");
+          
+          $info("mesh connection (%0d, %0d) WEST => grounded", i, j);
           
         end else begin
 
@@ -72,8 +72,8 @@ module manycore_top #(parameter
           assign pe_x[i-1].pe_y[j].pe_if.credit_i[EAST] = pe_x[i].pe_y[j].pe_if.credit_o[WEST];
           assign pe_x[i-1].pe_y[j].pe_if.rx[EAST] = pe_x[i].pe_y[j].pe_if.tx[WEST];
           assign pe_x[i-1].pe_y[j].pe_if.clock_rx[EAST] = pe_x[i].pe_y[j].pe_if.clock_tx[WEST];
-
-          $info("[", i, ",", j, "][WEST] => connected to [", (i-1), ",", j, "][EAST]");
+          
+          $info("mesh connection (%0d, %0d) WEST => (%0d, %0d) EAST", i, j, (i-1), j);
 
         end
 
@@ -84,7 +84,7 @@ module manycore_top #(parameter
           assign pe_x[i].pe_y[j].pe_if.rx[EAST] = 1'b0;
           assign pe_x[i].pe_y[j].pe_if.clock_rx[EAST] = 1'b0;
 
-          $info("[", i, ",", j, "][EAST] => grounded");
+          $info("mesh connection (%0d, %0d) EAST => grounded", i, j);
 
         end
 
@@ -95,11 +95,11 @@ module manycore_top #(parameter
           assign pe_x[i].pe_y[j].pe_if.rx[SOUTH] = 1'b0;
           assign pe_x[i].pe_y[j].pe_if.clock_rx[SOUTH] = 1'b0;
 
-          $info("[", i, ",", j, "][SOUTH] => grounded");
+          $info("mesh connection (%0d, %0d) SOUTH => grounded", i, j);
 
         end else begin
 
-          $info("[", i, ",", j, "][SOUTH] => connected to [", i, ",", (j-1), "][NORTH]");
+          $info("mesh connection (%0d, %0d) SOUTH => (%0d, %0d) NORTH", i, j, i, (j-1));
 
           // connect to neighbor routers (Y-axis)
           assign pe_x[i].pe_y[j].pe_if.data_i[SOUTH][FLIT_WIDTH-1:0] = pe_x[i].pe_y[j-1].pe_if.data_o[NORTH][FLIT_WIDTH-1:0];
@@ -115,7 +115,7 @@ module manycore_top #(parameter
 
         if(j == NOC_DIM_Y-1) begin
 
-          $info("[", i, ",", j, "][NORTH] => grounded");
+          $info("mesh connection (%0d, %0d) NORTH => grounded", i, j);
 
           // grounding north border
           assign pe_x[i].pe_y[j].pe_if.data_i[NORTH][FLIT_WIDTH-1:0] = 0;

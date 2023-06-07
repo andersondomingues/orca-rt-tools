@@ -19,35 +19,28 @@ module manycore_pe #(parameter
   const int RAM_START  = 'h40000000;
   const int RAM_END = 'h5fffffff;
   const int PERIPH_START = 'he1000000;
-  const int PERIPH_END = 'hffffffff; // 'he1ffffff;
+  const int PERIPH_END = 'hefffffff;
   const int PRINTCHAR_ADDR = 'hf00000d0;
+  const int INTERNAL_START = 'hf0000000;
+  const int INTERNAL_END = 'hffffffff;
 
-  int print_file = 0;
 
-  initial begin
-    automatic int x = ADDRESS & 'h000F;
-    automatic int y = (ADDRESS >> 8 ) & 'h000F;
-
+  function string log_filename();
     automatic string sx;
     automatic string sy;
+    automatic int x;
+    automatic int y;
+
+    x = ADDRESS & 'h000F;
+    y = (ADDRESS >> 8 ) & 'h000F; 
 
     sx.itoa(x);
     sy.itoa(y);
-    print_file = $fopen({"../logs/output-", sx, "-", sy, ".txt"}, "w+");
 
-    if (ADDRESS == 0) begin
-      $display("BOOT_START %h", BOOT_START);
-      $display("BOOT_MSIZE %h", BOOT_MSIZE);
-      $display("BOOT_END %h", BOOT_END);
-      $display("RAM_START %h", RAM_START);
-      $display("RAM_END %h", RAM_END);
-      $display("RAM_MSIZE %h", RAM_MSIZE);
-      $display("RAM_START %h", RAM_START);
-      $display("PERIPH_START %h", PERIPH_START);
-      $display("PERIPH_END %h", PERIPH_END);
-      $display("PRINTCHAR_ADDR %h", PRINTCHAR_ADDR);
-    end 
-  end 
+    log_filename = {"../logs/output-", sx, "-", sy, ".txt"};
+  endfunction
+
+  int print_file = $fopen(log_filename());
 
   // =========================================================
   //                    INTERFACES
@@ -107,9 +100,8 @@ module manycore_pe #(parameter
   );
 
   // =========================================================
-  //                    MEME / CPU / PERIPHERALS
+  //                    MEM / CPU / PERIPHERALS
   // =========================================================
-
   assign cpu_if.extio_in[7:2] = 'b000000;
   assign cpu_if.extio_in[1] = ddma_if.irq_out[0];
   assign cpu_if.extio_in[0] = perif_if.irq;
@@ -121,30 +113,42 @@ module manycore_pe #(parameter
     dly_address <= cpu_if.addr_out;
   end
 
+  // print interruptions 
+  always @(posedge clock) begin 
+    if (cpu_if.extio_in != $past(cpu_if.extio_in)) begin
+      $display("[%0d ns] Irq %8h", ($time/1000), cpu_if.extio_in); 
+    end 
+  end
+
   // printchar output
   always @(posedge clock) begin 
-    if (dly_address == PRINTCHAR_ADDR) begin 
-      // $display("[%0d ns] printchar %c", ($time/1000), cpu_if.data_out[31:24]);
-      if(print_file != 0) begin
-        $fwrite(print_file,"%c", cpu_if.data_out[31:24]);
-      end 
+    if (dly_address == PRINTCHAR_ADDR && print_file != 0) begin
+      $fwrite(print_file, "%c", cpu_if.data_out[31:24]);
     end
-  end 
+  end
 
-  // registered memory access 
+  // registered memory access to cpu.data_in
   always_comb begin
+    // boot mem
     if (dly_address >= BOOT_START && dly_address <= BOOT_END) begin
-      cpu_if.data_in = { << 8 {mem_if_boot.data_out}};
+      cpu_if.data_in = mem_if_boot.data_out;
 
+    // ram mem
     end else if (dly_address >= RAM_START && dly_address <= RAM_END) begin
-      cpu_if.data_in = { << 8 {mem_if_mmio.data_out}};
+      cpu_if.data_in = mem_if_mmio.data_out;
     
+    // peripherals
     end else if (dly_address >= PERIPH_START && dly_address <= PERIPH_END) begin 
-      cpu_if.data_in = { << 8 {perif_if.data_out}};
-    
-    // avoid XXXX at the begining of the simulation
-    end else if($time != 0 && dly_address != PRINTCHAR_ADDR) begin
-      $display("[%0d ns] Illegal access to region %h", ($time/1000), dly_address); 
+      cpu_if.data_in = perif_if.data_out;
+
+    // internals (e.g., interruption controller)
+    end else if (dly_address >= INTERNAL_START && dly_address <= INTERNAL_END) begin
+      cpu_if.data_in = 0; 
+
+    // unknown addressess
+    end else if ($time() != 0 && dly_address != PRINTCHAR_ADDR) begin
+      $display("[%0d ns] illegal access to region %h", ($time/1000), dly_address); 
+      cpu_if.data_in = 0;
     end 
   end 
 
@@ -155,7 +159,7 @@ module manycore_pe #(parameter
     mem_if_boot.wb_in = 0;   // boot is ready only
 
     if (cpu_if.addr_out >= BOOT_START && cpu_if.addr_out <= BOOT_END) begin
-      mem_if_boot.addr_in = cpu_if.addr_out & 'h000007FF;
+      mem_if_boot.addr_in = (cpu_if.addr_out & (BOOT_MSIZE -1)) & ~3; // 4-byte alignment
     end else begin 
       mem_if_boot.addr_in = 0;
     end
@@ -164,10 +168,10 @@ module manycore_pe #(parameter
   // RAM memory mux
   always_comb begin
     mem_if_mmio.enable_in = 1; 
-    mem_if_mmio.data_in = { << 8 {cpu_if.data_out}};
-
+    mem_if_mmio.data_in = cpu_if.data_out;
+    
     if (cpu_if.addr_out >= RAM_START && cpu_if.addr_out <= RAM_END) begin
-      mem_if_mmio.addr_in = (cpu_if.addr_out & 'h0000FFFF);  // addresses to 64k RAM  
+      mem_if_mmio.addr_in = (cpu_if.addr_out & (RAM_MSIZE - 1) & ~3); // 4-byte alignment
       mem_if_mmio.wb_in = cpu_if.wb_out;
     end else begin
       mem_if_mmio.addr_in = 0;
@@ -177,24 +181,19 @@ module manycore_pe #(parameter
   
   // PERIPH mux
   always_comb begin
-    perif_if.data_in =  { << 8 {cpu_if.data_out}};
-    perif_if.sel_in = (cpu_if.addr_out[31:24] == 'he1);
     perif_if.gpioa_in = 0;
+    perif_if.data_in = cpu_if.data_out;
 
     if (cpu_if.addr_out >= PERIPH_START && cpu_if.addr_out <= PERIPH_END) begin
+      perif_if.sel_in = 1;
+      perif_if.addr_in = cpu_if.addr_out & ~3; // 4-byte alignment
       perif_if.wr_in = cpu_if.wb_out;
-      perif_if.addr_in = cpu_if.addr_out;
     end else begin 
-      perif_if.wr_in = 0;
+      perif_if.sel_in = 0;
       perif_if.addr_in = 0;
+      perif_if.wr_in = 0;      
     end 
   end 
-
-  always @(posedge clock) begin 
-    if (cpu_if.extio_in != $past(cpu_if.extio_in)) begin
-      $display("[%0d ns] Irq %8h", ($time/1000), cpu_if.extio_in); 
-    end 
-  end
 
   // =========================================================
   //                    ROUTER CONNECTION
@@ -222,4 +221,3 @@ module manycore_pe #(parameter
   assign router_if.credit_i[4] = router_port_if.credit_i;
 
 endmodule: manycore_pe
-

@@ -51,17 +51,16 @@ vlog -mixedsvvh -sv -work work ./manycore_top.sv
 
 vsim -voptargs=+acc=lprn -t ps -debugDB work.manycore_top -wlf vsim.wlf
 
+# do modelsim config. override
 quietly set StdArithNoWarnings 1
 quietly set StdVitalGlitchNoWarnings 1
 
-# do wave.do
-# vsim -view vsim.wlf -do wave.do
-# add wave -r
+# commands from modelsim.ini 
+# quietly set UnbufferedOutput 1
+# quietly set SVAPrintOnlyUserMessage 1
+
+
 do ../packets/mockup.wave.do
-
-
-quietly set StdArithNoWarnings 1
-quietly set StdVitalGlitchNoWarnings 1
 
 run 500 ns
 
