@@ -20,3 +20,11 @@ work/
 **/hfrisc-software/*.sec
 **/hfrisc-software/*.cnt
 **/hfrisc-software/**boot**.txt
+
+**/ucx-os/*.o
+**/ucx-os/*.elf
+**/ucx-os/*.bin
+**/ucx-os/*.lst
+**/ucx-os/*.map
+**/ucx-os/*.sec
+**/ucx-os/*.cnt
