@@ -28,3 +28,12 @@ work/
 **/ucx-os/*.map
 **/ucx-os/*.sec
 **/ucx-os/*.cnt
+
+# Vivado
+**/manycore_vivado/*.cache
+**/manycore_vivado/*.hw
+**/manycore_vivado/*.ip_user_files
+**/manycore_vivado/*.runs
+**/manycore_vivado/*.sim
+**/*vivado.jou
+**/*vivado.log
