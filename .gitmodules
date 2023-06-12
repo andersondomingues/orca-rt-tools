@@ -1,4 +1,0 @@
-[submodule "pkt-sim/software/ucx-os"]
-	path = pkt-sim/software/ucx-os
-	url = https://github.com/andersondomingues/ucx-os
-  
