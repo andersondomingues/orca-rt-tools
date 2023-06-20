@@ -5,7 +5,7 @@ TARGET_LIST = \
 	'riscv/hf-riscv-llvm' 'riscv/riscv32-qemu' 'riscv/riscv32-qemu-llvm' \
 	'riscv/riscv64-qemu' 'riscv/riscv64-qemu-llvm'
 
-#ARCH = none
+ARCH ?= none
 
 SERIAL_BAUD=57600
 SERIAL_DEVICE=/dev/ttyUSB0
@@ -18,8 +18,9 @@ BUILD_HAL_DIR = $(BUILD_DIR)/hal
 BUILD_KERNEL_DIR = $(BUILD_DIR)/kernel
 BUILD_TARGET_DIR = $(BUILD_DIR)/target
 
--include $(BUILD_TARGET_DIR)/target.mak
--include $(SRC_DIR)/arch/$(ARCH)/arch.mak
+include $(BUILD_TARGET_DIR)/target.mak
+include $(SRC_DIR)/arch/$(ARCH)/arch.mak
+
 INC_DIRS += -I $(SRC_DIR)/include
 
 incl:
@@ -29,7 +30,6 @@ ifeq ('$(ARCH)', 'none')
 else
 	@echo "ARCH = $(ARCH)" > $(BUILD_TARGET_DIR)/target.mak
 endif
-
 
 serial:
 	stty ${SERIAL_BAUD} raw cs8 -parenb -crtscts clocal cread ignpar ignbrk -ixon -ixoff -ixany -brkint -icrnl -imaxbel -opost -onlcr -isig -icanon -iexten -echo -echoe -echok -echoctl -echoke -F ${SERIAL_DEVICE}
@@ -60,7 +60,7 @@ ucx.pack: incl hal.pack libs.pack kernel.pack devices.pack
 	$(AR) $(ARFLAGS) $(BUILD_TARGET_DIR)/libucxos.a $(BUILD_KERNEL_DIR)/*.o
 	echo null > ucx.pack
 
-kernel.pack: pipe.o semaphore.o ucx.o main.o
+kernel.pack: pipe.o semaphore.o sched.o event.o ucx.o main.o
 	@echo null > kernel.pack
 
 main.o: $(SRC_DIR)/init/main.c
@@ -73,6 +73,8 @@ semaphore.o: $(SRC_DIR)/kernel/semaphore.c
 	$(CC) $(CFLAGS) $(SRC_DIR)/kernel/semaphore.c
 pipe.o: $(SRC_DIR)/kernel/pipe.c
 	$(CC) $(CFLAGS) $(SRC_DIR)/kernel/pipe.c
+event.o: $(SRC_DIR)/kernel/event.c
+	$(CC) $(CFLAGS) $(SRC_DIR)/kernel/event.c
 
 libs.pack: libc.o dump.o malloc.o list.o queue.o noc.o
 	@echo null > libs.pack
@@ -88,7 +90,7 @@ dump.o: $(SRC_DIR)/lib/dump.c
 libc.o: $(SRC_DIR)/lib/libc.c
 	$(CC) $(CFLAGS) $(SRC_DIR)/lib/libc.c
 noc.o: $(SRC_DIR)/lib/noc.c
-	$(CC) $(CFLAGS) $(SRC_DIR)/lib/noc.c -DNOC_Y=$(NOC_Y) -DNOC_X=$(NOC_X)
+	$(CC) $(CFLAGS) $(SRC_DIR)/lib/noc.c
 
 devices.pack: ddma.o
 	@echo null > devices.pack
@@ -124,7 +126,7 @@ echo: rebuild
 	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/echo.o app/echo.c
 	@$(MAKE) --no-print-directory link
 
-hello: rebuild
+hello: incl ucx.pack
 	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/hello.o app/hello.c
 	@$(MAKE) --no-print-directory link
 
@@ -134,6 +136,10 @@ hello_p: incl ucx.pack
 
 mutex: rebuild
 	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/mutex.o app/mutex.c
+	@$(MAKE) --no-print-directory link
+
+noc_test: incl ucx.pack
+	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/noc_test.o app/noc_test.c
 	@$(MAKE) --no-print-directory link
 	
 pipes: rebuild
@@ -187,9 +193,6 @@ veryclean: clean
 	echo "ARCH = none" > $(BUILD_TARGET_DIR)/target.mak
 	find '$(BUILD_TARGET_DIR)' -type f -name '*.a' -delete
 	rm -rf img/build*
-	
-NOC_X = $(shell echo $$(( $(NOC_DIM_X) - 1 )) )
-NOC_Y = $(shell echo $$(( $(NOC_DIM_Y) - 1 )) )
 
 NOC_X ?= 4
 NOC_Y ?= 4
@@ -200,18 +203,19 @@ NOC_Y_SEQ = $(shell seq 0 $(NOC_Y))
 imgs.pack:
 	for x in $(NOC_X_SEQ); do \
 		for y in $(NOC_Y_SEQ); do \
+			echo "===================================================" ; \
+			echo "Generating software image for PE XY=("$$x","$$y")" ; \
 			echo "==================================================="; \
-			echo "Generating software image for PE XY=("$$x","$$y")"; \
-			echo "==================================================="; \
-			make hello_p ARCH=riscv/hf-riscv-e --no-print-directory NOC_X=$$x NOC_Y=$$y ; \
+			make hello_p ARCH=$$ARCH --no-print-directory NOC_X=$$x NOC_Y=$$y NOC_X_DIM=$(NOC_X) NOC_Y_DIM=$(NOC_Y); \
 			mkdir -p img/build-$$x-$$y ; \
 			cp -r ./build/target/* img/build-$$x-$$y ; \
-			rm -rf noc.o ; \
+			rm -rf ddma.o ; \
 		done ; \
 	done
 	@$(MAKE) clean
 
 
-
+# make imgs.pack NOC_Y=2 NOC_X=2 ARCH=riscv/hf-riscv-e
+# make ex_hello NOC_Y=2 NOC_X=2 ARCH=riscv/hf-riscv-e
 	
 

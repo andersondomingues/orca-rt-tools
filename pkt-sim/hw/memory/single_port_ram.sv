@@ -1,4 +1,8 @@
-module single_port_ram #(parameter MEMORY_BUS_WIDTH, SIZE, ADDRESS)(
+module single_port_ram #(parameter 
+  MEMORY_BUS_WIDTH = 32, 
+  SIZE = 2048, 
+  ADDRESS = 0
+)(
   input logic clock,
   input logic reset,
   interface_memory.MEM mem_if

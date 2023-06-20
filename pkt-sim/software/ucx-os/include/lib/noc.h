@@ -1,3 +1,30 @@
+// TODO: 
+#define MAX_TASKS 255
+
+/**
+ * Driver initialization routine. Sets up a queue of packets 
+ * and resets an associative array connecting ports to cpus.
+*/
+void noc_driver_init(void);
+
+/**
+ * Called whenever a new packet arrives from the network
+ * (interruption handler).
+*/
+void noc_driver_isr();
+
+/**
+ * Returns the ID of the cpu (unsigned integers, starts 
+ * from zero, unique per cpu).
+*/
+uint32_t ucx_noc_cpu_id(void);
+
+
+
+
+
+
+
 #define ERR_INVALID_CPU -201     /*!< invalid cpu */
 #define ERR_IF_NOT_READY -202    /*!< network interface is not ready */
 #define ERR_COMM_TIMEOUT -203    /*!< a pending communication has timed out */
@@ -19,13 +46,7 @@
 #define PKT_SEQ 6
 #define PKT_CHANNEL 7
 
-
 #define NOC_PACKET_SLOTS 32
-
-
-#define NOC_NODE_ADDR 0xe1000000
-#define NOC_NODE_ADDR_X (NOC_NODE_ADDR >> 16)
-#define NOC_NODE_ADDR_Y (NOC_NODE_ADDR & 0x0000FFFF)
 
 // memory address where the incoming packet was stored.
 // packets are stored in a rounding-robin fashion memory
@@ -39,7 +60,7 @@
 #define NOC_DRIVER_STORAGE_ZERO 0xe1001000
 #define NOC_DRIVER_STORAGE_SIZE 0x00001000 // <<
 
-#define MAX_TASKS 255
+
 
 // #include <ucx.h>
 
@@ -65,25 +86,11 @@ extern struct queue_s *pktdrv_queue;
  */
 extern int32_t (*pktdrv_callback)(uint16_t *buf);
 
-void ni_init(void);
-void ni_isr(void *arg);
+uint32_t ucx_noc_comm_create(uint16_t port);
+uint32_t ucx_noc_comm_destroy(uint16_t port);
 
-#ifdef CPP
-extern "C"
-{
-#endif
-
-  uint32_t ucx_noc_nodeid(void);
-
-  uint32_t ucx_noc_comm_create(uint16_t port);
-  uint32_t ucx_noc_comm_destroy(uint16_t port);
-
-  int32_t hf_recvprobe(void);
-  int32_t hf_recv(uint16_t *source_cpu, uint16_t *source_port, int8_t *buf, uint16_t *size, uint16_t channel);
-  int32_t hf_send(uint16_t target_cpu, uint16_t target_port, int8_t *buf, uint16_t size, uint16_t channel);
-  int32_t hf_recvack(uint16_t *source_cpu, uint16_t *source_port, int8_t *buf, uint16_t *size, uint16_t channel);
-  int32_t hf_sendack(uint16_t target_cpu, uint16_t target_port, int8_t *buf, uint16_t size, uint16_t channel, uint32_t timeout);
-
-#ifdef CPP
-}
-#endif
+int32_t ucx_noc_recvprobe(void);
+int32_t ucx_noc_recv(uint16_t *source_cpu, uint16_t *source_port, int8_t *buf, uint16_t *size, uint16_t channel);
+int32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port, int8_t *buf, uint16_t size, uint16_t channel);
+int32_t ucx_noc_recvack(uint16_t *source_cpu, uint16_t *source_port, int8_t *buf, uint16_t *size, uint16_t channel);
+int32_t ucx_noc_sendack(uint16_t target_cpu, uint16_t target_port, int8_t *buf, uint16_t size, uint16_t channel, uint32_t timeout);

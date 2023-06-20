@@ -1,8 +1,10 @@
 
-interface interface_ddma #(parameter MEMORY_BUS_WIDTH, 
-  FLIT_WIDTH, INTERLEAVING_GRAIN, ADDRESS)
-  
-(input clock, input reset);
+interface interface_ddma #(parameter 
+  MEMORY_BUS_WIDTH = 32, 
+  FLIT_WIDTH = 32, 
+  INTERLEAVING_GRAIN = 3, 
+  ADDRESS = 0
+)(input clock, input reset);
   
   //to dma
   logic[MEMORY_BUS_WIDTH-3:0] addr_in;

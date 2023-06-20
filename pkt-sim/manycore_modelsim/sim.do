@@ -60,8 +60,10 @@ quietly set StdVitalGlitchNoWarnings 1
 # quietly set SVAPrintOnlyUserMessage 1
 
 
+
 do ../packets/mockup.wave.do
 
-run 500 ns
+#run 500 ns
+run 10 ms
 
 

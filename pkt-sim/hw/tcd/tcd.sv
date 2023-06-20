@@ -1,4 +1,4 @@
-module tcd #(parameter MEMORY_BUS_WIDTH)(
+module tcd #(parameter MEMORY_BUS_WIDTH = 32)(
   input logic clock,
   input logic reset,
 

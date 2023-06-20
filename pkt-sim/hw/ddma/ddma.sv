@@ -4,8 +4,11 @@
  * processes. Access to the port is given to one of the processess in a round-robin
  * fashion priority schema. The cpu must configure the DMA to send packets. The 
  * interruption wire raises when a packet is tranferred to the memory. */
-module ddma #(parameter MEMORY_BUS_WIDTH, 
-  FLIT_WIDTH, INTERLEAVING_GRAIN, ADDRESS
+module ddma #(parameter 
+  MEMORY_BUS_WIDTH = 32, 
+  FLIT_WIDTH = 32, 
+  INTERLEAVING_GRAIN = 3, 
+  ADDRESS = 0
 )(
   input logic clock,
   input logic reset,

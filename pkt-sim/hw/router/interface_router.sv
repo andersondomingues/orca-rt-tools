@@ -1,6 +1,6 @@
 typedef logic[4:0][31:0] arrayNport_regflit; 
 
-interface interface_router #(parameter FLIT_WIDTH)
+interface interface_router #(parameter FLIT_WIDTH = 32)
 (input clock, input reset);
 
   logic[4:0] clock_tx;

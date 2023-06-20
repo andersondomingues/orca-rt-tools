@@ -3,9 +3,13 @@ ARCH_DIR = $(SRC_DIR)/arch/$(ARCH)
 INC_DIRS = -I $(ARCH_DIR)
 
 # core speed
-F_CLK = 25000000
+#F_CLK = 25000000
+# 1GHz?
+F_CLK = 1000000000
+
 # uart baud rate
 SERIAL_BAUDRATE=57600
+
 # timer interrupt frequency (100 -> 100 ints/s -> 10ms tick time. 0 -> timer0 fixed frequency)
 F_TICK = 0
 
@@ -20,15 +24,6 @@ ARFLAGS = r
 
 LDFLAGS = -melf32lriscv $(LDFLAGS_STRIP)
 LDSCRIPT = $(ARCH_DIR)/hf-risc.ld
-
-#CC = riscv32-unknown-elf-gcc
-#AS = riscv32-unknown-elf-as
-#LD = riscv32-unknown-elf-ld
-#DUMP = riscv32-unknown-elf-objdump -Mno-aliases
-#READ = riscv32-unknown-elf-readelf
-#OBJ = riscv32-unknown-elf-objcopy
-#SIZE = riscv32-unknown-elf-size
-#AR = riscv32-unknown-elf-ar
 
 CC = riscv64-elf-gcc
 AS = riscv64-elf-as

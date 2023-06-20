@@ -37,3 +37,8 @@ work/
 **/manycore_vivado/*.sim
 **/*vivado.jou
 **/*vivado.log
+
+# XCelium
+**/manycore_xcelium/*.d
+**/manycore_xcelium/*.log
+**/manycore_xcelium/*.history

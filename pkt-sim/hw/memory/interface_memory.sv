@@ -1,4 +1,4 @@
-interface interface_memory #(parameter MEMORY_BUS_WIDTH)
+interface interface_memory #(parameter MEMORY_BUS_WIDTH = 32)
 (input clock, input reset);
   logic[MEMORY_BUS_WIDTH-1:0] data_in; // mem. interface
   logic[MEMORY_BUS_WIDTH-3:0] addr_in;

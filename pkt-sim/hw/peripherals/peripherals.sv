@@ -1,4 +1,4 @@
-module peripherals #(parameter MEMORY_BUS_WIDTH)
+module peripherals #(parameter MEMORY_BUS_WIDTH = 32)
 (interface_peripherals.PERIPHERALS pheripherals_if);
 
   peripherals_minimal periph_mod (

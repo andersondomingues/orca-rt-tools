@@ -31,9 +31,16 @@ module manycore_top #(parameter
 
         // pe interface comprise all exposed wires but clock and reset
         interface_pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH) pe_if(clock, reset);
-        localparam ADDRESS = (i << (FLIT_WIDTH / 4)) | j;
+        localparam X = i;
+        localparam Y = j;
+        localparam YDIM = NOC_DIM_Y;
+        localparam XDIM = NOC_DIM_X;
 
-        manycore_pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH, MEMORY_SIZE, BOOT_SIZE, ADDRESS, INTERLEAVING_GRAIN) pe_mod(
+        localparam DIM = (XDIM << 24) | (YDIM << 16);
+        localparam XY = (X << 8) | Y;
+        localparam ADDRESS = DIM | XY;
+
+        manycore_pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH, MEMORY_SIZE, BOOT_SIZE, ADDRESS, INTERLEAVING_GRAIN, NOC_DIM_X, NOC_DIM_Y) pe_mod(
           .clock(clock), .reset(reset),
           .pe_if(pe_if.PE)
         );

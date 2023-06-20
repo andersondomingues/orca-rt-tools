@@ -1,10 +1,12 @@
 module manycore_pe #(parameter
-  MEMORY_WIDTH, 
-  FLIT_WIDTH,
-  RAM_MSIZE,
-  BOOT_MSIZE,
+  MEMORY_WIDTH = 32, 
+  FLIT_WIDTH = 32,
+  RAM_MSIZE = 65536,
+  BOOT_MSIZE = 2048,
   ADDRESS = 0,
-  INTERLEAVING_GRAIN
+  INTERLEAVING_GRAIN = 3,
+  NOC_DIM_X = 0,
+  NOC_DIM_Y = 0
 )(
   input logic clock,
   input logic reset,
@@ -23,6 +25,8 @@ module manycore_pe #(parameter
   const int PRINTCHAR_ADDR = 'hf00000d0;
   const int INTERNAL_START = 'hf0000000;
   const int INTERNAL_END = 'hffffffff;
+  const int RESERVED_START = 'h20000000;
+  const int RESERVED_END = 'h2fffffff;
 
 
   function string log_filename();
@@ -102,9 +106,8 @@ module manycore_pe #(parameter
   // =========================================================
   //                    MEM / CPU / PERIPHERALS
   // =========================================================
-  assign cpu_if.extio_in[7:2] = 'b000000;
-  assign cpu_if.extio_in[1] = ddma_if.irq_out[0];
-  assign cpu_if.extio_in[0] = perif_if.irq;
+  assign cpu_if.extio_in = { 6'b000000, ddma_if.irq_out[0], perif_if.irq };
+
   assign cpu_if.stall_in = 0;
 
   // memory output delay 
@@ -139,11 +142,33 @@ module manycore_pe #(parameter
     
     // peripherals
     end else if (dly_address >= PERIPH_START && dly_address <= PERIPH_END) begin 
-      cpu_if.data_in = perif_if.data_out;
+      // cpu_if.data_in = { 8 << { perif_if.data_out }};
+      cpu_if.data_in = { 
+        perif_if.data_out[7:0],
+        perif_if.data_out[15:8],
+        perif_if.data_out[23:16],
+        perif_if.data_out[31:24]
+      };
 
     // internals (e.g., interruption controller)
     end else if (dly_address >= INTERNAL_START && dly_address <= INTERNAL_END) begin
       cpu_if.data_in = 0; 
+
+    // reserved 
+    end else if ((dly_address & ~3)== 'h20000000) begin
+        // cpu_if.data_in = { << 8 { ADDRESS } };
+        cpu_if.data_in = { 
+          ADDRESS[7:0],
+          ADDRESS[15:8],
+          ADDRESS[23:16],
+          ADDRESS[31:24]
+        };
+        $display("READ INFO XDIM: %0d, YDIM: %0d, X: %0d, Y: %0d", 
+          ADDRESS[31:24],
+          ADDRESS[23:16],
+          ADDRESS[15:8],
+          ADDRESS[7:0],
+        );
 
     // unknown addressess
     end else if ($time() != 0 && dly_address != PRINTCHAR_ADDR) begin
@@ -182,7 +207,13 @@ module manycore_pe #(parameter
   // PERIPH mux
   always_comb begin
     perif_if.gpioa_in = 0;
-    perif_if.data_in = cpu_if.data_out;
+    // perif_if.data_in = { << 8  {cpu_if.data_out }};
+    perif_if.data_in = { 
+      cpu_if.data_out[7:0],
+      cpu_if.data_out[15:8],
+      cpu_if.data_out[23:16],
+      cpu_if.data_out[31:24]
+    };
 
     if (cpu_if.addr_out >= PERIPH_START && cpu_if.addr_out <= PERIPH_END) begin
       perif_if.sel_in = 1;

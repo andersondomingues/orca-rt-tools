@@ -1,145 +1,57 @@
 #include <ucx.h>
 
-//cpu-specific signals
-volatile uint8_t* sig_stall = (uint8_t*) SIGNAL_CPU_STALL;
-volatile uint8_t* sig_intr  = (uint8_t*) SIGNAL_CPU_INTR;
+volatile uint32_t* DDMA_NODE_ADDR = (uint32_t *)(0x20000000);
+#define DDMA_NODE_DIMX ((* DDMA_NODE_ADDR & 0xFF000000) >> 24)
+#define DDMA_NODE_DIMY ((* DDMA_NODE_ADDR & 0x00FF0000) >> 16)
+#define DDMA_NODE_X ((* DDMA_NODE_ADDR & 0x0000FF00) >> 8)
+#define DDMA_NODE_Y ((* DDMA_NODE_ADDR & 0x000000FF))
 
-//signals to start the ni
-volatile uint8_t* sig_send  = (uint8_t*) SIGNAL_PROG_SEND;
-volatile uint8_t* sig_recv  = (uint8_t*) SIGNAL_PROG_RECV;
+volatile uint32_t * DDMA_DEST_IN = (uint32_t *)(0x20000004);
+volatile uint32_t * DDMA_PPTR_IN = (uint32_t *)(0x20000008);
+volatile uint32_t * DDMA_SIZE_IN = (uint32_t *)(0x2000000A);
 
-//signals to check on ni statuses
-volatile uint8_t*  sig_send_status = (uint8_t*) SIGNAL_SEND_STATUS;
-volatile uint32_t* sig_recv_status = (uint32_t*) SIGNAL_RECV_ADDR;
+volatile uint32_t * DDMA_STATUS   = (uint32_t *)(0x20000010);
+volatile uint32_t * DDMA_NPTR_OUT = (uint32_t *)(0x20000008); // next pointer
+volatile uint32_t * DDMA_PPTR_OUT = (uint32_t *)(0x20000008); // recvd pointer
 
-//signals to ni programming
-volatile uint32_t* sig_addr = (uint32_t*) SIGNAL_PROG_ADDR;
-volatile uint32_t* sig_size = (uint32_t*) SIGNAL_PROG_SIZE;
-
-//get the size of the next packet 
-int32_t ni_get_next_size(){
-	return *sig_recv_status;
+uint32_t _ddma_node_addr(){
+  return DDMA_NODE_Y * DDMA_NODE_DIMY + DDMA_NODE_X;
 }
 
-//reads one packet from the noc 
-int32_t ni_read_packet(uint16_t *buf, uint16_t pkt_size)
-{	
-	//uint32_t im = _di();
-	//printf("ni read %d flits\n", pkt_size);
-
-	//configure dma 
-	*sig_size = pkt_size;
-	*sig_addr = (uint32_t)buf;
-	
-	//printf("addr => 0x%x | 0x%x\n", (int32_t)buf, (int32_t)&(buf[0]));
-	
-	//if(*sig_addr <= 0x4000675c){
-	//	printf("WTF >> %d\n", *sig_addr);
-	//}
-
-	//printf("ni prog size %d, addr 0x%x\n", *sig_size, *sig_addr);
-	//printf("trg: 0x%x\n", buf[PKT_TARGET_CPU]);
-	
-	//stall and recv
-	*sig_recv = 0x1;
-	
-	//hold the cpu until no size is given
-	while(*sig_recv_status != 0x0);
-	
-	//flag off 
-	*sig_recv = 0x0;
-
-	//printf("----\n");
-	//hexdump((int8_t*)buf, pkt_size * 2);
-	//printf("\n");
-	
-	//_ei(im);
-	//delay_ms(2);
-	
-	//printf("out: %d\n", packet_counter_driver_lala++);
-	
-	return 0; //<<- no reason to fail
+uint32_t _ddma_atox(uint32_t addr){
+  return (addr % DDMA_NODE_DIMX);
 }
 
-//writes one packet to the noc
-int32_t ni_write_packet(uint16_t *buf, uint16_t pkt_size)
-{
-	//uint32_t im = _di();
-	
-	//printf("ni write %d flits\n", pkt_size);
-	
-	//if(*sig_addr <= 0x4000675c){
-	//	printf("WTF >> %d\n", *sig_addr);
-	//}
-	
-	//wait until previous send to finish
-	while(*sig_send_status == 0x1);
-
-	//hexdump((int8_t*)buf, pkt_size * 2);
-	//printf("\n");
-	//printf("numbytes = %d\n", pkt_size * 2);
-
-	//configure dma 
-	*sig_size = pkt_size;
-	*sig_addr = (uint32_t)buf;
-	
-	// printf("ni prog size %d, addr 0x%x\n", *sig_size, *sig_addr);
-	//stall and send
-	*sig_send = 0x1;
-	*sig_send = 0x1;
-	*sig_send = 0x1;
-	*sig_send = 0x1;
-	
-	//CPU is stalled here, nothing to do
-	//delay_ms(1);
-	
-	//flag off 
-	*sig_send = 0x0;
-	*sig_send = 0x0;
-	*sig_send = 0x0;
-	*sig_send = 0x0;
-	
-	//_ei(im);
-	//delay_ms(2);
-
-	return 0; //<<- no reason to fail
+uint32_t _ddma_atoy(uint32_t addr){
+  return (addr / DDMA_NODE_DIMY);
 }
 
-int32_t ni_ready(void)
-{
-	//printf("ni ready\n");
-
-	//ready when start is down, other is sending already
-	return (*sig_send_status);
+uint32_t _ddma_xyta(uint32_t x, uint32_t y){
+  return (x << 8) & y;
 }
 
-//memory place to flush unused data
-uint8_t ni_flush_dummy[NI_PACKET_SIZE * sizeof(uint16_t)];
+uint32_t _ddma_init(){
+  printf("_ddma_init(): device info x:%d, y:%d, dimx:%d, dimy:%d\n", 
+    DDMA_NODE_X, DDMA_NODE_Y, DDMA_NODE_DIMX, DDMA_NODE_DIMY);
+  return 0;
+}
 
-int32_t ni_flush(uint16_t pkt_size)
-{
-	//uint32_t im = _di();
+uint32_t _ddma_async_send(uint32_t dest, uint32_t size, uint32_t* payload){
+  *DDMA_DEST_IN = (_ddma_atox(dest) << 8) | _ddma_atoy(dest);
+  *DDMA_SIZE_IN = size;
+  *DDMA_PPTR_IN = (uint32_t)payload;
+  return 0;
+}
 
-	//printf("ni flush %d flits\n", pkt_size);
+uint32_t _ddma_status(){
+  return *DDMA_STATUS;
+}
 
-	//configure dma 
-	*sig_size = pkt_size;
-	*sig_addr = (uint32_t)ni_flush_dummy;
+uint32_t _ddma_conf_recv(uint32_t* addr){
+  *DDMA_NPTR_OUT = (uint32_t)addr;
+  return 0;
+}
 
-	//*sig_size = 0;
-
-	//printf("ni flush %d, addr 0x%x\n", *sig_size, *sig_addr);
-
-	//stall and recv
-	*sig_recv = 0x1;
-
-	while(*sig_recv_status != 0x0); 	//<---------CPU is stalled here, nothing to do
-	
-	//flag off 
-	*sig_recv = 0x0;
-
-	//_ei(im);
-
-	//no reason to fail...
-	return pkt_size;
+uint32_t* _ddma_recv_ptr_out(){
+  return (uint32_t*)(*DDMA_PPTR_IN);
 }

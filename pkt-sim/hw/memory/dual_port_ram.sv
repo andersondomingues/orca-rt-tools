@@ -1,4 +1,4 @@
-module dual_port_ram #(parameter MEMORY_BUS_WIDTH, SIZE, ADDRESS)(
+module dual_port_ram #(parameter MEMORY_BUS_WIDTH = 32, SIZE = 65536, ADDRESS = 0)(
   input logic clock,
   input logic reset,
   interface_memory.MEM mem_if_a,
@@ -17,7 +17,8 @@ function string get_image_name(int addr);
 
   sx.itoa(x);
   sy.itoa(y);
-  get_image_name = { "../software/ucx-os/img/build-", sx, "-", sy, "/code.txt" };
+  //get_image_name = { "../software/ucx-os/img/build-", sx, "-", sy, "/code.txt" };
+  get_image_name = { "../software/ucx-os/build/target/code.txt" };
 endfunction 
 
 // -- --

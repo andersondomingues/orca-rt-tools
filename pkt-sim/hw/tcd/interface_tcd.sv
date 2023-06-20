@@ -1,4 +1,4 @@
-interface interface_tcd #(parameter MEMORY_BUS_WIDTH)
+interface interface_tcd #(parameter MEMORY_BUS_WIDTH = 32)
 (input clock, input reset);
   
   // from the pe

@@ -1,4 +1,4 @@
-interface interface_core_rv32e #(parameter MEMORY_BUS_WIDTH)
+interface interface_core_rv32e #(parameter MEMORY_BUS_WIDTH = 32)
 (input clock, input reset);
 
   logic stall_in;

@@ -1,4 +1,4 @@
-module router #(parameter ADDRESS) (
+module router #(parameter ADDRESS = 0) (
   input logic clock,
   input logic reset,
   interface_router.ROUTER router_if

@@ -1,4 +1,4 @@
-interface interface_peripherals #(parameter MEMORY_BUS_WIDTH)
+interface interface_peripherals #(parameter MEMORY_BUS_WIDTH = 32)
 (input clock, input reset);
 
 	logic[MEMORY_BUS_WIDTH-1:0]	addr_in;  // addr_i

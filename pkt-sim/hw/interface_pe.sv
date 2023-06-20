@@ -1,4 +1,4 @@
-interface interface_pe #(parameter MEMORY_BUS_WIDTH, FLIT_WIDTH )
+interface interface_pe #(parameter MEMORY_BUS_WIDTH = 32, FLIT_WIDTH =32 )
 (input clock, input reset);
   
   logic[3:0] clock_tx;   // output to router (router in)

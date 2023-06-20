@@ -1,4 +1,4 @@
-module core_rv32e #(parameter MEMORY_WIDTH) (
+module core_rv32e #(parameter MEMORY_WIDTH = 32) (
   input logic clock,
   input logic reset,
   interface_core_rv32e.CPU cpu_if
