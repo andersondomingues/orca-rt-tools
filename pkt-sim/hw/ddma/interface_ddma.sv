@@ -7,18 +7,27 @@ interface interface_ddma #(parameter
 )(input clock, input reset);
   
   //to dma
-  logic[MEMORY_BUS_WIDTH-3:0] addr_in;
-  logic[MEMORY_BUS_WIDTH-3:0] nbytes_in;
+  logic[MEMORY_BUS_WIDTH-1:0] addr_in;
+  logic[MEMORY_BUS_WIDTH-1:0] size_in;
+  logic[MEMORY_BUS_WIDTH-1:0] dest_in;
   logic cmd_in;
-  logic[4:0] status_out;
-  logic[4:0] irq_out;
+
+  // soft. status byte = X X XXX XXX
+  logic irq_send_out;
+  logic irq_recv_out;
+  logic[2:0] state_recv_out;
+  logic[2:0] state_send_out;
+  
 
   modport DDMA (
-    input clock, reset, addr_in, nbytes_in, cmd_in,
-    output status_out, irq_out);
+    input clock, reset, 
+          addr_in, size_in, cmd_in, dest_in,
+    output state_recv_out, state_send_out, 
+           irq_recv_out, irq_send_out);
 
   modport TCD (
-    output addr_in, nbytes_in, cmd_in,
-    input clock, reset, status_out, irq_out);
+    output addr_in, size_in, cmd_in, dest_in,
+    input clock, reset, state_recv_out, state_send_out,
+          irq_recv_out, irq_send_out);
 
 endinterface: interface_ddma

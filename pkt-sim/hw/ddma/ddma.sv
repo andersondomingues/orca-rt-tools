@@ -15,9 +15,7 @@ module ddma #(parameter
 
   interface_router_port.DDMA router_if,
   interface_memory.DUT mem_if,
-  interface_ddma.DDMA ddma_if,
-  
-  output logic irq
+  interface_ddma.DDMA ddma_if
 );
 
   //==============================================================
@@ -31,19 +29,20 @@ module ddma #(parameter
   
   // send process state machine states 
   typedef enum integer {
-    WAIT_CONFIG = 0,
-    SENDING = 1,
-    HANDSHAKE = 2
+    SENDING_IDLE = 0,
+    SENDING_HEADER = 1,
+    SENDING_SIZE = 2,
+    SENDING_PAYLOAD = 3,
+    SENDING_HANDSHAKE = 4
   } send_state_t;
 
   // recv process state machine states 
   typedef enum integer {
-    IDLE_REC = 0,
-    REC_HEADER = 1,
-    REC_SIZE = 2,
-    REC_PAYLOAD = 3,
-    IRQ_REC = 4,
-    REC_HEADER_SYNC = 5
+    RECEIVING_IDLE = 0,
+    RECEIVING_HEADER = 1,
+    RECEIVING_SIZE = 2,
+    RECEIVING_PAYLOAD = 3,
+    RECEIVING_HANDSHAKE = 4
   } recv_state_t;
 
   // token status (which process has priority, either send or recv)
@@ -52,26 +51,27 @@ module ddma #(parameter
   // remaining cycles until interleaving priority switching  
   integer i_flip_counter;
 
-  // recv state variables 
-  recv_state_t rstate = IDLE_REC;
-  integer flits_to_recv = 0;
+  // send/recv state variables 
+  send_state_t sstate = SENDING_IDLE;
+  recv_state_t rstate = RECEIVING_IDLE; 
 
-  integer RECV_BASE_POINTER = 1024;
-  integer RECV_BUFFER_SIZE = 500;
-  integer recv_addr = RECV_BASE_POINTER;
+  // send regs
+  logic[MEMORY_BUS_WIDTH-1:0] temp_addr_in;
+  logic[MEMORY_BUS_WIDTH-1:0] temp_num_flits_in;
+  logic[MEMORY_BUS_WIDTH-1:0] temp_destination;
 
-  // send state variables 
-  send_state_t sstate = WAIT_CONFIG;
-  integer temp_addr_in = 0;
-  integer temp_num_flits_in = 0;
-
+  // recv regs
+  logic[MEMORY_BUS_WIDTH-1:0] temp_flits_to_recv;
+  logic[MEMORY_BUS_WIDTH-1:0] temp_recv_addr;
+  
   // token request for recv and send states 
   logic has_data_to_send;
   logic has_data_to_recv;
 
-  assign has_data_to_send = (sstate != WAIT_CONFIG && sstate != HANDSHAKE);
-  assign has_data_to_recv = (rstate != IDLE_REC && rstate != IRQ_REC);
+  assign has_data_to_send = (sstate != SENDING_IDLE   && sstate != SENDING_HANDSHAKE);
+  assign has_data_to_recv = (rstate != RECEIVING_IDLE && rstate != RECEIVING_HANDSHAKE);
 
+  // ============================== INTERLEAVING ============================
   // process for handling interleaving arbitration. 
   // rules:
   // - interleaving changes between sending and receiving actions
@@ -106,184 +106,240 @@ module ddma #(parameter
     end 
   end
 
-  logic send_first_flit = 0;
-
-  // send state process 
+  // ============================== SENDING FSM ============================
   always @(posedge clock) begin
     if(~reset) begin
       case (sstate)
-
-        WAIT_CONFIG: begin
-          if(ddma_if.cmd_in == 1) begin
-            temp_addr_in <= ddma_if.addr_in;
-            temp_num_flits_in <= ddma_if.nbytes_in;
-            sstate <= SENDING;
-            ddma_if.status_out <= 1;
-          end else begin 
-            ddma_if.status_out <= 0;
+        SENDING_IDLE: begin
+          if (ddma_if.cmd_in == 1) begin
+            sstate <= SENDING_HEADER;
           end 
-          router_if.rx <= 0;
-        end 
+        end
 
-
-        SENDING: begin 
-
-          // if($past(sstate) == WAIT_CONFIG) begin
-          //   $display("S %b %d [%d words]-> ", ADDRESS, ADDRESS, temp_num_flits_in);
-          // end
-
-          ddma_if.status_out <=  1;
-
-          if (temp_num_flits_in == 0) begin
-            router_if.rx <= 0;
-            sstate <= HANDSHAKE;
-          end else begin 
-            if (i_token == TOKEN_SEND && router_if.credit_o == 1) begin
-
-              // !<<
-              if(send_first_flit == 0) begin
-                send_first_flit = 1;
-                $display("SEN %0d -> %0d (%0d ut)", ADDRESS, (mem_if.data_out << 16) >> 16, $time / 1000);
-              end 
-              
-
-              router_if.rx <= 1;
-              temp_addr_in += 1; 
-              temp_num_flits_in -= 1;
-
-            end else begin 
-              router_if.rx <= 0;
-            end
+        SENDING_HEADER: begin
+          if (i_token == TOKEN_SEND && router_if.credit_o == 1) begin
+            sstate <= SENDING_SIZE;
           end
         end 
 
-        HANDSHAKE: begin
-          ddma_if.status_out <= 0;
-          router_if.rx <= 0;
-          sstate <= WAIT_CONFIG;
-          send_first_flit = 0;
-          $display("HAN %0d (%0d ut)", ADDRESS, $time / 1000);
+        SENDING_SIZE: begin         
+          if (i_token == TOKEN_SEND && router_if.credit_o == 1) begin
+            sstate <= SENDING_PAYLOAD;
+          end
+        end
+
+        SENDING_PAYLOAD: begin 
+          if (temp_num_flits_in == 0) begin
+            sstate <= SENDING_HANDSHAKE;
+          end
+        end
+
+        SENDING_HANDSHAKE: begin
+          if(ddma_if.cmd_in == 0) begin
+            sstate <= SENDING_IDLE;
+          end
         end 
 
       endcase
+    end else begin
+      sstate <= SENDING_IDLE;
+    end
+  end
+
+  // ============================== SENDING BH ============================
+  always @(posedge clock) begin
+    if(~reset) begin
+      case (sstate)
+        SENDING_IDLE: begin   // wait for sw configuration
+          temp_addr_in <= ddma_if.addr_in;
+          temp_num_flits_in <= ddma_if.size_in;
+          temp_destination <= ddma_if.dest_in;
+          router_if.rx <= 0;
+        end
+
+        SENDING_HEADER: begin  // send header flit (hw)
+          if (i_token == TOKEN_SEND && router_if.credit_o == 1) begin
+            router_if.data_i <= temp_destination;
+            router_if.rx <= 1;
+
+            $display("ddma_mod: %s %h %h %h", 
+              "SENDING_IDLE", ddma_if.addr_in, 
+              ddma_if.size_in, ddma_if.dest_in);
+
+            $display("ddma_mod: %s %h", 
+              sstate, temp_destination);
+
+          end else begin
+            router_if.rx <= 0;
+          end
+        end
+
+        SENDING_SIZE: begin  // send size flit (hw)
+          if (i_token == TOKEN_SEND && router_if.credit_o == 1) begin
+            router_if.data_i <= temp_num_flits_in;
+            router_if.rx <= 1;
+
+            $display("ddma_mod: %s %h", 
+              sstate, temp_num_flits_in);
+          end else begin 
+            router_if.rx <= 0;
+          end
+        end
+
+        SENDING_PAYLOAD: begin // copy payload onto router port
+          if (i_token == TOKEN_SEND && router_if.credit_o == 1) begin
+            temp_addr_in <= temp_addr_in + 4; 
+            temp_num_flits_in <= temp_num_flits_in - 1;
+            router_if.data_i <= mem_if.data_out;
+            router_if.rx <= 1;
+          end else begin 
+            router_if.rx <= 0;
+          end
+        end
+
+        SENDING_HANDSHAKE: begin
+          router_if.rx <= 0;
+        end
+      endcase
+
     end else begin 
-      sstate = WAIT_CONFIG;
+      temp_addr_in <= 0;
+      temp_num_flits_in <= 0;
+      temp_destination <= 0;
+      sstate <= SENDING_IDLE;
     end 
   end 
 
+  always @(posedge clock) begin
+    if(sstate == SENDING_PAYLOAD && router_if.rx == 1 && $past(sstate) != SENDING_SIZE) begin 
+      $display("ddma_mod: %s %h %s", 
+        sstate, mem_if.data_out, mem_if.data_out);
+    end
+  end
+
+  logic recv_ack_past, recv_ack;
+
+  // ============================== RECEIVING FSM ============================
+  always @(posedge clock) begin
+    if(~reset) begin
+      case (rstate)
+        RECEIVING_IDLE: begin
+          if(router_if.tx == 1) begin  
+            rstate <= RECEIVING_HEADER;
+          end
+        end
+
+        RECEIVING_HEADER: begin
+          if (i_token == TOKEN_RECV && router_if.tx == 1) begin
+            rstate <= RECEIVING_SIZE;
+          end
+        end 
+
+        RECEIVING_SIZE: begin
+          if (i_token == TOKEN_RECV && router_if.tx == 1) begin
+            rstate <= RECEIVING_PAYLOAD;
+          end
+        end 
+        
+        RECEIVING_PAYLOAD: begin
+           if(temp_flits_to_recv == 0) begin
+            rstate <= RECEIVING_HANDSHAKE;
+          end
+        end 
+
+        RECEIVING_HANDSHAKE: begin
+          if(recv_ack != recv_ack_past) begin
+            rstate <= RECEIVING_IDLE;
+          end
+        end 
+
+      endcase 
+    end else begin
+      rstate <= RECEIVING_IDLE;
+    end 
+  end 
+
+  // ============================== RECEIVING BH ============================
 
   // !<<
-  logic[FLIT_WIDTH -1 :0] r_data_o;
+  logic[FLIT_WIDTH-1:0] r_data_o;
+  logic[FLIT_WIDTH-1:0] temp_next_addr;
 
   always @(posedge clock) begin
     if(~reset) begin
       case (rstate)
         
-        IDLE_REC: begin
-          ddma_if.irq_out <= 0;
-          router_if.credit_i <= 0;  // keep credit down until first flit arrives
-          if(router_if.tx == 1) begin  
-            rstate <= REC_HEADER;
-            recv_addr <= RECV_BASE_POINTER;
-          end
+        RECEIVING_IDLE: begin  // keep credit down until first flit arrives
+          router_if.credit_i <= 0;  
+          temp_recv_addr <= temp_next_addr;   // ! from mmio config
         end
 
-        /** header arrived, must receive it and proceed to the next state **/ 
-        REC_HEADER: begin
-          ddma_if.irq_out <= 0;
+        RECEIVING_HEADER: begin  // header flit arrived
           if(i_token == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
-            recv_addr <= (recv_addr + 1);
-            rstate <= REC_HEADER_SYNC;
-            r_data_o <= router_if.data_o;
-
-            $display("REC %0d, from %0d (%0d ut)",
-              ADDRESS, 
-              (router_if.data_o >> 16),
-              $time / 1000);
-
-          end else begin 
-            router_if.credit_i <= 0;
-          end
-        end
-
-        /** header is actually received in this state. **/
-        REC_HEADER_SYNC: begin
-          ddma_if.irq_out <= 0;
-          router_if.credit_i <= 0;
-          if(i_token == TOKEN_RECV && router_if.tx == 1) begin
-            rstate <= REC_SIZE;
-          end
-        end 
-
-        REC_SIZE: begin
-          ddma_if.irq_out <= 0;
-          if(i_token == TOKEN_RECV && router_if.tx == 1) begin
-            router_if.credit_i <= 1;
-            recv_addr <= (recv_addr + 1);
-            flits_to_recv <= router_if.data_o;
-            rstate <= REC_PAYLOAD;            
-
-            $display("SIZ %0d, %0d flits (%0d ut)", 
-              ADDRESS, router_if.data_o,
-              $time / 1000);
-
-          end else begin 
-            router_if.credit_i <= 0;
-          end
-        end 
-
-        REC_PAYLOAD: begin
-          if(flits_to_recv >= 0) begin
-            if(i_token == TOKEN_RECV && router_if.tx == 1) begin
-              router_if.credit_i <= 1;
-              recv_addr <= (recv_addr + 1);
-              flits_to_recv <= flits_to_recv -1;
-            end else begin 
-              router_if.credit_i <= 0;  
-            end 
+            $display("ddma_mod: %s %h",rstate, router_if.data_o);
+            // TODO: add security checking, wrong destination?
           end else begin
-            rstate <= IRQ_REC;
             router_if.credit_i <= 0;
-            ddma_if.irq_out <= 1;
           end
         end
 
-        IRQ_REC: begin
-          ddma_if.irq_out <= 0;
-          ddma_if.status_out <= ddma_if.status_out & 2'b01;
-          rstate <= IDLE_REC;
+        RECEIVING_SIZE: begin
+          if(i_token == TOKEN_RECV && router_if.tx == 1) begin
+            router_if.credit_i <= 1;
+            temp_flits_to_recv <= router_if.data_o;
+            $display("ddma_mod: %s %h", rstate, router_if.data_o);
+          end else begin 
+            router_if.credit_i <= 0;
+          end
+        end 
 
-          $display("IRQ %0d (%0d ut)", ADDRESS, $time / 1000);
+        RECEIVING_PAYLOAD: begin
+          if(i_token == TOKEN_RECV && router_if.tx == 1 && temp_flits_to_recv > 0) begin
+            router_if.credit_i <= 1;
+            temp_recv_addr <= temp_recv_addr + 4;
+            temp_flits_to_recv <= temp_flits_to_recv -1;
+            $display("ddma_mod: %s %h %s", rstate, router_if.data_o, router_if.data_o);
+          end else begin 
+            router_if.credit_i <= 0;  
+          end
+        end
 
+        RECEIVING_HANDSHAKE: begin
+          router_if.credit_i <= 0;
         end 
       endcase
     end else begin 
-      rstate <= IDLE_REC;
+      recv_ack = 0;
+      recv_ack_past = 0;
     end 
   end 
 
-  // always_comb begin
+  always @(posedge clock) begin
+    recv_ack_past <= recv_ack;
+  end 
+
+  // export send/recv state to status register
+  assign ddma_if.state_recv_out = rstate;
+  assign ddma_if.state_send_out = sstate;
+
   // address can come from either send or receiving processess. 
   // memory will be set to write mode only when receiving flits,
   // otherwise it'll reside in read mode 
-  assign mem_if.addr_in = (i_token == TOKEN_RECV) ? recv_addr : temp_addr_in;
+  assign mem_if.addr_in = (i_token == TOKEN_SEND) ? temp_addr_in : temp_recv_addr;
   assign mem_if.wb_in = (i_token == TOKEN_RECV && router_if.tx == 1);
-  //end 
 
-  // logic[FLIT_WIDTH-1:0] reg_mem_router;
+  // router input data always comes from the sending process, 
+  // which reads data from the memory  
+  assign mem_if.data_in = router_if.data_o;
 
-  // router input data always comes from the sending process, which 
-  // reads data from the memory  
-
-  always @(posedge clock) begin
-    router_if.data_i <= mem_if.data_out; 
-    mem_if.data_in <= router_if.data_o;
-  end
-
+  // memory always enabled, rx clock mirrors top clock
   assign router_if.clock_rx = clock;
   assign mem_if.enable_in = 1;
-  
+
+  // keep sending interruption risen until cpu ack
+  assign ddma_if.irq_send_out = (sstate == SENDING_HANDSHAKE);
+  assign ddma_if.irq_recv_out = (rstate == RECEIVING_HANDSHAKE);
 
 endmodule: ddma
 

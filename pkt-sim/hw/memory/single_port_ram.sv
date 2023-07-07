@@ -60,16 +60,6 @@ always @(posedge clock) begin
 end 
 
 always @(posedge clock) begin
-
-  if(mem_if.addr_in == 'h3fa) begin
-    $display("READ: %h %h", 'h3fa, {
-      mem[mem_if.addr_in + 0],
-      mem[mem_if.addr_in + 1],
-      mem[mem_if.addr_in + 2],
-      mem[mem_if.addr_in + 3]
-    });
-  end 
-
   mem_if.data_out <= {
     mem[mem_if.addr_in + 0],
     mem[mem_if.addr_in + 1],

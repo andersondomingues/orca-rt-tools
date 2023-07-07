@@ -14,19 +14,19 @@ module manycore_pe #(parameter
 );
 
   // =========================================================
-  //                    LIMITS
+  //                    memory "map"
   // =========================================================
-  const int BOOT_START = 'h00000000;
-  const int BOOT_END = 'h1fffffff;
-  const int RAM_START  = 'h40000000;
-  const int RAM_END = 'h5fffffff;
-  const int PERIPH_START = 'he1000000;
-  const int PERIPH_END = 'hefffffff;
-  const int PRINTCHAR_ADDR = 'hf00000d0;
-  const int INTERNAL_START = 'hf0000000;
-  const int INTERNAL_END = 'hffffffff;
-  const int RESERVED_START = 'h20000000;
-  const int RESERVED_END = 'h2fffffff;
+  const int BOOT_START        = 'h00000000;
+  const int BOOT_END          = 'h1fffffff;
+  const int RAM_START         = 'h40000000;
+  const int RAM_END           = 'h5fffffff;
+  const int PERIPH_START      = 'he1000000;
+  const int PERIPH_END        = 'hefffffff;
+  const int PRINTCHAR_ADDR    = 'hf00000d0;
+  const int INTERNAL_START    = 'hf0000000;
+  const int INTERNAL_END      = 'hffffffff;
+  const int DDMA_CONFIG_START = 'h20000000;
+  const int DDMA_CONFIG_END   = 'h20000014;
 
 
   function string log_filename();
@@ -63,14 +63,8 @@ module manycore_pe #(parameter
   // =========================================================
   //                    MODULES
   // =========================================================
-  peripherals #(MEMORY_WIDTH) prif_mod(
+  peripherals #(MEMORY_WIDTH) perif_mod(
     .pheripherals_if(perif_if.PERIPHERALS)
-  );
-
-  tcd #(MEMORY_WIDTH) tcd_mod(
-    .clock(clock), .reset(reset),
-    .tcd_if(tcd_if),
-    .ddma_if(ddma_if)
   );
 
   dual_port_ram #(MEMORY_WIDTH, RAM_MSIZE, ADDRESS) memory_mod(
@@ -84,13 +78,11 @@ module manycore_pe #(parameter
     .mem_if(mem_if_boot.MEM)
   );
 
-
   ddma #(MEMORY_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN, ADDRESS) ddma_mod(
     .clock(clock), .reset(reset), 
     .router_if(router_port_if.DDMA),
     .mem_if(mem_if_dma.DUT),
-    .ddma_if(ddma_if.DDMA),
-    .irq(cpu_irq)
+    .ddma_if(ddma_if.DDMA)
   );
 
   router #(ADDRESS) router_mod (
@@ -106,7 +98,13 @@ module manycore_pe #(parameter
   // =========================================================
   //                    MEM / CPU / PERIPHERALS
   // =========================================================
-  assign cpu_if.extio_in = { 6'b000000, ddma_if.irq_out[0], perif_if.irq };
+
+  // IRQ_IN is 00000RSP
+  // R: ddma receive process irq
+  // S: ddma send process ack irq
+  // P: peripherals interruptions
+  assign cpu_if.extio_in = { 5'b0,
+    ddma_if.irq_recv_out, ddma_if.irq_send_out, perif_if.irq };
 
   assign cpu_if.stall_in = 0;
 
@@ -119,7 +117,7 @@ module manycore_pe #(parameter
   // print interruptions 
   always @(posedge clock) begin 
     if (cpu_if.extio_in != $past(cpu_if.extio_in)) begin
-      $display("[%0d ns] Irq %8h", ($time/1000), cpu_if.extio_in); 
+      $display("[%0d ns] Irq %b", ($time/1000), cpu_if.extio_in); 
     end 
   end
 
@@ -142,7 +140,6 @@ module manycore_pe #(parameter
     
     // peripherals
     end else if (dly_address >= PERIPH_START && dly_address <= PERIPH_END) begin 
-      // cpu_if.data_in = { 8 << { perif_if.data_out }};
       cpu_if.data_in = { 
         perif_if.data_out[7:0],
         perif_if.data_out[15:8],
@@ -154,25 +151,63 @@ module manycore_pe #(parameter
     end else if (dly_address >= INTERNAL_START && dly_address <= INTERNAL_END) begin
       cpu_if.data_in = 0; 
 
-    // reserved 
-    end else if ((dly_address & ~3)== 'h20000000) begin
-        // cpu_if.data_in = { << 8 { ADDRESS } };
+    // ddma config zone
+    end else if (dly_address >= DDMA_CONFIG_START && dly_address <= DDMA_CONFIG_END) begin
+
+      if ((dly_address & ~3) == 'h20000000) begin
         cpu_if.data_in = { 
           ADDRESS[7:0],
           ADDRESS[15:8],
           ADDRESS[23:16],
           ADDRESS[31:24]
         };
-        $display("READ INFO XDIM: %0d, YDIM: %0d, X: %0d, Y: %0d", 
-          ADDRESS[31:24],
-          ADDRESS[23:16],
-          ADDRESS[15:8],
-          ADDRESS[7:0],
-        );
+
+      end else if((dly_address & ~3) == 'h20000004) begin
+        cpu_if.data_in = {
+          ddma_if.dest_in[7:0],
+          ddma_if.dest_in[15:8],
+          ddma_if.dest_in[23:16],
+          ddma_if.dest_in[31:24]
+        };
+
+      end else if((dly_address & ~3) == 'h20000008) begin
+        cpu_if.data_in = {
+          ddma_if.addr_in[7:0],
+          ddma_if.addr_in[15:8],
+          ddma_if.addr_in[23:16],
+          ddma_if.addr_in[31:24]
+        };
+
+      end else if((dly_address & ~3) == 'h2000000C) begin
+        cpu_if.data_in = {
+          ddma_if.size_in[7:0],
+          ddma_if.size_in[15:8],
+          ddma_if.size_in[23:16],
+          ddma_if.size_in[31:24]
+        };
+
+      end else if((dly_address & ~3) == 'h20000010) begin
+        cpu_if.data_in = ddma_if.cmd_in;
+
+      end else if((dly_address & ~3) == 'h20000014) begin
+
+        cpu_if.data_in = { 
+          // 1 bit each
+          ddma_if.irq_send_out, ddma_if.irq_recv_out,
+          // 3 bits each
+          ddma_if.state_send_out, ddma_if.state_recv_out,
+          24'h000000 
+        };
+
+      end else begin
+        $display("[%0d ns] illegal read to ddma %h %h.", ($time/1000), dly_address,
+          dly_address & ~3);
+
+      end 
 
     // unknown addressess
     end else if ($time() != 0 && dly_address != PRINTCHAR_ADDR) begin
-      $display("[%0d ns] illegal access to region %h", ($time/1000), dly_address); 
+      $display("[%0d ns] illegal read to region %h.", ($time/1000), dly_address);
       cpu_if.data_in = 0;
     end 
   end 
@@ -189,6 +224,39 @@ module manycore_pe #(parameter
       mem_if_boot.addr_in = 0;
     end
   end
+
+  // DDMA memory mux
+  always_comb begin
+    if (cpu_if.addr_out == 'h20000004) begin
+      ddma_if.dest_in = {
+        cpu_if.data_out[7:0],
+        cpu_if.data_out[15:8],
+        cpu_if.data_out[23:16],
+        cpu_if.data_out[31:24]
+      };
+    end else if (cpu_if.addr_out == 'h20000008) begin
+      ddma_if.addr_in = {
+        cpu_if.data_out[7:0],
+        cpu_if.data_out[15:8],
+        cpu_if.data_out[23:16],
+        cpu_if.data_out[31:24]
+      };
+    end else if (cpu_if.addr_out == 'h2000000C) begin
+      ddma_if.size_in = {
+        cpu_if.data_out[7:0],
+        cpu_if.data_out[15:8],
+        cpu_if.data_out[23:16],
+        cpu_if.data_out[31:24]
+      };
+    end else if (cpu_if.addr_out == 'h20000010) begin
+      ddma_if.cmd_in = {
+        cpu_if.data_out[7:0],
+        cpu_if.data_out[15:8],
+        cpu_if.data_out[23:16],
+        cpu_if.data_out[31:24]
+      } > 0;
+    end
+  end 
 
   // RAM memory mux
   always_comb begin
@@ -207,7 +275,6 @@ module manycore_pe #(parameter
   // PERIPH mux
   always_comb begin
     perif_if.gpioa_in = 0;
-    // perif_if.data_in = { << 8  {cpu_if.data_out }};
     perif_if.data_in = { 
       cpu_if.data_out[7:0],
       cpu_if.data_out[15:8],
