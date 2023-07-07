@@ -217,5 +217,6 @@ imgs.pack:
 
 # make imgs.pack NOC_Y=2 NOC_X=2 ARCH=riscv/hf-riscv-e
 # make ex_hello NOC_Y=2 NOC_X=2 ARCH=riscv/hf-riscv-e
+# make veryclean noc_test ARCH=riscv/hf-riscv-e
 	
 

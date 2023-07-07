@@ -1,46 +1,48 @@
 #include <ucx.h>
 
-void task2(void)
+void sender(void)
 {
-	int32_t cnt = 300000;
+  printf("[task %d] started\n", ucx_task_id());
 
-  printf("noc test\n");
+  // register port 500
+  ucx_noc_comm_create(500);
 
-	while (1) {
-		printf("[task %d %ld]\n", ucx_task_id(), cnt++);
-	}
+  char* data = "ABCDEF";
+
+  // gets a new packet from the system
+  noc_packet_t* pkt = ucx_noc_create_packet(8);
+  
+  // copy contents into packet payload
+  ucx_memcpy(pkt->data, data, 6);
+  
+            // dest size pkt tag
+  ucx_noc_send(2, 800, pkt, 16);
+  // ucx_free(pkt);
+  while(1);
 }
 
-void task1(void)
+
+void receiver(void)
 {
-	int32_t cnt = 200000;
+  printf("[task %d] started\n", ucx_task_id());
 
-  printf("noc test\n");
+  ucx_noc_comm_create(ucx_task_id());
 
-	while (1) {
-		printf("[task %d %ld]\n", ucx_task_id(), cnt++);
-	}
+  while(1){
+    printf("probe: %d\n", ucx_noc_recvprobe());
+  }
 }
 
-void task0(void)
-{
-	int32_t cnt = 100000;
-
-  printf("noc test\n");
-
-	while (1) {
-		printf("[task %d %ld]\n", ucx_task_id(), cnt++);
-	}
-}
 
 int32_t app_main(void)
 {
-	ucx_task_add(task0, DEFAULT_STACK_SIZE);
-	ucx_task_add(task1, DEFAULT_STACK_SIZE);
-	ucx_task_add(task2, DEFAULT_STACK_SIZE);
-	
-	ucx_task_priority(2, TASK_LOW_PRIO);
+  if (ucx_noc_cpu_id() == 0) {
+    ucx_task_add(sender, DEFAULT_STACK_SIZE);
 
-	// start UCX/OS, preemptive mode
+  } else {
+    ucx_task_add(receiver, DEFAULT_STACK_SIZE);
+  }
+	
+
 	return 1;
 }
