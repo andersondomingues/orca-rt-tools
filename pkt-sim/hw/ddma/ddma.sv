@@ -107,7 +107,15 @@ module ddma #(parameter
   end
 
   // ============================== SENDING FSM ============================
+
+  logic[FLIT_WIDTH-1:0] s_flit_counter;
+  logic[FLIT_WIDTH-1:0] so_flit_counter;
+
   always @(posedge clock) begin
+    so_flit_counter <= s_flit_counter;
+  end 
+
+  always @(posedge clock) begin : SENDING_FSM
     if(~reset) begin
       case (sstate)
         SENDING_IDLE: begin
@@ -123,7 +131,7 @@ module ddma #(parameter
         end 
 
         SENDING_SIZE: begin         
-          if (i_token == TOKEN_SEND && router_if.credit_o == 1) begin
+          if (i_token == TOKEN_SEND && router_if.credit_o == 1)  begin
             sstate <= SENDING_PAYLOAD;
           end
         end
@@ -147,7 +155,7 @@ module ddma #(parameter
   end
 
   // ============================== SENDING BH ============================
-  always @(posedge clock) begin
+  always @(posedge clock) begin : SENDING_BEHAVIOR
     if(~reset) begin
       case (sstate)
         SENDING_IDLE: begin   // wait for sw configuration
@@ -155,50 +163,78 @@ module ddma #(parameter
           temp_num_flits_in <= ddma_if.size_in;
           temp_destination <= ddma_if.dest_in;
           router_if.rx <= 0;
+          router_if.data_i <= 0;
+          s_flit_counter <= 0;
         end
 
         SENDING_HEADER: begin  // send header flit (hw)
+
+          temp_addr_in <= temp_addr_in;
+          temp_num_flits_in <= temp_num_flits_in;
+          temp_destination <= temp_destination;
+
           if (i_token == TOKEN_SEND && router_if.credit_o == 1) begin
             router_if.data_i <= temp_destination;
             router_if.rx <= 1;
+            s_flit_counter <= s_flit_counter + 1;
 
             $display("ddma_mod: %s %h %h %h", 
               "SENDING_IDLE", ddma_if.addr_in, 
               ddma_if.size_in, ddma_if.dest_in);
 
-            $display("ddma_mod: %s %h", 
-              sstate, temp_destination);
-
+            $display("ddma_mod: %s %h", sstate, temp_destination);
           end else begin
+            s_flit_counter <= s_flit_counter;
+            router_if.data_i <= 0;
             router_if.rx <= 0;
           end
         end
 
         SENDING_SIZE: begin  // send size flit (hw)
+
+          temp_addr_in <= temp_addr_in;
+          temp_num_flits_in <= temp_num_flits_in;
+          temp_destination <= temp_destination;
+
           if (i_token == TOKEN_SEND && router_if.credit_o == 1) begin
             router_if.data_i <= temp_num_flits_in;
             router_if.rx <= 1;
-
-            $display("ddma_mod: %s %h", 
-              sstate, temp_num_flits_in);
+            $display("ddma_mod: %s %h", sstate, temp_num_flits_in);
+            s_flit_counter <= s_flit_counter + 1;
           end else begin 
+            router_if.data_i <= 0;
             router_if.rx <= 0;
+            s_flit_counter <= s_flit_counter;
           end
         end
 
         SENDING_PAYLOAD: begin // copy payload onto router port
+
+          temp_destination <= temp_destination;
+
           if (i_token == TOKEN_SEND && router_if.credit_o == 1) begin
             temp_addr_in <= temp_addr_in + 4; 
             temp_num_flits_in <= temp_num_flits_in - 1;
             router_if.data_i <= mem_if.data_out;
             router_if.rx <= 1;
+            s_flit_counter <= s_flit_counter + 1;
+            $display("ddma_mod: %s %h %s", sstate, mem_if.data_out, mem_if.data_out);
           end else begin 
+            temp_addr_in <= temp_addr_in;
+            temp_num_flits_in <= temp_num_flits_in;
+            router_if.data_i <= 0;
             router_if.rx <= 0;
+            s_flit_counter <= s_flit_counter;
           end
         end
 
         SENDING_HANDSHAKE: begin
+          temp_addr_in <= temp_addr_in;
+          temp_num_flits_in <= temp_num_flits_in;
+          temp_destination <= temp_destination;
+          router_if.data_i <= 0;
           router_if.rx <= 0;
+          s_flit_counter <= s_flit_counter;
         end
       endcase
 
@@ -206,37 +242,42 @@ module ddma #(parameter
       temp_addr_in <= 0;
       temp_num_flits_in <= 0;
       temp_destination <= 0;
-      sstate <= SENDING_IDLE;
-    end 
-  end 
+      router_if.data_i <= 0;
+      router_if.rx <= 0;
 
-  always @(posedge clock) begin
-    if(sstate == SENDING_PAYLOAD && router_if.rx == 1 && $past(sstate) != SENDING_SIZE) begin 
-      $display("ddma_mod: %s %h %s", 
-        sstate, mem_if.data_out, mem_if.data_out);
+      so_flit_counter <= 0;
+      s_flit_counter <= 0;
     end
-  end
+  end 
 
   logic recv_ack_past, recv_ack;
 
   // ============================== RECEIVING FSM ============================
+
+  logic[FLIT_WIDTH-1:0] r_flit_counter;
+  logic[FLIT_WIDTH-1:0] ro_flit_counter;
+
+  always @(posedge clock) begin
+    ro_flit_counter <= r_flit_counter;
+  end 
+
   always @(posedge clock) begin
     if(~reset) begin
       case (rstate)
         RECEIVING_IDLE: begin
-          if(router_if.tx == 1) begin  
+          if(router_if.tx == 1) begin
             rstate <= RECEIVING_HEADER;
           end
         end
 
         RECEIVING_HEADER: begin
-          if (i_token == TOKEN_RECV && router_if.tx == 1) begin
+          if (r_flit_counter != ro_flit_counter) begin
             rstate <= RECEIVING_SIZE;
           end
         end 
 
         RECEIVING_SIZE: begin
-          if (i_token == TOKEN_RECV && router_if.tx == 1) begin
+          if (r_flit_counter != ro_flit_counter) begin
             rstate <= RECEIVING_PAYLOAD;
           end
         end 
@@ -262,7 +303,6 @@ module ddma #(parameter
   // ============================== RECEIVING BH ============================
 
   // !<<
-  logic[FLIT_WIDTH-1:0] r_data_o;
   logic[FLIT_WIDTH-1:0] temp_next_addr;
 
   always @(posedge clock) begin
@@ -270,42 +310,56 @@ module ddma #(parameter
       case (rstate)
         
         RECEIVING_IDLE: begin  // keep credit down until first flit arrives
-          router_if.credit_i <= 0;  
           temp_recv_addr <= temp_next_addr;   // ! from mmio config
+          router_if.credit_i <= 0;
+          mem_if.wb_in <= 0;
+          r_flit_counter <= 0;
         end
 
         RECEIVING_HEADER: begin  // header flit arrived
           if(i_token == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
+            mem_if.wb_in <= 1;
+            r_flit_counter <= r_flit_counter + 1;
+
             $display("ddma_mod: %s %h",rstate, router_if.data_o);
             // TODO: add security checking, wrong destination?
+
           end else begin
             router_if.credit_i <= 0;
+            mem_if.wb_in <= 0;
           end
         end
 
         RECEIVING_SIZE: begin
           if(i_token == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
+            mem_if.wb_in <= 1;
             temp_flits_to_recv <= router_if.data_o;
+            r_flit_counter <= r_flit_counter + 1;
+
             $display("ddma_mod: %s %h", rstate, router_if.data_o);
           end else begin 
             router_if.credit_i <= 0;
+            mem_if.wb_in <= 0;
           end
         end 
 
         RECEIVING_PAYLOAD: begin
           if(i_token == TOKEN_RECV && router_if.tx == 1 && temp_flits_to_recv > 0) begin
             router_if.credit_i <= 1;
+            mem_if.wb_in <= 1;
             temp_recv_addr <= temp_recv_addr + 4;
             temp_flits_to_recv <= temp_flits_to_recv -1;
             $display("ddma_mod: %s %h %s", rstate, router_if.data_o, router_if.data_o);
           end else begin 
+            mem_if.wb_in <= 0;
             router_if.credit_i <= 0;  
           end
         end
 
         RECEIVING_HANDSHAKE: begin
+          mem_if.wb_in <= 0;
           router_if.credit_i <= 0;
         end 
       endcase
@@ -327,7 +381,6 @@ module ddma #(parameter
   // memory will be set to write mode only when receiving flits,
   // otherwise it'll reside in read mode 
   assign mem_if.addr_in = (i_token == TOKEN_SEND) ? temp_addr_in : temp_recv_addr;
-  assign mem_if.wb_in = (i_token == TOKEN_RECV && router_if.tx == 1);
 
   // router input data always comes from the sending process, 
   // which reads data from the memory  
