@@ -52,14 +52,25 @@ uint32_t _ddma_async_send(uint32_t dest, uint32_t size, uint32_t* payload){
 
   printf("data_size: %d\n", data_size);
 
-  * DDMA_SIZE_IN = data_size;
-  * DDMA_ADDR_IN = (uint32_t) payload;
-  * DDMA_CMD_IN  = 0x1; // starts dma copy
+  *DDMA_SIZE_IN = data_size;
+  *DDMA_ADDR_IN = (uint32_t) payload;
+  *DDMA_CMD_IN  = 0x1; // starts dma copy
   return 0;
 }
 
+void _ddma_async_ack(){
+  printf("ack here!\n");
+  *DDMA_CMD_IN  = 0x0; // flag down 
+}
+
+uint32_t _ddma_send_status(){
+  uint32_t status = (*DDMA_STATUS >> 3) & 7;  // last 3 bits
+  printf("_ddma_send_status(): 0x%x\n", status);
+  return status;
+}
+
 uint8_t _ddma_status(){
-  printf("%h\n", *DDMA_STATUS);
+  // printf("0x%h\n", *DDMA_STATUS);
   return *DDMA_STATUS;
 }
 

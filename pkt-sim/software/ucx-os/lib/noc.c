@@ -70,11 +70,6 @@ uint32_t ucx_noc_comm_destroy(uint16_t port)
   return UCX_NOC_OK;
 }
 
-// forwards isr to driver routine 
-void irq2_handler(void){
-  noc_driver_isr();
-};
-
 // Initializes the driver
 void noc_driver_init(void)
 {
@@ -92,10 +87,13 @@ void noc_driver_init(void)
     for (int32_t i = 0; i < MAX_TASKS; i++){
       pktdrv_ports[i] = 0;
     }
-    printf("noc_driver_init(): noc driver isr registered 0x%0x\n", &irq2_handler);
+    printf("noc_driver_init(): noc driver send isr registered 0x%0x\n", &irq1_handler);
+    printf("noc_driver_init(): noc driver recv isr registered 0x%0x\n", &irq2_handler);
   }
-}
 
+  // enable irq pins 1 (sending) and 2 (receiving)
+  IRQ_MASK |= MASK_IRQ1 | MASK_IRQ2;
+}
 
 /**
  * @brief NoC driver: network interface interrupt service routine.
@@ -112,13 +110,16 @@ void noc_driver_init(void)
  * purposes.
  */
 
-void noc_driver_isr()
+void noc_driver_recv_isr()
 {
   // Since we know the size of the received packet, we ask the driver to copy only
   // the necessary bytes. The size of the packet is written by the NI to the
   // sig_recv_status signal (see drv). We need to know the size of the packet before
   // receiving it, so it can be flushed case no more room is available
+  printf("noc_driver_recv_isr\n");
+  
   noc_packet_t* pkt  = (noc_packet_t*) _ddma_recv_ptr_out();
+
 
   // get rid of packets which address is not the same of this cpu
   if (pkt->target_node != ucx_noc_cpu_id())
@@ -241,9 +242,8 @@ uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port, noc_packet_t* p
   pkt->tag = tag;
 
   // hold until previous send op finishes
-  while(_ddma_status() & DDMA_SEND_ACTIVE);
+  while(_ddma_send_status());
 
-  // ucx_hexdump((char*)pkt, 32);
   printf("ucx_noc_send() 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x %s\n",
     pkt->source_node, pkt->target_node,
     pkt->source_port, pkt->target_port,
@@ -254,3 +254,16 @@ uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port, noc_packet_t* p
   // send async
   return _ddma_async_send(target_cpu, sizeof(noc_packet_t) + pkt->payload_size, (uint32_t*)pkt);
 }
+
+
+// forwards isr to driver routine 
+void irq1_handler(void){
+  printf("noc_drive_send_ack_isr called\n");
+  _ddma_async_ack();
+};
+
+// forwards isr to driver routine 
+void irq2_handler(void){
+  printf("noc_drive_recv_isr called\n");
+  noc_driver_recv_isr();
+};

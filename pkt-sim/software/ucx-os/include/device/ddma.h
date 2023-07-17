@@ -41,5 +41,11 @@ uint32_t* _ddma_recv_ptr_out();
 // REC_HEADER_SYNC = 5
 uint8_t _ddma_status();
 
+uint32_t _ddma_send_status();
+
+// flag down sending and reset the state machine, allowing
+// for a new sending configuration
+void _ddma_async_ack();
+
 #define DDMA_SEND_ACTIVE 0xC0
 #define DDMA_RECV_ACTIVE 0x30

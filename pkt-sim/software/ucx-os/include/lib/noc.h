@@ -34,7 +34,8 @@ void noc_driver_init(void);
  * Called whenever a new packet arrives from the network
  * (interruption handler).
 */
-void noc_driver_isr();
+void noc_driver_recv_isr();
+void noc_driver_send_ack_isr();
 
 /**
  * Returns the ID of the cpu (unsigned integers, starts 
@@ -72,6 +73,9 @@ uint32_t ucx_noc_comm_destroy(uint16_t port);
 noc_packet_t* ucx_noc_recv(uint16_t channel);
 
 int32_t ucx_noc_recvprobe(void);
+
+void irq1_handler(void);
+void irq2_handler(void);
 
 
 

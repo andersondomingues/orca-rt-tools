@@ -117,7 +117,7 @@ module manycore_pe #(parameter
   // print interruptions 
   always @(posedge clock) begin 
     if (cpu_if.extio_in != $past(cpu_if.extio_in)) begin
-      $display("[%0d ns] Irq %b", ($time/1000), cpu_if.extio_in); 
+      $display("[%0d ns] Node %h Irq %b", ($time/1000), ADDRESS & 'h0000FFFF, cpu_if.extio_in); 
     end 
   end
 
