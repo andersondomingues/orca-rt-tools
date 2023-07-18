@@ -17,8 +17,8 @@ void sender(void)
   
             // dest size pkt tag
   ucx_noc_send(2, 800, pkt, 16);
-  ucx_noc_send(2, 800, pkt, 16);
-  ucx_noc_send(2, 800, pkt, 16);
+  //ucx_noc_send(2, 800, pkt, 16);
+  //ucx_noc_send(2, 800, pkt, 16);
   // ucx_free(pkt);
   while(1);
 }
@@ -29,10 +29,7 @@ void receiver(void)
   printf("[task %d] started\n", ucx_task_id());
 
   ucx_noc_comm_create(ucx_task_id());
-
-  while(1){
-    printf("probe: %d\n", ucx_noc_recvprobe());
-  }
+  while(ucx_noc_recvprobe());
 }
 
 
@@ -40,7 +37,6 @@ int32_t app_main(void)
 {
   if (ucx_noc_cpu_id() == 0) {
     ucx_task_add(sender, DEFAULT_STACK_SIZE);
-
   } else {
     ucx_task_add(receiver, DEFAULT_STACK_SIZE);
   }

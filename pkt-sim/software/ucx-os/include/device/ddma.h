@@ -49,3 +49,9 @@ void _ddma_async_ack();
 
 #define DDMA_SEND_ACTIVE 0xC0
 #define DDMA_RECV_ACTIVE 0x30
+
+
+uint32_t _ddma_recv_size();
+void _ddma_set_recv_addr(uint32_t);
+uint32_t _ddma_recv_addr();
+uint32_t _ddma_recv_ack();

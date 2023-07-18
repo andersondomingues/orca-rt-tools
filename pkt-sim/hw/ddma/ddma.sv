@@ -44,8 +44,9 @@ module ddma #(parameter
     RECEIVING_IDLE = 0,
     RECEIVING_HEADER = 1,
     RECEIVING_SIZE = 2,
-    RECEIVING_PAYLOAD = 3,
-    RECEIVING_HANDSHAKE = 4
+    RECEIVING_SIZE_IRQ = 3,
+    RECEIVING_PAYLOAD = 4,
+    RECEIVING_HANDSHAKE
   } recv_state_t;
 
   // token status (which process has priority, either send or recv)
@@ -55,8 +56,8 @@ module ddma #(parameter
   logic[MEMORY_BUS_WIDTH-1:0] i_flip_counter;
 
   // send/recv state variables 
-  send_state_t sstate = SENDING_IDLE;
-  recv_state_t rstate = RECEIVING_IDLE; 
+  send_state_t sstate;
+  recv_state_t rstate;
 
   // send regs
   logic[MEMORY_BUS_WIDTH-1:0] temp_addr_in;
@@ -72,7 +73,7 @@ module ddma #(parameter
   logic has_data_to_recv;
 
   assign has_data_to_send = (sstate != SENDING_IDLE   && sstate != SENDING_HANDSHAKE);
-  assign has_data_to_recv = (rstate != RECEIVING_IDLE && rstate != RECEIVING_HANDSHAKE);
+  assign has_data_to_recv = (rstate != RECEIVING_IDLE && rstate != RECEIVING_SIZE_IRQ);
 
   // ============================== INTERLEAVING ============================
   // process for handling interleaving arbitration. 
@@ -125,7 +126,7 @@ module ddma #(parameter
     if(~reset) begin
       case (sstate)
         SENDING_IDLE: begin
-          if (ddma_if.cmd_in == 1) begin
+          if (ddma_if.send_cmd_in == 1) begin
             sstate <= SENDING_HEADER;
           end 
         end
@@ -155,7 +156,7 @@ module ddma #(parameter
         end
 
         SENDING_HANDSHAKE: begin
-          if(ddma_if.cmd_in == 0) begin
+          if(ddma_if.send_cmd_in == 0) begin
             sstate <= SENDING_IDLE;
           end
         end 
@@ -171,9 +172,9 @@ module ddma #(parameter
     if(~reset) begin
       case (sstate)
         SENDING_IDLE: begin   // wait for sw configuration
-          temp_addr_in <= ddma_if.addr_in;
-          temp_num_flits_in <= ddma_if.size_in;
-          temp_destination <= ddma_if.dest_in;
+          temp_addr_in <= ddma_if.send_addr_in;
+          temp_num_flits_in <= ddma_if.send_size_in;
+          temp_destination <= ddma_if.send_dest_in;
           router_if.rx <= 0;
           router_if.data_i <= 0;
         end
@@ -184,8 +185,8 @@ module ddma #(parameter
             router_if.rx <= 1;
 
             $display("ddma_mod: %s %h %h %h", 
-              "SENDING_IDLE", ddma_if.addr_in, 
-              ddma_if.size_in, ddma_if.dest_in);
+              "SENDING_IDLE", ddma_if.send_addr_in, 
+              ddma_if.send_size_in, ddma_if.send_dest_in);
 
             $display("ddma_mod: %s %h", sstate, temp_destination);
           end else begin
@@ -230,8 +231,8 @@ module ddma #(parameter
         end
 
         SENDING_HANDSHAKE: begin
-          if(ddma_if.cmd_in == 0) begin
-            $display("ddma_mod: %s %h", sstate, ddma_if.cmd_in);
+          if(ddma_if.send_cmd_in == 0) begin
+            $display("ddma_mod: %s %h", sstate, ddma_if.send_cmd_in);
           end
           router_if.rx <= 0;
         end
@@ -249,7 +250,11 @@ module ddma #(parameter
   logic[FLIT_WIDTH-1:0] r_flit_counter;
   logic[FLIT_WIDTH-1:0] ro_flit_counter;
 
+  logic[FLIT_WIDTH-1:0] old_recv_cmd_in;
+
+
   always @(posedge clock) begin
+    old_recv_cmd_in <= ddma_if.recv_cmd_in;
     ro_flit_counter <= r_flit_counter;
   end 
 
@@ -270,21 +275,27 @@ module ddma #(parameter
 
         RECEIVING_SIZE: begin
           if (r_flit_counter != ro_flit_counter) begin
+            rstate <= RECEIVING_SIZE_IRQ;
+          end
+        end 
+
+        RECEIVING_SIZE_IRQ: begin
+          if(ddma_if.recv_cmd_in != old_recv_cmd_in) begin
             rstate <= RECEIVING_PAYLOAD;
           end
         end 
         
         RECEIVING_PAYLOAD: begin
-           if(temp_flits_to_recv == 0) begin
+          if(temp_flits_to_recv == 0) begin
             rstate <= RECEIVING_HANDSHAKE;
           end
-        end 
+        end
 
         RECEIVING_HANDSHAKE: begin
-          if(recv_ack != recv_ack_past) begin
+          if(ddma_if.recv_cmd_in != old_recv_cmd_in) begin
             rstate <= RECEIVING_IDLE;
           end
-        end 
+        end
 
       endcase 
     end else begin
@@ -337,6 +348,11 @@ module ddma #(parameter
           end
         end 
 
+        RECEIVING_SIZE_IRQ: begin
+          temp_recv_addr <= ddma_if.recv_addr_in;
+          ddma_if.recv_size_out <= temp_flits_to_recv;
+        end 
+
         RECEIVING_PAYLOAD: begin
           if(istate == TOKEN_RECV && router_if.tx == 1 && temp_flits_to_recv > 0) begin
             router_if.credit_i <= 1;
@@ -349,20 +365,8 @@ module ddma #(parameter
             router_if.credit_i <= 0;  
           end
         end
-
-        RECEIVING_HANDSHAKE: begin
-          mem_if.wb_in <= 0;
-          router_if.credit_i <= 0;
-        end 
       endcase
-    end else begin 
-      recv_ack = 0;
-      recv_ack_past = 0;
     end 
-  end 
-
-  always @(posedge clock) begin
-    recv_ack_past <= recv_ack;
   end 
 
   // export send/recv state to status register
@@ -386,7 +390,8 @@ module ddma #(parameter
 
   // keep sending interruption risen until cpu ack
   assign ddma_if.irq_send_out = (sstate == SENDING_HANDSHAKE);
-  assign ddma_if.irq_recv_out = (rstate == RECEIVING_HANDSHAKE);
+  assign ddma_if.irq_recv_size_out = (rstate == RECEIVING_SIZE_IRQ);
+  assign ddma_if.irq_recv_hshk_out = (rstate == RECEIVING_HANDSHAKE);
 
 endmodule: ddma
 

@@ -18,6 +18,92 @@ uint32_t ucx_noc_cpu_id(void)
   return _ddma_node_addr();
 }
 
+
+// Implementation of the irq1_handler, intercepts 
+// sending interruptions. While sending, the ddma 
+// will interrupt the cpu to acknowledge the sending
+// right after all the flits were transmitted.
+void irq1_handler(void){
+  _ddma_async_ack(); // flag down the cmd_in variable.
+}
+
+
+// Implementation of the irq2_handler, intercepts 
+// receiving interruptions. Once the ddma receives the 
+// size flit, it interrupts the cpu to acquire a pointer
+// to the heap of the length of the packet. 
+void irq2_handler(void){
+  uint32_t pkt_size = _ddma_recv_size(); // packet size in flits
+  noc_packet_t* pkt = (noc_packet_t*) ucx_malloc(pkt_size * 4); // malloc in bytes
+  _ddma_recv_addr((uint32_t)pkt); // send packet address to the ddma
+  _ddma_recv_ack();
+}
+
+// Implementation of the irq3_handler, intercepts
+// receiving interruptions. Once all flits were received, 
+// interrupts the cpu to put the packet int the 
+// right queue accordingly to its port.
+void irq3_handler(void){
+  noc_packet_t* pkt = (noc_packet_t*) _ddma_recv_addr();
+
+  // get rid of packets which address is not the same of this cpu
+  if (pkt->target_node != ucx_noc_cpu_id())
+  {
+    printf("noc_driver_isr(): packet should not arrive at this node, target was %d", 
+      pkt->target_node);
+    ucx_free(pkt);
+  } else {
+
+    // get the queue associated to the port indicated in the packet
+    int k;
+    for (k = 0; k < MAX_TASKS; k++)
+      if (pktdrv_ports[k] == pkt->target_port)
+        break;
+
+    // check whether the task has room for more packets in that queue
+    if (ucx_queue_enqueue(pktdrv_tqueue[k], pkt))
+    {
+      printf("noc_driver_isr(): task (on port %d) cannot receive more packets, dropping", 
+        pkt->target_port);
+      ucx_queue_enqueue(pktdrv_queue, pkt);
+    }
+  }
+  _ddma_recv_ack();
+}
+
+/**
+ * @brief Probes for a message from a task.
+
+ * @return channel of the first message that is waiting in queue (a value >= 0), ERR_COMM_EMPTY when no messages are
+ * waiting in queue, ERR_COMM_UNFEASIBLE when no message queue (comm) was created.
+ *
+ * Asynchronous communication is possible using this primitive, as it first tests if there is data
+ * ready for reception with ucx_noc_recv() which is a blocking primitive. The main advantage of using ucx_noc_recvprobe()
+ * along with ucx_noc_recv() is that a selective receive can be performed in the right communication channel. As
+ * the message is waiting at the beginning of the queue, a receive on its channel can be used to process the
+ * messages in order, avoiding packet loss.
+ */
+int32_t ucx_noc_recvprobe(void)
+{
+  uint16_t task_id;
+  int32_t k;
+  noc_packet_t *buf_ptr;
+
+  task_id = ucx_task_id();
+  if (pktdrv_tqueue[task_id] == NULL)
+    return UCX_NOC_TASK_NOT_BOUND;
+
+  k = ucx_queue_count(pktdrv_tqueue[task_id]);
+  if (k)
+  {
+    buf_ptr = (noc_packet_t*) ucx_queue_peek(pktdrv_tqueue[task_id]);
+    if (buf_ptr)
+      return buf_ptr->tag;
+  }
+
+  return UCX_NOC_QUEUE_EMPTY;
+}
+
 // Initializes a queue of packets using one of the available ports. May a
 // port be unavailable, the requested queue initialization will fail
 // with ERR_COMM_UNFEASIBLE.
@@ -70,115 +156,35 @@ uint32_t ucx_noc_comm_destroy(uint16_t port)
   return UCX_NOC_OK;
 }
 
-// Initializes the driver
+// initializes the driver
 void noc_driver_init(void)
 {
+  // init hardware
   _ddma_init();
 
+  // print out node id (from MMIO)
   printf("noc_driver_init(): this is core #%d\n", ucx_noc_cpu_id());
-  printf("noc_driver_init(): noc queue init, %d packets\n", MAX_PKT_QUEUE_SLOTS);
   
+  // allocate a new queue of packets
   pktdrv_queue = ucx_queue_create(MAX_PKT_QUEUE_SLOTS);
   
   if (pktdrv_queue == NULL){
     printf("noc_driver_init(): unable to create packet queue\n");
-    printf("noc_driver_init(): noc driver irq won't be registered\n");
   } else {
-    for (int32_t i = 0; i < MAX_TASKS; i++){
+
+    // make sure no port is allocated at time zero 
+    for (int32_t i = 0; i < MAX_TASKS; i++) 
       pktdrv_ports[i] = 0;
-    }
-    printf("noc_driver_init(): noc driver send isr registered 0x%0x\n", &irq1_handler);
-    printf("noc_driver_init(): noc driver recv isr registered 0x%0x\n", &irq2_handler);
+    
+    // print out the address of handlers
+    printf("noc_driver_init(): noc driver send irq handler at 0x%0x\n", &irq1_handler);
+    printf("noc_driver_init(): noc driver recv irq handler at 0x%0x\n", &irq2_handler);
   }
 
   // enable irq pins 1 (sending) and 2 (receiving)
-  IRQ_MASK |= MASK_IRQ1 | MASK_IRQ2;
+  IRQ_MASK |= MASK_IRQ1 | MASK_IRQ2 | MASK_IRQ3;
 }
 
-/**
- * @brief NoC driver: network interface interrupt service routine.
- *
- * This routine is called by the second level of interrupt handling. An interrupt from the network
- * interface means a full packet has arrived. The packet header is decoded and the target port is
- * identified. A reference to an empty packet is removed from the pool of buffers (packets), the
- * contents of the empty packet are filled with flits from the hardware queue and the reference is
- * put on the target task (associated to a port) queue of packets. There is one queue per task of
- * configurable size (individual queues are elastic if size is zero, limited to the size of free
- * buffer elements from the common pool). If port 0xffff (65535) is used as the target, the packet
- * is passed to a callback. This mechanism can be used to build custom OS functions (such as user
- * defined protocols, RPC or remote system calls). Port 0 is used as a discard function, for testing
- * purposes.
- */
-
-void noc_driver_recv_isr()
-{
-  // Since we know the size of the received packet, we ask the driver to copy only
-  // the necessary bytes. The size of the packet is written by the NI to the
-  // sig_recv_status signal (see drv). We need to know the size of the packet before
-  // receiving it, so it can be flushed case no more room is available
-  printf("noc_driver_recv_isr\n");
-  
-  noc_packet_t* pkt  = (noc_packet_t*) _ddma_recv_ptr_out();
-
-
-  // get rid of packets which address is not the same of this cpu
-  if (pkt->target_node != ucx_noc_cpu_id())
-  {
-    printf("noc_driver_isr(): packet should not arrive at this node, target was %d", 
-      pkt->target_node);
-
-    // return pointer to the queue
-    ucx_queue_enqueue(pktdrv_queue, pkt);
-    return;
-  }
-
-  // get the queue associated to the port indicated in the packet
-  int k;
-  for (k = 0; k < MAX_TASKS; k++)
-    if (pktdrv_ports[k] == pkt->target_port)
-      break;
-
-  // check whether the task has room for more packets in that queue
-  if (ucx_queue_enqueue(pktdrv_tqueue[k], pkt))
-  {
-    printf("noc_driver_isr(): task (on port %d) cannot receive more packets, dropping", 
-      pkt->target_port);
-    ucx_queue_enqueue(pktdrv_queue, pkt);
-  }
-}
-
-/**
- * @brief Probes for a message from a task.
-
- * @return channel of the first message that is waiting in queue (a value >= 0), ERR_COMM_EMPTY when no messages are
- * waiting in queue, ERR_COMM_UNFEASIBLE when no message queue (comm) was created.
- *
- * Asynchronous communication is possible using this primitive, as it first tests if there is data
- * ready for reception with ucx_noc_recv() which is a blocking primitive. The main advantage of using ucx_noc_recvprobe()
- * along with ucx_noc_recv() is that a selective receive can be performed in the right communication channel. As
- * the message is waiting at the beginning of the queue, a receive on its channel can be used to process the
- * messages in order, avoiding packet loss.
- */
-int32_t ucx_noc_recvprobe(void)
-{
-  uint16_t task_id;
-  int32_t k;
-  noc_packet_t *buf_ptr;
-
-  task_id = ucx_task_id();
-  if (pktdrv_tqueue[task_id] == NULL)
-    return UCX_NOC_TASK_NOT_BOUND;
-
-  k = ucx_queue_count(pktdrv_tqueue[task_id]);
-  if (k)
-  {
-    buf_ptr = (noc_packet_t*) ucx_queue_peek(pktdrv_tqueue[task_id]);
-    if (buf_ptr)
-      return buf_ptr->tag;
-  }
-
-  return UCX_NOC_QUEUE_EMPTY;
-}
 
 /**
  * @brief Receives a message from a task (blocking receive).
@@ -226,22 +232,23 @@ noc_packet_t* ucx_noc_create_packet(uint32_t size){
  *
  * @param target_cpu is the target processor
  * @param target_port is the target task port
- * @param buf is a pointer to a buffer that holds the message
- * @param size is the size (in bytes) of the message
- * @param channel is the selected message channel of this message (must be the same as in the receiver)
+ * @param pkt is a pointer to a packet 
+ * @param tag user-defined tag
  *
  * @return ERR_OK
  *
  * A message is broken into packets containing a header and part of the message as the payload.
  * The packets are injected, one by one, in the network through the network interface.
  */
-uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port, noc_packet_t* pkt, uint16_t tag)
+uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port, 
+  noc_packet_t* pkt, uint16_t tag)
 {
   pkt->target_node = target_cpu;
   pkt->target_port = target_port;
   pkt->tag = tag;
 
-  // hold until previous send op finishes
+  // prevent user from sending another packet until the 
+  // ddma gets ready again
   while(_ddma_send_status());
 
   printf("ucx_noc_send() 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x %s\n",
@@ -251,19 +258,9 @@ uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port, noc_packet_t* p
     pkt->data
   );
 
+  printf("foi!\n");
+
   // send async
-  return _ddma_async_send(target_cpu, sizeof(noc_packet_t) + pkt->payload_size, (uint32_t*)pkt);
+  return _ddma_async_send(target_cpu, sizeof(noc_packet_t) + pkt->payload_size,
+    (uint32_t*)pkt);
 }
-
-
-// forwards isr to driver routine 
-void irq1_handler(void){
-  printf("noc_drive_send_ack_isr called\n");
-  _ddma_async_ack();
-};
-
-// forwards isr to driver routine 
-void irq2_handler(void){
-  printf("noc_drive_recv_isr called\n");
-  noc_driver_recv_isr();
-};

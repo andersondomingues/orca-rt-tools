@@ -11,8 +11,8 @@ ifndef OUT_VSIM
 endif
 
 #CMD := $(CMD) terminator -m -e 'multitail ../logs/output*.txt -s 2' &
-CMD := $(CMD) gnome-terminal -- bash -c "multitail ../logs/output*.txt -s 2; exec bash" &
-CMD := $(CMD) vsim -do sim.do 
+#CMD := $(CMD) gnome-terminal -- bash -c "multitail ../logs/output*.txt -s 2; exec bash" &
+CMD := $(CMD) vsim -c -do sim.do 
 
 all:
 	$(CMD)
