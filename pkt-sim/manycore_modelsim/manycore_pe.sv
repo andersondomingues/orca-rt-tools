@@ -24,17 +24,13 @@ module manycore_pe #(parameter
   // =========================================================
   //                    memory "map"
   // =========================================================
-  const int BOOT_START        = 'h00000000;
-  const int BOOT_END          = 'h1fffffff;
-  const int RAM_START         = 'h40000000;
-  const int RAM_END           = 'h5fffffff;
-  const int PERIPH_START      = 'he1000000;
-  const int PERIPH_END        = 'hefffffff;
+  const int BOOT_START        = 'h00000000;  const int BOOT_END        = 'h1fffffff;
+  const int RAM_START         = 'h40000000;  const int RAM_END         = 'h5fffffff;
+  const int PERIPH_START      = 'he1000000;  const int PERIPH_END      = 'hefffffff;
+  const int INTERNAL_START    = 'hf0000000;  const int INTERNAL_END    = 'hffffffff;
+  const int DDMA_CONFIG_START = 'h20000000;  const int DDMA_CONFIG_END = 'h20000024;
   const int PRINTCHAR_ADDR    = 'hf00000d0;
-  const int INTERNAL_START    = 'hf0000000;
-  const int INTERNAL_END      = 'hffffffff;
-  const int DDMA_CONFIG_START = 'h20000000;
-  const int DDMA_CONFIG_END   = 'h20000014;
+
 
 
   function string log_filename();
@@ -65,7 +61,6 @@ module manycore_pe #(parameter
   interface_peripherals #(MEMORY_WIDTH) perif_if(clock, reset);
   interface_core_rv32e #(MEMORY_WIDTH) cpu_if(clock, reset); // cpu to mmio
   interface_tcd #(MEMORY_WIDTH) tcd_if(clock, reset);
-
   interface_memory #(MEMORY_WIDTH) mem_if_boot(clock, reset); // boot rom
 
   // =========================================================
@@ -103,10 +98,33 @@ module manycore_pe #(parameter
     .cpu_if(cpu_if.CPU)
   );
 
+
+  // =========================================================
+  //                    MMIO REGISTERS
+  // =========================================================
+  uword ddma_send_dest_in;
+  uword ddma_send_addr_in;
+  uword ddma_send_size_in;
+  logic ddma_send_cmd_in;
+  uword ddma_recv_addr_in;
+  logic ddma_recv_cmd_in;
+
+
+
+  always_comb begin
+    ddma_if.send_dest_in = ddma_send_dest_in;
+    ddma_if.send_addr_in = ddma_send_addr_in;
+    ddma_if.send_size_in = ddma_send_size_in;
+    ddma_if.send_cmd_in = ddma_send_cmd_in;
+
+    ddma_if.recv_addr_in = ddma_recv_addr_in;
+    ddma_if.recv_cmd_in = ddma_recv_cmd_in;
+  end 
+
+
   // =========================================================
   //                    MEM / CPU / PERIPHERALS
   // =========================================================
-
   // IRQ_IN is 00000RSP
   // R: ddma receive process irq
   // S: ddma send process ack irq
@@ -125,12 +143,15 @@ module manycore_pe #(parameter
     dly_address <= cpu_if.addr_out;
   end
 
+  uword a_dly_address; // aligned 4-byte delayed address
+  assign a_dly_address = dly_address & ~3;
+
   // print interruptions 
-  always @(posedge clock) begin 
-    if (cpu_if.extio_in != $past(cpu_if.extio_in)) begin
-      $display("[%0d ns] Node %h Irq %b", ($time/1000), ADDRESS & 'h0000FFFF, cpu_if.extio_in); 
-    end 
-  end
+  // always @(posedge clock) begin 
+  //   if (cpu_if.extio_in != $past(cpu_if.extio_in)) begin
+  //     $display("[%0d ns] Node 0x%h Irq %b", ($time/1000), ADDRESS & 'h0000FFFF, cpu_if.extio_in); 
+  //   end 
+  // end
 
   // printchar output
   always @(posedge clock) begin 
@@ -160,30 +181,22 @@ module manycore_pe #(parameter
     // ddma config zone
     end else if (dly_address >= DDMA_CONFIG_START && dly_address <= DDMA_CONFIG_END) begin
 
-      if ((dly_address & ~3) == 'h20000000) begin
-        cpu_if.data_in = endianess(ADDRESS);
-
-      end else if((dly_address & ~3) == 'h20000004) begin
-        cpu_if.data_in = endianess(ddma_if.send_dest_in[7:0]);
-
-      end else if((dly_address & ~3) == 'h20000008) begin
-        cpu_if.data_in = endianess(ddma_if.send_addr_in);
-
-      end else if((dly_address & ~3) == 'h2000000C) begin
-        cpu_if.data_in = endianess(ddma_if.send_size_in);
-
-      end else if((dly_address & ~3) == 'h20000010) begin
-        cpu_if.data_in = endianess(8'h00000000 | ddma_if.send_cmd_in);
-
-      end else if((dly_address & ~3) == 'h20000014) begin
-        cpu_if.data_in = endianess({ 26'b0, 
-          ddma_if.state_send_out, ddma_if.state_recv_out  // 3-bit each
-        });
-
-      end else begin
-        $display("[%0d ns] illegal read to ddma %h %h.", ($time/1000), 
-          dly_address, dly_address & ~3);
-      end 
+      case (a_dly_address)
+        'h20000000: cpu_if.data_in <= endianess(ADDRESS);
+        'h20000004: cpu_if.data_in <= endianess(ddma_if.send_dest_in[7:0]);
+        'h20000008: cpu_if.data_in <= endianess(ddma_if.send_addr_in);
+        'h2000000C: cpu_if.data_in <= endianess(ddma_if.send_size_in);
+        'h20000010: cpu_if.data_in <= endianess(ddma_if.send_cmd_in);
+        'h20000014: cpu_if.data_in <= endianess({ ddma_if.state_send_out, ddma_if.state_recv_out });
+        'h20000018: cpu_if.data_in <= endianess(ddma_if.recv_addr_in);
+        'h2000001C: cpu_if.data_in <= endianess(ddma_if.recv_addr_out);
+        'h20000020: cpu_if.data_in <= endianess(ddma_if.recv_size_out);
+        'h20000024: cpu_if.data_in <= endianess(ddma_if.recv_cmd_in);
+        default: begin
+            $display("[%0d ns] illegal read to ddma %h %h.", ($time/1000), 
+              dly_address, a_dly_address);
+        end 
+      endcase
 
     // unknown addressess
     end else if ($time() != 0 && dly_address != PRINTCHAR_ADDR) begin
@@ -205,29 +218,31 @@ module manycore_pe #(parameter
     end
   end
 
-  // DDMA memory mux
-  always_comb begin
-    // ----- SEND 
-    if (cpu_if.addr_out == 'h20000004) begin
-      ddma_if.send_dest_in = endianess(cpu_if.data_out);
+  // aligned cpu.addr_out to 4-byte word, prevent 
+  // addressing from missing MMIO access
+  uword a_cpu_addr_out;
+  assign a_cpu_addr_out = cpu_if.addr_out & ~3;
 
-    end else if (cpu_if.addr_out == 'h20000008) begin
-      ddma_if.send_addr_in = endianess(cpu_if.data_out);
-
-    end else if (cpu_if.addr_out == 'h2000000C) begin
-      ddma_if.send_size_in = endianess(cpu_if.data_out);
-
-    end else if (cpu_if.addr_out == 'h20000010) begin
-      $display("set %d", cpu_if.data_out);
-      ddma_if.send_cmd_in = (endianess(cpu_if.data_out) > 0);
-    
-    // ----- RECV
-    end else if (cpu_if.addr_out == 'h2000000C) begin
-      ddma_if.send_size_in = endianess(cpu_if.data_out);
-
-    end 
+  // data write to DDMA interface
+  always @(posedge clock) begin
+    if(~reset) begin 
+      ddma_send_dest_in <= (a_cpu_addr_out == 'h20000004 && cpu_if.wb_out) ? endianess(cpu_if.data_out) : ddma_send_dest_in;
+      ddma_send_addr_in <= (a_cpu_addr_out == 'h20000008 && cpu_if.wb_out) ? endianess(cpu_if.data_out) : ddma_send_addr_in;
+      ddma_send_size_in <= (a_cpu_addr_out == 'h2000000C && cpu_if.wb_out) ? endianess(cpu_if.data_out) : ddma_send_size_in;
+      ddma_send_cmd_in  <= (a_cpu_addr_out == 'h20000010 && cpu_if.wb_out) ? endianess(cpu_if.data_out) : ddma_send_cmd_in;
+      ddma_recv_addr_in <= (a_cpu_addr_out == 'h20000018 && cpu_if.wb_out) ? endianess(cpu_if.data_out) : ddma_recv_addr_in;
+      ddma_recv_cmd_in  <= (a_cpu_addr_out == 'h20000024 && cpu_if.wb_out) ? endianess(cpu_if.data_out) : ddma_recv_cmd_in;
+    end else begin 
+      ddma_send_dest_in <= 0;
+      ddma_send_addr_in <= 0;
+      ddma_send_size_in <= 0;
+      ddma_send_cmd_in  <= 0;
+      ddma_recv_addr_in <= 0;
+      ddma_recv_cmd_in  <= 0;
+    end
   end 
 
+  
   // RAM memory mux
   always_comb begin
     mem_if_mmio.enable_in = 1; 
@@ -251,10 +266,10 @@ module manycore_pe #(parameter
       perif_if.sel_in = 1;
       perif_if.addr_in = cpu_if.addr_out & ~3; // 4-byte alignment
       perif_if.wr_in = cpu_if.wb_out;
-    end else begin 
+    end else begin
       perif_if.sel_in = 0;
       perif_if.addr_in = 0;
-      perif_if.wr_in = 0;      
+      perif_if.wr_in = 0;
     end 
   end 
 

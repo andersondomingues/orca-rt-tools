@@ -8,7 +8,7 @@ module manycore_top #(parameter
   BOOT_SIZE = 2048,       // 20k bytes
   NOC_DIM_X = 2,
   NOC_DIM_Y = 2,
-  INTERLEAVING_GRAIN = 3  
+  INTERLEAVING_GRAIN = 10  
 )();
 
   // router ports enumeration cannot be imported from Hermes definitions

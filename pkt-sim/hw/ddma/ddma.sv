@@ -44,29 +44,32 @@ module ddma #(parameter
     RECEIVING_IDLE = 0,
     RECEIVING_HEADER = 1,
     RECEIVING_SIZE = 2,
-    RECEIVING_SIZE_IRQ = 3,
-    RECEIVING_PAYLOAD = 4,
-    RECEIVING_HANDSHAKE
+    RECEIVING_SIZE_DELAY = 3,
+    RECEIVING_SIZE_IRQ = 4,
+    RECEIVING_PAYLOAD = 5,
+    RECEIVING_HANDSHAKE = 6
   } recv_state_t;
 
+  typedef logic[MEMORY_BUS_WIDTH-1:0] word;
+  
   // token status (which process has priority, either send or recv)
   interleaving_state_t istate;
 
   // remaining cycles until interleaving priority switching  
-  logic[MEMORY_BUS_WIDTH-1:0] i_flip_counter;
+  word i_flip_counter;
 
   // send/recv state variables 
   send_state_t sstate;
   recv_state_t rstate;
 
   // send regs
-  logic[MEMORY_BUS_WIDTH-1:0] temp_addr_in;
-  logic[MEMORY_BUS_WIDTH-1:0] temp_num_flits_in;
-  logic[MEMORY_BUS_WIDTH-1:0] temp_destination;
+  word temp_addr_in;
+  word temp_num_flits_in;
+  word temp_destination;
 
   // recv regs
-  logic[MEMORY_BUS_WIDTH-1:0] temp_flits_to_recv;
-  logic[MEMORY_BUS_WIDTH-1:0] temp_recv_addr;
+  word temp_flits_to_recv;
+  word temp_recv_addr;
   
   // token request for recv and send states 
   logic has_data_to_send;
@@ -247,15 +250,10 @@ module ddma #(parameter
 
   // ============================== RECEIVING FSM ============================
 
-  logic[FLIT_WIDTH-1:0] r_flit_counter;
-  logic[FLIT_WIDTH-1:0] ro_flit_counter;
-
   logic[FLIT_WIDTH-1:0] old_recv_cmd_in;
-
 
   always @(posedge clock) begin
     old_recv_cmd_in <= ddma_if.recv_cmd_in;
-    ro_flit_counter <= r_flit_counter;
   end 
 
   always @(posedge clock) begin
@@ -268,15 +266,19 @@ module ddma #(parameter
         end
 
         RECEIVING_HEADER: begin
-          if (r_flit_counter != ro_flit_counter) begin
+          if(istate == TOKEN_RECV && router_if.tx == 1) begin
             rstate <= RECEIVING_SIZE;
           end
         end 
 
         RECEIVING_SIZE: begin
-          if (r_flit_counter != ro_flit_counter) begin
-            rstate <= RECEIVING_SIZE_IRQ;
+          if(istate == TOKEN_RECV && router_if.tx == 1) begin
+            rstate <= RECEIVING_SIZE_DELAY;
           end
+        end 
+
+        RECEIVING_SIZE_DELAY: begin
+          rstate <= RECEIVING_SIZE_IRQ;
         end 
 
         RECEIVING_SIZE_IRQ: begin
@@ -303,31 +305,27 @@ module ddma #(parameter
     end 
   end 
 
+  // always @(posedge clock) begin
+  //   if(router_if.credit_i == 1 && router_if.tx == 1) begin
+  //     $display("router.data_in: 0x%h %s", router_if.data_i, rstate);
+  //   end
+  // end 
+
   // ============================== RECEIVING BH ============================
-
-  // !<<
-  logic[FLIT_WIDTH-1:0] temp_next_addr;
-
   always @(posedge clock) begin
     if(~reset) begin
       case (rstate)
         
         RECEIVING_IDLE: begin  // keep credit down until first flit arrives
-          temp_recv_addr <= temp_next_addr;   // ! from mmio config
           router_if.credit_i <= 0;
           mem_if.wb_in <= 0;
-          r_flit_counter <= 0;
         end
 
         RECEIVING_HEADER: begin  // header flit arrived
           if(istate == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
             mem_if.wb_in <= 1;
-            r_flit_counter <= r_flit_counter + 1;
-
-            $display("ddma_mod: %s %h",rstate, router_if.data_o);
-            // TODO: add security checking, wrong destination?
-
+            $display("ddma_mod: %s %h",rstate, router_if.data_o); // TODO: add security checking, wrong destination?            
           end else begin
             router_if.credit_i <= 0;
             mem_if.wb_in <= 0;
@@ -338,9 +336,6 @@ module ddma #(parameter
           if(istate == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
             mem_if.wb_in <= 1;
-            temp_flits_to_recv <= router_if.data_o;
-            r_flit_counter <= r_flit_counter + 1;
-
             $display("ddma_mod: %s %h", rstate, router_if.data_o);
           end else begin 
             router_if.credit_i <= 0;
@@ -348,23 +343,43 @@ module ddma #(parameter
           end
         end 
 
+        RECEIVING_SIZE_DELAY: begin
+          $display("ddma_mod: %s %h", rstate, router_if.data_o);
+          temp_flits_to_recv <= router_if.data_o;
+          ddma_if.recv_size_out <= router_if.data_o;
+        end 
+
         RECEIVING_SIZE_IRQ: begin
           temp_recv_addr <= ddma_if.recv_addr_in;
-          ddma_if.recv_size_out <= temp_flits_to_recv;
+
+          if($past(rstate == RECEIVING_SIZE)) begin
+            $display("ddma_mod: %s %h", rstate, router_if.data_o);
+          end
+          router_if.credit_i <= 0;
+          mem_if.wb_in <= 0;          
         end 
 
         RECEIVING_PAYLOAD: begin
+
           if(istate == TOKEN_RECV && router_if.tx == 1 && temp_flits_to_recv > 0) begin
+            $display("ddma_mod: %s %h %s", rstate, router_if.data_o, router_if.data_o);
             router_if.credit_i <= 1;
             mem_if.wb_in <= 1;
             temp_recv_addr <= temp_recv_addr + 4;
-            temp_flits_to_recv <= temp_flits_to_recv -1;
-            $display("ddma_mod: %s %h %s", rstate, router_if.data_o, router_if.data_o);
+            temp_flits_to_recv <= temp_flits_to_recv -1;            
           end else begin 
             mem_if.wb_in <= 0;
-            router_if.credit_i <= 0;  
+            router_if.credit_i <= 0;
           end
         end
+
+        RECEIVING_HANDSHAKE: begin
+          if($past(rstate == RECEIVING_PAYLOAD)) begin
+            $display("ddma_mod: %s %h", rstate, ddma_if.recv_cmd_in);
+          end 
+          mem_if.wb_in <= 0;
+          router_if.credit_i <= 0;           
+        end 
       endcase
     end 
   end 

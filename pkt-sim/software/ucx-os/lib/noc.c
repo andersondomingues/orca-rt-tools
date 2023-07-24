@@ -34,8 +34,10 @@ void irq1_handler(void){
 // to the heap of the length of the packet. 
 void irq2_handler(void){
   uint32_t pkt_size = _ddma_recv_size(); // packet size in flits
+  printf("irq2_handler(): incoming packet of size %d\n", pkt_size);
   noc_packet_t* pkt = (noc_packet_t*) ucx_malloc(pkt_size * 4); // malloc in bytes
-  _ddma_recv_addr((uint32_t)pkt); // send packet address to the ddma
+  printf("irq2_handler(): writing packet to 0x%x\n", (uint32_t)pkt);
+  _ddma_set_recv_addr((uint32_t)pkt); // send packet address to the ddma
   _ddma_recv_ack();
 }
 
@@ -44,6 +46,7 @@ void irq2_handler(void){
 // interrupts the cpu to put the packet int the 
 // right queue accordingly to its port.
 void irq3_handler(void){
+  printf("chegou irq3\n");
   noc_packet_t* pkt = (noc_packet_t*) _ddma_recv_addr();
 
   // get rid of packets which address is not the same of this cpu
@@ -257,8 +260,6 @@ uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port,
     pkt->payload_size, pkt->tag,
     pkt->data
   );
-
-  printf("foi!\n");
 
   // send async
   return _ddma_async_send(target_cpu, sizeof(noc_packet_t) + pkt->payload_size,

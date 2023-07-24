@@ -61,14 +61,10 @@ uint32_t _ddma_async_send(uint32_t dest, uint32_t size, uint32_t* payload){
   *DDMA_SEND_SIZE_IN = data_size;
   *DDMA_SEND_ADDR_IN = (uint32_t) payload;
   *DDMA_SEND_CMD_IN  = 0x1; // starts dma copy
-
-  printf("activated! %d\n", *DDMA_SEND_CMD_IN);
-
   return 0;
 }
 
 void _ddma_async_ack(){
-  printf("ack here!\n");
   *DDMA_SEND_CMD_IN  = 0x0; // flag down 
 }
 
@@ -93,6 +89,8 @@ uint32_t _ddma_recv_addr(){
 }
 
 uint32_t _ddma_recv_ack(){
-  *DDMA_RECV_CMD_IN = ~(*DDMA_RECV_CMD_IN);
+  printf("ddma_recv_ack(): %d!\n", *DDMA_RECV_CMD_IN);
+  *DDMA_RECV_CMD_IN = !(*DDMA_RECV_CMD_IN);
+  printf("ddma_recv_ack(): %d!\n", *DDMA_RECV_CMD_IN);
   return *DDMA_RECV_CMD_IN;
 }
