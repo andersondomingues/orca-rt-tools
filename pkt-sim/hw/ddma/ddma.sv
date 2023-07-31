@@ -8,7 +8,8 @@ module ddma #(parameter
   MEMORY_BUS_WIDTH = 32, 
   FLIT_WIDTH = 32, 
   INTERLEAVING_GRAIN = 3, 
-  ADDRESS = 0
+  ADDRESS = 0,
+  RAM_MSIZE = 65336
 )(
   input logic clock,
   input logic reset,
@@ -22,32 +23,32 @@ module ddma #(parameter
 
   // interleaving_state_t represents the process which has priority in 
   // the interleaving system. 
-  typedef enum integer {
-    TOKEN_SEND = 0,
-    TOKEN_RECV = 1,
-    TOKEN_SEND_TO_RECV = 2,
-    TOKEN_RECV_TO_SEND = 3
+  typedef enum logic[3:0] {
+    TOKEN_SEND = 4'b0001,
+    TOKEN_RECV = 4'b0010,
+    TOKEN_SEND_TO_RECV = 4'b0100,
+    TOKEN_RECV_TO_SEND = 4'b1000
   } interleaving_state_t;
   
   // send process state machine states 
-  typedef enum integer {
-    SENDING_IDLE = 0,
-    SENDING_HEADER = 1,
-    SENDING_SIZE = 2,
-    SENDING_PAYLOAD_DELAYER = 3,
-    SENDING_PAYLOAD = 4,
-    SENDING_HANDSHAKE = 5
+  typedef enum logic[5:0] {
+    SENDING_IDLE = 6'b000001,
+    SENDING_HEADER = 6'b000010,
+    SENDING_SIZE = 6'b000100,
+    SENDING_PAYLOAD_DELAYER = 6'b001000,
+    SENDING_PAYLOAD = 6'b010000,
+    SENDING_HANDSHAKE = 6'b100000
   } send_state_t;
 
   // recv process state machine states 
-  typedef enum integer {
-    RECEIVING_IDLE = 0,
-    RECEIVING_HEADER = 1,
-    RECEIVING_SIZE = 2,
-    RECEIVING_SIZE_DELAY = 3,
-    RECEIVING_SIZE_IRQ = 4,
-    RECEIVING_PAYLOAD = 5,
-    RECEIVING_HANDSHAKE = 6
+  typedef enum logic[6:0] {
+    RECEIVING_IDLE = 7'b0000001,
+    RECEIVING_HEADER = 7'b0000010,
+    RECEIVING_SIZE = 7'b0000100,
+    RECEIVING_SIZE_DELAY = 7'b0001000,
+    RECEIVING_SIZE_IRQ = 7'b0010000,
+    RECEIVING_PAYLOAD = 7'b0100000,
+    RECEIVING_HANDSHAKE = 7'b1000000
   } recv_state_t;
 
   typedef logic[MEMORY_BUS_WIDTH-1:0] word;
@@ -213,7 +214,7 @@ module ddma #(parameter
           if (istate == TOKEN_SEND && router_if.credit_o == 1) begin
             temp_addr_in <= temp_addr_in + 4; 
             temp_num_flits_in <= temp_num_flits_in - 1;
-            $display("ddma_mod: %s --", sstate);
+            $display("ddma_mod: %s", sstate);
           end
           router_if.rx <= 0;
         end 
@@ -226,7 +227,6 @@ module ddma #(parameter
             router_if.rx <= 1;
             $display("ddma_mod: %s %h %s", sstate, mem_if.data_out, mem_if.data_out);
           end else begin 
-            temp_addr_in <= temp_addr_in;
             temp_num_flits_in <= temp_num_flits_in;
             router_if.data_i <= 0;
             router_if.rx <= 0;
@@ -324,45 +324,44 @@ module ddma #(parameter
         RECEIVING_HEADER: begin  // header flit arrived
           if(istate == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
-            mem_if.wb_in <= 1;
-            $display("ddma_mod: %s %h",rstate, router_if.data_o); // TODO: add security checking, wrong destination?            
+            $display("ddma_mod_recv: %s %h",rstate, router_if.data_o); // TODO: add security checking, wrong destination?            
           end else begin
             router_if.credit_i <= 0;
-            mem_if.wb_in <= 0;
           end
+          mem_if.wb_in <= 0;
         end
 
         RECEIVING_SIZE: begin
           if(istate == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
-            mem_if.wb_in <= 1;
-            $display("ddma_mod: %s %h", rstate, router_if.data_o);
+            $display("ddma_mod_recv: %s %h", rstate, router_if.data_o);
           end else begin 
             router_if.credit_i <= 0;
-            mem_if.wb_in <= 0;
           end
+          mem_if.wb_in <= 0;
         end 
 
         RECEIVING_SIZE_DELAY: begin
-          $display("ddma_mod: %s %h", rstate, router_if.data_o);
+          $display("ddma_mod_recv: %s %h", rstate, router_if.data_o);
           temp_flits_to_recv <= router_if.data_o;
           ddma_if.recv_size_out <= router_if.data_o;
+          mem_if.wb_in <= 0;
         end 
 
         RECEIVING_SIZE_IRQ: begin
           temp_recv_addr <= ddma_if.recv_addr_in;
 
-          if($past(rstate == RECEIVING_SIZE)) begin
-            $display("ddma_mod: %s %h", rstate, router_if.data_o);
+          if(ddma_if.recv_cmd_in != old_recv_cmd_in) begin
+            $display("ddma_mod_recv: %s %h", rstate, ddma_if.recv_addr_in);
           end
           router_if.credit_i <= 0;
-          mem_if.wb_in <= 0;          
+          mem_if.wb_in <= 0;
         end 
 
         RECEIVING_PAYLOAD: begin
 
           if(istate == TOKEN_RECV && router_if.tx == 1 && temp_flits_to_recv > 0) begin
-            $display("ddma_mod: %s %h %s", rstate, router_if.data_o, router_if.data_o);
+            $display("ddma_mod_recv: %s %h %h %s", rstate, temp_recv_addr, router_if.data_o, router_if.data_o);
             router_if.credit_i <= 1;
             mem_if.wb_in <= 1;
             temp_recv_addr <= temp_recv_addr + 4;
@@ -375,13 +374,16 @@ module ddma #(parameter
 
         RECEIVING_HANDSHAKE: begin
           if($past(rstate == RECEIVING_PAYLOAD)) begin
-            $display("ddma_mod: %s %h", rstate, ddma_if.recv_cmd_in);
+            $display("ddma_mod_recv: %s %h", rstate, ddma_if.recv_cmd_in);
           end 
           mem_if.wb_in <= 0;
           router_if.credit_i <= 0;           
         end 
       endcase
-    end 
+    end else begin
+      mem_if.wb_in <= 0;
+      temp_recv_addr <= 0;
+    end
   end 
 
   // export send/recv state to status register
@@ -391,17 +393,28 @@ module ddma #(parameter
   // address can come from either send or receiving processess. 
   // memory will be set to write mode only when receiving flits,
   // otherwise it'll reside in read mode 
-  assign mem_if.addr_in = (istate == TOKEN_SEND || istate == TOKEN_RECV_TO_SEND )
-    ? temp_addr_in 
-    : temp_recv_addr;
+  // ** addr_in is 4-byte aligned
+  // ** addr_in is capped to memory size
+  assign mem_if.addr_in = ((
+    (istate == TOKEN_SEND || istate == TOKEN_RECV_TO_SEND )
+      ? (temp_addr_in)
+      : (temp_recv_addr)
+  ) & (RAM_MSIZE -1 )) >> 2;
 
+
+  // always @(posedge clock) begin
+  //   if ($past(temp_addr_in) != temp_addr_in) begin
+  //     $display("writing to temp_addr_in: 0x%h --> 0x%h", $past(temp_addr_in), temp_addr_in);
+  //     $display("ram: 0x%h --> 0x%h", $past(mem_if.addr_in), mem_if.addr_in);
+  //   end 
+  // end 
+  
   // router input data always comes from the sending process, 
   // which reads data from the memory  
   assign mem_if.data_in = router_if.data_o;
 
   // memory always engit statabled, rx clock mirrors top clock
   assign router_if.clock_rx = clock;
-  assign mem_if.enable_in = 1;
 
   // keep sending interruption risen until cpu ack
   assign ddma_if.irq_send_out = (sstate == SENDING_HANDSHAKE);

@@ -24,9 +24,9 @@ vlog -mixedsvvh -sv -work work ../hw/ddma/interface_router_port.sv
 vlog -mixedsvvh -sv -work work ../hw/ddma/interface_ddma.sv
 
 # MEMORY CORE SOURCE
+vlog -mixedsvvh -sv -work work ../hw/memory/interface_memory.sv
 vlog -mixedsvvh -sv -work work ../hw/memory/single_port_ram.sv
 vlog -mixedsvvh -sv -work work ../hw/memory/dual_port_ram.sv
-vlog -mixedsvvh -sv -work work ../hw/memory/interface_memory.sv
 
 # NOC
 vlog -mixedsvvh -sv -work work ../hw/router/interface_router.sv
@@ -61,7 +61,7 @@ quietly set StdVitalGlitchNoWarnings 1
 
 
 
-# do ../packets/mockup.wave.do
+do ../packets/mockup.wave.do
 
 #run 500 ns
 run 10 ms

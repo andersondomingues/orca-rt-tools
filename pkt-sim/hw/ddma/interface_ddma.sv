@@ -22,8 +22,8 @@ interface interface_ddma #(parameter
   logic irq_send_out;
   logic irq_recv_size_out;
   logic irq_recv_hshk_out;
-  logic[2:0] state_recv_out;
-  logic[2:0] state_send_out;
+  logic[6:0] state_recv_out;
+  logic[5:0] state_send_out;
   
 
   modport DDMA (

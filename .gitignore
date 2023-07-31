@@ -28,6 +28,9 @@ work/
 **/ucx-os/*.map
 **/ucx-os/*.sec
 **/ucx-os/*.cnt
+**/ucx-os/*.a
+**/ucx-os/build/target/*.a
+
 
 # Vivado
 **/manycore_vivado/*.cache

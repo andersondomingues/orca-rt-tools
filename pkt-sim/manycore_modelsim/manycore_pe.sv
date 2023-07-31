@@ -31,8 +31,6 @@ module manycore_pe #(parameter
   const int DDMA_CONFIG_START = 'h20000000;  const int DDMA_CONFIG_END = 'h20000024;
   const int PRINTCHAR_ADDR    = 'hf00000d0;
 
-
-
   function string log_filename();
     automatic string sx;
     automatic string sy;
@@ -56,12 +54,15 @@ module manycore_pe #(parameter
   interface_router #(FLIT_WIDTH) router_if(clock, reset); // router and pe
   interface_router_port #(FLIT_WIDTH) router_port_if(clock, reset); // router and ddma
   interface_ddma   #(MEMORY_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN, ADDRESS) ddma_if(clock, reset); //tcd and ddma
+  
   interface_memory #(MEMORY_WIDTH) mem_if_dma(clock, reset); // mem and ddma
   interface_memory #(MEMORY_WIDTH) mem_if_mmio(clock, reset); // mem and mmio
-  interface_peripherals #(MEMORY_WIDTH) perif_if(clock, reset);
-  interface_core_rv32e #(MEMORY_WIDTH) cpu_if(clock, reset); // cpu to mmio
-  interface_tcd #(MEMORY_WIDTH) tcd_if(clock, reset);
   interface_memory #(MEMORY_WIDTH) mem_if_boot(clock, reset); // boot rom
+
+  interface_peripherals #(MEMORY_WIDTH) perif_if(clock, reset);
+  interface_core_rv32e  #(MEMORY_WIDTH) cpu_if(clock, reset); // cpu to mmio
+  interface_tcd    #(MEMORY_WIDTH) tcd_if(clock, reset);
+  
 
   // =========================================================
   //                    MODULES
@@ -70,18 +71,18 @@ module manycore_pe #(parameter
     .pheripherals_if(perif_if.PERIPHERALS)
   );
 
-  dual_port_ram #(MEMORY_WIDTH, RAM_MSIZE, ADDRESS) memory_mod(
-    .clock(clock), .reset(reset),
+  dual_port_ram #(MEMORY_WIDTH, RAM_MSIZE >> 2, ADDRESS) memory_mod(
+    .clock(clock), .reset(reset), .enable(1'b1),
     .mem_if_a(mem_if_dma.MEM),
     .mem_if_b(mem_if_mmio.MEM)
   );
 
-  single_port_ram #(MEMORY_WIDTH, BOOT_MSIZE, ADDRESS) boot_mod(
-    .clock(clock), .reset(reset),
-    .mem_if(mem_if_boot.MEM)
+  single_port_ram #(MEMORY_WIDTH, BOOT_MSIZE >> 2, ADDRESS) boot_mod(
+    .clock(clock), .reset(reset), .enable(1'b1),
+    .mem_if_a(mem_if_boot.MEM)
   );
 
-  ddma #(MEMORY_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN, ADDRESS) ddma_mod(
+  ddma #(MEMORY_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN, ADDRESS, RAM_MSIZE) ddma_mod(
     .clock(clock), .reset(reset), 
     .router_if(router_port_if.DDMA),
     .mem_if(mem_if_dma.DUT),
@@ -187,7 +188,14 @@ module manycore_pe #(parameter
         'h20000008: cpu_if.data_in <= endianess(ddma_if.send_addr_in);
         'h2000000C: cpu_if.data_in <= endianess(ddma_if.send_size_in);
         'h20000010: cpu_if.data_in <= endianess(ddma_if.send_cmd_in);
-        'h20000014: cpu_if.data_in <= endianess({ ddma_if.state_send_out, ddma_if.state_recv_out });
+        'h20000014: begin 
+          cpu_if.data_in <= endianess({ 
+            8'b0, 
+            8'b0,
+            2'b0, ddma_if.state_send_out,
+            1'b0, ddma_if.state_recv_out
+          });
+        end
         'h20000018: cpu_if.data_in <= endianess(ddma_if.recv_addr_in);
         'h2000001C: cpu_if.data_in <= endianess(ddma_if.recv_addr_out);
         'h20000020: cpu_if.data_in <= endianess(ddma_if.recv_size_out);
@@ -207,12 +215,11 @@ module manycore_pe #(parameter
 
   // BOOT memory mux
   always_comb begin
-    mem_if_boot.enable_in = 1; 
     mem_if_boot.data_in = 0; // boot is ready only
     mem_if_boot.wb_in = 0;   // boot is ready only
 
     if (cpu_if.addr_out >= BOOT_START && cpu_if.addr_out <= BOOT_END) begin
-      mem_if_boot.addr_in = (cpu_if.addr_out & (BOOT_MSIZE -1)) & ~3; // 4-byte alignment
+      mem_if_boot.addr_in = (cpu_if.addr_out & (BOOT_MSIZE -1)) >> 2;
     end else begin 
       mem_if_boot.addr_in = 0;
     end
@@ -245,11 +252,10 @@ module manycore_pe #(parameter
   
   // RAM memory mux
   always_comb begin
-    mem_if_mmio.enable_in = 1; 
     mem_if_mmio.data_in = cpu_if.data_out;
     
     if (cpu_if.addr_out >= RAM_START && cpu_if.addr_out <= RAM_END) begin
-      mem_if_mmio.addr_in = (cpu_if.addr_out & (RAM_MSIZE - 1) & ~3); // 4-byte alignment
+      mem_if_mmio.addr_in = (cpu_if.addr_out & (RAM_MSIZE - 1)) >> 2;
       mem_if_mmio.wb_in = cpu_if.wb_out;
     end else begin
       mem_if_mmio.addr_in = 0;
@@ -264,7 +270,7 @@ module manycore_pe #(parameter
 
     if (cpu_if.addr_out >= PERIPH_START && cpu_if.addr_out <= PERIPH_END) begin
       perif_if.sel_in = 1;
-      perif_if.addr_in = cpu_if.addr_out & ~3; // 4-byte alignment
+      perif_if.addr_in = cpu_if.addr_out & ~3;
       perif_if.wr_in = cpu_if.wb_out;
     end else begin
       perif_if.sel_in = 0;
@@ -276,26 +282,28 @@ module manycore_pe #(parameter
   // =========================================================
   //                    ROUTER CONNECTION
   // =========================================================
-  // connect router inout to the pe (only S, N, W, and E ports)
-  assign pe_if.clock_tx[3:0] = router_if.clock_tx[3:0];
-  assign pe_if.tx[3:0] = router_if.tx[3:0];
-  assign pe_if.data_o[3:0] = router_if.data_o[3:0];
-  assign pe_if.credit_o[3:0] = router_if.credit_o[3:0];
+  always_comb begin
+    // connect router inout to the pe (only S, N, W, and E ports)
+    pe_if.clock_tx[3:0] = router_if.clock_tx[3:0];
+    pe_if.tx[3:0] = router_if.tx[3:0];
+    pe_if.data_o[3:0] = router_if.data_o[3:0];
+    pe_if.credit_o[3:0] = router_if.credit_o[3:0];
 
-  assign router_if.clock_rx[3:0] = pe_if.clock_rx[3:0];
-  assign router_if.rx[3:0] = pe_if.rx[3:0];
-  assign router_if.data_i[3:0] = pe_if.data_i[3:0];
-  assign router_if.credit_i[3:0] = pe_if.credit_i[3:0];
+    router_if.clock_rx[3:0] = pe_if.clock_rx[3:0];
+    router_if.rx[3:0] = pe_if.rx[3:0];
+    router_if.data_i[3:0] = pe_if.data_i[3:0];
+    router_if.credit_i[3:0] = pe_if.credit_i[3:0];
 
-  // connect router local port to the ddma (only L port)
-  assign router_port_if.clock_tx = router_if.clock_tx[4];
-  assign router_port_if.tx = router_if.tx[4];
-  assign router_port_if.data_o = router_if.data_o[4];
-  assign router_port_if.credit_o = router_if.credit_o[4];
+    //connect router local port to the ddma (only L port)
+    router_port_if.clock_tx = router_if.clock_tx[4];
+    router_port_if.tx = router_if.tx[4];
+    router_port_if.data_o = router_if.data_o[4];
+    router_port_if.credit_o = router_if.credit_o[4];
 
-  assign router_if.clock_rx[4] = router_port_if.clock_rx;
-  assign router_if.rx[4] = router_port_if.rx;
-  assign router_if.data_i[4] = router_port_if.data_i;
-  assign router_if.credit_i[4] = router_port_if.credit_i;
+    router_if.clock_rx[4] = router_port_if.clock_rx;
+    router_if.rx[4] = router_port_if.rx;
+    router_if.data_i[4] = router_port_if.data_i;
+    router_if.credit_i[4] = router_port_if.credit_i;
+  end
 
 endmodule: manycore_pe

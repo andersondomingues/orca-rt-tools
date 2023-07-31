@@ -35,8 +35,10 @@ void irq1_handler(void){
 void irq2_handler(void){
   uint32_t pkt_size = _ddma_recv_size(); // packet size in flits
   printf("irq2_handler(): incoming packet of size %d\n", pkt_size);
+  
   noc_packet_t* pkt = (noc_packet_t*) ucx_malloc(pkt_size * 4); // malloc in bytes
-  printf("irq2_handler(): writing packet to 0x%x\n", (uint32_t)pkt);
+  printf("irq2_handler(): ucx_malloc returned 0x%x\n", (uint32_t)pkt);
+
   _ddma_set_recv_addr((uint32_t)pkt); // send packet address to the ddma
   _ddma_recv_ack();
 }
@@ -46,15 +48,29 @@ void irq2_handler(void){
 // interrupts the cpu to put the packet int the 
 // right queue accordingly to its port.
 void irq3_handler(void){
-  printf("chegou irq3\n");
   noc_packet_t* pkt = (noc_packet_t*) _ddma_recv_addr();
+
+  printf("irq3_handler(): received packet stored at 0x%x\n", pkt);
+
+  printf("irq3_handler() 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n",
+    pkt->source_node, pkt->target_node,
+    pkt->source_port, pkt->target_port,
+    pkt->payload_size, pkt->tag
+  );
+
+  printf("irq3_handler() %c%c%c%c %c%c%c%c\n",
+    pkt->data[0], pkt->data[1],
+    pkt->data[2], pkt->data[3],
+    pkt->data[4], pkt->data[4],
+    pkt->data[6], pkt->data[5]
+  );
 
   // get rid of packets which address is not the same of this cpu
   if (pkt->target_node != ucx_noc_cpu_id())
   {
-    printf("noc_driver_isr(): packet should not arrive at this node, target was %d", 
-      pkt->target_node);
-    ucx_free(pkt);
+    printf("noc_driver_isr(): wrong destination header %x (expected %x).\n",
+      pkt->target_node, ucx_noc_cpu_id());
+    //ucx_free(pkt);
   } else {
 
     // get the queue associated to the port indicated in the packet
@@ -249,10 +265,6 @@ uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port,
   pkt->target_node = target_cpu;
   pkt->target_port = target_port;
   pkt->tag = tag;
-
-  // prevent user from sending another packet until the 
-  // ddma gets ready again
-  while(_ddma_send_status());
 
   printf("ucx_noc_send() 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x %s\n",
     pkt->source_node, pkt->target_node,

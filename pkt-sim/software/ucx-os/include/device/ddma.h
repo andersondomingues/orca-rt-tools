@@ -39,9 +39,9 @@ uint32_t* _ddma_recv_ptr_out();
 // REC_PAYLOAD = 3,
 // IRQ_REC = 4,
 // REC_HEADER_SYNC = 5
-uint8_t _ddma_status();
+uint16_t _ddma_status();
 
-uint32_t _ddma_send_status();
+uint8_t _ddma_send_status();
 
 // flag down sending and reset the state machine, allowing
 // for a new sending configuration
@@ -51,7 +51,7 @@ void _ddma_async_ack();
 #define DDMA_RECV_ACTIVE 0x30
 
 
-uint32_t _ddma_recv_size();
+uint32_t _ddma_recv_size(void);
 void _ddma_set_recv_addr(uint32_t);
-uint32_t _ddma_recv_addr();
-uint32_t _ddma_recv_ack();
+uint32_t _ddma_recv_addr(void);
+void _ddma_recv_ack(void);
