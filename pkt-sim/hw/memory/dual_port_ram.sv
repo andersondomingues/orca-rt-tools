@@ -6,20 +6,27 @@ module dual_port_ram #(parameter MEMORY_BUS_WIDTH = 32, SIZE = 65536, ADDRESS = 
   interface_memory.MEM mem_if_b
 );
 
-bit[31:0] mem[SIZE];
+reg[31:0] mem[SIZE];
 
 // -- --
 initial begin
   automatic string filename = { "../software/ucx-os/build/target/code.txt" };
-  $display("ram_img: %s (%0d B)", filename, SIZE);
+  $display("ram_img: %s (%0d bytes)", filename, SIZE * 4);
   $readmemh(filename, mem);
 end
 
-always @(posedge clock) begin
-  if($past(mem_if_b.addr_in) == 'h2fa4) begin
-    $display("read addr %h -> %h", $past(mem_if_b.addr_in), mem_if_b.data_out);
-  end
-end 
+
+function void dump(integer addr);
+  for(int i = addr; i < addr + 16; i++) begin
+    $display("0x%h       %h", i, mem[i]);
+  end 
+endfunction
+
+//  function void dump(integer addr);
+//    for(int i = 0; i < SIZE; i++) begin
+//      $display("%h ", mem[i]);
+//    end 
+//  endfunction
 
 always @(posedge clock) begin
   if (enable) begin
@@ -53,6 +60,11 @@ always @(posedge clock) begin
 
     mem_if_a.data_out <= mem[mem_if_a.addr_in];
     mem_if_b.data_out <= mem[mem_if_b.addr_in];
+
+    if(mem_if_b.addr_in == ('h3044 >> 2)) begin
+      dump(mem_if_b.addr_in);
+    end
+
   end
 end
 

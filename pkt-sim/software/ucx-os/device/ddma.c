@@ -74,11 +74,12 @@ void _ddma_async_ack(){
 }
 
 uint8_t _ddma_send_status(){
-  printf("ddma_status: %x\n", _ddma_status());
+  printf("ddma_status_send: 0x%x\n", _ddma_status() >> 8);
   return _ddma_status() >> 8; // hi
 }
 
 uint16_t _ddma_status(){
+  printf("ddma_status: 0x%x\n", *DDMA_STATUS);
   return *DDMA_STATUS;
 }
 
@@ -90,8 +91,8 @@ void _ddma_set_recv_addr(uint32_t addr){
   *DDMA_RECV_ADDR_IN = addr;
 }
 
-uint32_t _ddma_recv_addr(){
-  return *DDMA_RECV_ADDR_IN;
+uint32_t _ddma_get_recv_addr(){
+  return *DDMA_RECV_ADDR_OUT;
 }
 
 void _ddma_recv_ack(){

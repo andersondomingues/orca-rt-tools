@@ -14,7 +14,7 @@ reg[31:0] mem[SIZE];
 // -- --
 initial begin
   automatic string filename = { "../software/hfrisc-software/boot.txt" };
-  $display("boot_img: %s (%0d B)", filename, SIZE);
+  $display("boot_img: %s (%0d bytes)", filename, SIZE * 4);
   $readmemh(filename, mem);
 end
 

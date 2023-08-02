@@ -53,5 +53,5 @@ void _ddma_async_ack();
 
 uint32_t _ddma_recv_size(void);
 void _ddma_set_recv_addr(uint32_t);
-uint32_t _ddma_recv_addr(void);
+uint32_t _ddma_get_recv_addr(void);
 void _ddma_recv_ack(void);

@@ -34,7 +34,7 @@ void irq1_handler(void){
 // to the heap of the length of the packet. 
 void irq2_handler(void){
   uint32_t pkt_size = _ddma_recv_size(); // packet size in flits
-  printf("irq2_handler(): incoming packet of size %d\n", pkt_size);
+  printf("irq2_handler(): incoming packet of size %d (flits)\n", pkt_size);
   
   noc_packet_t* pkt = (noc_packet_t*) ucx_malloc(pkt_size * 4); // malloc in bytes
   printf("irq2_handler(): ucx_malloc returned 0x%x\n", (uint32_t)pkt);
@@ -48,14 +48,15 @@ void irq2_handler(void){
 // interrupts the cpu to put the packet int the 
 // right queue accordingly to its port.
 void irq3_handler(void){
-  noc_packet_t* pkt = (noc_packet_t*) _ddma_recv_addr();
+
+  noc_packet_t* pkt = (noc_packet_t*) _ddma_get_recv_addr();
 
   printf("irq3_handler(): received packet stored at 0x%x\n", pkt);
 
   printf("irq3_handler() 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n",
-    pkt->source_node, pkt->target_node,
-    pkt->source_port, pkt->target_port,
-    pkt->payload_size, pkt->tag
+    (pkt->source_node), (pkt->target_node),
+    (pkt->source_port), (pkt->target_port),
+    (pkt->payload_size), (pkt->tag)
   );
 
   printf("irq3_handler() %c%c%c%c %c%c%c%c\n",
@@ -68,9 +69,10 @@ void irq3_handler(void){
   // get rid of packets which address is not the same of this cpu
   if (pkt->target_node != ucx_noc_cpu_id())
   {
-    printf("noc_driver_isr(): wrong destination header %x (expected %x).\n",
+    printf("noc_driver_isr(): wrong destination %x (expected %x).\n",
       pkt->target_node, ucx_noc_cpu_id());
-    //ucx_free(pkt);
+    printf("noc_driver_isr(): packet at %x dropped.\n", pkt);
+    ucx_free(pkt);
   } else {
 
     // get the queue associated to the port indicated in the packet
@@ -238,10 +240,15 @@ noc_packet_t* ucx_noc_recv(uint16_t channel)
 noc_packet_t* ucx_noc_create_packet(uint32_t size){
   // malloc once by allocating enough space for the 
   // packet structure and its data
+  size = (size % 4 == 0) ? size : ((size + 1) / 4) * 4;
+  
   noc_packet_t* pkt = (noc_packet_t*) ucx_malloc(sizeof(noc_packet_t) + size);
+
   pkt->payload_size = size;
   pkt->source_node = ucx_noc_cpu_id();
   pkt->source_port = pktdrv_ports[ucx_task_id()];
+
+  ucx_memset(pkt->data, 0, size);
 
   return pkt;
 };

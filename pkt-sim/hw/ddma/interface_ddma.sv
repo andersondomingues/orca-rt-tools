@@ -22,7 +22,7 @@ interface interface_ddma #(parameter
   logic irq_send_out;
   logic irq_recv_size_out;
   logic irq_recv_hshk_out;
-  logic[6:0] state_recv_out;
+  logic[7:0] state_recv_out;
   logic[5:0] state_send_out;
   
 
@@ -30,12 +30,12 @@ interface interface_ddma #(parameter
     input clock, reset, 
           send_addr_in, send_size_in, send_cmd_in, send_dest_in,
           recv_addr_in, recv_cmd_in,
-    output state_recv_out, state_send_out, recv_size_out,
+    output state_recv_out, state_send_out, recv_size_out, recv_addr_out,
            irq_recv_size_out, irq_recv_hshk_out, irq_send_out);
 
   modport TCD (
     output send_addr_in, send_size_in, send_cmd_in, send_dest_in,
-           recv_addr_in, recv_cmd_in,
+           recv_addr_in, recv_cmd_in, recv_addr_out,
     input clock, reset, recv_size_out,
           state_recv_out, state_send_out, 
           irq_recv_size_out, irq_recv_hshk_out, irq_send_out);

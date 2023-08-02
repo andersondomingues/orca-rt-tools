@@ -71,18 +71,23 @@ module manycore_pe #(parameter
     .pheripherals_if(perif_if.PERIPHERALS)
   );
 
-  dual_port_ram #(MEMORY_WIDTH, RAM_MSIZE >> 2, ADDRESS) memory_mod(
+  // RAM size is expressed in words (32-bit). We convert from
+  // bytes to word by dividing RAM_MSIZE by 4, also adding
+  // 1 to the result to preventing the last half word to be missing
+  dual_port_ram #(MEMORY_WIDTH, (RAM_MSIZE + 1) >> 2, ADDRESS) memory_mod(
     .clock(clock), .reset(reset), .enable(1'b1),
     .mem_if_a(mem_if_dma.MEM),
     .mem_if_b(mem_if_mmio.MEM)
   );
 
-  single_port_ram #(MEMORY_WIDTH, BOOT_MSIZE >> 2, ADDRESS) boot_mod(
+  single_port_ram #(MEMORY_WIDTH, (BOOT_MSIZE + 1) >> 2, ADDRESS) boot_mod(
     .clock(clock), .reset(reset), .enable(1'b1),
     .mem_if_a(mem_if_boot.MEM)
   );
 
-  ddma #(MEMORY_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN, ADDRESS, RAM_MSIZE) ddma_mod(
+  ddma #(MEMORY_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN, 
+    ADDRESS, (RAM_MSIZE + 1) >> 2
+  ) ddma_mod(
     .clock(clock), .reset(reset), 
     .router_if(router_port_if.DDMA),
     .mem_if(mem_if_dma.DUT),
@@ -193,7 +198,7 @@ module manycore_pe #(parameter
             8'b0, 
             8'b0,
             2'b0, ddma_if.state_send_out,
-            1'b0, ddma_if.state_recv_out
+            ddma_if.state_recv_out
           });
         end
         'h20000018: cpu_if.data_in <= endianess(ddma_if.recv_addr_in);

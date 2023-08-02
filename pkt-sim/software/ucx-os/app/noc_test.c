@@ -17,12 +17,6 @@ void sender(void)
   
             // dest size pkt tag
   ucx_noc_send(2, 800, pkt, 16);
-  ucx_noc_send(2, 800, pkt, 16);
-  ucx_noc_send(2, 800, pkt, 16);
-  ucx_noc_send(2, 800, pkt, 16);
-  //ucx_noc_send(2, 800, pkt, 16);
-  //ucx_noc_send(2, 800, pkt, 16);
-  // ucx_free(pkt);
   while(1);
 }
 

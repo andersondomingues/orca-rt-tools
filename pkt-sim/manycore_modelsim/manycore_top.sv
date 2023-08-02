@@ -3,12 +3,11 @@
 module manycore_top #(parameter 
   FLIT_WIDTH = 32,        // 32-bit flit width
   MEMORY_BUS_WIDTH = 32,  // memory data bus width
-  MEMORY_SIZE = 65536,    // 65k bytes
-  MEMORY_BASE = 0,        // starting address
-  BOOT_SIZE = 2048,       // 20k bytes
+  RAM_MSIZE = 65535,    // 65k bytes
+  BOOT_MSIZE = 2048,     // 2k bytes
   NOC_DIM_X = 2,
   NOC_DIM_Y = 2,
-  INTERLEAVING_GRAIN = 10  
+  INTERLEAVING_GRAIN = 10   // switch input after 10 cycles
 )();
 
   // router ports enumeration cannot be imported from Hermes definitions
@@ -36,11 +35,19 @@ module manycore_top #(parameter
         localparam YDIM = NOC_DIM_Y;
         localparam XDIM = NOC_DIM_X;
 
+        // adds noc dimension to the most significant bytes,
+        // and appends router address to the lower bytes.
+        // word format is (32-bit length):
+        // |-----------|-----------|-----------|----------|
+        // |---DIM X---|---DIM Y---|--ADDR X---|--ADDR Y--|
+        // |-----------|-----------|-----------|----------|
         localparam DIM = (XDIM << 24) | (YDIM << 16);
         localparam XY = (X << 8) | Y;
         localparam ADDRESS = DIM | XY;
 
-        manycore_pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH, MEMORY_SIZE, BOOT_SIZE, ADDRESS, INTERLEAVING_GRAIN, NOC_DIM_X, NOC_DIM_Y) pe_mod(
+        manycore_pe #(MEMORY_BUS_WIDTH, FLIT_WIDTH, RAM_MSIZE, BOOT_MSIZE,
+          ADDRESS, INTERLEAVING_GRAIN, NOC_DIM_X, NOC_DIM_Y
+        ) pe_mod(
           .clock(clock), .reset(reset),
           .pe_if(pe_if.PE)
         );
