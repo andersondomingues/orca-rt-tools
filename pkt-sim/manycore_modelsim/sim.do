@@ -3,6 +3,9 @@ if {[file isdirectory work]} { vdel -all -lib work }
 vlib work
 vmap work work
 
+# PACKAGES
+vlog -mixedsvvh -sv -work work orca_pkg.sv
+
 # CPU SOURCE
 vlog -mixedsvvh -sv -work work ../hw/cpu/core_rv32e.sv
 vlog -mixedsvvh -sv -work work ../hw/cpu/interface_core_rv32e.sv
@@ -61,7 +64,7 @@ quietly set StdVitalGlitchNoWarnings 1
 
 
 
-do ../packets/mockup.wave.do
+# do ../packets/mockup.wave.do
 
 #run 500 ns
 run 10 ms

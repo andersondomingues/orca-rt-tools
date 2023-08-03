@@ -1,3 +1,7 @@
+import orca_pkg::*;
+
+`include "orca_defs.h"
+
 /**
  * This module is a double dma that can asyncronously sends and receive packets.
  * There is only one memory bus, which is shared between sending and receiving 
@@ -46,39 +50,37 @@ module ddma #(parameter
     RECEIVING_HEADER = 8'b00000010,
     RECEIVING_SIZE = 8'b00000100,
     RECEIVING_SIZE_DELAYER = 8'b00001000,
-    RECEIVING_SIZE_IRQ = 8'b00010000,
+    RECEIVING_IRQ_ADDR = 8'b00010000,
     RECEIVING_PAYLOAD_DELAY = 8'b00100000,
     RECEIVING_PAYLOAD = 8'b01000000,
     RECEIVING_HANDSHAKE = 8'b10000000
   } recv_state_t;
-
-  typedef logic[MEMORY_BUS_WIDTH-1:0] word;
   
   // token status (which process has priority, either send or recv)
   interleaving_state_t istate;
 
   // remaining cycles until interleaving priority switching  
-  word i_flip_counter;
+  word_t i_flip_counter;
 
   // send/recv state variables 
   send_state_t sstate;
   recv_state_t rstate;
 
   // send regs
-  word temp_addr_in;
-  word temp_num_flits_in;
-  word temp_destination;
+  word_t temp_addr_in;
+  word_t temp_num_flits_in;
+  word_t temp_destination;
 
   // recv regs
-  word temp_flits_to_recv;
-  word temp_recv_addr;
+  word_t temp_flits_to_recv;
+  word_t temp_recv_addr;
   
   // token request for recv and send states 
   logic has_data_to_send;
   logic has_data_to_recv;
 
   assign has_data_to_send = (sstate != SENDING_IDLE   && sstate != SENDING_HANDSHAKE);
-  assign has_data_to_recv = (rstate != RECEIVING_IDLE && rstate != RECEIVING_SIZE_IRQ);
+  assign has_data_to_recv = (rstate != RECEIVING_IDLE && rstate != RECEIVING_IRQ_ADDR);
 
   // ============================== INTERLEAVING ============================
   // process for handling interleaving arbitration. 
@@ -196,30 +198,14 @@ module ddma #(parameter
           temp_addr_in <= ddma_if.send_addr_in;
           temp_num_flits_in <= ddma_if.send_size_in;
           temp_destination <= ddma_if.send_dest_in;
-          router_if.rx <= 0;
-
-          if($past(temp_addr_in) != temp_addr_in) begin
-            $display("ddma_mod: %s (set temp_addr_in) %h --> %h", 
-              sstate, $past(temp_addr_in), temp_addr_in);
-          end
-
-          if($past(temp_num_flits_in) != temp_num_flits_in) begin
-            $display("ddma_mod: %s (set temp_num_flits_in) %h --> %h", 
-              sstate, $past(temp_num_flits_in), temp_num_flits_in);
-          end
-
-          if($past(temp_destination) != temp_destination) begin
-            $display("ddma_mod: %s (set temp_destination) %h --> %h", 
-              sstate, $past(temp_destination), temp_destination);
-          end
-          
+          router_if.rx <= 0;          
         end
 
         SENDING_HEADER: begin  // send header flit (hw)
           if (router_if.credit_o == 1) begin
             router_if.data_i <= temp_destination;
             router_if.rx <= 1;
-            $display("ddma_mod: %s %h", sstate, temp_destination);
+            `warn(("TX %h: %s %h", ADDRESS, sstate, temp_destination));
 
           end else begin
             router_if.data_i <= 0;
@@ -231,7 +217,7 @@ module ddma #(parameter
           if (router_if.credit_o == 1) begin
             router_if.data_i <= temp_num_flits_in;
             router_if.rx <= 1;
-            $display("ddma_mod: %s %h", sstate, temp_num_flits_in);
+            `warn(("TX %h: %s %h", ADDRESS, sstate, temp_num_flits_in));
           end else begin 
             router_if.rx <= 0;
           end
@@ -241,7 +227,6 @@ module ddma #(parameter
           if (istate == TOKEN_SEND && router_if.credit_o == 1) begin
             temp_addr_in <= temp_addr_in + 4;
             router_if.data_i <= mem_if.data_out;
-            $display("ddma_mod: %s", sstate);
           end
           router_if.rx <= 0;
         end
@@ -253,16 +238,14 @@ module ddma #(parameter
             router_if.data_i <= mem_if.data_out;
 
             router_if.rx <= 1;
-            $display("ddma_mod: %s %h %s", sstate, mem_if.data_out, mem_if.data_out);
+            `warn(("TX %h: %s %h %s", ADDRESS, sstate, mem_if.data_out, mem_if.data_out));
+
           end else begin 
             router_if.rx <= 0;
           end
         end
 
         SENDING_HANDSHAKE: begin
-          if(ddma_if.send_cmd_in == 0) begin
-            $display("ddma_mod: %s %h", sstate, ddma_if.send_cmd_in);
-          end
           router_if.rx <= 0;
         end
       endcase
@@ -303,11 +286,11 @@ module ddma #(parameter
 
         RECEIVING_SIZE: begin
           if(router_if.tx == 1) begin
-            rstate <= RECEIVING_SIZE_IRQ;
+            rstate <= RECEIVING_IRQ_ADDR;
           end
         end
 
-        RECEIVING_SIZE_IRQ: begin
+        RECEIVING_IRQ_ADDR: begin
           if(ddma_if.recv_cmd_in != old_recv_cmd_in) begin
             rstate <= RECEIVING_PAYLOAD_DELAY;
           end
@@ -320,7 +303,7 @@ module ddma #(parameter
         end
         
         RECEIVING_PAYLOAD: begin
-          if(temp_flits_to_recv == 0) begin
+          if(temp_flits_to_recv == 1) begin
             rstate <= RECEIVING_HANDSHAKE;
           end
         end
@@ -342,10 +325,11 @@ module ddma #(parameter
     if(~reset) begin
       case (rstate)
         
+         // TODO: add security checking, wrong destination?            
         RECEIVING_HEADER: begin  // keep credit down until first flit arrives
           if(router_if.tx == 1) begin
             router_if.credit_i <= 1;
-            $display("ddma_mod_recv: %s %h",rstate, router_if.data_o); // TODO: add security checking, wrong destination?            
+            `info(("RX %h: %s %h", ADDRESS,rstate, router_if.data_o));            
           end else begin
             router_if.credit_i <= 0;
           end
@@ -354,46 +338,41 @@ module ddma #(parameter
         end
 
         RECEIVING_SIZE_DELAYER: begin
-          $display("ddma_mod_recv: %s", rstate);
-          temp_flits_to_recv <= router_if.data_o;
-          ddma_if.recv_size_out <= router_if.data_o;
-          mem_if.wb_in <= 0;
           router_if.credit_i <= 0;
+          mem_if.wb_in <= 0;
         end
 
         RECEIVING_SIZE: begin
           if(router_if.tx == 1) begin
             router_if.credit_i <= 1;
-            $display("ddma_mod_recv: %s %h", rstate, router_if.data_o);
+            temp_flits_to_recv <= router_if.data_o;
+            ddma_if.recv_size_out <= router_if.data_o;
+            `info(("RX %h: %s %h", ADDRESS, rstate, router_if.data_o));
           end else begin 
             router_if.credit_i <= 0;
           end
-          mem_if.wb_in <= 0;
-          temp_flits_to_recv <= 0;
+          mem_if.wb_in <= 0;          
         end 
 
-        RECEIVING_SIZE_IRQ: begin
+        RECEIVING_IRQ_ADDR: begin
           temp_recv_addr <= ddma_if.recv_addr_in;
           ddma_if.recv_addr_out <= ddma_if.recv_addr_in;
-
-          if(ddma_if.recv_cmd_in != old_recv_cmd_in) begin
-            $display("ddma_mod_recv: %s %h", rstate, ddma_if.recv_addr_in);
-          end
           router_if.credit_i <= 0;
           mem_if.wb_in <= 0;
-        end 
+        end
 
         RECEIVING_PAYLOAD_DELAY: begin
           if(istate == TOKEN_RECV && router_if.tx == 1) begin
             router_if.credit_i <= 1;
+            mem_if.wb_in <= 'b1111;
           end else begin
             router_if.credit_i <= 0;
           end
         end 
 
         RECEIVING_PAYLOAD: begin
-          if(istate == TOKEN_RECV && router_if.tx == 1 && temp_flits_to_recv > 0) begin
-            $display("ddma_mod_recv: %s %h %h %s", rstate, temp_recv_addr, router_if.data_o, router_if.data_o);
+          if(istate == TOKEN_RECV && router_if.tx == 1 && temp_flits_to_recv > 1) begin
+            `info(("RX %h: %s %h %h %s", ADDRESS, rstate, temp_recv_addr, router_if.data_o, router_if.data_o));
             router_if.credit_i <= 1;
             mem_if.wb_in <= 'b1111;
             temp_recv_addr <= temp_recv_addr + 4;
@@ -405,9 +384,9 @@ module ddma #(parameter
         end
 
         RECEIVING_HANDSHAKE: begin
-          if(ddma_if.recv_cmd_in != old_recv_cmd_in) begin
-            $display("ddma_mod_recv: %s %h", rstate, ddma_if.recv_cmd_in);
-          end 
+          if($past(rstate == RECEIVING_PAYLOAD)) begin
+            `info(("RX %h: %s %h %h %s", ADDRESS, "RECEIVING_PAYLOAD", temp_recv_addr, router_if.data_o, router_if.data_o));
+          end
           mem_if.wb_in <= 0;
           router_if.credit_i <= 0;
         end 
@@ -431,7 +410,7 @@ module ddma #(parameter
 
   // keep sending interruption risen until cpu ack
   assign ddma_if.irq_send_out = (sstate == SENDING_HANDSHAKE);
-  assign ddma_if.irq_recv_size_out = (rstate == RECEIVING_SIZE_IRQ);
+  assign ddma_if.irq_recv_size_out = (rstate == RECEIVING_IRQ_ADDR);
   assign ddma_if.irq_recv_hshk_out = (rstate == RECEIVING_HANDSHAKE);
 
 endmodule: ddma

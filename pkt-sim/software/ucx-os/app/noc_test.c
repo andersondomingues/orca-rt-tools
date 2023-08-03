@@ -16,8 +16,8 @@ void sender(void)
   ucx_memcpy(pkt->data, data, 6);
   
             // dest size pkt tag
-  ucx_noc_send(2, 800, pkt, 16);
-  while(1);
+  while(1) ucx_noc_send(2, 800, pkt, 16);
+  
 }
 
 

@@ -62,8 +62,8 @@ void irq3_handler(void){
   printf("irq3_handler() %c%c%c%c %c%c%c%c\n",
     pkt->data[0], pkt->data[1],
     pkt->data[2], pkt->data[3],
-    pkt->data[4], pkt->data[4],
-    pkt->data[6], pkt->data[5]
+    pkt->data[4], pkt->data[5],
+    pkt->data[6], pkt->data[7]
   );
 
   // get rid of packets which address is not the same of this cpu
