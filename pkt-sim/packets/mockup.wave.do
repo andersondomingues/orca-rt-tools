@@ -61,7 +61,7 @@ add wave -noupdate -expand -group 00_router {/manycore_top/pe_x[0]/pe_y[0]/pe_mo
 add wave -noupdate -expand -group 00_router {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/FLocal/counter_flit}
 add wave -noupdate -expand -group 00_router -expand -subitemconfig {{/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/rx(4)} {-color Gold -height 16}} {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/rx}
 add wave -noupdate -expand -group 00_router -childformat {{{/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} -radix hexadecimal}} -expand -subitemconfig {{/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in(4)} {-color Gold -height 17 -radix hexadecimal}} {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_in}
-add wave -noupdate -expand -group 00_router {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/credit_o}
+add wave -noupdate -expand -group 00_router -expand {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/credit_o}
 add wave -noupdate -expand -group 00_router {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/tx}
 add wave -noupdate -expand -group 00_router {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/data_out}
 add wave -noupdate -expand -group 00_router {/manycore_top/pe_x[0]/pe_y[0]/pe_mod/router_mod/router_mod/credit_i}
@@ -154,7 +154,7 @@ add wave -noupdate -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_i
 add wave -noupdate -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/gpioa_in}
 add wave -noupdate -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/gpioa_out}
 add wave -noupdate -group 01_perif {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/perif_if/gpioa_ddr}
-add wave -noupdate -expand -group 01_router -color Magenta {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/SwitchControl/ES}
+add wave -noupdate -expand -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/SwitchControl/ES}
 add wave -noupdate -expand -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/FLocal/EA}
 add wave -noupdate -expand -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/FLocal/counter_flit}
 add wave -noupdate -expand -group 01_router -expand {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/rx}
@@ -162,7 +162,7 @@ add wave -noupdate -expand -group 01_router -childformat {{{/manycore_top/pe_x[0
 add wave -noupdate -expand -group 01_router {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/credit_o}
 add wave -noupdate -expand -group 01_router -expand {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/tx}
 add wave -noupdate -expand -group 01_router -expand -subitemconfig {{/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_out(4)} {-color Gold -height 16}} {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/data_out}
-add wave -noupdate -expand -group 01_router -expand -subitemconfig {{/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/credit_i(4)} {-color Gold}} {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/credit_i}
+add wave -noupdate -expand -group 01_router -expand -subitemconfig {{/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/credit_i(4)} {-color Gold -height 16}} {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/router_mod/router_mod/credit_i}
 add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/stall_i}
 add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/addr_o}
 add wave -noupdate -group 01_cpu {/manycore_top/pe_x[0]/pe_y[1]/pe_mod/cpu_mod/processor/data_i}
@@ -279,7 +279,7 @@ add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/p
 add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/data_out_cpu}
 add wave -noupdate -group 11_cpu {/manycore_top/pe_x[1]/pe_y[1]/pe_mod/cpu_mod/processor/data_w_cpu}
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {pkt {77007998 ps} 1} {{Cursor 2} {144215221 ps} 1} {{Cursor 3} {88791864 ps} 0}
+WaveRestoreCursors {pkt {77007998 ps} 1} {{Cursor 2} {144215221 ps} 1} {{Cursor 3} {110581130 ps} 0}
 quietly wave cursor active 3
 configure wave -namecolwidth 304
 configure wave -valuecolwidth 111
@@ -295,4 +295,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {88775767 ps} {88820442 ps}
+WaveRestoreZoom {110560525 ps} {110590567 ps}

@@ -16,11 +16,12 @@ void sender(void)
   ucx_memcpy(pkt->data, data, 6);
   
             // dest size pkt tag
-  while(1) ucx_noc_send(2, 800, pkt, 16);
-  
+  for(int i = 0; ; i++){
+    ucx_noc_send(2, 800, pkt, i);
+  }
 }
 
-
+  
 void receiver(void)
 {
   printf("[task %d] started\n", ucx_task_id());

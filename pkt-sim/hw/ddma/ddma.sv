@@ -35,25 +35,25 @@ module ddma #(parameter
   } interleaving_state_t;
   
   // send process state machine states 
-  typedef enum logic[5:0] {
-    SENDING_IDLE = 6'b000001,
-    SENDING_HEADER = 6'b000010,
-    SENDING_SIZE = 6'b000100,
-    SENDING_PAYLOAD_DELAYER = 6'b001000,
-    SENDING_PAYLOAD = 6'b010000,
-    SENDING_HANDSHAKE = 6'b100000
+  typedef enum logic[7:0] {
+    SENDING_IDLE            = 8'b0000_0001,
+    SENDING_HEADER          = 8'b0000_0010,
+    SENDING_SIZE            = 8'b0000_0100,
+    SENDING_PAYLOAD_DELAYER = 8'b0000_1000,
+    SENDING_PAYLOAD         = 8'b0001_0000,
+    SENDING_PAYLOAD_CLEANUP = 8'b0010_0000,
+    SENDING_HANDSHAKE       = 8'b0100_0000
   } send_state_t;
 
   // recv process state machine states 
   typedef enum logic[7:0] {
-    RECEIVING_IDLE = 8'b00000001,
-    RECEIVING_HEADER = 8'b00000010,
-    RECEIVING_SIZE = 8'b00000100,
-    RECEIVING_SIZE_DELAYER = 8'b00001000,
-    RECEIVING_IRQ_ADDR = 8'b00010000,
-    RECEIVING_PAYLOAD_DELAY = 8'b00100000,
-    RECEIVING_PAYLOAD = 8'b01000000,
-    RECEIVING_HANDSHAKE = 8'b10000000
+    RECEIVING_HEADER        = 8'b0000_0001,
+    RECEIVING_SIZE_DELAYER  = 8'b0000_0010,
+    RECEIVING_SIZE          = 8'b0000_0100,    
+    RECEIVING_IRQ_ADDR      = 8'b0000_1000,
+    RECEIVING_PAYLOAD_DELAY = 8'b0001_0000,
+    RECEIVING_PAYLOAD       = 8'b0010_0000,
+    RECEIVING_HANDSHAKE     = 8'b0100_0000
   } recv_state_t;
   
   // token status (which process has priority, either send or recv)
@@ -80,7 +80,7 @@ module ddma #(parameter
   logic has_data_to_recv;
 
   assign has_data_to_send = (sstate != SENDING_IDLE   && sstate != SENDING_HANDSHAKE);
-  assign has_data_to_recv = (rstate != RECEIVING_IDLE && rstate != RECEIVING_IRQ_ADDR);
+  assign has_data_to_recv = (rstate == RECEIVING_PAYLOAD_DELAY || rstate == RECEIVING_PAYLOAD);
 
   // ============================== INTERLEAVING ============================
   // process for handling interleaving arbitration. 
@@ -173,8 +173,12 @@ module ddma #(parameter
         end 
 
         SENDING_PAYLOAD: begin 
-          if (temp_num_flits_in == 1) begin
+          if (temp_num_flits_in == 0) begin
             sstate <= SENDING_HANDSHAKE;
+          end else if (istate != TOKEN_SEND || router_if.credit_o == 0) begin
+            sstate <= SENDING_PAYLOAD_DELAYER;
+          end else begin
+            sstate <= SENDING_PAYLOAD;
           end
         end
 
@@ -182,7 +186,7 @@ module ddma #(parameter
           if(ddma_if.send_cmd_in == 0) begin
             sstate <= SENDING_IDLE;
           end
-        end 
+        end
 
       endcase
     end else begin
@@ -191,6 +195,11 @@ module ddma #(parameter
   end
 
   // ============================== SENDING BH ============================
+  send_state_t a_sstate;
+  always @(posedge clock) begin
+    a_sstate <= sstate;
+  end
+
   always @(posedge clock) begin : SENDING_BEHAVIOR
     if(~reset) begin
       case (sstate)
@@ -198,7 +207,7 @@ module ddma #(parameter
           temp_addr_in <= ddma_if.send_addr_in;
           temp_num_flits_in <= ddma_if.send_size_in;
           temp_destination <= ddma_if.send_dest_in;
-          router_if.rx <= 0;          
+          router_if.rx <= 0;
         end
 
         SENDING_HEADER: begin  // send header flit (hw)
@@ -224,25 +233,38 @@ module ddma #(parameter
         end
 
         SENDING_PAYLOAD_DELAYER: begin
+          router_if.rx <= 0;
+          router_if.data_i <= mem_if.data_out;
+
           if (istate == TOKEN_SEND && router_if.credit_o == 1) begin
             temp_addr_in <= temp_addr_in + 4;
-            router_if.data_i <= mem_if.data_out;
           end
-          router_if.rx <= 0;
         end
 
         SENDING_PAYLOAD: begin // copy payload onto router port
-          if (istate == TOKEN_SEND && router_if.credit_o == 1) begin
-            temp_addr_in <= temp_addr_in + 4; 
-            temp_num_flits_in <= temp_num_flits_in - 1;
-            router_if.data_i <= mem_if.data_out;
+          router_if.data_i <= mem_if.data_out;
 
-            router_if.rx <= 1;
-            `warn(("TX %h: %s %h %s", ADDRESS, sstate, mem_if.data_out, mem_if.data_out));
+          if (temp_num_flits_in > 0) begin
+            if (istate == TOKEN_SEND && router_if.credit_o == 1) begin
+            
+              temp_addr_in <= temp_addr_in + 4; 
+              temp_num_flits_in <= temp_num_flits_in - 1;
+              router_if.rx <= 1;
 
-          end else begin 
+              `warn(("TX %h: %s %h %s", ADDRESS, sstate, mem_if.data_out, mem_if.data_out));
+            end else begin 
+              router_if.rx <= 0;
+
+              if(a_sstate != SENDING_PAYLOAD_DELAYER) begin
+                temp_num_flits_in <= temp_num_flits_in + 1;
+                temp_addr_in <= temp_addr_in - 8;
+              end else begin 
+                temp_addr_in <= temp_addr_in - 4;
+              end
+            end
+          end else begin
             router_if.rx <= 0;
-          end
+          end 
         end
 
         SENDING_HANDSHAKE: begin
@@ -380,6 +402,8 @@ module ddma #(parameter
           end else begin 
             mem_if.wb_in <= 0;
             router_if.credit_i <= 0;
+            temp_recv_addr <= temp_recv_addr - 4;
+            temp_flits_to_recv <= temp_flits_to_recv +1;
           end
         end
 

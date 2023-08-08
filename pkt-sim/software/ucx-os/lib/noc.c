@@ -269,6 +269,10 @@ noc_packet_t* ucx_noc_create_packet(uint32_t size){
 uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port, 
   noc_packet_t* pkt, uint16_t tag)
 {
+  // prevent user from sending another packet until the 
+  // ddma gets ready again (0x1 is the idle state)
+  while(_ddma_send_status() != 0x1);
+
   pkt->target_node = target_cpu;
   pkt->target_port = target_port;
   pkt->tag = tag;

@@ -53,11 +53,6 @@ uint32_t _ddma_init(){
 }
 
 uint32_t _ddma_async_send(uint32_t dest, uint32_t size, uint32_t* payload){
-
-  // prevent user from sending another packet until the 
-  // ddma gets ready again (0x1 is the idle state)
-  while(_ddma_send_status() != 0x1);
-
   *DDMA_SEND_DEST_IN = (_ddma_atox(dest) << 8) | _ddma_atoy(dest);
   
   // size is measured in flits, not bytes
@@ -74,12 +69,12 @@ void _ddma_async_ack(){
 }
 
 uint8_t _ddma_send_status(){
-  printf("ddma_status_send: 0x%x\n", _ddma_status() >> 8);
+  // printf("ddma_status_send: 0x%x\n", _ddma_status() >> 8);
   return _ddma_status() >> 8; // hi
 }
 
 uint16_t _ddma_status(){
-  printf("ddma_status: 0x%x\n", *DDMA_STATUS);
+  // printf("ddma_status: 0x%x\n", *DDMA_STATUS);
   return *DDMA_STATUS;
 }
 
@@ -98,3 +93,4 @@ uint32_t _ddma_get_recv_addr(){
 void _ddma_recv_ack(){
   *DDMA_RECV_CMD_IN = !(*DDMA_RECV_CMD_IN);
 }
+

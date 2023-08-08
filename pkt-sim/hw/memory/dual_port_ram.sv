@@ -27,19 +27,6 @@ initial begin
   $readmemh(filename, mem);
 end
 
-
-// function void dump(integer addr);
-//   for(int i = addr; i < addr + 16; i++) begin
-//     $display("0x%h       %h", i, mem[i]);
-//   end 
-// endfunction
-
-//  function void dump(integer addr);
-//    for(int i = 0; i < SIZE; i++) begin
-//      $display("%h ", mem[i]);
-//    end 
-//  endfunction
-
 always @(posedge clock) begin
   if (enable) begin
 
@@ -72,13 +59,7 @@ always @(posedge clock) begin
 
     mem_if_a.data_out <= mem[mem_if_a.addr_in];
     mem_if_b.data_out <= mem[mem_if_b.addr_in];
-
-    // if(mem_if_b.addr_in == ('h3044 >> 2) && !(mem_if_b.wb_in)) begin
-    //   dump(mem_if_b.addr_in);
-    // end
-
   end
 end
-
 
 endmodule

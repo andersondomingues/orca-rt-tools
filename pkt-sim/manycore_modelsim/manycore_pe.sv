@@ -197,7 +197,7 @@ module manycore_pe #(parameter
           cpu_if.data_in <= endianess({ 
             8'b0, 
             8'b0,
-            2'b0, ddma_if.state_send_out,
+            ddma_if.state_send_out,
             ddma_if.state_recv_out
           });
         end
