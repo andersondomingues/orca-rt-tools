@@ -244,11 +244,16 @@ noc_packet_t* ucx_noc_create_packet(uint32_t size){
   
   noc_packet_t* pkt = (noc_packet_t*) ucx_malloc(sizeof(noc_packet_t) + size);
 
-  pkt->payload_size = size;
-  pkt->source_node = ucx_noc_cpu_id();
-  pkt->source_port = pktdrv_ports[ucx_task_id()];
+  if(pkt){
+    pkt->payload_size = size;
+    pkt->source_node = ucx_noc_cpu_id();
+    pkt->source_port = pktdrv_ports[ucx_task_id()];
 
-  ucx_memset(pkt->data, 0, size);
+    ucx_memset(pkt->data, 0, size);
+    
+  } else {
+    printf("ucx_noc_create_packet(): unable to malloc\n");
+  }
 
   return pkt;
 };
@@ -269,22 +274,28 @@ noc_packet_t* ucx_noc_create_packet(uint32_t size){
 uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port, 
   noc_packet_t* pkt, uint16_t tag)
 {
-  // prevent user from sending another packet until the 
-  // ddma gets ready again (0x1 is the idle state)
-  while(_ddma_send_status() != 0x1);
+  //check whether the packet destination lies in the same pcore
+  if(target_cpu != ucx_noc_cpu_id()) {
+    // prevent user from sending another packet until the 
+    // ddma gets ready again (0x1 is the idle state)
+    while(_ddma_send_status() != 0x1);
 
-  pkt->target_node = target_cpu;
-  pkt->target_port = target_port;
-  pkt->tag = tag;
+    pkt->target_node = target_cpu;
+    pkt->target_port = target_port;
+    pkt->tag = tag;
 
-  printf("ucx_noc_send() 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x %s\n",
-    pkt->source_node, pkt->target_node,
-    pkt->source_port, pkt->target_port,
-    pkt->payload_size, pkt->tag,
-    pkt->data
-  );
+    printf("ucx_noc_send() 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x %s\n",
+      pkt->source_node, pkt->target_node,
+      pkt->source_port, pkt->target_port,
+      pkt->payload_size, pkt->tag,
+      pkt->data
+    );
 
-  // send async
-  return _ddma_async_send(target_cpu, sizeof(noc_packet_t) + pkt->payload_size,
-    (uint32_t*)pkt);
+    // send async
+    return _ddma_async_send(target_cpu, sizeof(noc_packet_t) + pkt->payload_size,
+      (uint32_t*)pkt);
+  } else {
+    printf("ucx_noc_send(): packet with same source/destination\n");
+    return -1;
+  }
 }

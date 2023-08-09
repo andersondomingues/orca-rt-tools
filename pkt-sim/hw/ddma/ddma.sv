@@ -1,6 +1,6 @@
 import orca_pkg::*;
 
-`include "orca_defs.h"
+`include "orca_defs.svh"
 
 /**
  * This module is a double dma that can asyncronously sends and receive packets.
@@ -9,11 +9,11 @@ import orca_pkg::*;
  * fashion priority schema. The cpu must configure the DMA to send packets. The 
  * interruption wire raises when a packet is tranferred to the memory. */
 module ddma #(parameter 
-  MEMORY_BUS_WIDTH = 32, 
-  FLIT_WIDTH = 32, 
-  INTERLEAVING_GRAIN = 3, 
-  ADDRESS = 0,
-  RAM_MSIZE = 65336
+  MEMORY_BUS_WIDTH, 
+  FLIT_WIDTH, 
+  INTERLEAVING_GRAIN, 
+  ADDRESS,
+  RAM_MSIZE
 )(
   input logic clock,
   input logic reset,
@@ -252,6 +252,7 @@ module ddma #(parameter
               router_if.rx <= 1;
 
               `warn(("TX %h: %s %h %s", ADDRESS, sstate, mem_if.data_out, mem_if.data_out));
+              $display("%h %h", $past(mem_if.addr_in), mem_if.data_out);
             end else begin 
               router_if.rx <= 0;
 

@@ -1,23 +1,22 @@
+import orca_pkg::*;
+
 module manycore_pe #(parameter
-  MEMORY_WIDTH = 32, 
-  FLIT_WIDTH = 32,
-  RAM_MSIZE = 65536,
-  BOOT_MSIZE = 2048,
-  ADDRESS = 0,
-  INTERLEAVING_GRAIN = 3,
-  NOC_DIM_X = 0,
-  NOC_DIM_Y = 0
+  MEMORY_WIDTH,
+  FLIT_WIDTH,
+  RAM_MSIZE,
+  BOOT_MSIZE,               /* INTENTIONALLY LEFT NO DEFAULT VALUES */
+  ADDRESS,
+  INTERLEAVING_GRAIN,
+  NOC_DIM_X,
+  NOC_DIM_Y
 )(
   input logic clock,
   input logic reset,
   interface_pe.PE pe_if
 );
 
-  // define word type on the length of memory word
-  typedef logic[MEMORY_WIDTH-1:0] uword;
-
   // reverse byte order
-  function uword endianess(uword data);
+  function word_t endianess(word_t data);
     endianess = { data[7:0], data[15:8], data[23:16], data[31:24] };
   endfunction
 
@@ -74,19 +73,19 @@ module manycore_pe #(parameter
   // RAM size is expressed in words (32-bit). We convert from
   // bytes to word by dividing RAM_MSIZE by 4, also adding
   // 1 to the result to preventing the last half word to be missing
-  dual_port_ram #(MEMORY_WIDTH, (RAM_MSIZE + 1) >> 2, ADDRESS) memory_mod(
+  dual_port_ram #(MEMORY_WIDTH, (RAM_MSIZE >> 2) +1) memory_mod(
     .clock(clock), .reset(reset), .enable(1'b1),
     .mem_if_a(mem_if_dma.MEM),
     .mem_if_b(mem_if_mmio.MEM)
   );
 
-  single_port_ram #(MEMORY_WIDTH, (BOOT_MSIZE + 1) >> 2, ADDRESS) boot_mod(
+  single_port_ram #(MEMORY_WIDTH, (BOOT_MSIZE >> 2) +1) boot_mod(
     .clock(clock), .reset(reset), .enable(1'b1),
     .mem_if_a(mem_if_boot.MEM)
   );
 
   ddma #(MEMORY_WIDTH, FLIT_WIDTH, INTERLEAVING_GRAIN, 
-    ADDRESS, (RAM_MSIZE + 1) >> 2
+    ADDRESS, RAM_MSIZE
   ) ddma_mod(
     .clock(clock), .reset(reset), 
     .router_if(router_port_if.DDMA),
@@ -108,11 +107,11 @@ module manycore_pe #(parameter
   // =========================================================
   //                    MMIO REGISTERS
   // =========================================================
-  uword ddma_send_dest_in;
-  uword ddma_send_addr_in;
-  uword ddma_send_size_in;
+  word_t ddma_send_dest_in;
+  word_t ddma_send_addr_in;
+  word_t ddma_send_size_in;
   logic ddma_send_cmd_in;
-  uword ddma_recv_addr_in;
+  word_t ddma_recv_addr_in;
   logic ddma_recv_cmd_in;
 
 
@@ -144,12 +143,12 @@ module manycore_pe #(parameter
   assign cpu_if.stall_in = 0;
 
   // memory output delay 
-  uword dly_address;
+  word_t dly_address;
   always @(posedge clock) begin
     dly_address <= cpu_if.addr_out;
   end
 
-  uword a_dly_address; // aligned 4-byte delayed address
+  word_t a_dly_address; // aligned 4-byte delayed address
   assign a_dly_address = dly_address & ~3;
 
   // print interruptions 
@@ -194,9 +193,7 @@ module manycore_pe #(parameter
         'h2000000C: cpu_if.data_in <= endianess(ddma_if.send_size_in);
         'h20000010: cpu_if.data_in <= endianess(ddma_if.send_cmd_in);
         'h20000014: begin 
-          cpu_if.data_in <= endianess({ 
-            8'b0, 
-            8'b0,
+          cpu_if.data_in <= endianess({ 16'b0,
             ddma_if.state_send_out,
             ddma_if.state_recv_out
           });
@@ -229,10 +226,23 @@ module manycore_pe #(parameter
       mem_if_boot.addr_in = 0;
     end
   end
+  
+  // RAM memory mux
+  always_comb begin
+    mem_if_mmio.data_in = cpu_if.data_out;
+    
+    if (cpu_if.addr_out >= RAM_START && cpu_if.addr_out <= RAM_END) begin
+      mem_if_mmio.addr_in = (cpu_if.addr_out & (RAM_MSIZE -1)) >> 2;
+      mem_if_mmio.wb_in = cpu_if.wb_out;
+    end else begin
+      mem_if_mmio.addr_in = 0;
+      mem_if_mmio.wb_in = 0;
+    end 
+  end
 
   // aligned cpu.addr_out to 4-byte word, prevent 
   // addressing from missing MMIO access
-  uword a_cpu_addr_out;
+  word_t a_cpu_addr_out;
   assign a_cpu_addr_out = cpu_if.addr_out & ~3;
 
   // data write to DDMA interface
@@ -253,20 +263,6 @@ module manycore_pe #(parameter
       ddma_recv_cmd_in  <= 0;
     end
   end 
-
-  
-  // RAM memory mux
-  always_comb begin
-    mem_if_mmio.data_in = cpu_if.data_out;
-    
-    if (cpu_if.addr_out >= RAM_START && cpu_if.addr_out <= RAM_END) begin
-      mem_if_mmio.addr_in = (cpu_if.addr_out & (RAM_MSIZE - 1)) >> 2;
-      mem_if_mmio.wb_in = cpu_if.wb_out;
-    end else begin
-      mem_if_mmio.addr_in = 0;
-      mem_if_mmio.wb_in = 0;
-    end 
-  end
   
   // PERIPH mux
   always_comb begin

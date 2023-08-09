@@ -1,7 +1,6 @@
 module single_port_ram #(parameter 
-  MEMORY_BUS_WIDTH = 32, 
-  SIZE = 2048, 
-  ADDRESS = 0
+  MEMORY_BUS_WIDTH, 
+  SIZE
 )(
   input logic clock,
   input logic reset,
@@ -9,12 +8,12 @@ module single_port_ram #(parameter
   interface_memory.MEM mem_if_a
 );
 
-reg[31:0] mem[SIZE];
+reg[MEMORY_BUS_WIDTH-1:0] mem[SIZE];
 
 // -- --
 initial begin
   automatic string filename = { "../software/hfrisc-software/boot.txt" };
-  $display("boot_img: %s (%0d bytes)", filename, SIZE * 4);
+  $display("boot_img: %s (%0d bytes)", filename, (SIZE -1) << 2);
   $readmemh(filename, mem);
 end
 

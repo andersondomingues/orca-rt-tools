@@ -1,4 +1,8 @@
-module dual_port_ram #(parameter MEMORY_BUS_WIDTH = 32, SIZE = 65536, ADDRESS = 0)(
+
+module dual_port_ram #(parameter 
+  MEMORY_BUS_WIDTH, 
+  SIZE
+)(
   input logic clock,
   input logic reset,
   input logic enable,
@@ -18,17 +22,22 @@ module dual_port_ram #(parameter MEMORY_BUS_WIDTH = 32, SIZE = 65536, ADDRESS = 
 //        your memory will be filled with Xs at the startup, and 
 //        you may find some problems when reading/writing half-words,
 //        e.g. Xs being pushed into the ALU.
-reg[31:0] mem[SIZE];
+reg[MEMORY_BUS_WIDTH-1:0] mem[SIZE];
 
 // -- --
 initial begin
   automatic string filename = { "../software/ucx-os/build/target/code.txt" };
-  $display("ram_img: %s (%0d bytes)", filename, SIZE * 4);
+  $display("ram_img: %s (%0d bytes)", filename, (SIZE -1) << 2);
   $readmemh(filename, mem);
 end
 
 always @(posedge clock) begin
   if (enable) begin
+
+    // $display("%h %h", mem_if_a.addr_in, mem_if_b.addr_in);
+    // if(mem_if_a.addr_in > SIZE || mem_if_b.addr_in > SIZE) begin
+    //   $display("mem out of bounds: %h %h", mem_if_a.addr_in, mem_if_b.addr_in);
+    // end
 
     // PORT A
     if(mem_if_a.wb_in[3]) begin

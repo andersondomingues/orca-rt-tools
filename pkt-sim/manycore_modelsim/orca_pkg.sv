@@ -1,6 +1,6 @@
 package orca_pkg;
 
-`include "orca_defs.h"
+`include "orca_defs.svh"
 
 typedef logic[`BUS_WIDTH-1:0] word_t;
 typedef logic[(`BUS_WIDTH >> 2)-1:0] hword_t;
