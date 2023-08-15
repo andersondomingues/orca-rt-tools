@@ -1,4 +1,3 @@
-from decorator import contextmanager
 import networkx as nx
 import sys
 import os.path

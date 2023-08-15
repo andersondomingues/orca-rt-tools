@@ -198,7 +198,7 @@ def exportPackets(expDir, lws, prob, lwf):
         return p["release_time"]
 
     filename = expDir + "/mockup.sv"
-    file = open(filename, "w")
+    file = open(filename, "w+")
 
     file.write("`timescale 1ns/10ps\n\n")
 
