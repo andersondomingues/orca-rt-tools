@@ -52,21 +52,22 @@ vlog -mixedsvvh -sv -work work ../hw/interface_pe.sv
 vlog -mixedsvvh -sv -work work ./manycore_pe.sv
 vlog -mixedsvvh -sv -work work ./manycore_top.sv
 
-vsim -voptargs=+acc=lprn -t ps -debugDB work.manycore_top -wlf vsim.wlf
+# ~54s   #vsim -voptargs=+acc=lprn work.manycore_top
+# ~50s   #vsim -t ps work.manycore_top
+# ~58s   #vsim -voptargs=+acc=lprn -t ps -debugDB work.manycore_top -wlf vsim.wlf
+# ~48s   #vsim -t ns work.manycore_top
+vsim -t ns work.manycore_top
 
 # do modelsim config. override
 quietly set StdArithNoWarnings 1
 quietly set StdVitalGlitchNoWarnings 1
 
 # commands from modelsim.ini 
-# quietly set UnbufferedOutput 1
-# quietly set SVAPrintOnlyUserMessage 1
-
-
+#quietly set UnbufferedOutput 1
+#quietly set SVAPrintOnlyUserMessage 1
 
 do ../packets/mockup.wave.do
 
-#run 500 ns
 run 10 ms
 
 

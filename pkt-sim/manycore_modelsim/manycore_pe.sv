@@ -15,10 +15,6 @@ module manycore_pe #(parameter
   interface_pe.PE pe_if
 );
 
-  // reverse byte order
-  function word_t endianess(word_t data);
-    endianess = { data[7:0], data[15:8], data[23:16], data[31:24] };
-  endfunction
 
   // =========================================================
   //                    memory "map"
