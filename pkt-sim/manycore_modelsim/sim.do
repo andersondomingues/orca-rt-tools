@@ -66,8 +66,9 @@ quietly set StdVitalGlitchNoWarnings 1
 #quietly set UnbufferedOutput 1
 #quietly set SVAPrintOnlyUserMessage 1
 
-do ../packets/mockup.wave.do
+# do ../packets/mockup.wave.do
 
-run 10 ms
+run 1000ms
+#quit
 
 

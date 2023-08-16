@@ -2,8 +2,8 @@
 
 -ieee1364 -v200x -gui 
 
-../manycore/manycore_top.sv
-../manycore/manycore_pe.sv
+../manycore_modelsim/manycore_top.sv
+../manycore_modelsim/manycore_pe.sv
 
 ../hw/cpu/interface_core_rv32e.sv
 ../hw/cpu/core_rv32e.sv

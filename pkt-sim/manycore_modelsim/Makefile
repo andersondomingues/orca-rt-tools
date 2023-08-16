@@ -12,8 +12,8 @@ endif
 
 #CMD := $(CMD) terminator -m -e 'multitail ../logs/output*.txt -s 2' &
 #CMD := $(CMD) gnome-terminal -- bash -c "multitail ../logs/output*.txt -s 2; exec bash" &
-#CMD := $(CMD) vsim -batch -do sim.do 
-CMD := $(CMD) vsim -do sim.do 
+#CMD := $(CMD) vsim -c -do sim.do 
+CMD := $(CMD) vsim -batch -do sim.do 
 
 all:
 	$(CMD)

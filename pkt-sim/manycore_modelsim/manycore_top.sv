@@ -5,8 +5,8 @@ module manycore_top #(parameter
   MEMORY_BUS_WIDTH = 32,  // memory data bus width
   RAM_MSIZE = 32768,      //32768, 65536   // 65k bytes
   BOOT_MSIZE = 1024,     // 2k bytes
-  NOC_DIM_X = 2,
-  NOC_DIM_Y = 2,
+  NOC_DIM_X = 4,
+  NOC_DIM_Y = 4,
   INTERLEAVING_GRAIN = 10   // switch input after 10 cycles
 )();
 
@@ -21,6 +21,9 @@ module manycore_top #(parameter
 
   // reset goes down after 2nd cycle
   always #2 reset = 0; 
+
+  // simulation time reporting
+  always #1_000_000 $display("Elapsed 1ms. $now is %g ns.", $realtime);
 
   // generate NOC_DIM_X * NOC_DIM_Y pe nodes
   genvar i, j;
