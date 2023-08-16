@@ -1,1 +1,0 @@
-f5:0: {'name': 'f5:0', 'source_node': '1', 'target_node': '2', 'source_xy': {'X': 1, 'Y': 0}, 'target_xy': {'X': 0, 'Y': 1}, 'data_size': 16, 'release_time': 0}
