@@ -5,6 +5,9 @@ work/
 *.wlf
 *.dbg
 
+# rttols results
+rttools/**/*.svg
+
 # python
 **/__pycache__
 
