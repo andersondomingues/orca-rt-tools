@@ -134,6 +134,10 @@ hello_p: incl ucx.pack
 	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/hello_preempt.o app/hello_preempt.c
 	@$(MAKE) --no-print-directory link
 
+shi2010: incl ucx.pack
+	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/shi2010.o app/shi2010.c
+	@$(MAKE) --no-print-directory link
+
 mutex: rebuild
 	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/mutex.o app/mutex.c
 	@$(MAKE) --no-print-directory link
@@ -218,5 +222,6 @@ imgs.pack:
 # make imgs.pack NOC_Y=2 NOC_X=2 ARCH=riscv/hf-riscv-e
 # make ex_hello NOC_Y=2 NOC_X=2 ARCH=riscv/hf-riscv-e
 # make veryclean noc_test ARCH=riscv/hf-riscv-e
+ #make veryclean shi2010 ARCH=riscv/hf-riscv-e
 	
 

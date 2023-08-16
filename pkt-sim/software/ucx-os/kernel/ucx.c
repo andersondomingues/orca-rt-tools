@@ -16,14 +16,16 @@ struct kcb_s kernel_state = {
 	
 struct kcb_s *kcb_p = &kernel_state;
 
-
 /* task management / API */
-
-int32_t ucx_task_add(void *task, uint16_t stack_size)
+int32_t ucx_task_add(void *task, char* name, uint16_t stack_size, uint16_t period, uint16_t capacity, uint16_t deadline)
 {
 	struct tcb_s *tcb_last = kcb_p->tcb_p;
 	
 	kcb_p->tcb_p = (struct tcb_s *)malloc(sizeof(struct tcb_s));
+  kcb_p->tcb_p->rt.capacity = 0;
+  kcb_p->tcb_p->rt.deadline = 0;
+  kcb_p->tcb_p->rt.period = 0;
+  ucx_memcpy(kcb_p->tcb_p->name, name, 5);
 	
 	if (kcb_p->tcb_first == 0)
 		kcb_p->tcb_first = kcb_p->tcb_p;
@@ -58,7 +60,8 @@ int32_t ucx_task_add(void *task, uint16_t stack_size)
 		kcb_p->tcb_p->stack_sz, (size_t)task);
 	CRITICAL_LEAVE();
 	
-	printf("task %d: %08x, stack: %08x, size %d\n", kcb_p->tcb_p->id,
+	printf("[%s %d]: %08x, stack: %08x, size %d\n",  
+    kcb_p->tcb_p->name, kcb_p->tcb_p->id,
 		(uint32_t)kcb_p->tcb_p->task, (uint32_t)kcb_p->tcb_p->stack,
 		kcb_p->tcb_p->stack_sz);
 	
@@ -160,6 +163,23 @@ int32_t ucx_task_priority(uint16_t id, uint16_t priority)
 uint16_t ucx_task_id()
 {
 	return kcb_p->tcb_p->id;
+}
+
+char* ucx_task_name(){
+  return kcb_p->tcb_p->name;
+}
+
+int32_t tprintf(const char *fmt, ...)
+{
+	va_list args;
+	int32_t v;
+
+  printf("[%s %d] ", ucx_task_name(), ucx_task_id());
+
+	va_start(args, fmt);
+	v = ucx_printf(fmt, args);
+	va_end(args);
+	return v;
 }
 
 void ucx_task_wfi()

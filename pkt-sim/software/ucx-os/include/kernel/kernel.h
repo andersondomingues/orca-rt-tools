@@ -8,6 +8,13 @@
 /* task states */
 enum {TASK_STOPPED, TASK_READY, TASK_RUNNING, TASK_BLOCKED, TASK_SUSPENDED};
 
+struct rt_s {
+  uint16_t period;
+  uint16_t capacity;
+  uint16_t deadline;
+  int (*rt_sched)(void);
+};
+
 /* task control block node */
 struct tcb_s {
 	struct tcb_s *tcb_next;
@@ -16,9 +23,11 @@ struct tcb_s {
 	size_t *stack;
 	size_t stack_sz;
 	uint16_t id;
+  char name[5];
 	uint16_t delay;
 	uint16_t priority;
 	uint8_t state;
+  struct rt_s rt;
 };
 
 /* kernel control block */
@@ -32,6 +41,10 @@ struct kcb_s {
 	uint16_t id;
 };
 
+
+
+int32_t tprintf(const char *fmt, ...);
+
 extern struct kcb_s *kcb_p;
 
 /* kernel API */
@@ -42,7 +55,8 @@ extern struct kcb_s *kcb_p;
 uint16_t krnl_schedule(void);
 void krnl_dispatcher(void);
 
-int32_t ucx_task_add(void *task, uint16_t stack_size);
+int32_t ucx_task_add(void *task, char* name, uint16_t stack_size,
+ uint16_t period, uint16_t capacity, uint16_t deadline);
 int32_t ucx_task_remove(uint16_t id);
 void ucx_task_yield();
 void ucx_task_delay(uint16_t ticks);

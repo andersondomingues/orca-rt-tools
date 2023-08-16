@@ -33,12 +33,18 @@ void receiver(void)
 
 int32_t app_main(void)
 {
-  if (ucx_noc_cpu_id() == 0) {
-    ucx_task_add(sender, DEFAULT_STACK_SIZE);
-  } else {
-    ucx_task_add(receiver, DEFAULT_STACK_SIZE);
+  switch (ucx_noc_cpu_id()){
+    case 0:
+      ucx_task_add(sender, DEFAULT_STACK_SIZE,0,0,0);
+      break;
+    
+    case 2:
+      ucx_task_add(receiver, DEFAULT_STACK_SIZE,0,0,0);
+      break;
+
+    default:
+      break;
   }
-	
 
 	return 1;
 }
