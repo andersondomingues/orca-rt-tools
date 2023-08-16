@@ -1,6 +1,6 @@
 from datetime import datetime
 
-TERMINAL_ENABLE_DEBUG = True
+TERMINAL_ENABLE_DEBUG = False
 TERMINAL_ENDLINE = "\n\r"
 
 
