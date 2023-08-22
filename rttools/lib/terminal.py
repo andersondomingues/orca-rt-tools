@@ -33,7 +33,7 @@ def error(*msg, end=TERMINAL_ENDLINE):
 
 
 def header(*msg, end=TERMINAL_ENDLINE):
-    raw_print("", msg, colors.HEADER, end)
+    raw_print("", msg, colors.HEADER, end, False)
 
 
 def debug(*msg, end=TERMINAL_ENDLINE):
@@ -45,8 +45,13 @@ def warn(*msg, end=TERMINAL_ENDLINE):
     raw_print("warn", msg, colors.WARN, end)
 
 
-def raw_print(label, msg, cbegin, end=TERMINAL_ENDLINE):
+def raw_print(label, msg, cbegin, end=TERMINAL_ENDLINE, dt=True):
     now = datetime.now()
     strnow = now.strftime("%H:%M:%S")
     args = " ".join([str(i) for i in msg])
-    print(f"{cbegin} [{label} {strnow}] {args}{colors.END}", end=end)
+
+    if(dt):
+      print(f"{cbegin} [{label} {strnow}] {args}{colors.END}", end=end)
+    else:
+      print(f"{cbegin}{args}{colors.END}", end=end)
+        

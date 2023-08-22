@@ -15,6 +15,7 @@ from modules.io import svg, vhdl, znc
 # extract flows from a given application graph edges
 # returns a list of flows
 def extractFlows(edges):
+
     flows = []
     for e in edges:
         source, target, data = e
@@ -63,6 +64,8 @@ def getPacketsFromFlows(flows, hp):
 # generate a list of packets from an app instance
 def unwrap(app, arch, mapping):
     flows = extractFlows(app["flows"])
+
+    # print(app["flows"])
 
     # for f in flows:
     #   error(f)
