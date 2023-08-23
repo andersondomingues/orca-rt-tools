@@ -12,7 +12,7 @@ TARGET := porca
 all: $(TARGET)
 	@echo "... Collecting sources:" $(SRCS)
 	@echo "... Generating objects:" $(OBJS)
-	./porca -porca porca
+	./porca -porca po -g x -i 9 -90 -50 -gg
 #
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
