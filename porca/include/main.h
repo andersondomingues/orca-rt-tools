@@ -1,21 +1,23 @@
-import sys
+#include <iostream>
 
-WELCOME_MSG  = '''
-                                                                
-    .-------------'```'----....,,__                        _,   
-   |                               `'`'`'`'-.,.__        .'(    
-   |                                             `'--._.'   )   
-   |                                                   `'-.<    
-   \               .-'`'-.                            -.    `\\ 
-    \               -.o_.     _                     _,-'`\    | 
-     ``````''--.._.-=-._    .'  \            _,,--'`      `-._( 
-       (^^^^^^^^`___    '-. |    \  __,,..--'                 ` 
-        `````````   `'--..___\    |`                            
-                              `-.,'                             
-                                                                 
- Welcome to PORCA: Power ORCA Environment for Real-Time Analysis 
-################################################################
-'''
+std::string WELCOME_MESSAGE[] = {
+  "                                                                 ", 
+  "    .-------------'```'----....,,__                        _,    ", 
+  "   |                               `'`'`'`'-.,.__        .'(     ", 
+  "   |                                             `'--._.'   )    ", 
+  "   |                                                   `'-.<     ", 
+  "   \\               .-'`'-.                            -.    `\\   ", 
+  "    \\               -.o_.     _                     _,-'`\\    |  ", 
+  "     ``````''--.._.-=-._    .'  \\            _,,--'`      `-._(  ", 
+  "       (^^^^^^^^`___    '-. |    \\  __,,..--'                 `  ", 
+  "        `````````   `'--..___\\    |`                             ", 
+  "                              `-.,'                              ", 
+  "                                                                 ", 
+  " Welcome to PORCA: Power ORCA Environment for Real-Time Analysis ", 
+  "_________________________________________________________________" };
+
+/*
+
 
 # Parse application graph
 # - tasks are <id, name, period, capacity, deadline, flows, cpu>
@@ -261,3 +263,6 @@ WELCOME_MSG  = '''
 # # and the list itself is passed to the real main() function.
 # if __name__ == "__main__":
 #     main()
+
+
+*/

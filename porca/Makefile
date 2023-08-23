@@ -1,0 +1,27 @@
+CC := g++
+CFLAGS := -O3 -g -Wall 
+
+SRCS := $(wildcard **/*.cpp)
+OBJS := $(patsubst %.cpp,%.o,$(SRCS))
+
+TARGET := porca
+
+
+all: $(TARGET)
+	@echo "... Collecting sources:" $(SRCS)
+	@echo "... Generating objects:" $(OBJS)
+	./porca -porca porca
+#
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+
+# 
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -rf $(OBJS) $(TARGET)
+
+
+.PHONY: all clean
