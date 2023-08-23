@@ -1,5 +1,7 @@
+DEFS := -DNO_TTY_COLORS
+
 CC := g++
-CFLAGS := -O3 -g -Wall 
+CFLAGS := -O3 -g -Wall $(DEFS)
 
 SRCS := $(wildcard **/*.cpp)
 OBJS := $(patsubst %.cpp,%.o,$(SRCS))

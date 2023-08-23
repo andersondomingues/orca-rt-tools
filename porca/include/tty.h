@@ -1,39 +1,41 @@
 #include <string>
-
-#ifndef NO_TTY_COLORS
+#include <iostream>
 
 namespace tty {
-  const std::string_view black   { "\033[30m" };
-  const std::string_view red     { "\033[31m" };
-  const std::string_view green   { "\033[32m" };
-  const std::string_view yellow  { "\033[33m" };
-  const std::string_view blue    { "\033[34m" };
-  const std::string_view magenta { "\033[35m" };
-  const std::string_view cyan    { "\033[36m" };
-  const std::string_view white   { "\033[37m" };
 
-  const std::string_view b_black   { "\033[40m" };
-  const std::string_view b_red     { "\033[41m" };
-  const std::string_view b_green   { "\033[42m" };
-  const std::string_view b_yellow  { "\033[43m" };
-  const std::string_view b_blue    { "\033[44m" };
-  const std::string_view b_magenta { "\033[45m" };
-  const std::string_view b_cyan    { "\033[46m" };
-  const std::string_view b_white   { "\033[47m" };
+  class tty_style {
+    private:
+      std::string code;
 
-  const std::string_view a_reset   { "\033[0m"  };
-  const std::string_view a_bold    { "\033[1m"  };
-  const std::string_view a_ul      { "\033[4m"  };
-  const std::string_view a_inv     { "\033[7m"  };
-  const std::string_view u_bold    { "\033[21m" };
-  const std::string_view u_ul      { "\033[24m" };
-  const std::string_view u_inv     { "\033[27m" };
+    public:
+      tty_style(std::string c);
+      friend tty_style operator+(const tty_style& s, const tty_style& t);
+      friend std::ostream& operator<<(std::ostream& os, const tty::tty_style& style);
+  };
+  
+  const tty::tty_style black   ( "30" );
+  const tty::tty_style red     ( "31" );
+  const tty::tty_style green   ( "32" );
+  const tty::tty_style yellow  ( "33" );
+  const tty::tty_style blue    ( "34" );
+  const tty::tty_style magenta ( "35" );
+  const tty::tty_style cyan    ( "36" );
+  const tty::tty_style white   ( "37" );
+
+  const tty::tty_style b_black   ( "40" );
+  const tty::tty_style b_red     ( "41" );
+  const tty::tty_style b_green   ( "42" );
+  const tty::tty_style b_yellow  ( "43" );
+  const tty::tty_style b_blue    ( "44" );
+  const tty::tty_style b_magenta ( "45" );
+  const tty::tty_style b_cyan    ( "46" );
+  const tty::tty_style b_white   ( "47" );
+
+  const tty::tty_style a_reset   ( "0"  );
+  const tty::tty_style a_bold    ( "1"  );
+  const tty::tty_style a_ul      ( "4"  );
+  const tty::tty_style a_inv     ( "7"  );
+  const tty::tty_style u_bold    ( "21" );
+  const tty::tty_style u_ul      ( "24" );
+  const tty::tty_style u_inv     ( "27" );
 }
-
-#else
-
-
-
-
-#endif
-
