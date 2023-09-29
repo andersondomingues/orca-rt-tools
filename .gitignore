@@ -5,6 +5,9 @@ work/
 *.wlf
 *.dbg
 
+# sim logs
+pkt-sim/logs/output*
+
 # rttols results
 rttools/**/*.svg
 
