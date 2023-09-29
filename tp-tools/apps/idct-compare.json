@@ -1,0 +1,21 @@
+{
+  "info" : {
+    "name" : "idct-compare"
+  },
+
+  "tasks": [
+    {
+      "id" : 0,
+      "name": "",
+      "wcet": 123
+    }
+  ],
+
+  "messages": [
+    {
+      "source": 0,
+      "target": 0,
+      "data-size": 0
+    }
+  ]
+}

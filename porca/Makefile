@@ -1,4 +1,4 @@
-DEFS := -DNO_TTY_COLORS
+DEFS := -DNO_TTY_COLORSdd
 
 CC := g++
 CFLAGS := -O3 -g -Wall $(DEFS)
