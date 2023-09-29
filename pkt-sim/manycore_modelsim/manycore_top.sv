@@ -3,10 +3,10 @@
 module manycore_top #(parameter 
   FLIT_WIDTH = 32,        // 32-bit flit width
   MEMORY_BUS_WIDTH = 32,  // memory data bus width
-  RAM_MSIZE = 32768,      //32768, 65536   // 65k bytes
+  RAM_MSIZE = 32768,      //32768, 65536   // 32k, 65k bytes
   BOOT_MSIZE = 1024,     // 2k bytes
-  NOC_DIM_X = 4,
-  NOC_DIM_Y = 4,
+  NOC_DIM_X = 2,
+  NOC_DIM_Y = 2,
   INTERLEAVING_GRAIN = 10   // switch input after 10 cycles
 )();
 

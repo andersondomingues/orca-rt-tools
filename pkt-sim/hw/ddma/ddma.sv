@@ -214,7 +214,7 @@ module ddma #(parameter
           if (router_if.credit_o == 1) begin
             router_if.data_i <= temp_destination;
             router_if.rx <= 1;
-            `warn(("TX %h: %s %h", ADDRESS, sstate, temp_destination));
+            `warn(("TX %h: %s %h %h", ADDRESS, sstate, temp_destination, temp_addr_in));
 
           end else begin
             router_if.data_i <= 0;
@@ -251,8 +251,8 @@ module ddma #(parameter
               temp_num_flits_in <= temp_num_flits_in - 1;
               router_if.rx <= 1;
 
-              `warn(("TX %h: %s %h %s", ADDRESS, sstate, mem_if.data_out, mem_if.data_out));
-              $display("%h %h", $past(mem_if.addr_in), mem_if.data_out);
+              `warn(("TX %h: %s %h", ADDRESS, sstate, mem_if.data_out));
+              //$display("%h %h", $past(mem_if.addr_in), mem_if.data_out);
             end else begin 
               router_if.rx <= 0;
 

@@ -1,0 +1,4 @@
+bootUCX/OS boot on RV32E (HF-RISCV-E)
+heap_init(), 20432 bytes free
+_ddma_init(): device info x:3, y:3, dimx:4, dimy:4
+noc_driver_init(): this is core #
