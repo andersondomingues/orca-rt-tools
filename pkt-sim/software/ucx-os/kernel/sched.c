@@ -26,7 +26,6 @@ static void krnl_stack_check(void)
 			(uint32_t)kcb_p->tcb_p->stack, (uint32_t)kcb_p->tcb_p->stack_sz);
 		for (;;);
 	}
-		
 }
 
 static void krnl_delay_update(void)
@@ -43,11 +42,16 @@ static void krnl_delay_update(void)
 	}
 }
 
+// uint16_t krnl_rt_timer = 0;
+// uint16_t krnl_rt_hyperp = 0;
+
 /* real time scheduler*/
-int16_t krnl_rt_schedule(void){
+int32_t krnl_rt_schedule(void){
+  // update hyperperiod timer
+  //krnl_rt_timer = ((krnl_rt_timer + 1) % krnl_rt_hyperp);
 
   // update current executing task capacity
-
+  // RT => kcb_p->tcb_p->rt->period != 0
   // find next task to execute based on scheduling policy
 
   // update selected task info
@@ -55,35 +59,31 @@ int16_t krnl_rt_schedule(void){
   return -1;
 }
 
-uint16_t krnl_rt_timer = 0;
-uint16_t krnl_rt_hyperp = 0;
-
 #ifndef SET_HP
 #define SET_HP(A) (krnl_rt_hyperp = A;)
 #endif 
 
+long unsigned int sched_counter = 0;
+
 /* task scheduler and dispatcher */
 uint16_t krnl_schedule(void)
 {
-  // update hyperperiod timer
-  krnl_rt_timer = ((krnl_rt_timer + 1) % krnl_rt_hyperp);
-
 	if (kcb_p->tcb_p->state == TASK_RUNNING)
 		kcb_p->tcb_p->state = TASK_READY;
 
 	do {
 		do {
 			kcb_p->tcb_p = kcb_p->tcb_p->tcb_next;
-    
-    // prevent real time tasks from being scheduled by the 
-    // best effort schedule
-		} while (kcb_p->tcb_p->state != TASK_READY && kcb_p->tcb_p->rt.period);
+
+		// prevent real time tasks from being scheduled by the 
+		// best effort schedule
+		} while (kcb_p->tcb_p->state != TASK_READY && kcb_p->tcb_p->rt->period != 0);
 	} while (--kcb_p->tcb_p->priority & 0xff);
-	
+
 	kcb_p->tcb_p->priority |= (kcb_p->tcb_p->priority >> 8) & 0xff;
 	kcb_p->tcb_p->state = TASK_RUNNING;
 	kcb_p->ctx_switches++;
-	
+
 	return kcb_p->tcb_p->id;
 }
 
@@ -102,10 +102,17 @@ void dispatch(void)
 	if (!setjmp(kcb_p->tcb_p->context)) {
 		krnl_delay_update();
 		krnl_stack_check();
-    int16_t rt_task_id = krnl_rt_schedule();
+    
+		int32_t task_id = krnl_rt_schedule();
+		if (task_id < 0) task_id = krnl_schedule();
 
-    if (rt_task_id < 0) krnl_schedule();
-
+		// printf("SCHED %d %d %s ##\n", sched_counter++, kcb_p->tcb_p->id, kcb_p->tcb_p->name);
+		// printf("tcb_next:     0x%x   task:         0x%x\n", kcb_p->tcb_p->tcb_next, kcb_p->tcb_p->task);
+		// printf("context:      0x%x   stack:        0x%x\n", kcb_p->tcb_p->context, kcb_p->tcb_p->stack);
+		// printf("stack_sz:     0x%x   delay:        0x%x\n", kcb_p->tcb_p->stack_sz, kcb_p->tcb_p->delay);
+		// printf("priority:     0x%x   rt->period:   0x%x\n", kcb_p->tcb_p->priority, kcb_p->tcb_p->rt->period);
+		// printf("rt->capacity: 0x%x   rt->deadline: 0x%x\n", kcb_p->tcb_p->rt->capacity, kcb_p->tcb_p->rt->deadline);
+		
 		_interrupt_tick();
 		longjmp(kcb_p->tcb_p->context, 1);
 	}

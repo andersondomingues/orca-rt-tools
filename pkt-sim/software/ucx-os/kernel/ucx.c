@@ -22,10 +22,15 @@ int32_t ucx_task_add(void *task, char* name, uint16_t stack_size, uint16_t perio
 	struct tcb_s *tcb_last = kcb_p->tcb_p;
 	
 	kcb_p->tcb_p = (struct tcb_s *)malloc(sizeof(struct tcb_s));
-  kcb_p->tcb_p->rt.capacity = 0;
-  kcb_p->tcb_p->rt.deadline = 0;
-  kcb_p->tcb_p->rt.period = 0;
-  ucx_memcpy(kcb_p->tcb_p->name, name, 5);
+	kcb_p->tcb_p->rt = (struct rt_s *)malloc(sizeof(struct rt_s));
+	
+	kcb_p->tcb_p->rt->capacity = capacity;
+	kcb_p->tcb_p->rt->deadline = deadline;
+	kcb_p->tcb_p->rt->period = period;
+	
+	for(int i = 0; i < 4; ++i)
+		kcb_p->tcb_p->name[i] = name[i];
+	kcb_p->tcb_p->name[4] = '\0';
 	
 	if (kcb_p->tcb_first == 0)
 		kcb_p->tcb_first = kcb_p->tcb_p;
@@ -70,6 +75,15 @@ int32_t ucx_task_add(void *task, char* name, uint16_t stack_size, uint16_t perio
 	/* FIXME: return task id */
 	return 0;
 }
+
+#pragma GCC push_options
+#pragma GCC optimize ("O0")
+void ucx_sleep(int32_t cycles){
+  while(cycles--);
+}
+#pragma GCC pop_options
+
+
 
 void ucx_task_delay(uint16_t ticks)
 {
@@ -160,21 +174,18 @@ int32_t ucx_task_priority(uint16_t id, uint16_t priority)
 	return 0;
 }
 
-uint16_t ucx_task_id()
-{
+uint16_t ucx_task_id(){
 	return kcb_p->tcb_p->id;
 }
 
 char* ucx_task_name(){
-  return kcb_p->tcb_p->name;
+	return kcb_p->tcb_p->name;
 }
 
-int32_t tprintf(const char *fmt, ...)
-{
+int32_t tprintf(const char *fmt, ...){
 	va_list args;
 	int32_t v;
-
-  printf("[%s %d] ", ucx_task_name(), ucx_task_id());
+	printf("[%s %d] ", ucx_task_name(), ucx_task_id());
 
 	va_start(args, fmt);
 	v = ucx_printf(fmt, args);

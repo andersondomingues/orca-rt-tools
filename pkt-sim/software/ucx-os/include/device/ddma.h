@@ -5,11 +5,12 @@
 uint32_t _ddma_node_addr();
 
 // initialize ddma registers and print test routine output
-uint32_t _ddma_init();
+void _ddma_init();
 
 // copies a packet from the memory into the network. copy 
 // is performed in a dma fashion
-uint32_t _ddma_async_send(uint32_t dest, uint32_t size, uint32_t* payload);
+uint32_t _ddma_send(uint32_t dest, uint32_t size, uint32_t* payload);
+void _ddma_send_ack();
 
 // recv
 uint32_t* _ddma_recv_ptr_out();
@@ -43,9 +44,7 @@ uint16_t _ddma_status();
 
 uint8_t _ddma_send_status();
 
-// flag down sending and reset the state machine, allowing
-// for a new sending configuration
-void _ddma_async_ack();
+
 
 #define DDMA_SEND_ACTIVE 0xC0
 #define DDMA_RECV_ACTIVE 0x30

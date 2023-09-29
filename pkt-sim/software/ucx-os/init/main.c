@@ -7,12 +7,6 @@
 #include <ucx.h>
 
 /* main() function, called from the C runtime */
-
-
-void idle_task_p(void){
-  asm ("nop;");
-}
-
 int32_t main(void)
 {
   int32_t pr;
@@ -30,9 +24,6 @@ int32_t main(void)
 
   // initilize noc drivers before adding tasks
   noc_driver_init();
-
-  // add idle task regardless of the task set
-  ucx_task_add(idle_task_p, "----", DEFAULT_STACK_SIZE, 0, 0, 0);
 
   // call the main routine from task code
   pr = app_main();

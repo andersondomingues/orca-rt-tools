@@ -46,13 +46,12 @@ uint32_t _ddma_xyta(uint32_t x, uint32_t y){
   return (x << 8) & y;
 }
 
-uint32_t _ddma_init(){
+void _ddma_init(){
   printf("_ddma_init(): device info x:%d, y:%d, dimx:%d, dimy:%d\n", 
     DDMA_NODE_X, DDMA_NODE_Y, DDMA_NODE_DIMX, DDMA_NODE_DIMY);
-  return 0;
 }
 
-uint32_t _ddma_async_send(uint32_t dest, uint32_t size, uint32_t* payload){
+uint32_t _ddma_send(uint32_t dest, uint32_t size, uint32_t* payload){
   *DDMA_SEND_DEST_IN = (_ddma_atox(dest) << 8) | _ddma_atoy(dest);
   
   // size is measured in flits, not bytes
@@ -64,7 +63,7 @@ uint32_t _ddma_async_send(uint32_t dest, uint32_t size, uint32_t* payload){
   return 0;
 }
 
-void _ddma_async_ack(){
+void _ddma_send_ack(){
   *DDMA_SEND_CMD_IN  = 0x0; // flag down 
 }
 

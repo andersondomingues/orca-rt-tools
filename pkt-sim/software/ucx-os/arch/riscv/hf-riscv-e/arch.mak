@@ -6,13 +6,14 @@ INC_DIRS = -I $(ARCH_DIR)
 #F_CLK = 25000000
 # 1MHz?
 #F_CLK = 1000000
-F_CLK = 2400000
+#F_CLK = 2400000
+F_CLK = 2500000
 
 # uart baud rate
 SERIAL_BAUDRATE=57600
 
 # timer interrupt frequency (100 -> 100 ints/s -> 10ms tick time. 0 -> timer0 fixed frequency)
-F_TICK = 100
+F_TICK = 10
 
 # remove unreferenced functions
 CFLAGS_STRIP = -fdata-sections -ffunction-sections

@@ -142,6 +142,18 @@ mutex: rebuild
 	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/mutex.o app/mutex.c
 	@$(MAKE) --no-print-directory link
 
+cfar: incl ucx.pack
+	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/cfar.o app/cfar.c
+	@$(MAKE) --no-print-directory link
+
+dct_verify: incl ucx.pack
+	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/dct_verify.o app/dct_verify.c
+	@$(MAKE) --no-print-directory link
+
+idct_compare: incl ucx.pack
+	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/idct_compare.o app/idct_compare.c
+	@$(MAKE) --no-print-directory link
+
 noc_test: incl ucx.pack
 	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/noc_test.o app/noc_test.c
 	@$(MAKE) --no-print-directory link

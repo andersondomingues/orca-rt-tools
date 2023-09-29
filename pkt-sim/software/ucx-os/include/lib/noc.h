@@ -1,17 +1,18 @@
 // TODO: 
-#define MAX_TASKS 255
+#define MAX_TASKS 16
 
 // configs
-#define MAX_PKT_QUEUE_SLOTS 10
+#define MAX_PKT_QUEUE_SLOTS 8
 
 // error messages
-#define UCX_NOC_TASK_BIND_ALREADY 1
-#define UCX_NOC_PORT_BIND_ALREADY 2
-#define UCX_NOC_OUT_OF_MEMORY     3
-#define UCX_NOC_OK                4
-#define UCX_NOC_UNABLE_TO_DESTROY 5
-#define UCX_NOC_QUEUE_EMPTY       6
-#define UCX_NOC_TASK_NOT_BOUND    7
+#define UCX_NOC_TASK_BIND_ALREADY (-1)
+#define UCX_NOC_PORT_BIND_ALREADY (-2)
+#define UCX_NOC_OUT_OF_MEMORY     (-3)
+#define UCX_NOC_OK                (-4)
+#define UCX_NOC_UNABLE_TO_DESTROY (-5)
+#define UCX_NOC_TASK_NOT_BOUND    (-6)
+#define UCX_NOC_PORT_HAS_NO_TASK  (-7)
+#define UCX_NOC_WUT               (-99)
 
 
 typedef struct {
@@ -62,7 +63,7 @@ noc_packet_t* ucx_noc_create_packet(uint32_t size);
 /**
  * Bind a task to a port to send and receive packets.
 */
-uint32_t ucx_noc_comm_create(uint16_t port);
+int32_t ucx_noc_comm_create(uint16_t port);
 
 /**
  * REmove port binding from task
@@ -70,9 +71,9 @@ uint32_t ucx_noc_comm_create(uint16_t port);
 uint32_t ucx_noc_comm_destroy(uint16_t port);
 
 
-noc_packet_t* ucx_noc_recv(uint16_t channel);
+noc_packet_t* ucx_noc_receive();
 
-int32_t ucx_noc_recvprobe(void);
+int32_t ucx_noc_probe(void);
 
 void irq1_handler(void);
 void irq2_handler(void);

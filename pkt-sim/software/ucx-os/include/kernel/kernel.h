@@ -23,11 +23,11 @@ struct tcb_s {
 	size_t *stack;
 	size_t stack_sz;
 	uint16_t id;
-  char name[5];
 	uint16_t delay;
 	uint16_t priority;
 	uint8_t state;
-  struct rt_s rt;
+	char name[5];
+	struct rt_s *rt;
 };
 
 /* kernel control block */
@@ -42,6 +42,7 @@ struct kcb_s {
 };
 
 
+void ucx_sleep(int32_t cycles);
 
 int32_t tprintf(const char *fmt, ...);
 
@@ -55,6 +56,7 @@ extern struct kcb_s *kcb_p;
 uint16_t krnl_schedule(void);
 void krnl_dispatcher(void);
 
+void ucx_task_hang(uint16_t cycles);
 int32_t ucx_task_add(void *task, char* name, uint16_t stack_size,
  uint16_t period, uint16_t capacity, uint16_t deadline);
 int32_t ucx_task_remove(uint16_t id);
