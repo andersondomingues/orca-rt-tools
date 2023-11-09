@@ -33,7 +33,7 @@ def error(*msg, end=TERMINAL_ENDLINE):
 
 
 def header(*msg, end=TERMINAL_ENDLINE):
-    raw_print("warn", msg, colors.HEADER, end)
+    raw_print("info", msg, colors.HEADER, end)
 
 
 def debug(*msg, end=TERMINAL_ENDLINE):

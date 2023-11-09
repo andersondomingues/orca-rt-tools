@@ -214,7 +214,7 @@ module ddma #(parameter
           if (router_if.credit_o == 1) begin
             router_if.data_i <= temp_destination;
             router_if.rx <= 1;
-            `warn(("TX %h: %s %h %h", ADDRESS, sstate, temp_destination, temp_addr_in));
+            //`warn(("TX %h: %s %h %h", ADDRESS, sstate, temp_destination, temp_addr_in));
 
           end else begin
             router_if.data_i <= 0;
@@ -226,7 +226,7 @@ module ddma #(parameter
           if (router_if.credit_o == 1) begin
             router_if.data_i <= temp_num_flits_in;
             router_if.rx <= 1;
-            `warn(("TX %h: %s %h", ADDRESS, sstate, temp_num_flits_in));
+            //`warn(("TX %h: %s %h", ADDRESS, sstate, temp_num_flits_in));
           end else begin 
             router_if.rx <= 0;
           end
@@ -251,7 +251,7 @@ module ddma #(parameter
               temp_num_flits_in <= temp_num_flits_in - 1;
               router_if.rx <= 1;
 
-              `warn(("TX %h: %s %h", ADDRESS, sstate, mem_if.data_out));
+              //`warn(("TX %h: %s %h", ADDRESS, sstate, mem_if.data_out));
               //$display("%h %h", $past(mem_if.addr_in), mem_if.data_out);
             end else begin 
               router_if.rx <= 0;
@@ -352,7 +352,7 @@ module ddma #(parameter
         RECEIVING_HEADER: begin  // keep credit down until first flit arrives
           if(router_if.tx == 1) begin
             router_if.credit_i <= 1;
-            `info(("RX %h: %s %h", ADDRESS,rstate, router_if.data_o));            
+            //`info(("RX %h: %s %h", ADDRESS,rstate, router_if.data_o));            
           end else begin
             router_if.credit_i <= 0;
           end
@@ -370,7 +370,7 @@ module ddma #(parameter
             router_if.credit_i <= 1;
             temp_flits_to_recv <= router_if.data_o;
             ddma_if.recv_size_out <= router_if.data_o;
-            `info(("RX %h: %s %h", ADDRESS, rstate, router_if.data_o));
+            //`info(("RX %h: %s %h", ADDRESS, rstate, router_if.data_o));
           end else begin 
             router_if.credit_i <= 0;
           end
@@ -395,7 +395,7 @@ module ddma #(parameter
 
         RECEIVING_PAYLOAD: begin
           if(istate == TOKEN_RECV && router_if.tx == 1 && temp_flits_to_recv > 1) begin
-            `info(("RX %h: %s %h %h %s", ADDRESS, rstate, temp_recv_addr, router_if.data_o, router_if.data_o));
+            //`info(("RX %h: %s %h %h %s", ADDRESS, rstate, temp_recv_addr, router_if.data_o, router_if.data_o));
             router_if.credit_i <= 1;
             mem_if.wb_in <= 'b1111;
             temp_recv_addr <= temp_recv_addr + 4;
@@ -410,7 +410,7 @@ module ddma #(parameter
 
         RECEIVING_HANDSHAKE: begin
           if($past(rstate == RECEIVING_PAYLOAD)) begin
-            `info(("RX %h: %s %h %h %s", ADDRESS, "RECEIVING_PAYLOAD", temp_recv_addr, router_if.data_o, router_if.data_o));
+            //`info(("RX %h: %s %h %h %s", ADDRESS, "RECEIVING_PAYLOAD", temp_recv_addr, router_if.data_o, router_if.data_o));
           end
           mem_if.wb_in <= 0;
           router_if.credit_i <= 0;

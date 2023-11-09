@@ -11,4 +11,5 @@
 #include <stdarg.h>
 
 #include <device/ddma.h>
+#include <device/cacc.h>
 #include <lib/noc.h>

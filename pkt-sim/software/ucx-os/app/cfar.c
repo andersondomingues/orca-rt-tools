@@ -38,8 +38,6 @@ void task_complex(void)
 }
 
 // node 1
-
-
 void task_square(void)
 {
   ucx_noc_comm_create(8);
@@ -70,6 +68,8 @@ void task_square(void)
   ucx_sleep(-1);
 }
 
+
+//node 2
 void task_gather(void)
 {
   ucx_noc_comm_create(8);
@@ -99,6 +99,8 @@ void task_gather(void)
   ucx_sleep(-1);
 }
 
+
+//node 3
 void task_afilter(void)
 {
   ucx_noc_comm_create(8);  

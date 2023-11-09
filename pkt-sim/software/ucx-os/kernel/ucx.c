@@ -72,13 +72,16 @@ int32_t ucx_task_add(void *task, char* name, uint16_t stack_size, uint16_t perio
 	
 	kcb_p->tcb_p->state = TASK_READY;
 
-	/* FIXME: return task id */
-	return 0;
+	return kcb_p->tcb_p->id;
 }
 
 #pragma GCC push_options
 #pragma GCC optimize ("O0")
 void ucx_sleep(int32_t cycles){
+  if(cycles < 0){
+  	tprintf("Zzzz...\n");
+	while(1);
+  }
   while(cycles--);
 }
 #pragma GCC pop_options
@@ -185,10 +188,10 @@ char* ucx_task_name(){
 int32_t tprintf(const char *fmt, ...){
 	va_list args;
 	int32_t v;
-	printf("[%s %d] ", ucx_task_name(), ucx_task_id());
+	ucx_printf("[%s %d %d.%d] ", ucx_task_name(), ucx_task_id(), get_cacc(), get_counter_1());
 
 	va_start(args, fmt);
-	v = ucx_printf(fmt, args);
+	v = ucx_vsprintf(0, fmt, args);
 	va_end(args);
 	return v;
 }

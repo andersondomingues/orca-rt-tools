@@ -363,8 +363,9 @@ static void printchar(char **str, int32_t c){
 	}
 }
 
-static int ucx_vsprintf(char **buf, const char *fmt, va_list args)
+int ucx_vsprintf(char **buf, const char *fmt, void* arg_v)
 {
+	va_list args = arg_v;
 	char **p, *str;
 	const char *digits = "0123456789abcdef";
 	char pad, tmp[16];

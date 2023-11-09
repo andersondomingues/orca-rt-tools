@@ -1,0 +1,35 @@
+0	SystemEventType.RECV_ISR_1	E	apps/sample_graph.1.trace	RECV IRQ1 (C --> E)
+1000	SystemEventType.RECV_ISR_2	E	apps/sample_graph.1.trace	RECV IRQ2 (C --> E)
+1012	SystemEventType.KERNEL_TIME	E	apps/sample_graph.1.trace	KERNEL
+2012	SystemEventType.APP_TIME	E	apps/sample_graph.1.trace	TASK E
+13512	SystemEventType.KERNEL_TIME	H	apps/sample_graph.1.trace	KERNEL
+14512	SystemEventType.APP_TIME	H	apps/sample_graph.1.trace	TASK H
+26012	SystemEventType.SEND_ISR	H	apps/sample_graph.1.trace	SEND IRQ (H --> J)
+26012	SystemEventType.KERNEL_TIME	I	apps/sample_graph.1.trace	KERNEL
+27012	SystemEventType.APP_TIME	I	apps/sample_graph.1.trace	TASK I
+38512	SystemEventType.SEND_ISR	I	apps/sample_graph.1.trace	SEND IRQ (I --> J)
+0	SystemEventType.RECV_ISR_1	C	apps/sample_graph.0.trace	RECV IRQ1 (A --> C)
+1000	SystemEventType.RECV_ISR_2	C	apps/sample_graph.0.trace	RECV IRQ2 (A --> C)
+1123	SystemEventType.KERNEL_TIME	C	apps/sample_graph.0.trace	KERNEL
+2123	SystemEventType.APP_TIME	C	apps/sample_graph.0.trace	TASK C
+13623	SystemEventType.SEND_ISR	C	apps/sample_graph.0.trace	SEND IRQ (C --> E)
+0	SystemEventType.RECV_ISR_1	G	apps/sample_graph.3.trace	RECV IRQ1 (F --> G)
+1000	SystemEventType.RECV_ISR_2	G	apps/sample_graph.3.trace	RECV IRQ2 (F --> G)
+1678	SystemEventType.KERNEL_TIME	G	apps/sample_graph.3.trace	KERNEL
+2678	SystemEventType.APP_TIME	G	apps/sample_graph.3.trace	TASK G
+14178	SystemEventType.RECV_ISR_1	J	apps/sample_graph.3.trace	RECV IRQ1 (I --> J)
+15178	SystemEventType.RECV_ISR_2	J	apps/sample_graph.3.trace	RECV IRQ2 (I --> J)
+15745	SystemEventType.RECV_ISR_1	J	apps/sample_graph.3.trace	RECV IRQ1 (H --> J)
+16745	SystemEventType.RECV_ISR_2	J	apps/sample_graph.3.trace	RECV IRQ2 (H --> J)
+17635	SystemEventType.KERNEL_TIME	J	apps/sample_graph.3.trace	KERNEL
+18635	SystemEventType.APP_TIME	J	apps/sample_graph.3.trace	TASK J
+0	SystemEventType.KERNEL_TIME	A	apps/sample_graph.2.trace	KERNEL
+1000	SystemEventType.APP_TIME	A	apps/sample_graph.2.trace	TASK A
+12500	SystemEventType.SEND_ISR	A	apps/sample_graph.2.trace	SEND IRQ (A --> C)
+12500	SystemEventType.KERNEL_TIME	B	apps/sample_graph.2.trace	KERNEL
+13500	SystemEventType.APP_TIME	B	apps/sample_graph.2.trace	TASK B
+25000	SystemEventType.KERNEL_TIME	D	apps/sample_graph.2.trace	KERNEL
+26000	SystemEventType.APP_TIME	D	apps/sample_graph.2.trace	TASK D
+37500	SystemEventType.KERNEL_TIME	F	apps/sample_graph.2.trace	KERNEL
+38500	SystemEventType.APP_TIME	F	apps/sample_graph.2.trace	TASK F
+50000	SystemEventType.SEND_ISR	F	apps/sample_graph.2.trace	SEND IRQ (F --> G)

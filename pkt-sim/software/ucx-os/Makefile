@@ -92,11 +92,13 @@ libc.o: $(SRC_DIR)/lib/libc.c
 noc.o: $(SRC_DIR)/lib/noc.c
 	$(CC) $(CFLAGS) $(SRC_DIR)/lib/noc.c
 
-devices.pack: ddma.o
+devices.pack: ddma.o cacc.o
 	@echo null > devices.pack
 	
 ddma.o: $(SRC_DIR)/device/ddma.c
 	$(CC) $(CFLAGS) $(SRC_DIR)/device/ddma.c
+cacc.o: $(SRC_DIR)/device/cacc.c
+	$(CC) $(CFLAGS) $(SRC_DIR)/device/cacc.c
 
 ## kernel + application link
 link:
@@ -128,6 +130,10 @@ echo: rebuild
 
 hello: incl ucx.pack
 	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/hello.o app/hello.c
+	@$(MAKE) --no-print-directory link
+
+weird_a: incl ucx.pack
+	$(CC) $(CFLAGS) -o $(BUILD_APP_DIR)/weird_a.o app/weird_a.c
 	@$(MAKE) --no-print-directory link
 
 hello_p: incl ucx.pack

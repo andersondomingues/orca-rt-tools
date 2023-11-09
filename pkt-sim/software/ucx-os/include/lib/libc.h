@@ -65,5 +65,6 @@ char *ucx_gets(char *s);
 char *ucx_getline(char *s);
 int32_t ucx_printf(const char *fmt, ...);
 int32_t ucx_sprintf(char *out, const char *fmt, ...);
+int ucx_vsprintf(char **buf, const char *fmt, void* arg_v);
 
 

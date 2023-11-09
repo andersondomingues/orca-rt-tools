@@ -23,8 +23,17 @@ module manycore_pe #(parameter
   const int RAM_START         = 'h40000000;  const int RAM_END         = 'h5fffffff;
   const int PERIPH_START      = 'he1000000;  const int PERIPH_END      = 'hefffffff;
   const int INTERNAL_START    = 'hf0000000;  const int INTERNAL_END    = 'hffffffff;
-  const int DDMA_CONFIG_START = 'h20000000;  const int DDMA_CONFIG_END = 'h20000024;
-  const int PRINTCHAR_ADDR    = 'hf00000d0;
+  const int DDMA_CONFIG_START = 'h20000000;  const int DDMA_CONFIG_END = 'h20000030;
+  const int PRINTCHAR_ADDR    = 'hf00000d0;  
+
+
+  function int addr_x();
+    addr_x = ADDRESS & 'h000F;
+  endfunction
+
+  function int addr_y();
+    addr_y = (ADDRESS >> 8 ) & 'h000F;
+  endfunction
 
   function string log_filename();
     automatic string sx;
@@ -32,8 +41,8 @@ module manycore_pe #(parameter
     automatic int x;
     automatic int y;
 
-    x = ADDRESS & 'h000F;
-    y = (ADDRESS >> 8 ) & 'h000F; 
+    x = addr_x();
+    y = addr_y();
 
     sx.itoa(x);
     sy.itoa(y);
@@ -42,7 +51,7 @@ module manycore_pe #(parameter
   endfunction
 
   int print_file = $fopen(log_filename());
-
+  
   // =========================================================
   //                    INTERFACES
   // =========================================================
@@ -111,6 +120,8 @@ module manycore_pe #(parameter
   logic ddma_recv_cmd_in;
 
 
+  word_t cacc_reg;
+  word_t cacc_counter;
 
   always_comb begin
     ddma_if.send_dest_in = ddma_send_dest_in;
@@ -188,16 +199,17 @@ module manycore_pe #(parameter
         'h20000008: cpu_if.data_in <= endianess(ddma_if.send_addr_in);
         'h2000000C: cpu_if.data_in <= endianess(ddma_if.send_size_in);
         'h20000010: cpu_if.data_in <= endianess(ddma_if.send_cmd_in);
-        'h20000014: begin 
-          cpu_if.data_in <= endianess({ 16'b0,
-            ddma_if.state_send_out,
-            ddma_if.state_recv_out
-          });
-        end
+        'h20000014: cpu_if.data_in <= endianess({ 16'b0,
+                                                  ddma_if.state_send_out,
+                                                  ddma_if.state_recv_out
+                                                });
         'h20000018: cpu_if.data_in <= endianess(ddma_if.recv_addr_in);
         'h2000001C: cpu_if.data_in <= endianess(ddma_if.recv_addr_out);
         'h20000020: cpu_if.data_in <= endianess(ddma_if.recv_size_out);
         'h20000024: cpu_if.data_in <= endianess(ddma_if.recv_cmd_in);
+        'h20000028: cpu_if.data_in <= endianess(cacc_reg);
+        'h2000002C: cpu_if.data_in <= endianess(cacc_counter);
+        'h20000030: cpu_if.data_in <= endianess(cacc_counter);
         default: begin
             $display("[%0d ns] illegal read to ddma %h %h.", ($time/1000), 
               dly_address, a_dly_address);
@@ -240,6 +252,23 @@ module manycore_pe #(parameter
   // addressing from missing MMIO access
   word_t a_cpu_addr_out;
   assign a_cpu_addr_out = cpu_if.addr_out & ~3;
+
+
+  // cacc reg writing 
+  always @(posedge clock) begin
+    if(~reset) begin
+      cacc_reg <= (a_cpu_addr_out == 'h20000028 && cpu_if.wb_out) ? endianess(cpu_if.data_out) : cacc_reg;
+      cacc_counter <= (a_cpu_addr_out == 'h2000002C && cpu_if.wb_out) ? endianess(cpu_if.data_out) : cacc_counter + 1;
+
+      if(a_cpu_addr_out == 'h20000030 && cpu_if.wb_out) begin
+        $display("%0d %0d-%0d scheduled %0d", $time/1000, addr_x(), addr_y(), endianess(cpu_if.data_out));
+      end
+
+    end else begin
+      cacc_reg <= 0;
+      cacc_counter <= 0;
+    end
+  end 
 
   // data write to DDMA interface
   always @(posedge clock) begin

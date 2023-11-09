@@ -1,0 +1,5 @@
+0	SystemEventType.RECV_ISR_1	RECV IRQ1 (A --> C)	C
+1000	SystemEventType.RECV_ISR_2	RECV IRQ2 (A --> C)	C
+1123	SystemEventType.KERNEL_TIME	KERNEL	C
+2123	SystemEventType.APP_TIME	TASK C	C
+13623	SystemEventType.SEND_ISR	SEND IRQ (C --> E)	C

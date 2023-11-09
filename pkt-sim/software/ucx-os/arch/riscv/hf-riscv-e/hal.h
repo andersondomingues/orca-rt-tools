@@ -404,6 +404,7 @@ void _context_init(jmp_buf *ctx, size_t sp, size_t ss, size_t ra);
 #define getline(s)			ucx_getline(s)
 #define printf(fmt, ...)		ucx_printf(fmt, ##__VA_ARGS__)
 #define sprintf(out, fmt, ...)		ucx_sprintf(out, fmt, ##__VA_ARGS__)
+#define vprintf(out, fmt, ...)		ucx_vprintf(out, fmt, ##__VA_ARGS__)
 
 #define malloc(n)			ucx_malloc(n)
 #define free(n)				ucx_free(n)

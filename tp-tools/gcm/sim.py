@@ -1,5 +1,7 @@
 from enum import Enum
 from math import ceil
+from gcm.terminal import error
+
 
 class KernelInfo():
     SCHEDULE_IRQ_WCET: int = None    # scheduler wcet (cycles)
@@ -12,26 +14,33 @@ class KernelInfo():
 
     CPU_SPEED: int = None   # cpu speed, in Hertz (Hz)
 
-    def __init__(self, sfreq, swcet, netd1, netd2, netd3, cpu_speed):
+    def __init__(self, sfreq, swcet, netd1, netd2, netd3, cpu_speed, mwcet):
         self.SCHEDULE_IRQ_FREQ = sfreq
         self.SCHEDULE_IRQ_WCET = swcet
         self.NET_IRQ_WCET_RECV_1 = netd1
         self.NET_IRQ_WCET_RECV_2 = netd2
         self.NET_IRQ_WCET_SEND = netd3
-
-        self.SCHEDULE_APP_TIME = (1.0 / self.SCHEDULE_IRQ_FREQ) \
-            - self.SCHEDULE_IRQ_WCET
+        self.MALLOC_WCET = mwcet
 
         self.CPU_SPEED = cpu_speed
+
+        self.SCHEDULE_APP_TIME = (self.CPU_SPEED / self.SCHEDULE_IRQ_FREQ) \
+            - self.SCHEDULE_IRQ_WCET
+
+        if (self.SCHEDULE_APP_TIME < 0):
+            error("Kernel SCHEDULE_IRQ_FREQ is too large for the given "
+                  "SCHEDULE_IRQ_WCET. Scheduler won't have enough time to "
+                  "schedule tasks, nor any task will execute")
 
 
 UCX_OS = KernelInfo(
     sfreq=200,
-    swcet=12345,
+    swcet=1000,
     netd1=0,
     netd2=20,
     netd3=0,
-    cpu_speed=200000000  # 200MHz
+    cpu_speed=2500000,  # 2.5MHz
+    mwcet=1000
 )
 
 
@@ -53,24 +62,22 @@ class AppMessageType(Enum):
 
 
 class AppMessage():
-    _type: AppMessageType = None    # message direction
+    _from: AppTask
+    _to: AppTask
     _payload: int   # payload data, in bytes
-    _task: AppTask  # task to which receive or send
 
-    def __init__(self, type, payload, task):
+    def __init__(self, payload, task_from, task_to):
         self._type = type
         self._payload = payload
-        self._task = task
+        self._from = task_from
+        self._to = task_to
 
     def __str__(self):
-        if (self._type == AppMessageType.OUTGOING):
-            return f"O <-- {self._task._name} ({self._payload})"
-        else:
-            return f"I --> {self._task._name} ({self._payload})"
+        return f"{self._from._name} [{self._payload}]-> ({self._to._name})"
 
 
 class SystemEventType(Enum):
-    APPLICATION_EVENT = 0
+    APP_TIME = 0
     KERNEL_TIME = 1
     SEND_ISR = 2
     RECV_ISR_1 = 3
@@ -80,76 +87,104 @@ class SystemEventType(Enum):
 class SystemEvent():
     _type: SystemEventType = None
     _duration: int = None
+    _initial_time: int = None
+    _label: str = None
+    _group: str = None
 
-    def __init__(self, itime, etype, duration, label):
+    def __init__(self, itime, etype, duration, label, group):
         self._type = etype
         self._duration = duration
         self._initial_time = itime
         self._label = label
+        self._group = group
 
     def __str__(self):
-        return f"[{self._initial_time}] {self._label}"
+        return "\t".join([
+            str(self._initial_time),
+            str(self._type),
+            self._label,
+            self._group])
 
 
 class KernelTracer():
 
-    _event_queue: list[SystemEvent] = []
+    _event_queue: list[SystemEvent] = None
     _global_timer: int = None
 
     def trace(self):
         return "\n".join([str(x) for x in self._event_queue])
 
+    def report(self):
+        info = []
+        info.append("")
+        return ""
+
     def __init__(self, tasks: list[AppTask], imsg: list[AppMessage],
                  kinfo: KernelInfo):
 
         self._global_timer = 0
-
-        # build the trace
-        for m in imsg:
-            if m._type == AppMessageType.INCOMING:
-
-                # first message interruption
-                e: SystemEvent = SystemEvent(self._global_timer,
-                                             SystemEventType.RECV_ISR_1,
-                                             m._payload,  # !TODO malloc time
-                                             "RECV IRQ1")
-
-                self._event_queue.append(e)
-                self._global_timer += int(e._duration)
-
-                # second message interruption
-                e = SystemEvent(self._global_timer,
-                                SystemEventType.RECV_ISR_2,
-                                UCX_OS.NET_IRQ_WCET_RECV_2,
-                                "RECV IRQ2")
-
-                self._event_queue.append(e)
-                self._global_timer += int(e._duration)
+        self._event_queue = []
 
         for t in tasks:
+
             num_of_tasks = ceil(t._wcet / UCX_OS.SCHEDULE_APP_TIME)
+
+            # build the trace
+            for m in imsg:
+                if m._to == t:
+
+                    # first message interruption
+                    e: SystemEvent = SystemEvent(
+                        self._global_timer,
+                        SystemEventType.RECV_ISR_1,
+                        # ## m._payload,  # !TODO malloc time
+                        UCX_OS.MALLOC_WCET,
+                        f"RECV IRQ1 ({m._from._name} --> {m._to._name})",
+                        t._name)
+
+                    self._event_queue.append(e)
+                    self._global_timer += int(e._duration)
+
+                    # second message interruption
+                    e = SystemEvent(
+                        self._global_timer,
+                        SystemEventType.RECV_ISR_2,
+                        # ##UCX_OS.NET_IRQ_WCET_RECV_2,
+                        m._payload,
+                        f"RECV IRQ2 ({m._from._name} --> {m._to._name})",
+                        t._name)
+
+                    self._event_queue.append(e)
+                    self._global_timer += int(e._duration)
+
+            # add the necessary number of time slices
             for i in range(0, num_of_tasks):
                 e: SystemEvent = SystemEvent(self._global_timer,
                                              SystemEventType.KERNEL_TIME,
                                              UCX_OS.SCHEDULE_IRQ_WCET,
-                                             "KERNEL")
+                                             "KERNEL",
+                                             t._name)
                 self._event_queue.append(e)
                 self._global_timer += int(e._duration)
 
                 e: SystemEvent = SystemEvent(self._global_timer,
-                                             SystemEventType.APPLICATION_EVENT,
+                                             SystemEventType.APP_TIME,
                                              UCX_OS.SCHEDULE_APP_TIME,
-                                             f"TASK {t._name}")
+                                             f"TASK {t._name}",
+                                             t._name)
                 self._event_queue.append(e)
                 self._global_timer += int(e._duration)
 
-        for m in imsg:
-            if m._type == AppMessageType.OUTGOING:
-                # dma activation
-                e: SystemEvent = SystemEvent(self._global_timer,
-                                             SystemEventType.SEND_ISR,
-                                             UCX_OS.NET_IRQ_WCET_SEND,
-                                             "SEND IRQ")
+            # add outgoing messages
+            for m in imsg:
+                if m._from == t:
+                    # dma activation
+                    e: SystemEvent = SystemEvent(
+                        self._global_timer,
+                        SystemEventType.SEND_ISR,
+                        UCX_OS.NET_IRQ_WCET_SEND,
+                        f"SEND IRQ ({m._from._name} --> {m._to._name})",
+                        t._name)
 
-                self._event_queue.append(e)
-                self._global_timer += int(e._duration)
+                    self._event_queue.append(e)
+                    self._global_timer += int(e._duration)

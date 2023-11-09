@@ -97,14 +97,23 @@ void ucx_task_yield()
 	_yield();
 }
 
+long long unsigned int disp_timer = 0;
+// #define volatile unsigned int* cacc_timer = 0x20000028;
+
 void dispatch(void)
 {
 	if (!setjmp(kcb_p->tcb_p->context)) {
 		krnl_delay_update();
 		krnl_stack_check();
     
-		int32_t task_id = krnl_rt_schedule();
-		if (task_id < 0) task_id = krnl_schedule();
+    disp_timer++;
+    set_cacc(disp_timer);
+    set_counter_1(0);
+
+		// int32_t task_id = krnl_rt_schedule();
+		// if (task_id < 0) task_id = krnl_schedule();
+    int32_t task_id = krnl_schedule();
+    set_counter_2(task_id);
 
 		// printf("SCHED %d %d %s ##\n", sched_counter++, kcb_p->tcb_p->id, kcb_p->tcb_p->name);
 		// printf("tcb_next:     0x%x   task:         0x%x\n", kcb_p->tcb_p->tcb_next, kcb_p->tcb_p->task);

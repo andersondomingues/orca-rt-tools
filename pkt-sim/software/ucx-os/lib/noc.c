@@ -29,10 +29,10 @@ void irq1_handler(void){
 // to the heap of the length of the packet. 
 void irq2_handler(void){
   uint32_t pkt_size = _ddma_recv_size(); // packet size in flits
-  printf("irq2_handler(): incoming packet of size %d (flits)\n", pkt_size);
+  // printf("irq2_handler(): incoming packet of size %d (flits)\n", pkt_size);
   
   noc_packet_t* pkt = (noc_packet_t*) ucx_malloc(pkt_size * 4); // malloc in bytes
-  printf("irq2_handler(): ucx_malloc returned 0x%x\n", (uint32_t)pkt);
+  // printf("irq2_handler(): ucx_malloc returned 0x%x\n", (uint32_t)pkt);
 
   _ddma_set_recv_addr((uint32_t)pkt); // send packet address to the ddma
   _ddma_recv_ack();
@@ -46,13 +46,13 @@ void irq3_handler(void){
 
   noc_packet_t* pkt = (noc_packet_t*) _ddma_get_recv_addr();
 
-  printf("irq3_handler(): received packet stored at 0x%x\n", pkt);
+  // printf("irq3_handler(): received packet stored at 0x%x\n", pkt);
 
-  printf("irq3_handler() 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n",
-    (pkt->source_node), (pkt->target_node),
-    (pkt->source_port), (pkt->target_port),
-    (pkt->payload_size), (pkt->tag)
-  );
+  // printf("irq3_handler() 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n",
+  //   (pkt->source_node), (pkt->target_node),
+  //   (pkt->source_port), (pkt->target_port),
+  //   (pkt->payload_size), (pkt->tag)
+  // );
 
   // printf("irq3_handler() %c%c%c%c %c%c%c%c\n",
   //   pkt->data[0], pkt->data[1],
@@ -280,22 +280,15 @@ noc_packet_t* ucx_noc_create_packet(uint32_t size){
 uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port, 
   noc_packet_t* pkt, uint16_t tag)
 {
+  pkt->target_node = target_cpu;
+  pkt->target_port = target_port;
+  pkt->tag = tag;
+
   //check whether the packet destination lies in the same pcore
   if(target_cpu != ucx_noc_cpu_id()) {
     // prevent user from sending another packet until the 
     // ddma gets ready again (0x1 is the idle state)
     while(_ddma_send_status() != 0x1);
-
-    pkt->target_node = target_cpu;
-    pkt->target_port = target_port;
-    pkt->tag = tag;
-
-    // printf("ucx_noc_send() 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x %s\n",
-    //   pkt->source_node, pkt->target_node,
-    //   pkt->source_port, pkt->target_port,
-    //   pkt->payload_size, pkt->tag,
-    //   pkt->data
-    // );
 
     // send async
     return _ddma_send(target_cpu, sizeof(noc_packet_t) + pkt->payload_size,
@@ -303,23 +296,23 @@ uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port,
 
   // TODO: push packets into the private queue
   } else {
-    printf("ucx_noc_send(): packet with same source/destination\n");
+    // printf("ucx_noc_send(): packet with same source/destination\n");
 
     // teste whether the target port has a comm open
     int target_task = -1;
 
-    for (int i = 0; i < MAX_TASKS; i++) {
-      if (pktdrv_ports[i] == target_port) {
+    for (int i = 0; i < MAX_TASKS; i++)
+      if (pktdrv_ports[i] == target_port) 
         target_task = i;
-      }
-    }
 
     if(target_task == -1) {
+      printf("could not deliver pkt, task has no comm open.");
       return UCX_NOC_PORT_HAS_NO_TASK;
-    } else if (pktdrv_tqueue[target_task] == NULL) {
-      return UCX_NOC_WUT;
-    } else {
-      return ucx_queue_enqueue(pktdrv_tqueue[target_task], pkt);
     }
+    
+    if (pktdrv_tqueue[target_task] == NULL) 
+      return UCX_NOC_WUT;
+    
+    return ucx_queue_enqueue(pktdrv_tqueue[target_task], pkt);
   }
 }
