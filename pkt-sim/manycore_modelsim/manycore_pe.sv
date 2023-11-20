@@ -23,7 +23,7 @@ module manycore_pe #(parameter
   const int RAM_START         = 'h40000000;  const int RAM_END         = 'h5fffffff;
   const int PERIPH_START      = 'he1000000;  const int PERIPH_END      = 'hefffffff;
   const int INTERNAL_START    = 'hf0000000;  const int INTERNAL_END    = 'hffffffff;
-  const int DDMA_CONFIG_START = 'h20000000;  const int DDMA_CONFIG_END = 'h20000030;
+  const int DDMA_CONFIG_START = 'h20000000;  const int DDMA_CONFIG_END = 'h20000038;
   const int PRINTCHAR_ADDR    = 'hf00000d0;  
 
 
@@ -121,7 +121,11 @@ module manycore_pe #(parameter
 
 
   word_t cacc_reg;
-  word_t cacc_counter;
+  word_t cacc_counter;    // log time
+  word_t cacc_counter_2;  // log sched
+  word_t cacc_counter_3;  // log send ops
+  word_t cacc_counter_4;  // log recv ops
+
 
   always_comb begin
     ddma_if.send_dest_in = ddma_send_dest_in;
@@ -209,16 +213,18 @@ module manycore_pe #(parameter
         'h20000024: cpu_if.data_in <= endianess(ddma_if.recv_cmd_in);
         'h20000028: cpu_if.data_in <= endianess(cacc_reg);
         'h2000002C: cpu_if.data_in <= endianess(cacc_counter);
-        'h20000030: cpu_if.data_in <= endianess(cacc_counter);
+        'h20000030: cpu_if.data_in <= endianess(cacc_counter_2);
+        'h20000034: cpu_if.data_in <= endianess(cacc_counter_3);
+        'h20000038: cpu_if.data_in <= endianess(cacc_counter_4);
         default: begin
-            $display("[%0d ns] illegal read to ddma %h %h.", ($time/1000), 
+            $display("[%0d ns] illegal read to ddma %h %h.", ($time), 
               dly_address, a_dly_address);
         end 
       endcase
 
     // unknown addressess
     end else if ($time() != 0 && dly_address != PRINTCHAR_ADDR) begin
-      $display("[%0d ns] illegal read to region %h.", ($time/1000), dly_address);
+      $display("[%0d ns] illegal read to region %h.", ($time), dly_address);
       cpu_if.data_in = 0;
     end 
   end 
@@ -259,9 +265,20 @@ module manycore_pe #(parameter
     if(~reset) begin
       cacc_reg <= (a_cpu_addr_out == 'h20000028 && cpu_if.wb_out) ? endianess(cpu_if.data_out) : cacc_reg;
       cacc_counter <= (a_cpu_addr_out == 'h2000002C && cpu_if.wb_out) ? endianess(cpu_if.data_out) : cacc_counter + 1;
+      cacc_counter_2 <= (a_cpu_addr_out == 'h20000030 && cpu_if.wb_out) ? endianess(cpu_if.data_out) : cacc_counter_2;
+      cacc_counter_3 <= (a_cpu_addr_out == 'h20000034 && cpu_if.wb_out) ? endianess(cpu_if.data_out) : cacc_counter_3;
+      cacc_counter_4 <= (a_cpu_addr_out == 'h20000038 && cpu_if.wb_out) ? endianess(cpu_if.data_out) : cacc_counter_4;
+
+      if(a_cpu_addr_out == 'h20000038 && cpu_if.wb_out) begin
+        $display("%0d %0d-%0d <- TAG %0d", $realtime, addr_x(), addr_y(), endianess(cpu_if.data_out));
+      end
+
+      if(a_cpu_addr_out == 'h20000034 && cpu_if.wb_out) begin
+        $display("%0d %0d-%0d -> TAG %0d", $realtime, addr_x(), addr_y(), endianess(cpu_if.data_out));
+      end
 
       if(a_cpu_addr_out == 'h20000030 && cpu_if.wb_out) begin
-        $display("%0d %0d-%0d scheduled %0d", $time/1000, addr_x(), addr_y(), endianess(cpu_if.data_out));
+        $display("%0d %0d-%0d scheduled %0d", $realtime, addr_x(), addr_y(), endianess(cpu_if.data_out));
       end
 
     end else begin

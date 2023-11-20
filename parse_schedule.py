@@ -8,8 +8,67 @@ task_names = {
 	"1-0": ['H', 'I', 'E']
 }
 
-def parse_flowS(args):
+# -~> label
+# ~> label
+# -> label
+def parse_flows(args):
 	pass
+
+
+def create_ganttdff_groups(group_name, events):
+	ll = []
+	ll.append("\\ganttgroup[inline=false,group/.style={draw=none,fill=none}]{" + group_name + "}{0}{0} \n")
+
+	time = 0
+
+	for e in events:
+		ll.append("\\ganttbar[name=" + e["task"] + "]{" + e["task"] + "}{" + time + "}{" +  + "}")
+
+	return ll
+
+	
+
+
+def parse_schedule_latex(args):
+
+	# parse text lines, remove garbage
+	v = []
+	with open(args[0]) as f:
+		v = [x.replace("\n","").replace("#","").strip() for x in f.readlines() if x.strip() != "" and x.find("scheduled") > 0] 
+
+	# separate tasks per node
+	n = {}
+	for tn in task_names.keys():
+		n[tn] = []
+
+	for l in v:
+		vv = l.split(' ')
+		obj = {
+			"time": vv[0],
+			"node": vv[1],
+			"task": vv[3]
+		}
+		n[vv[1]].append(obj)
+
+	groups = []
+
+	# header
+	
+	
+	# groups
+	for nn in n:
+		lines = create_ganttpdf_group(nn, n[nn])
+		for l in lines:
+			groups.append(l)
+
+
+
+
+
+	
+
+	
+
 
 def parse_schedule(args):
 
@@ -57,7 +116,8 @@ def parse_schedule(args):
 
 	
 def main(args):
-	parse_schedule(args)
+# 	parse_schedule(args)
+	parse_schedule_latex(args)
 	parse_flows(args)
 
 if __name__ == "__main__":

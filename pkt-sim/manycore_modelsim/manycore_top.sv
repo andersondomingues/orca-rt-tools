@@ -1,4 +1,5 @@
 `timescale 1ns/100ps
+//`timescale 1ns/1ns
 
 module manycore_top #(parameter 
   FLIT_WIDTH = 32,        // 32-bit flit width
@@ -23,7 +24,7 @@ module manycore_top #(parameter
   always #2 reset = 0; 
 
   // simulation time reporting
-  always #1_000_000 $display("Elapsed 1ms. $now is %g ns.", $realtime);
+  always #1_000_000 $display("Elapsed 1ms. $now is %0t ns.", $realtime);
 
   // generate NOC_DIM_X * NOC_DIM_Y pe nodes
   genvar i, j;

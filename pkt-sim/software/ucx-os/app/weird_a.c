@@ -82,12 +82,12 @@ void task_a()
 
   tprintf("A->B\n");
   noc_packet_t *pkt = create_pkt(COMM_AB_WORKLOAD);
-  ucx_noc_send(CPU_B, PORT_B, pkt, 0);
+  ucx_noc_send(CPU_B, PORT_B, pkt, COMM_AB_WORKLOAD);
   ucx_free(pkt);
 
   tprintf("A->C\n");
   pkt = create_pkt(COMM_AC_WORKLOAD);
-  ucx_noc_send(CPU_C, PORT_C, pkt, 0);
+  ucx_noc_send(CPU_C, PORT_C, pkt, COMM_AC_WORKLOAD);
   ucx_free(pkt);
 
   ucx_sleep(-1);
@@ -103,7 +103,7 @@ void task_b()
 
   tprintf("B->D\n");
   noc_packet_t *pkt = create_pkt(COMM_BD_WORKLOAD);
-  ucx_noc_send(CPU_D, PORT_D, pkt, 0);
+  ucx_noc_send(CPU_D, PORT_D, pkt, COMM_BD_WORKLOAD);
 
   ucx_sleep(-1);
 }
@@ -118,7 +118,7 @@ void task_c()
 
   tprintf("C->E\n");
   noc_packet_t *pkt = create_pkt(COMM_CE_WORKLOAD);
-  ucx_noc_send(CPU_E, PORT_E, pkt, 0);
+  ucx_noc_send(CPU_E, PORT_E, pkt, COMM_CE_WORKLOAD);
 
   ucx_sleep(-1);
 }
@@ -133,7 +133,7 @@ void task_d()
 
   tprintf("D->F\n");
   noc_packet_t *pkt = create_pkt(COMM_DF_WORKLOAD);
-  ucx_noc_send(CPU_F, PORT_F, pkt, 0);
+  ucx_noc_send(CPU_F, PORT_F, pkt, COMM_DF_WORKLOAD);
 
   ucx_sleep(-1);
 }
@@ -148,12 +148,12 @@ void task_e()
 
   tprintf("E->I\n");
   noc_packet_t *pkt = create_pkt(COMM_EI_WORKLOAD);
-  ucx_noc_send(CPU_I, PORT_I, pkt, 0);
+  ucx_noc_send(CPU_I, PORT_I, pkt, COMM_DF_WORKLOAD);
   ucx_free(pkt);  // << avoid malloc error
 
   tprintf("E->H\n");
   pkt = create_pkt(COMM_EH_WORKLOAD);
-  ucx_noc_send(CPU_H, PORT_H, pkt, 0);
+  ucx_noc_send(CPU_H, PORT_H, pkt, COMM_EH_WORKLOAD);
 
   ucx_sleep(-1);
 }
@@ -168,7 +168,7 @@ void task_f()
 
   tprintf("F->G\n");
   noc_packet_t *pkt = create_pkt(COMM_FG_WORKLOAD);
-  ucx_noc_send(CPU_G, PORT_G, pkt, 0);
+  ucx_noc_send(CPU_G, PORT_G, pkt, COMM_FG_WORKLOAD);
 
   ucx_sleep(-1);
 }
@@ -183,7 +183,7 @@ void task_g()
 
   tprintf("G->J\n");
   noc_packet_t *pkt = create_pkt(COMM_GJ_WORKLOAD);
-  ucx_noc_send(CPU_J, PORT_J, pkt, 0);
+  ucx_noc_send(CPU_J, PORT_J, pkt, COMM_GJ_WORKLOAD);
 
   ucx_sleep(-1);
 }
@@ -198,8 +198,7 @@ void task_h()
 
   tprintf("H->J\n");
   noc_packet_t *pkt = create_pkt(COMM_HJ_WORKLOAD);
-
-  ucx_noc_send(CPU_J, PORT_J, pkt, 0);
+  ucx_noc_send(CPU_J, PORT_J, pkt, COMM_HJ_WORKLOAD);
 
   ucx_sleep(-1);
 }
@@ -214,7 +213,7 @@ void task_i()
 
   tprintf("I->J\n");
   noc_packet_t *pkt = create_pkt(COMM_IJ_WORKLOAD);
-  ucx_noc_send(CPU_J, PORT_J, pkt, 0);
+  ucx_noc_send(CPU_J, PORT_J, pkt, COMM_IJ_WORKLOAD);
 
   ucx_sleep(-1);
 }
@@ -236,8 +235,7 @@ void task_j()
 void idle_task_p(void)
 {
   // ucx_sleep(-1);
-  for (;;)
-    ;
+  for (;;);
 }
 
 int32_t app_main(void)
@@ -263,7 +261,7 @@ int32_t app_main(void)
     break;
   case 3: // GJ
     ucx_task_add(task_j, "J", DEFAULT_STACK_SIZE, 0, 0, 0);
-    ucx_task_add(task_g, "G", DEFAULT_STACK_SIZE, 0, 0, 0);    
+    ucx_task_add(task_g, "G", DEFAULT_STACK_SIZE, 0, 0, 0);
     break;
   default:
     ucx_task_add(idle_task_p, "IDLE", DEFAULT_STACK_SIZE, 0, 0, 0);

@@ -4,6 +4,9 @@ volatile uint32_t* CACC_REGISTER = (volatile uint32_t *)(0x20000028);
 volatile uint32_t* CACC_COUNTER1 = (volatile uint32_t *)(0x2000002C);
 volatile uint32_t* CACC_COUNTER2 = (volatile uint32_t *)(0x20000030);
 
+volatile uint32_t* CACC_COUNTER3 = (volatile uint32_t *)(0x20000034);
+volatile uint32_t* CACC_COUNTER4 = (volatile uint32_t *)(0x20000038);
+
 void set_cacc(uint32_t v){
   *CACC_REGISTER = v;
 }
@@ -26,4 +29,20 @@ void set_counter_2(uint32_t v){
 
 uint32_t get_counter_2(){
   return *CACC_COUNTER2;
+}
+
+void set_counter_3(uint32_t v){
+  *CACC_COUNTER3 = v;
+}
+
+uint32_t get_counter_3(){
+  return *CACC_COUNTER3;
+}
+
+void set_counter_4(uint32_t v){
+  *CACC_COUNTER4 = v;
+}
+
+uint32_t get_counter_4(){
+  return *CACC_COUNTER4;
 }

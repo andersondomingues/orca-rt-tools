@@ -89,6 +89,7 @@ module ddma #(parameter
   // - an action changes if it timeouts or finish before the timeout
   // - if an action chaging would cause no effect, it won't change instead
 
+  integer send_serial_counter = 0;
 
   // address can come from either send or receiving processess. 
   // memory will be set to write mode only when receiving flits,
@@ -185,6 +186,7 @@ module ddma #(parameter
         SENDING_HANDSHAKE: begin
           if(ddma_if.send_cmd_in == 0) begin
             sstate <= SENDING_IDLE;
+            //$display("%0t network -> done %h %h %0d %0d", ($realtime), ADDRESS, temp_destination, temp_num_flits_in, send_serial_counter);
           end
         end
 
@@ -214,6 +216,7 @@ module ddma #(parameter
           if (router_if.credit_o == 1) begin
             router_if.data_i <= temp_destination;
             router_if.rx <= 1;
+            //$display("%0t network -> start %h %h %0d %0d", ($realtime), ADDRESS, temp_destination, temp_num_flits_in, ++send_serial_counter);
             //`warn(("TX %h: %s %h %h", ADDRESS, sstate, temp_destination, temp_addr_in));
 
           end else begin
@@ -343,6 +346,8 @@ module ddma #(parameter
     end 
   end 
 
+
+  integer recv_serial_counter = 0;
   // ============================== RECEIVING BH ============================
   always @(posedge clock) begin
     if(~reset) begin
@@ -353,6 +358,7 @@ module ddma #(parameter
           if(router_if.tx == 1) begin
             router_if.credit_i <= 1;
             //`info(("RX %h: %s %h", ADDRESS,rstate, router_if.data_o));            
+            //$display("%0t network <- start %h %h %0d", ($realtime), ADDRESS, router_if.data_o, ++recv_serial_counter);
           end else begin
             router_if.credit_i <= 0;
           end
@@ -411,6 +417,7 @@ module ddma #(parameter
         RECEIVING_HANDSHAKE: begin
           if($past(rstate == RECEIVING_PAYLOAD)) begin
             //`info(("RX %h: %s %h %h %s", ADDRESS, "RECEIVING_PAYLOAD", temp_recv_addr, router_if.data_o, router_if.data_o));
+            //$display("%0t network <- done %h %0d", ($realtime), ADDRESS, recv_serial_counter);
           end
           mem_if.wb_in <= 0;
           router_if.credit_i <= 0;

@@ -60,6 +60,7 @@ void irq3_handler(void){
   //   pkt->data[4], pkt->data[5],
   //   pkt->data[6], pkt->data[7]
   // );
+  set_counter_4(pkt->tag);
 
   // get rid of packets which address is not the same of this cpu
   if (pkt->target_node != ucx_noc_cpu_id())
@@ -284,6 +285,8 @@ uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port,
   pkt->target_port = target_port;
   pkt->tag = tag;
 
+  set_counter_3(pkt->tag);
+
   //check whether the packet destination lies in the same pcore
   if(target_cpu != ucx_noc_cpu_id()) {
     // prevent user from sending another packet until the 
@@ -297,6 +300,7 @@ uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port,
   // TODO: push packets into the private queue
   } else {
     // printf("ucx_noc_send(): packet with same source/destination\n");
+    set_counter_4(pkt->tag);
 
     // teste whether the target port has a comm open
     int target_task = -1;
