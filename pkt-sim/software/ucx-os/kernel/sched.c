@@ -12,6 +12,32 @@
 void _dispatch(void) __attribute__ ((weak, alias ("dispatch")));
 void _yield(void) __attribute__ ((weak, alias ("yield")));
 
+void wake_up_init(){
+  IRQ_MASK |= MASK_IRQ4;
+}
+
+void irq4_handler(void){
+  // task A must reside in node 0
+  if(ucx_noc_cpu_id() == 0){
+
+    struct tcb_s* current_task = kcb_p->tcb_p;
+
+    do {
+      if(strcmp(current_task->name, "A") == 0){
+        current_task->state = TASK_READY;
+        break;
+      } else {
+        current_task = current_task->tcb_next;
+      }
+    } while (1);
+  }
+
+  // flag interruption down
+  volatile int* irq_flag_down = (volatile int*)(0x2000004C);
+  *irq_flag_down = !(*irq_flag_down);
+}
+
+
 
 /* kernel auxiliary functions */
 
@@ -68,22 +94,51 @@ long unsigned int sched_counter = 0;
 /* task scheduler and dispatcher */
 uint16_t krnl_schedule(void)
 {
-	if (kcb_p->tcb_p->state == TASK_RUNNING)
+  // put current task into ready state fi still running
+  if (kcb_p->tcb_p->state == TASK_RUNNING)
 		kcb_p->tcb_p->state = TASK_READY;
 
-	do {
+  struct tcb_s* current_task = kcb_p->tcb_p;
+
+	//do {
 		do {
+      // advance to next task in the circular queue
 			kcb_p->tcb_p = kcb_p->tcb_p->tcb_next;
 
-		// prevent real time tasks from being scheduled by the 
-		// best effort schedule
-		} while (kcb_p->tcb_p->state != TASK_READY && kcb_p->tcb_p->rt->period != 0);
-	} while (--kcb_p->tcb_p->priority & 0xff);
+      // no more tasks to search, skip
+      if (kcb_p->tcb_p->id == current_task->id) {
+          break;
+      }
 
-	kcb_p->tcb_p->priority |= (kcb_p->tcb_p->priority >> 8) & 0xff;
+    // keep seaching for tasks in ready state
+		} while (kcb_p->tcb_p->state != TASK_READY || kcb_p->tcb_p->id == 0);
+	//} while (--kcb_p->tcb_p->priority & 0xff);
+
+  // if no task is available, go idling
+  if (kcb_p->tcb_p->state != TASK_READY){
+    kcb_p->tcb_p = kcb_p->tcb_first;
+  }
+
+  // put next task into running state
+	//kcb_p->tcb_p->priority |= (kcb_p->tcb_p->priority >> 8) & 0xff;
 	kcb_p->tcb_p->state = TASK_RUNNING;
 	kcb_p->ctx_switches++;
 
+  // struct tcb_s* selected_task = kcb_p->tcb_p;
+  // uint16_t selected_task_id = selected_task->id;
+  
+  // do {  
+  //   printf("%s=%d\t", selected_task->name, selected_task->state);
+    
+  //   // advance to next task in the circular queue
+	// 	selected_task = selected_task->tcb_next;
+
+  //   // keep seaching for tasks in ready state
+	// } while (selected_task->id != selected_task_id);
+  // printf("\n");
+
+
+  set_counter_2(kcb_p->tcb_p->id);
 	return kcb_p->tcb_p->id;
 }
 
@@ -112,8 +167,8 @@ void dispatch(void)
 
 		// int32_t task_id = krnl_rt_schedule();
 		// if (task_id < 0) task_id = krnl_schedule();
-    int32_t task_id = krnl_schedule();
-    set_counter_2(task_id);
+    //int32_t task_id = 
+    krnl_schedule();
 
 		// printf("SCHED %d %d %s ##\n", sched_counter++, kcb_p->tcb_p->id, kcb_p->tcb_p->name);
 		// printf("tcb_next:     0x%x   task:         0x%x\n", kcb_p->tcb_p->tcb_next, kcb_p->tcb_p->task);

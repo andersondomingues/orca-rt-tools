@@ -24,6 +24,7 @@ int32_t main(void)
 
   // initilize noc drivers before adding tasks
   noc_driver_init();
+  wake_up_init();
 
   // call the main routine from task code
   pr = app_main();

@@ -2,7 +2,7 @@
 
 MEMORY
 {
-	RAM (rwx)     : ORIGIN = 0x40000000, LENGTH = 32K
+	RAM (rwx)     : ORIGIN = 0x40000000, LENGTH = 64K
 }
 
 /* Entry Point */

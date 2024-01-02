@@ -23,7 +23,7 @@ module manycore_pe #(parameter
   const int RAM_START         = 'h40000000;  const int RAM_END         = 'h5fffffff;
   const int PERIPH_START      = 'he1000000;  const int PERIPH_END      = 'hefffffff;
   const int INTERNAL_START    = 'hf0000000;  const int INTERNAL_END    = 'hffffffff;
-  const int DDMA_CONFIG_START = 'h20000000;  const int DDMA_CONFIG_END = 'h20000038;
+  const int DDMA_CONFIG_START = 'h20000000;  const int DDMA_CONFIG_END = 'h2000004C;
   const int PRINTCHAR_ADDR    = 'hf00000d0;  
 
 
@@ -137,6 +137,51 @@ module manycore_pe #(parameter
     ddma_if.recv_cmd_in = ddma_recv_cmd_in;
   end 
 
+  typedef enum logic[1:0] {
+    COUNTING = 2'b01,
+    IRQ_SEND = 2'b10
+  } wake_up_state_s;
+
+  // workflow controller, mimics external comm system
+  logic   wake_up_irq;
+  integer wake_up_counter;
+  integer wake_up_alarm = 2_000_000;
+  wake_up_state_s wake_up_state;
+  
+  logic wakeup_ack_flip; // written by memory
+  logic wakeup_ack_flip_sh; // written by process
+
+  always @(posedge clock) begin
+    if (~reset) begin
+      case (wake_up_state) 
+        COUNTING: begin
+          wake_up_state <= (wake_up_counter == 0) ? IRQ_SEND : COUNTING;
+          wake_up_irq <= 0;
+        end
+
+        IRQ_SEND: begin
+          wake_up_state <= (wakeup_ack_flip == wakeup_ack_flip_sh) ? IRQ_SEND : COUNTING;
+          wake_up_irq <= 1;
+        end
+
+      endcase
+
+      if($past(wake_up_state) != wake_up_state) begin
+        $display("Switched from %s to %s\n", $past(wake_up_state), wake_up_state);
+        $display("Counter is %d\n", $past(wake_up_counter));
+        $display("Time is %d", $time);
+      end
+
+      // update clock range
+      wake_up_counter <= (wake_up_counter + 1) % wake_up_alarm;
+      wakeup_ack_flip_sh <= wakeup_ack_flip;
+
+    end else begin
+      wake_up_state <= COUNTING;
+      wake_up_counter <= 1;
+    end
+  end 
+
 
   // =========================================================
   //                    MEM / CPU / PERIPHERALS
@@ -145,7 +190,8 @@ module manycore_pe #(parameter
   // R: ddma receive process irq
   // S: ddma send process ack irq
   // P: peripherals interruptions
-  assign cpu_if.extio_in = { 4'b0,
+  assign cpu_if.extio_in = { 3'b0,
+    wake_up_irq,
     ddma_if.irq_recv_hshk_out, // irq 3
     ddma_if.irq_recv_size_out, // irq 2
     ddma_if.irq_send_out, 
@@ -216,6 +262,7 @@ module manycore_pe #(parameter
         'h20000030: cpu_if.data_in <= endianess(cacc_counter_2);
         'h20000034: cpu_if.data_in <= endianess(cacc_counter_3);
         'h20000038: cpu_if.data_in <= endianess(cacc_counter_4);
+        'h2000004C: cpu_if.data_in <= endianess(wakeup_ack_flip);
         default: begin
             $display("[%0d ns] illegal read to ddma %h %h.", ($time), 
               dly_address, a_dly_address);
@@ -258,6 +305,14 @@ module manycore_pe #(parameter
   // addressing from missing MMIO access
   word_t a_cpu_addr_out;
   assign a_cpu_addr_out = cpu_if.addr_out & ~3;
+
+  always @(posedge clock) begin
+    if(~reset) begin
+      wakeup_ack_flip <= (a_cpu_addr_out == 'h2000004C && cpu_if.wb_out) ? endianess(cpu_if.data_out) : wakeup_ack_flip;
+    end else begin
+      wakeup_ack_flip <= 0;
+    end
+  end
 
 
   // cacc reg writing 

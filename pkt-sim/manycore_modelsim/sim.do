@@ -56,7 +56,9 @@ vlog -mixedsvvh -sv -work work ./manycore_top.sv
 # ~50s   #vsim -t ps work.manycore_top
 # ~58s   #vsim -voptargs=+acc=lprn -t ps -debugDB work.manycore_top -wlf vsim.wlf
 # ~48s   #vsim -t ns work.manycore_top
-vsim -t ns work.manycore_top
+
+# vsim -t ns work.manycore_top
+vsim work.manycore_top
 
 # do modelsim config. override
 quietly set StdArithNoWarnings 1

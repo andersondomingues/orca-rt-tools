@@ -15,6 +15,14 @@ uint32_t ucx_noc_cpu_id(void)
 }
 
 
+
+void enable_receiver(uint16_t task_id){
+  // locate receiver tasks and remove blocked state
+  struct tcb_s* p = kcb_p->tcb_p;
+  while(p->id != task_id) p = p->tcb_next; 
+  p->state = TASK_READY;
+}
+
 // Implementation of the irq1_handler, intercepts 
 // sending interruptions. While sending, the ddma 
 // will interrupt the cpu to acknowledge the sending
@@ -44,6 +52,7 @@ void irq2_handler(void){
 // right queue accordingly to its port.
 void irq3_handler(void){
 
+  _di();
   noc_packet_t* pkt = (noc_packet_t*) _ddma_get_recv_addr();
 
   // printf("irq3_handler(): received packet stored at 0x%x\n", pkt);
@@ -60,8 +69,6 @@ void irq3_handler(void){
   //   pkt->data[4], pkt->data[5],
   //   pkt->data[6], pkt->data[7]
   // );
-  set_counter_4(pkt->tag);
-
   // get rid of packets which address is not the same of this cpu
   if (pkt->target_node != ucx_noc_cpu_id())
   {
@@ -85,9 +92,13 @@ void irq3_handler(void){
       free(pkt);
       // ucx_queue_enqueue(pktdrv_queue, pkt);
     }
+
+    set_counter_4(pkt->tag);
+    enable_receiver(k);
   }
   _ddma_recv_ack();
 }
+
 
 // PROBE!
 int32_t ucx_noc_probe()
@@ -97,7 +108,13 @@ int32_t ucx_noc_probe()
   if (pktdrv_tqueue[task_id] == NULL)
     return UCX_NOC_TASK_NOT_BOUND;
 
-  return ucx_queue_count(pktdrv_tqueue[task_id]);
+  int16_t pkt_c = ucx_queue_count(pktdrv_tqueue[task_id]);
+  if(pkt_c == 0){
+    kcb_p->tcb_p->state = TASK_BLOCKED;
+	  ucx_task_yield();
+  }
+
+  return pkt_c;
 }
 
 // Initializes a queue of packets using one of the available ports. May a
@@ -300,8 +317,7 @@ uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port,
   // TODO: push packets into the private queue
   } else {
     // printf("ucx_noc_send(): packet with same source/destination\n");
-    set_counter_4(pkt->tag);
-
+    
     // teste whether the target port has a comm open
     int target_task = -1;
 
@@ -316,6 +332,9 @@ uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port,
     
     if (pktdrv_tqueue[target_task] == NULL) 
       return UCX_NOC_WUT;
+
+    set_counter_4(pkt->tag);
+    enable_receiver(target_task);    
     
     return ucx_queue_enqueue(pktdrv_tqueue[target_task], pkt);
   }
