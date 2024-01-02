@@ -1,0 +1,10 @@
+# ORT/GCM: ORCA-RT-TOOLS/Graph Collapse Method
+
+This module implements the collapse algorithm for graph clustering
+
+`gcm <ifile> <num_nodes> <criteria>`
+
+- `ifile`: Input file containing a graph description (ORCA format)
+- `num_nodes`: Target number of clusters (WARN: graph must have a single component; i.e: disjoint sets of connected vertices are not allowed) 
+- `criteria`: criteria to tag edges for removal
+

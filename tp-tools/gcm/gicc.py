@@ -1,10 +1,10 @@
-from gcm.graph import Graph, GraphNode, GraphEdge
+from gsl.graph import Graph, GraphNode, GraphEdge
 
 
 class CriteriaICC():
 
     @classmethod
-    def MAX_NET_USAGE(cls, g: Graph):
+    def MIN_COMM(cls, g: Graph):
         # locate highest network flow
         edge: GraphEdge = None
         for e in g._edges:
@@ -15,7 +15,37 @@ class CriteriaICC():
         return edge
 
     @classmethod
-    def MIN_CPU_USAGE(cls, g: Graph):
+    def MAX_COMM(cls, g: Graph):
+        # locate highest network flow
+        edge: GraphEdge = None
+        for e in g._edges:
+            if (edge is None):
+                edge = e
+            elif (int(e._data["payload"]) < int(edge._data["payload"])):
+                edge = e
+        return edge
+
+
+    @classmethod
+    def MIN_PROC(cls, g: Graph):
+        min_usage: int = 0
+        edge: GraphEdge = None
+
+        for e in g._edges:
+            if (edge is None):
+                edge = e
+                min_usage = int(e._from._data["wcet"]) \
+                    + int(e._to._data["wcet"])
+            else:
+                tsum: int = int(e._from._data["wcet"]) \
+                    + int(e._to._data["wcet"])
+                if tsum > min_usage:
+                    edge = e
+                    min_usage = tsum
+        return edge
+
+    @classmethod
+    def MAX_PROC(cls, g: Graph):
         min_usage: int = 0
         edge: GraphEdge = None
 
@@ -32,6 +62,11 @@ class CriteriaICC():
                     min_usage = tsum
         return edge
 
+
+
+    @classmethod
+    def MPMC(cls, g: Graph):
+        return None
 
 class GraphICC():
 

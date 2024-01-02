@@ -51,3 +51,8 @@ rttools/**/*.svg
 **/manycore_xcelium/*.d
 **/manycore_xcelium/*.log
 **/manycore_xcelium/*.history
+
+# resulting graphs
+**/*.max_proc
+**/*.min_comm
+**/*.mpmc
