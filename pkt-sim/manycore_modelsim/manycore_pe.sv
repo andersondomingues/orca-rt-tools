@@ -1,3 +1,5 @@
+`timescale 1ns/100ps
+
 import orca_pkg::*;
 
 module manycore_pe #(parameter
@@ -145,7 +147,7 @@ module manycore_pe #(parameter
   // workflow controller, mimics external comm system
   logic   wake_up_irq;
   integer wake_up_counter;
-  integer wake_up_alarm = 2_000_000;
+  integer wake_up_alarm = 250_000;
   wake_up_state_s wake_up_state;
   
   logic wakeup_ack_flip; // written by memory
@@ -167,9 +169,7 @@ module manycore_pe #(parameter
       endcase
 
       if($past(wake_up_state) != wake_up_state) begin
-        $display("Switched from %s to %s\n", $past(wake_up_state), wake_up_state);
-        $display("Counter is %d\n", $past(wake_up_counter));
-        $display("Time is %d", $time);
+        $display("Released workflow iteration...");
       end
 
       // update clock range
@@ -178,7 +178,7 @@ module manycore_pe #(parameter
 
     end else begin
       wake_up_state <= COUNTING;
-      wake_up_counter <= 1;
+      wake_up_counter <= 0;
     end
   end 
 
@@ -325,15 +325,15 @@ module manycore_pe #(parameter
       cacc_counter_4 <= (a_cpu_addr_out == 'h20000038 && cpu_if.wb_out) ? endianess(cpu_if.data_out) : cacc_counter_4;
 
       if(a_cpu_addr_out == 'h20000038 && cpu_if.wb_out) begin
-        $display("%0d %0d-%0d <- TAG %0d", $realtime, addr_x(), addr_y(), endianess(cpu_if.data_out));
+        $display("%0d %0d-%0d <- TAG %0d", $time, addr_x(), addr_y(), endianess(cpu_if.data_out));
       end
 
       if(a_cpu_addr_out == 'h20000034 && cpu_if.wb_out) begin
-        $display("%0d %0d-%0d -> TAG %0d", $realtime, addr_x(), addr_y(), endianess(cpu_if.data_out));
+        $display("%0d %0d-%0d -> TAG %0d", $time, addr_x(), addr_y(), endianess(cpu_if.data_out));
       end
 
       if(a_cpu_addr_out == 'h20000030 && cpu_if.wb_out) begin
-        $display("%0d %0d-%0d scheduled %0d", $realtime, addr_x(), addr_y(), endianess(cpu_if.data_out));
+        $display("%0d %0d-%0d scheduled %0d", $time, addr_x(), addr_y(), endianess(cpu_if.data_out));
       end
 
     end else begin

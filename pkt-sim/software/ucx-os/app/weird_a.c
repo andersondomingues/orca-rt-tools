@@ -100,6 +100,9 @@ void task_a()
 
   while (it--)
   {
+    kcb_p->tcb_p->state = TASK_BLOCKED;   // self-block, wait for ext. wake up
+    ucx_task_yield();
+
     ucx_sleep(TASK_A_WORKLOAD);
 
     tprintf("A->B\n");
@@ -107,9 +110,6 @@ void task_a()
 
     tprintf("A->C\n");
     ucx_noc_send(CPU_C, PORT_C, pkt2, COMM_AC_WORKLOAD);
-
-    //ucx_sleep(10000); // repeat each 100k cycles
-    kcb_p->tcb_p->state = TASK_BLOCKED;   // self-block, wait for ext. wake up
   }
 
   ucx_free(pkt1);

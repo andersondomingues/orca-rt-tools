@@ -1,4 +1,3 @@
-
 interface interface_ddma #(parameter 
   MEMORY_BUS_WIDTH = 32, 
   FLIT_WIDTH = 32, 

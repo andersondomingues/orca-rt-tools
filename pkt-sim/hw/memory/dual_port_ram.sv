@@ -1,4 +1,3 @@
-
 module dual_port_ram #(parameter 
   MEMORY_BUS_WIDTH, 
   SIZE

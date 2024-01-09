@@ -1,4 +1,3 @@
-
 interface interface_router_port #(parameter FLIT_WIDTH = 32)
 (input clock, input reset);
 

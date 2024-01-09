@@ -56,3 +56,7 @@ rttools/**/*.svg
 **/*.max_proc
 **/*.min_comm
 **/*.mpmc
+
+**/var-gdensity/**
+**/var-nnodes/**
+**/*.log
