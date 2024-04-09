@@ -1,5 +1,3 @@
-`timescale 1ns/100ps
-
 import orca_pkg::*;
 
 module manycore_pe #(parameter
@@ -141,44 +139,60 @@ module manycore_pe #(parameter
 
   typedef enum logic[1:0] {
     COUNTING = 2'b01,
-    IRQ_SEND = 2'b10
+    IRQ_SEND = 2'b10,
+    INC_EPOCH = 2'b11
   } wake_up_state_s;
 
   // workflow controller, mimics external comm system
   logic   wake_up_irq;
-  integer wake_up_counter;
-  integer wake_up_alarm = 250_000;
+  integer wake_up_counter_next;
+  integer wake_up_alarm = 5_000_000;               // 250k nanoseconds
+  integer wake_up_delay = 30_000_000;               // 500k nanoseconds
   wake_up_state_s wake_up_state;
   
   logic wakeup_ack_flip; // written by memory
   logic wakeup_ack_flip_sh; // written by process
 
+  
+
   always @(posedge clock) begin
-    if (~reset) begin
-      case (wake_up_state) 
+    if (~reset && (ADDRESS & 'h0000FFFF) == 0) begin
+
+      // $display(ADDRESS, ADDRESS & 'h0000FFFF);
+        
+      case (wake_up_state)
         COUNTING: begin
-          wake_up_state <= (wake_up_counter == 0) ? IRQ_SEND : COUNTING;
+          wake_up_counter_next <= wake_up_counter_next;
+          wake_up_state <= ($time >= wake_up_counter_next) ? IRQ_SEND : COUNTING;
           wake_up_irq <= 0;
         end
 
         IRQ_SEND: begin
-          wake_up_state <= (wakeup_ack_flip == wakeup_ack_flip_sh) ? IRQ_SEND : COUNTING;
+          wake_up_counter_next <= wake_up_counter_next;
+          if (wakeup_ack_flip != wakeup_ack_flip_sh) begin
+            wake_up_state <= INC_EPOCH;
+            $display("TRIGGER: workflow iteration at %0d ns.", $time);
+            $display("TRIGGER: next release will be at %0d ns",  wake_up_counter_next + wake_up_alarm);
+          end else begin
+            wake_up_state <= IRQ_SEND;
+          end
           wake_up_irq <= 1;
         end
 
+        INC_EPOCH: begin
+          wake_up_counter_next <= wake_up_counter_next + wake_up_alarm;
+          wake_up_state <= COUNTING;
+          wake_up_irq <= 0;
+        end
+
       endcase
-
-      if($past(wake_up_state) != wake_up_state) begin
-        $display("Released workflow iteration...");
-      end
-
-      // update clock range
-      wake_up_counter <= (wake_up_counter + 1) % wake_up_alarm;
+  
       wakeup_ack_flip_sh <= wakeup_ack_flip;
-
+      
     end else begin
       wake_up_state <= COUNTING;
-      wake_up_counter <= 0;
+      wake_up_counter_next <= wake_up_delay;
+      wake_up_irq <= 0;
     end
   end 
 

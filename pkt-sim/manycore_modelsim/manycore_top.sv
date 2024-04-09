@@ -1,7 +1,10 @@
 `timescale 1ns/100ps
-//`timescale 1ns/1ns
+//`timescale 10ps/10ps
+
 
 module manycore_top #(parameter 
+  // CLOCK_BORDER_PERIOD = 2020, // 2 => ns, 18 -> 900ps, 
+  CLOCK_BORDER_PERIOD = 2,
   FLIT_WIDTH = 32,        // 32-bit flit width
   MEMORY_BUS_WIDTH = 32,  // memory data bus width
   RAM_MSIZE = 65536,      //32768, 65536   // 32k, 65k bytes
@@ -18,13 +21,13 @@ module manycore_top #(parameter
   bit reset = 1; 
 
   // clock generator
-  always #0.5 clock = ~clock;
+  always # (CLOCK_BORDER_PERIOD / 2.0) clock = ~clock;
 
   // reset goes down after 2nd cycle
-  always #2 reset = 0; 
+  always # (CLOCK_BORDER_PERIOD * 2.0) reset = 0; 
 
   // simulation time reporting
-  always #1_000_000 $display("Elapsed 1M time units. $time is %0d.", $time);
+  always #1_000_000 $display("Elapsed %0d nanoseconds.", $realtime);
 
   // generate NOC_DIM_X * NOC_DIM_Y pe nodes
   genvar i, j;

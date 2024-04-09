@@ -53,14 +53,16 @@
 void recv_and_print()
 {
   // idling until packet arrival
-  while (ucx_noc_probe() <= 0)
-    ;
+  while(ucx_noc_probe() <= 0){
+      kcb_p->tcb_p->state = TASK_BLOCKED;
+	    ucx_task_yield();
+  }
 
   noc_packet_t *pkt = ucx_noc_receive();
 
-  tprintf("<- %d:%d (from %d:%d)\n",
-          pkt->source_node, pkt->source_port,
-          pkt->target_node, pkt->target_port);
+  //  tprintf("<- %d:%d (from %d:%d)\n",
+  //           pkt->source_node, pkt->source_port,
+  //           pkt->target_node, pkt->target_port);
 
   // if packet came from other nodes, free memory
   // else, pointer should be freed as this would
@@ -83,7 +85,6 @@ void sleep_forever()
 {
   kcb_p->tcb_p->state = TASK_STOPPED;
   ucx_task_yield();
-  ucx_sleep(-1);
 }
 
 #define ITERATIONS 99999
@@ -92,29 +93,28 @@ void sleep_forever()
 void task_a()
 {
   ucx_noc_comm_create(PORT_A);
-
-  int it = ITERATIONS;
-
   noc_packet_t *pkt1 = create_pkt(COMM_AB_WORKLOAD);
   noc_packet_t *pkt2 = create_pkt(COMM_AC_WORKLOAD);
 
-  while (it--)
-  {
-    kcb_p->tcb_p->state = TASK_BLOCKED;   // self-block, wait for ext. wake up
+  int it = ITERATIONS;
+
+  do {
+    // voluntary sleep
+    kcb_p->tcb_p->state = TASK_BLOCKED;
     ucx_task_yield();
 
-    ucx_sleep(TASK_A_WORKLOAD);
+    // simulate processing
+    ucx_sleep(TASK_A_WORKLOAD); 
 
-    tprintf("A->B\n");
+    // tprintf("A->B\n");
     ucx_noc_send(CPU_B, PORT_B, pkt1, COMM_AB_WORKLOAD);
 
-    tprintf("A->C\n");
+    // tprintf("A->C\n");
     ucx_noc_send(CPU_C, PORT_C, pkt2, COMM_AC_WORKLOAD);
-  }
+  } while (--it);
 
   ucx_free(pkt1);
   ucx_free(pkt2);
-
   sleep_forever();
 }
 
@@ -122,44 +122,48 @@ void task_a()
 void task_b()
 {
   ucx_noc_comm_create(PORT_B);
-
   noc_packet_t *pkt = create_pkt(COMM_BD_WORKLOAD);
 
   int it = ITERATIONS;
-  while (--it)
-  {
+  
+  do {
     recv_and_print();
-
+  
+    // simulate processing
     ucx_sleep(TASK_B_WORKLOAD);
 
-    tprintf("B->D\n");
+    // tprintf("B->D\n");
     ucx_noc_send(CPU_D, PORT_D, pkt, COMM_BD_WORKLOAD);
-  }
 
-  free(pkt);
+   } while (--it);
 
+  ucx_free(pkt);
   sleep_forever();
 }
 
 // ------------------------------ TASK C
 void task_c()
 {
+  printf("x\n");
   ucx_noc_comm_create(PORT_C);
-
+  printf("x\n");
   noc_packet_t *pkt = create_pkt(COMM_CE_WORKLOAD);
+  printf("x\n");
 
   int it = ITERATIONS;
-  while (--it)
-  {
 
+  do {
     recv_and_print();
+
+    // simulate processing
     ucx_sleep(TASK_C_WORKLOAD);
 
-    tprintf("C->E\n");
+    // tprintf("C->E\n");
     ucx_noc_send(CPU_E, PORT_E, pkt, COMM_CE_WORKLOAD);
-  }
 
-  free(pkt);
+  }while (--it);
+
+  ucx_free(pkt);
   sleep_forever();
 }
 
@@ -167,21 +171,22 @@ void task_c()
 void task_d()
 {
   ucx_noc_comm_create(PORT_D);
-
   noc_packet_t *pkt = create_pkt(COMM_DF_WORKLOAD);
 
   int it = ITERATIONS;
-  while (--it)
-  {
-    recv_and_print();
 
+  do {
+    recv_and_print();
+    
+    // simulate processing
     ucx_sleep(TASK_D_WORKLOAD);
 
-    tprintf("D->F\n");
+    // tprintf("D->F\n");
     ucx_noc_send(CPU_F, PORT_F, pkt, COMM_DF_WORKLOAD);
-  }
 
-  free(pkt);
+  } while (--it);
+
+  ucx_free(pkt);
   sleep_forever();
 }
 
@@ -189,27 +194,28 @@ void task_d()
 void task_e()
 {
   ucx_noc_comm_create(PORT_E);
-
   noc_packet_t *pkt1 = create_pkt(COMM_EI_WORKLOAD);
   noc_packet_t *pkt2 = create_pkt(COMM_EH_WORKLOAD);
 
   int it = ITERATIONS;
-  while (--it)
+
+  do 
   {
     recv_and_print();
 
+    // simulate processing
     ucx_sleep(TASK_E_WORKLOAD);
 
-    tprintf("E->I\n");
+    // tprintf("E->I\n");
     ucx_noc_send(CPU_I, PORT_I, pkt1, COMM_DF_WORKLOAD);
 
-    tprintf("E->H\n");
+    // tprintf("E->H\n");
     ucx_noc_send(CPU_H, PORT_H, pkt2, COMM_EH_WORKLOAD);
-  }
+
+  }while (--it);
 
   ucx_free(pkt1);
   ucx_free(pkt2);
-
   sleep_forever();
 }
 
@@ -217,22 +223,23 @@ void task_e()
 void task_f()
 {
   ucx_noc_comm_create(PORT_F);
-
   noc_packet_t *pkt = create_pkt(COMM_FG_WORKLOAD);
-
+  
   int it = ITERATIONS;
-  while (--it)
+
+  do 
   {
     recv_and_print();
 
+    // simulate processing
     ucx_sleep(TASK_F_WORKLOAD);
 
-    tprintf("F->G\n");
-
+    // tprintf("F->G\n");
     ucx_noc_send(CPU_G, PORT_G, pkt, COMM_FG_WORKLOAD);
-  }
+    
+  }while (--it);
 
-  free(pkt);
+  ucx_free(pkt);
   sleep_forever();
 }
 
@@ -240,22 +247,23 @@ void task_f()
 void task_g()
 {
   ucx_noc_comm_create(PORT_G);
-
   noc_packet_t *pkt = create_pkt(COMM_GJ_WORKLOAD);
 
   int it = ITERATIONS;
-  while (--it)
+
+  do
   {
     recv_and_print();
 
+    // simulate processing
     ucx_sleep(TASK_G_WORKLOAD);
 
-    tprintf("G->J\n");
-
+    // tprintf("G->J\n");
     ucx_noc_send(CPU_J, PORT_J, pkt, COMM_GJ_WORKLOAD);
-  }
 
-  free(pkt);
+  } while (--it);
+
+  ucx_free(pkt);
   sleep_forever();
 }
 
@@ -266,41 +274,45 @@ void task_h()
   noc_packet_t *pkt = create_pkt(COMM_HJ_WORKLOAD);
 
   int it = ITERATIONS;
-  while (--it)
+
+  do
   {
     recv_and_print();
 
+    // simulate processing
     ucx_sleep(TASK_H_WORKLOAD);
 
-    tprintf("H->J\n");
-
+    // tprintf("H->J\n");
     ucx_noc_send(CPU_J, PORT_J, pkt, COMM_HJ_WORKLOAD);
-  }
 
-  free(pkt);
+  } while (--it);
+
+  ucx_free(pkt);
   sleep_forever();
 }
 
+// *((volatile int*)(0x20000050)) = 0x1;
 // ------------------------------ TASK I
 void task_i()
 {
   ucx_noc_comm_create(PORT_I);
-
   noc_packet_t *pkt = create_pkt(COMM_IJ_WORKLOAD);
 
   int it = ITERATIONS;
-  while (--it)
+
+  do
   {
     recv_and_print();
 
+    // simulate processing
     ucx_sleep(TASK_I_WORKLOAD);
 
-    tprintf("I->J\n");
-
+    // tprintf("I->J\n");
     ucx_noc_send(CPU_J, PORT_J, pkt, COMM_IJ_WORKLOAD);
-  }
 
-  free(pkt);
+  }  while (--it);
+
+  ucx_free(pkt);
   sleep_forever();
 }
 
@@ -310,14 +322,18 @@ void task_j()
   ucx_noc_comm_create(PORT_J);
 
   int it = ITERATIONS;
-  while (--it)
+
+  do
   {
     recv_and_print();
     recv_and_print();
     recv_and_print();
 
+    // simulate processing
     ucx_sleep(TASK_J_WORKLOAD);
-  }
+
+  }while (--it);
+
   sleep_forever();
 }
 

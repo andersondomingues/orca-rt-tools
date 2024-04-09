@@ -213,13 +213,13 @@ def main():
           )
           info("Schedule visualization exported to `" + filename + "`")
 
-          expDir = "pkt-sim/packets"
-          systemverilog.exportPackets(
-              expDir, last_working_schedule, problem, last_working_frequency
-          )
-          systemverilog.genWaveform(expDir, noc)
-          systemverilog.genRunFile(expDir, hp)
-          info("SystemVerilog mimics exported to `" + expDir + "`")
+          # expDir = "pkt-sim/packets"
+          # systemverilog.exportPackets(
+          #     expDir, last_working_schedule, problem, last_working_frequency
+          # )
+          # systemverilog.genWaveform(expDir, noc)
+          # systemverilog.genRunFile(expDir, hp)
+          # info("SystemVerilog mimics exported to `" + expDir + "`")
 
       else:
           warn("Could not find a suitable frequency for the given flow set")

@@ -1,10 +1,10 @@
 from os.path import exists
 from sys import argv
-from gsl.graph import Graph
-from gcm.gicc import GraphICC, CriteriaICC
-from gcm.terminal import error, info, warn, debug, header
-from gff.orca import export_graph as orca_export
-from gff.orca import import_graph as orca_import
+from rttools.gsl.graph import Graph
+from rttools.gcm.gicc import GraphICC, CriteriaICC
+from rttools.gcm.terminal import error, info, warn, debug, header
+from rttools.gff.orca import export_graph as orca_export
+from rttools.gff.orca import import_graph as orca_import
 
 def gcm_main(filename, numnodes, criteria):
 
@@ -43,7 +43,7 @@ def gcm_main(filename, numnodes, criteria):
         while (len(g._nodes) > numnodes):
             g = GraphICC.collapse(g, p_criteria)
 
-    clustered_filename = filename.replace(".txt", ".clustered")
+    clustered_filename = filename.replace(".txt", ".clustered."+criteria)
     orca_export(clustered_filename, g)
 
 if __name__ == "__main__":
@@ -51,7 +51,9 @@ if __name__ == "__main__":
     usage_note = "gcm <ifile> <nvertices> <criteria>"
 
     if(len(argv) != 4):
-        raise Exception(usage_note)
+        header("RTTOOLS.GCM")
+        info("Usage:")
+        info(usage_note)
     else:
       filename: str = argv[1]
       numnodes: int = int(argv[2])

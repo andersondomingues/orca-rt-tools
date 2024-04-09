@@ -16,26 +16,6 @@ void wake_up_init(){
   IRQ_MASK |= MASK_IRQ4;
 }
 
-void irq4_handler(void){
-  // task A must reside in node 0
-  if(ucx_noc_cpu_id() == 0){
-
-    struct tcb_s* current_task = kcb_p->tcb_p;
-
-    do {
-      if(strcmp(current_task->name, "A") == 0){
-        current_task->state = TASK_READY;
-        break;
-      } else {
-        current_task = current_task->tcb_next;
-      }
-    } while (1);
-  }
-
-  // flag interruption down
-  volatile int* irq_flag_down = (volatile int*)(0x2000004C);
-  *irq_flag_down = !(*irq_flag_down);
-}
 
 
 
@@ -90,29 +70,38 @@ int32_t krnl_rt_schedule(void){
 #endif 
 
 long unsigned int sched_counter = 0;
+long long unsigned int disp_timer = 0;
 
+// #define volatile unsigned int* cacc_timer = 0x20000028;
 /* task scheduler and dispatcher */
-uint16_t krnl_schedule(void)
-{
-  // put current task into ready state fi still running
-  if (kcb_p->tcb_p->state == TASK_RUNNING)
-		kcb_p->tcb_p->state = TASK_READY;
+
+uint16_t krnl_schedule(int block)
+{  
+  // *((volatile int*)(0x20000050)) = 0x1;
+  disp_timer++;
+  set_cacc(disp_timer);
+  set_counter_1(0);
+
+  // put current task into ready state if still running
+  if(block) {
+    kcb_p->tcb_p->state = TASK_BLOCKED;
+  } else if (kcb_p->tcb_p->state == TASK_RUNNING){
+    kcb_p->tcb_p->state = TASK_READY;
+  }
 
   struct tcb_s* current_task = kcb_p->tcb_p;
 
-	//do {
-		do {
-      // advance to next task in the circular queue
-			kcb_p->tcb_p = kcb_p->tcb_p->tcb_next;
+  do {
+    // advance to next task in the circular queue
+    kcb_p->tcb_p = kcb_p->tcb_p->tcb_next;
 
-      // no more tasks to search, skip
-      if (kcb_p->tcb_p->id == current_task->id) {
-          break;
-      }
+    // no more tasks to search, skip
+    if (kcb_p->tcb_p->id == current_task->id) {
+        break;
+    }
 
-    // keep seaching for tasks in ready state
-		} while (kcb_p->tcb_p->state != TASK_READY || kcb_p->tcb_p->id == 0);
-	//} while (--kcb_p->tcb_p->priority & 0xff);
+  // keep seaching for tasks in ready state
+  } while (kcb_p->tcb_p->state != TASK_READY || kcb_p->tcb_p->id == 0);
 
   // if no task is available, go idling
   if (kcb_p->tcb_p->state != TASK_READY){
@@ -120,25 +109,10 @@ uint16_t krnl_schedule(void)
   }
 
   // put next task into running state
-	//kcb_p->tcb_p->priority |= (kcb_p->tcb_p->priority >> 8) & 0xff;
 	kcb_p->tcb_p->state = TASK_RUNNING;
-	kcb_p->ctx_switches++;
-
-  // struct tcb_s* selected_task = kcb_p->tcb_p;
-  // uint16_t selected_task_id = selected_task->id;
   
-  // do {  
-  //   printf("%s=%d\t", selected_task->name, selected_task->state);
-    
-  //   // advance to next task in the circular queue
-	// 	selected_task = selected_task->tcb_next;
-
-  //   // keep seaching for tasks in ready state
-	// } while (selected_task->id != selected_task_id);
-  // printf("\n");
-
-
   set_counter_2(kcb_p->tcb_p->id);
+  // *((volatile int*)(0x20000050)) = 0x2;
 	return kcb_p->tcb_p->id;
 }
 
@@ -152,23 +126,13 @@ void ucx_task_yield()
 	_yield();
 }
 
-long long unsigned int disp_timer = 0;
-// #define volatile unsigned int* cacc_timer = 0x20000028;
-
 void dispatch(void)
 {
 	if (!setjmp(kcb_p->tcb_p->context)) {
 		krnl_delay_update();
 		krnl_stack_check();
-    
-    disp_timer++;
-    set_cacc(disp_timer);
-    set_counter_1(0);
 
-		// int32_t task_id = krnl_rt_schedule();
-		// if (task_id < 0) task_id = krnl_schedule();
-    //int32_t task_id = 
-    krnl_schedule();
+    krnl_schedule(0);
 
 		// printf("SCHED %d %d %s ##\n", sched_counter++, kcb_p->tcb_p->id, kcb_p->tcb_p->name);
 		// printf("tcb_next:     0x%x   task:         0x%x\n", kcb_p->tcb_p->tcb_next, kcb_p->tcb_p->task);
@@ -188,7 +152,33 @@ void yield(void)
 		/* TODO: check if we need to run a delay update on yields. maybe only on a non-preemtive execution? */ 
 		krnl_delay_update();
 		krnl_stack_check();
-		krnl_schedule();
+		krnl_schedule(1);
 		longjmp(kcb_p->tcb_p->context, 1);
 	}
+}
+
+
+
+void irq4_handler(void){
+  _di();
+  // task A must reside in node 0
+  if(ucx_noc_cpu_id() == 0){
+
+    struct tcb_s* current_task = kcb_p->tcb_p;
+
+    do {
+      if(strcmp(current_task->name, "A") == 0){
+        current_task->state = TASK_READY;
+        break;
+      } else {
+        current_task = current_task->tcb_next;
+      }
+    } while (1);
+  }
+
+  // flag interruption down
+  volatile int* irq_flag_down = (volatile int*)(0x2000004C);
+  *irq_flag_down = !(*irq_flag_down);
+
+  _ei();
 }

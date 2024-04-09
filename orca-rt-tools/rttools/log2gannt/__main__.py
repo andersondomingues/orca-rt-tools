@@ -1,6 +1,6 @@
 
 from sys import argv
-from log2gannt.matplot import l2g_main
+from rttools.log2gannt.matplot import l2g_main
 
 if __name__ == "__main__":
 	

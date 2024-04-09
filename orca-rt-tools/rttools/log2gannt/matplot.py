@@ -58,54 +58,6 @@ def l2g_main(argv):
 	lines_sched = [x.split(" ") for x in lines_sched]
 	lines_sched = [{"time": int(x[0]), "node": x[1], "task": task_names[x[1]][int(x[3])]} for x in lines_sched]
 
-	# parse net events
-	lines_recv = [x for x in lines if x.find("<-") >= 0]
-	lines_recv = [x.split(" ") for x in lines_recv]
-	lines_recv = [{"time": int(x[0]), "node": x[1], "tag": x[4], "s": "recv"} for x in lines_recv]
-
-	lines_send = [x for x in lines if x.find("->") >= 0]
-	lines_send = [x.split(" ") for x in lines_send]
-	lines_send = [{"time": int(x[0]), "node": x[1], "tag": x[4], "s": "send"} for x in lines_send]
-
-	# make pairs of send-receive ops
-	lines_net = []
-	for x in lines_send:
-		lines_net.append(x)
-
-	for x in lines_recv:
-		lines_net.append(x)
-
-	def skey(o):
-		return o["time"]
-
-	# sort events by time
-	lines_net = sorted(lines_net, key=skey)
-	lines_net_paired = []
-	while(len(lines_net) > 0):
-		# get first send
-		send = None
-		for x in lines_net:
-			if x["s"] == "send" and send == None:
-				send = x
-				lines_net.remove(x)
-				break
-
-		# find pair
-		recv = None
-		for x in lines_net:
-			if x["s"] == "recv" and recv == None and x["tag"] == send["tag"]:
-				recv = x
-				lines_net.remove(x)
-				break
-
-		lines_net_paired.append({
-			"time_s" : send["time"],
-			"time_e" : recv["time"],
-			"node_s" : send["node"],
-			"node_e" : recv["node"],
-			"tag" : recv["tag"]
-		})
-
 	# split task scheduling in bins
 	bins = {
 		"0-0" : [],
@@ -115,83 +67,57 @@ def l2g_main(argv):
 	}
 
 	# add scheduling to bins (also add unique elem-names)
-	elem_names_counter = 0
 	for x in lines_sched:
 		bins[x["node"]].append({
 			"time": x["time"],
 			"node": x["node"],
 			"task": x["task"],
-			"elem": "e_" + str(elem_names_counter)
+			"time_e": x["time"]
 		})
-		elem_names_counter = elem_names_counter + 1
-	
-	# tag source and destination elems in messages
-	for x in lines_net_paired:
-	
-		# find sender	
-		min_dist_e = None
-		for e in bins[x["node_s"]]:
-			if(min_dist_e is None): # and e["task"] != "IDLE"):
-				min_dist_e = e
+
+	# create criterion to sort events
+	def sort_by_initial_time(e):
+		return e["time"]
+
+	# sort events in each bin
+	for b in bins.keys():
+		bins[b] = sorted(bins[b], key=sort_by_initial_time)
+
+	# update events endtime
+	for b in bins.keys():
+		current_event = None
+		for e in bins[b]:
+			if current_event == None:
+				current_event = e
 			else:
-				if e["time"] <= x["time_s"]: # and e["task"] != "IDLE":
-					min_dist_e = e
-				else:
-					break
-
-		x["elem_s"] = min_dist_e["elem"]
-
-		# find receiver
-		min_dist_e = None
-		for e in bins[x["node_e"]]:
-			if(min_dist_e is None): # and e["task"] != "IDLE"):
-				min_dist_e = e
-			else:
-				if e["time"] > x["time_e"]: # and e["task"] != "IDLE":
-					min_dist_e = e
-					break
-
-		x["elem_e"] = min_dist_e["elem"]
-
-
-	lines = []
-
-	# update task endtime
-	for k in bins.keys():
-		for e in bins[k]:
-
-			# find next task
-			next = None
-			for f in bins[k]:	
-				if(f["time"] > e["time"]):
-					next = f
-					break
-
-			# udpate endtime
-			if next is not None:
-				e["time_e"] = next["time"] - KERNEL_SCHED_TIME
-			else:
-				e["time_e"] = e["time"] + KERNEL_SCHED_TIME
-
+				current_event["time_e"] = e["time"]
+				current_event = e
+				
+	# create master figure
 	fig, gnt = plt.subplots(4, 1, sharex=True, figsize=(12,8))
 	fig.tight_layout(pad=1.0)
 	plt.ticklabel_format(scilimits=(-99999999,99999999)) # prevents scientific notation
 	plt.subplots_adjust(left=0.06, bottom=0.06, wspace=0.4, hspace=0.4)
 
+
+	# locate min and max values 
+	vmin = None
+	vmax = None
+	
+	for b in bins.keys():
+		print(bins[b])
+	
+	for b in bins.keys():	
+		min_time = bins[b][0]["time"]
+		if(vmin == None or vmin > min_time):
+			vmin = min_time
+
+		max_time = bins[b][-1]["time_e"]
+		if(vmax == None or vmax < max_time):
+			vmax = max_time
+
 	k_idx = 0
 	for k in bins.keys():
-
-		# min time value
-		min_time = bins[k][0]["time"]
-		for e in bins[k]:
-			if e["time"] < min_time:
-				min_time = e["time"]
-
-		# max time value
-		max_time = bins[k][0]["time_e"]
-		for e in bins[k]:
-			if e["time_e"] > max_time:
-				max_time = e["time_e"]
 
 		# pe coordinates
 		x = int(k.split("-")[0])
@@ -204,8 +130,9 @@ def l2g_main(argv):
 		gnt[k_idx].set_ylabel("Tasks, PE=" + k)
 
 		# X-axis config.
-		gnt[k_idx].set_xlim(min_time, max_time)
-		gnt[k_idx].set_xlabel("Cycles")
+		gnt[k_idx].set_xlim(vmin, vmax)
+		gnt[k_idx].set_xlabel("Time")
+		gnt[k_idx].xaxis.set_major_formatter(lambda x, pos: str(f"{x / 1000000} ms")) # \u03BC
 
 		gnt[k_idx].grid(True)
 		gnt[k_idx].set_axisbelow(True)
@@ -213,6 +140,7 @@ def l2g_main(argv):
 		for e in bins[k]:
 			p_height = task_names[k].index(e["task"])
 			gnt[k_idx].broken_barh([(e["time"], e["time_e"] - e["time"])], (p_height - 0.3, 0.6), facecolors =(colors[p_height]))
+			# gnt[k_idx].broken_barh([(e["time"], e["time"])], (p_height - 0.4, 0.8), facecolors =('black'))
 
 		k_idx = k_idx + 1
 

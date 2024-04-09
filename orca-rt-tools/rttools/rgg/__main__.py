@@ -3,17 +3,17 @@ from random import randint
 from numpy import random
 from math import floor
 
-from gsl.graph import Graph, GraphNode, GraphEdge
-from gff.orca import export_graph as orca_export
+from rttools.gsl.graph import Graph, GraphNode, GraphEdge
+from rttools.gff.orca import export_graph as orca_export
 
 def linear_scale(source: float, r_min: float, r_max: float, t_min: float, t_max: float) -> float:
     return ((source - r_min) / (r_max - r_min)) * (t_max - t_min) + t_min
 
 # nnodes : number of nodes in the graph
-# pedges : graph edge density (0 = no edges, 1 = fully connected)
+# pedges : mean number of edges per node
 # dwcet  : normal distribution for node values (task wcet)
 # dnet   : normal distribution for edge values (comm load)
-def generate_random_graph(num_nodes: int, node_lim: list[float], pedges: float, edge_lim: list[float]) -> Graph:
+def generate_random_graph(num_nodes: int, node_lim: list[float], pedges: int, edge_lim: list[float]) -> Graph:
     
     # create new graph
     graph : Graph = Graph()
@@ -38,9 +38,10 @@ def generate_random_graph(num_nodes: int, node_lim: list[float], pedges: float, 
         )
 
     # generate number of edges
-    num_edges = num_nodes * (num_nodes -1)  # fully connected graph
-    num_edges = num_edges * pedges      # adjust to density
-    num_edges = floor(num_edges)
+    # num_edges = num_nodes * (num_nodes -1)  # fully connected graph
+    # num_edges = num_edges * pedges      # adjust to density
+    #num_edges = floor(num_edges)
+    num_edges: int = num_nodes * pedges
 
     # generate normal curve for edge comm
     comm_distrib = random.normal(size=(num_edges))
@@ -89,7 +90,7 @@ if __name__ == "__main__":
     min_wcet: int = int(argv[2])
     max_wcet: int = int(argv[3])
 
-    density_edges: float = float(argv[4])
+    density_edges: int = int(argv[4])
     min_comm: int = int(argv[5])
     max_comm: int = int(argv[6])
 

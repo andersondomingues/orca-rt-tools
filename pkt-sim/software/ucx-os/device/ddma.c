@@ -1,7 +1,7 @@
 #include <ucx.h>
 
 // DDMA node identification
-volatile uint32_t* DDMA_NODE_ADDR = (uint32_t *)(0x20000000);
+volatile uint32_t* DDMA_NODE_ADDR = (volatile uint32_t *)(0x20000000);
 #define DDMA_NODE_DIMX ((* DDMA_NODE_ADDR & 0xFF000000) >> 24)
 #define DDMA_NODE_DIMY ((* DDMA_NODE_ADDR & 0x00FF0000) >> 16)
 #define DDMA_NODE_X ((* DDMA_NODE_ADDR & 0x0000FF00) >> 8)
@@ -12,10 +12,10 @@ volatile uint32_t* DDMA_NODE_ADDR = (uint32_t *)(0x20000000);
 // DDMA_SEND_PPTR_IN pointer to the packet to be sent
 // DDMA_SEND_SIZE_IN number of flits to send 
 // DDMA_SEND_CMD_IN  command to start the dma copy
-volatile uint32_t* DDMA_SEND_DEST_IN = (uint32_t *)(0x20000004); 
-volatile uint32_t* DDMA_SEND_ADDR_IN = (uint32_t *)(0x20000008);
-volatile uint32_t* DDMA_SEND_SIZE_IN = (uint32_t *)(0x2000000C);
-volatile uint32_t* DDMA_SEND_CMD_IN  = (uint32_t *)(0x20000010);
+volatile uint32_t* DDMA_SEND_DEST_IN = (volatile uint32_t *)(0x20000004); 
+volatile uint32_t* DDMA_SEND_ADDR_IN = (volatile uint32_t *)(0x20000008);
+volatile uint32_t* DDMA_SEND_SIZE_IN = (volatile uint32_t *)(0x2000000C);
+volatile uint32_t* DDMA_SEND_CMD_IN  = (volatile uint32_t *)(0x20000010);
 
 // DDMA status checking
 volatile uint32_t* DDMA_STATUS = (uint32_t *)(0x20000014);
@@ -24,10 +24,10 @@ volatile uint32_t* DDMA_STATUS = (uint32_t *)(0x20000014);
 // DDMA_RECV_ADDR_IN pointer to which write the packet
 // DDMA_RECV_SIZE_OUT size of the current receiving packet (in flits)
 // DDMA_RECV_CMD_IN cpu interruption acknowledgement
-volatile uint32_t* DDMA_RECV_ADDR_IN  = (uint32_t*)(0x20000018);
-volatile uint32_t* DDMA_RECV_ADDR_OUT = (uint32_t*)(0x2000001C);
-volatile uint32_t* DDMA_RECV_SIZE_OUT = (uint32_t*)(0x20000020);
-volatile uint32_t* DDMA_RECV_CMD_IN   = (uint32_t*)(0x20000024);
+volatile uint32_t* DDMA_RECV_ADDR_IN  = (volatile uint32_t*)(0x20000018);
+volatile uint32_t* DDMA_RECV_ADDR_OUT = (volatile uint32_t*)(0x2000001C);
+volatile uint32_t* DDMA_RECV_SIZE_OUT = (volatile uint32_t*)(0x20000020);
+volatile uint32_t* DDMA_RECV_CMD_IN   = (volatile uint32_t*)(0x20000024);
 
 
 uint32_t _ddma_node_addr(){
@@ -90,6 +90,8 @@ uint32_t _ddma_get_recv_addr(){
 }
 
 void _ddma_recv_ack(){
+  // printf("old reg 0x%x\n", *DDMA_RECV_CMD_IN);
   *DDMA_RECV_CMD_IN = !(*DDMA_RECV_CMD_IN);
+  // printf("new reg 0x%x\n", *DDMA_RECV_CMD_IN);
 }
 

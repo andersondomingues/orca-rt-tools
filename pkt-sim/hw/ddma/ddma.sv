@@ -415,10 +415,7 @@ module ddma #(parameter
         end
 
         RECEIVING_HANDSHAKE: begin
-          if($past(rstate == RECEIVING_PAYLOAD)) begin
-            //`info(("RX %h: %s %h %h %s", ADDRESS, "RECEIVING_PAYLOAD", temp_recv_addr, router_if.data_o, router_if.data_o));
-            //$display("%0t network <- done %h %0d", ($realtime), ADDRESS, recv_serial_counter);
-          end
+          // $display("%0t network <- done %h %0d", ($realtime), ADDRESS, ddma_if.recv_cmd_in);          
           mem_if.wb_in <= 0;
           router_if.credit_i <= 0;
         end 

@@ -1,4 +1,4 @@
-from bench.kernel import SystemEvent
+from rttools.bench.kernel import SystemEvent
 
 class PrioQueue:
     def __init__(self):

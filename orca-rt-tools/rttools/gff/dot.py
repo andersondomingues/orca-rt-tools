@@ -1,4 +1,4 @@
-from gsl.graph import Graph, GraphEdge, GraphNode
+from rttools.gsl.graph import Graph, GraphEdge, GraphNode
 
 def export_graph(self, filename):
     with (open(filename, mode="w+") as f):
@@ -10,8 +10,3 @@ def export_graph(self, filename):
                     + e._to._data["label"] + "\"\n")
         f.write("\n}")
         
-
-        
-            
-
-

@@ -1,44 +1,30 @@
 all:
 	python3.11 -m gcm apps/sample_graph.txt 4 MIN_CPU_USAGE
 
-# generate random graphs
-rgg:
-	python3.11 -m rgg 100 2000 20000 0.01 2000 20000 apps/20_001.txt
-	python3.11 -m rgg 100 2000 20000 0.02 2000 20000 apps/20_002.txt
-	python3.11 -m rgg 100 2000 20000 0.03 2000 20000 apps/20_003.txt
-	python3.11 -m rgg 100 2000 20000 0.04 2000 20000 apps/20_004.txt
-	python3.11 -m rgg 100 2000 20000 0.05 2000 20000 apps/20_005.txt
-	python3.11 -m rgg 100 2000 20000 0.06 2000 20000 apps/20_006.txt
-	python3.11 -m rgg 100 2000 20000 0.07 2000 20000 apps/20_007.txt
-	python3.11 -m rgg 100 2000 20000 0.08 2000 20000 apps/20_008.txt
-	python3.11 -m rgg 100 2000 20000 0.09 2000 20000 apps/20_009.txt
-	python3.11 -m rgg 100 2000 20000 0.1 2000 20000 apps/20_010.txt
-	python3.11 -m rgg 100 2000 20000 0.2 2000 20000 apps/20_020.txt
-	python3.11 -m rgg 100 2000 20000 0.3 2000 20000 apps/20_030.txt
-	python3.11 -m rgg 100 2000 20000 0.4 2000 20000 apps/20_040.txt
-	python3.11 -m rgg 100 2000 20000 0.5 2000 20000 apps/20_050.txt
-	python3.11 -m rgg 100 2000 20000 0.6 2000 20000 apps/20_060.txt
+rgg-exp1:
+	python3.11 -m rttools.rgg 10 2000 20000 3 2000 20000 ../apps/experiment-1-nnodes/10.txt
+	python3.11 -m rttools.rgg 20 2000 20000 3 2000 20000 ../apps/experiment-1-nnodes/20.txt
+	python3.11 -m rttools.rgg 30 2000 20000 3 2000 20000 ../apps/experiment-1-nnodes/30.txt
+	python3.11 -m rttools.rgg 40 2000 20000 3 2000 20000 ../apps/experiment-1-nnodes/40.txt
+	python3.11 -m rttools.rgg 50 2000 20000 3 2000 20000 ../apps/experiment-1-nnodes/50.txt
+	python3.11 -m rttools.rgg 60 2000 20000 3 2000 20000 ../apps/experiment-1-nnodes/60.txt
+	python3.11 -m rttools.rgg 70 2000 20000 3 2000 20000 ../apps/experiment-1-nnodes/70.txt
+	python3.11 -m rttools.rgg 80 2000 20000 3 2000 20000 ../apps/experiment-1-nnodes/80.txt
+	python3.11 -m rttools.rgg 90 2000 20000 3 2000 20000 ../apps/experiment-1-nnodes/90.txt
+	python3.11 -m rttools.rgg 100 2000 20000 3 2000 20000 ../apps/experiment-1-nnodes/100.txt
 
+dge-exp1:
+	python3.11 -m rttools.gde ../apps/experiment-1-nnodes/10.txt
+	python3.11 -m rttools.gde ../apps/experiment-1-nnodes/20.txt
+	python3.11 -m rttools.gde ../apps/experiment-1-nnodes/30.txt
+	python3.11 -m rttools.gde ../apps/experiment-1-nnodes/40.txt
+	python3.11 -m rttools.gde ../apps/experiment-1-nnodes/50.txt
+	python3.11 -m rttools.gde ../apps/experiment-1-nnodes/60.txt
+	python3.11 -m rttools.gde ../apps/experiment-1-nnodes/70.txt
+	python3.11 -m rttools.gde ../apps/experiment-1-nnodes/80.txt
+	python3.11 -m rttools.gde ../apps/experiment-1-nnodes/90.txt
+	python3.11 -m rttools.gde ../apps/experiment-1-nnodes/100.txt
 
-# collect random graphs metrics
-gde:
-	python3.11 -m gde apps/20_001.txt
-	python3.11 -m gde apps/20_002.txt
-	python3.11 -m gde apps/20_003.txt
-	python3.11 -m gde apps/20_004.txt
-	python3.11 -m gde apps/20_005.txt
-	python3.11 -m gde apps/20_006.txt
-	python3.11 -m gde apps/20_007.txt
-	python3.11 -m gde apps/20_008.txt
-	python3.11 -m gde apps/20_009.txt
-	python3.11 -m gde apps/20_010.txt
-	python3.11 -m gde apps/20_020.txt
-	python3.11 -m gde apps/20_030.txt
-	python3.11 -m gde apps/20_040.txt
-	python3.11 -m gde apps/20_050.txt
-	python3.11 -m gde apps/20_060.txt
-
-  
 
 sgv:
 	python3.11 -m gcm apps/var-gdensity/20_001.txt 4 MIN_COMM
@@ -91,9 +77,10 @@ format:
 shi:
 	python3.11 rttools/__main__.py application/SHI2010.csv mappings/SHI2010-ONTO-hermes4x4.map architecture/hermes-4x4.gml 2000000 2000 500
 
-# STR2RTS-CFAR
-rttools:
-	python3.11 rttools/__main__.py application/STR2RTS-CFAR.csv mappings/STR2RTS-CFAR-ONTO-hermes2x2.map architecture/hermes-2x2.gml 1000000 1 2000 False
+# simple-graph app
+simple-graph-b:
+	python3.11 -m rttools ../apps/experiment-1-nnodes/sample-graph-b/sample-graph-b.csv  ../apps/experiment-1-nnodes/sample-graph-b/hermes2x2.map ../arch/hermes-2x2.gml 1000000 1 2000 False
+	firefox ../apps/experiment-1-nnodes/sample-graph-b/results.svg
 
 
 

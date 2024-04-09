@@ -19,7 +19,11 @@ uint32_t ucx_noc_cpu_id(void)
 void enable_receiver(uint16_t task_id){
   // locate receiver tasks and remove blocked state
   struct tcb_s* p = kcb_p->tcb_p;
-  while(p->id != task_id) p = p->tcb_next; 
+  
+  do {
+    p = p->tcb_next;
+  } while(p->id != task_id);
+
   p->state = TASK_READY;
 }
 
@@ -36,6 +40,7 @@ void irq1_handler(void){
 // size flit, it interrupts the cpu to acquire a pointer
 // to the heap of the length of the packet. 
 void irq2_handler(void){
+  _di();
   uint32_t pkt_size = _ddma_recv_size(); // packet size in flits
   // printf("irq2_handler(): incoming packet of size %d (flits)\n", pkt_size);
   
@@ -44,6 +49,7 @@ void irq2_handler(void){
 
   _ddma_set_recv_addr((uint32_t)pkt); // send packet address to the ddma
   _ddma_recv_ack();
+  _ei();
 }
 
 // Implementation of the irq3_handler, intercepts
@@ -52,23 +58,11 @@ void irq2_handler(void){
 // right queue accordingly to its port.
 void irq3_handler(void){
 
+  // printf("lalalala <<<< \n");
+
   _di();
   noc_packet_t* pkt = (noc_packet_t*) _ddma_get_recv_addr();
 
-  // printf("irq3_handler(): received packet stored at 0x%x\n", pkt);
-
-  // printf("irq3_handler() 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n",
-  //   (pkt->source_node), (pkt->target_node),
-  //   (pkt->source_port), (pkt->target_port),
-  //   (pkt->payload_size), (pkt->tag)
-  // );
-
-  // printf("irq3_handler() %c%c%c%c %c%c%c%c\n",
-  //   pkt->data[0], pkt->data[1],
-  //   pkt->data[2], pkt->data[3],
-  //   pkt->data[4], pkt->data[5],
-  //   pkt->data[6], pkt->data[7]
-  // );
   // get rid of packets which address is not the same of this cpu
   if (pkt->target_node != ucx_noc_cpu_id())
   {
@@ -85,9 +79,9 @@ void irq3_handler(void){
         break;
 
     // check whether the task has room for more packets in that queue
-    if (ucx_queue_enqueue(pktdrv_tqueue[k], pkt))
+    if (ucx_queue_enqueue(pktdrv_tqueue[k], pkt) != 0)
     {
-      printf("noc_driver_isr(): task (on port %d) cannot receive more packets, dropping", 
+      printf("noc_driver_isr(): task (on port %d) cannot receive more packets, dropping...\n", 
         pkt->target_port);
       free(pkt);
       // ucx_queue_enqueue(pktdrv_queue, pkt);
@@ -97,6 +91,8 @@ void irq3_handler(void){
     enable_receiver(k);
   }
   _ddma_recv_ack();
+  asm("nop;nop;");
+  _ei();  
 }
 
 
@@ -105,16 +101,11 @@ int32_t ucx_noc_probe()
 {
   uint16_t task_id;
   task_id = ucx_task_id();
+
   if (pktdrv_tqueue[task_id] == NULL)
     return UCX_NOC_TASK_NOT_BOUND;
 
-  int16_t pkt_c = ucx_queue_count(pktdrv_tqueue[task_id]);
-  if(pkt_c == 0){
-    kcb_p->tcb_p->state = TASK_BLOCKED;
-	  ucx_task_yield();
-  }
-
-  return pkt_c;
+  return ucx_queue_count(pktdrv_tqueue[task_id]);
 }
 
 // Initializes a queue of packets using one of the available ports. May a
@@ -122,7 +113,7 @@ int32_t ucx_noc_probe()
 // with ERR_COMM_UNFEASIBLE.
 int32_t ucx_noc_comm_create(uint16_t port)
 {
-  //_di();
+  _di();
 
   int task_id = ucx_task_id();
 
@@ -146,18 +137,20 @@ int32_t ucx_noc_comm_create(uint16_t port)
   // connect the port to the task and return ERR_OK
   pktdrv_ports[task_id] = port;
   printf("ucx_noc_comm_create(): task %d connected on port %d\n", task_id, port);
+  _ei();
   return UCX_NOC_OK;
   
 
-  //_ei();
+  
 }
 
 // Destroys a connection, removing the
 uint32_t ucx_noc_comm_destroy(uint16_t port)
 {
-  int task_id = ucx_task_id();
 
   _di();
+  int task_id = ucx_task_id();
+
 
   // removes all elements from the comm queue, adding them
   // to the queue of shared packets
@@ -167,7 +160,6 @@ uint32_t ucx_noc_comm_destroy(uint16_t port)
     //ucx_queue_enqueue(pktdrv_queue, ucx_queue_dequeue(pktdrv_tqueue[task_id]));
   }
 
-  _ei();
 
   // check whether the comm queue was gracefully destroyed. If not,
   // return ERR_COMM_ERROR
@@ -175,6 +167,9 @@ uint32_t ucx_noc_comm_destroy(uint16_t port)
     return UCX_NOC_UNABLE_TO_DESTROY;
 
   pktdrv_ports[task_id] = 0;
+
+  _ei();
+
   return UCX_NOC_OK;
 }
 
@@ -257,7 +252,7 @@ noc_packet_t* ucx_noc_receive()
  * @size number of bytes for the payload
 */
 noc_packet_t* ucx_noc_create_packet(uint32_t size){
-  
+  _di();
   // malloc once by allocating enough space for the 
   // packet structure and its data  
   
@@ -278,7 +273,7 @@ noc_packet_t* ucx_noc_create_packet(uint32_t size){
   } else {
     printf("ucx_noc_create_packet(): unable to malloc\n");
   }
-
+  _ei();
   return pkt;
 };
 
@@ -318,7 +313,7 @@ uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port,
   } else {
     // printf("ucx_noc_send(): packet with same source/destination\n");
     
-    // teste whether the target port has a comm open
+    // test whether the target port has a comm open
     int target_task = -1;
 
     for (int i = 0; i < MAX_TASKS; i++)
@@ -326,12 +321,14 @@ uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port,
         target_task = i;
 
     if(target_task == -1) {
-      printf("could not deliver pkt, task has no comm open.");
+      printf("could not deliver pkt, task has no comm open.\n");
       return UCX_NOC_PORT_HAS_NO_TASK;
     }
     
-    if (pktdrv_tqueue[target_task] == NULL) 
+    if (pktdrv_tqueue[target_task] == NULL) {
+      printf("wut error.\n");
       return UCX_NOC_WUT;
+    }
 
     set_counter_4(pkt->tag);
     enable_receiver(target_task);    

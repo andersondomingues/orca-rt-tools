@@ -1,4 +1,4 @@
-from gsl.graph import Graph, GraphNode, GraphEdge
+from rttools.gsl.graph import Graph, GraphNode, GraphEdge
 
 
 class CriteriaICC():

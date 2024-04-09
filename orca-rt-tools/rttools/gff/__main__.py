@@ -1,9 +1,11 @@
 import subprocess
 from sys import argv
-from gff.orca import import_graph as orca_import
-from gff.orca import export_graph as orca_export
-from gff.dot import export_graph as dot_export
 
+from rttools.gff.orca import import_graph as orca_import
+from rttools.gff.orca import export_graph as orca_export
+from rttools.gff.dot import export_graph as dot_export
+
+from rttools.terminal.terminal import header, info
 
 def convert_graph(ifile: str, iformat: str, oformat: str, ofile: str) -> None:
 
@@ -33,12 +35,16 @@ def convert_graph(ifile: str, iformat: str, oformat: str, ofile: str) -> None:
 
 if __name__ == "__main__":
     
-    if(len(argv) != 5):
-        raise Exception("Usage: gff <ifile> <iformat> <oformat> <ofile>")
+    usage_note = "gff <ifile> <iformat> <oformat> <ofile>"
 
-    input_file = str(argv[1])
-    i_format = argv[2]
-    o_format = argv[3]
-    output_file = str(argv[4])
+    if(len(argv) != 5 ):
+        header("RTTOOLS.GFF")
+        info("Usage:")
+        info(usage_note)
+    else:
+        input_file = str(argv[1])
+        i_format = argv[2]
+        o_format = argv[3]
+        output_file = str(argv[4])
 
-    convert_graph(input_file, i_format, o_format, output_file)
+        convert_graph(input_file, i_format, o_format, output_file)

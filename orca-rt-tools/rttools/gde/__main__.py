@@ -4,8 +4,9 @@ from __future__ import annotations
 from math import sqrt
 from sys import argv
 
-from gsl.graph import Graph, GraphNode, GraphEdge
-from gff.orca import import_graph as orca_import
+from rttools.gsl.graph import Graph, GraphNode, GraphEdge
+from rttools.gff.orca import import_graph as orca_import
+from rttools.terminal.terminal import header, info
 
 
 # standard deviation for edge values
@@ -64,9 +65,17 @@ def graph_analyser(filename: str) -> list[float]:
 
 
 if __name__ == "__main__":
-    # stddev edge, stddev node, rating
-    res = graph_analyser(argv[1])
-    
-    #print(" & ".join([str(round(x, 3)) for x in res]))
-    for k in res.keys():
-        print(k, res[k])
+
+    usage_note = "gde <ifile>"
+
+    if(len(argv) != 2 ):
+        header("RTTOOLS.GDE")
+        info("Usage:")
+        info(usage_note)
+    else:
+        # stddev edge, stddev node, rating
+        res = graph_analyser(argv[1])
+        
+        #print(" & ".join([str(round(x, 3)) for x in res]))
+        for k in res.keys():
+            print(k, res[k])

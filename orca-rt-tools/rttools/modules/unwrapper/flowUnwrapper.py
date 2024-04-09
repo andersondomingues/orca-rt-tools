@@ -6,6 +6,8 @@ import os.path
 from rttools.lcm.lcm import lcm
 from rttools.strgen.string import wsfill
 from rttools.terminal.terminal import error, warn, debug, info
+from rttools.gff.rttools import to_orca
+from rttools.gcpa.method import calculate_gcpa
 
 from rttools.modules.mapping import mapper
 from rttools.modules.routing import router
@@ -35,33 +37,50 @@ def extractFlows(edges):
 
     return flows
 
-def get_task_wcet(task_id, tasks):    
-    for t in tasks:
-        tname, tinfo = t
-        if(task_id == tname):
-          return tinfo["capacity"]
-    return 0
+
+# @TODO: replace by cache
+__task_wcet_requirement = None
+def get_task_wcet(task_id, tasks, app):
+
+    global __task_wcet_requirement
+
+    # calculate wcets if empty
+    if __task_wcet_requirement is None:
+        
+        # convert graph to ORCA notation
+        graph = to_orca(app)
+
+        # instantiate global variable
+        __task_wcet_requirement = {}
+
+        # collect wcet dictionary
+        tmp_task_wcet = calculate_gcpa(graph)
+
+        # adjust to key-value format
+        for wcet in tmp_task_wcet:
+            __task_wcet_requirement[wcet._id] = tmp_task_wcet[wcet]
+
+    return __task_wcet_requirement[task_id]
+        
+
+# def get_task_wcet(task_id, tasks, app):    
+#     for t in tasks:
+#         tname, tinfo = t
+#         if(task_id == tname):
+#             return tinfo["wcet"]
+#     raise Exception("Could not locate source task for target flow")
 
 
-external_cycle_requirements_cache = {}
 
-def external_cycle_requirements(task_id, tasks):
-    
-    # get task name
-    task_name = tasks[task_id]
 
-    if task_id in external_cycle_requirements_cache.keys():
-        return external_cycle_requirements[task_id]
-
-    pass
     
 
 # generates packets for a given list of flows. packets
 # are generated for the whole hyperperiod hp
-def getPacketsFromFlows(flows, hp, tasks):
+def getPacketsFromFlows(flows, hp, tasks, app):
     packets = []
     for f in flows:
-        task_wcet = get_task_wcet(f["source"], tasks)
+        task_wcet = get_task_wcet(f["source"], tasks, app)
         #task_wcet = external_cycle_requirements(f["source"], tasks)
         min_start = 0
         i = 0
@@ -118,7 +137,7 @@ def unwrap(app, arch, mapping):
         return None, 0, None
 
     # get packets from flows
-    packets = getPacketsFromFlows(flows, hp, app["tasks"])
+    packets = getPacketsFromFlows(flows, hp, app["tasks"], app)
     info(
         "Extracted " + str(len(packets)) + " packets from " + str(len(flows)) + " flows"
     )

@@ -12,6 +12,8 @@ sys.path.append('../lib')
 
 def loadFromFile(app_csv):
 
+  # print(app_csv)
+
   if not file_exists(app_csv):
     error('Unable to load application csv file. Could not locate file "' + app_csv + '".')
     exit(1)
@@ -23,8 +25,13 @@ def loadFromFile(app_csv):
     with open(tmpFile, "w+") as f:
       f.write(gml)
 
+
+    
     graph = nx.read_gml(tmpFile)
     delete_file(tmpFile)
+
+    # for n in graph.nodes(data=True):
+    #   print(n)
 
     appname = (app_csv.split('/')[-1]).split('.')[0] #TODO:!
     return graph, appname
@@ -36,14 +43,21 @@ def getTaskIdByName(taskName, tasks):
       return t["id"]
   raise Exception("A tasks with name '" + taskName + "' could not be located within the task set. // " + str(tasks))
 
+# def parseTaskRow(par):
+#   return {
+#     "id" : par[0],
+#     "period" : par[1],
+#     "capacity" : par[2],
+#     "deadline" : par[3],
+#     "label" : par[4],
+#     "description" : par[5]
+#   }
+
 def parseTaskRow(par):
   return {
-    "id" : par[0],
-    "period" : par[1],
-    "capacity" : par[2],
-    "deadline" : par[3],
-    "label" : par[4],
-    "description" : par[5]
+    "id": par[0],
+    "wcet" : par[1],
+    "label": par[2]
   }
 
 def parseFlowRow(par):
@@ -59,16 +73,19 @@ def parseFlowRow(par):
 def exportGmlTasks(tasks):
   gmlTasks = []
   for t in tasks:
-    gmlTasks.append(
-      "  node [" + NEWLINE + 
-      "    id " + t["id"] + NEWLINE + 
-      "    label \""  + t["label"] + "\"" + NEWLINE + 
-      "    alias \""  + t["description"] + "\"" + NEWLINE + 
-      "    period "   + t["period"].replace(',', '') + NEWLINE + 
-      "    capacity " + t["capacity"].replace(',', '') + NEWLINE + 
-      "    deadline " + t["deadline"].replace(',', '') + NEWLINE + 
-      "  ]"
-    )
+
+    t_id = t['id']
+    t_label = f"{t['label']}"
+    t_wcet = t["wcet"].replace(',', '')
+
+    task_text =             f"  node [{NEWLINE}"
+    task_text = task_text + f"    id {t_id} {NEWLINE}"
+    task_text = task_text + f"    label {t_label}{NEWLINE}"
+    task_text = task_text + f"    wcet {t_wcet}{NEWLINE}"
+    task_text = task_text + f"  ]"
+    
+    gmlTasks.append(task_text)
+
   return gmlTasks
 
 def exportGmlFlows(tasks, flows):
@@ -131,6 +148,8 @@ def csv2app(filename):
       # parse line as a flow
       elif mode == 4:
         flows.append(parseFlowRow(row))
+
+  # print(tasks)
 
   gmlTasks = exportGmlTasks(tasks)
   gmlFlows = exportGmlFlows(tasks, flows)

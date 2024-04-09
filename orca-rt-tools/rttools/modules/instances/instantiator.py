@@ -15,11 +15,10 @@ def createInstance(app, noc, frequency):
   # copy nodes to instance (nothing to do for nodes)
   for n in app.nodes(data=True):
     id, data = n
+
     tasks.append((id, {
-      'alias'   : data['alias'],
-      'period'  : data['period'],
-      'capacity': data['capacity'],
-      'deadline': data['deadline'],
+      #'label'   : data['label'],
+      'wcet'  : data['wcet']
     }))
 
   # copy edges to instance

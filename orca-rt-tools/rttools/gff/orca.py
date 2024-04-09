@@ -1,4 +1,4 @@
-from gsl.graph import Graph, GraphEdge, GraphNode
+from rttools.gsl.graph import Graph, GraphEdge, GraphNode
 
 def import_graph(filename: str) -> Graph:
     g: Graph = Graph()
