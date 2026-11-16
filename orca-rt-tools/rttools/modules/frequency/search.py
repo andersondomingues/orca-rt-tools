@@ -120,6 +120,8 @@ def schedule_at(app, noc, mapping, appname, frequency, cfg):
             return None
         from rttools.modules.backend.ags import search3
         search3.GUARD = router.release_guard(router.tick_cycles(instance))
+        # the link schedule repeats every hyperperiod and keeps the release order of each flow
+        search3.PERIODIC = search3.RELEASE_ORDER = True
         try:
             problem, result = ags.agsExport(
                 packets,
@@ -134,6 +136,7 @@ def schedule_at(app, noc, mapping, appname, frequency, cfg):
             )
         finally:
             search3.GUARD = None
+            search3.PERIODIC = search3.RELEASE_ORDER = False
         sched, skipped = (None, set()) if result is None else result
         if sched is not None and not release.handlers_fit(instance, mapping) and not (
                 SCHEDULE_WINDOWS and schedule_windows_fit(instance, noc, mapping, problem, sched)):

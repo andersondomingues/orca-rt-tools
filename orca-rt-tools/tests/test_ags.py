@@ -65,6 +65,86 @@ def test_threshold_counts_failures_across_resets():
     assert lo[0][1] < lo[1][0]
 
 
+def options(**flags):
+    """Sets the options of the analysis flow (search3.PERIODIC,
+    search3.RELEASE_ORDER) and returns the function that restores them."""
+    old = {k: getattr(search3, k) for k in flags}
+    for k, v in flags.items():
+        setattr(search3, k, v)
+    return lambda: [setattr(search3, k, v) for k, v in old.items()]
+
+
+def test_periodic_schedule_avoids_the_next_hyperperiod():
+    # H = 100: p0 (window [95, 110], o 20) holds [95, 115], which is [-5, 15] of the next hyperperiod;
+    # p1 (window [0, 30], o 20) fits at 0 inside one hyperperiod and only from 16 on when the schedule repeats
+    p = single_link([20, 20], [95, 0], [130, 50])
+    p["hyperperiod"] = 100
+    sched, skipped = search3.search3(p, order(0, 1), 2, 1)
+    assert skipped == set() and sched[0] == [95, 0]
+    restore = options(PERIODIC=True)
+    try:
+        sched, skipped = search3.search3(p, order(0, 1), 2, 1)
+        assert skipped == set() and sched[0] == [95, 16]
+        # p1 first takes 0; p0 meets [100, 120] of the next hyperperiod at every release, fails, and goes first
+        sched, skipped = search3.search3(p, order(1, 0), 2, 1)
+        assert skipped == set() and sched[0] == [95, 16]
+        assert search3.hsearch.resets == 1
+    finally:
+        restore()
+    assert search3.collides((95, 115), (0, 20), 100) and not search3.collides((95, 115), (0, 20))
+    assert search3.collides((0, 20), (95, 115), 100) and not search3.collides((16, 36), (95, 115), 100)
+
+
+def one_flow(occupancy, min_start, deadline, flows, hyperperiod):
+    p = single_link(occupancy, min_start, deadline)
+    p["packets"] = [{"name": "%s:%d" % (f, i), "flow": f} for i, f in enumerate(flows)]
+    p["hyperperiod"] = hyperperiod
+    return p
+
+
+def test_release_order_of_a_flow_is_kept():
+    # packets 0 and 1 of flow f (releases 0 and 10, o 10). Packet 1 goes first and takes [10, 20];
+    # packet 0 then fits only at 21, after the later packet of its flow
+    p = one_flow([10, 10], [0, 10], [100, 100], ["f", "f"], 200)
+    sched, skipped = search3.search3(p, order(1, 0), 2, 1)
+    assert skipped == set() and sched[0] == [21, 10]
+    restore = options(RELEASE_ORDER=True)
+    try:
+        # packet 0 must precede 10: no release fits, it fails and goes first; packet 1 follows it
+        sched, skipped = search3.search3(p, order(1, 0), 2, 1)
+        assert skipped == set() and sched[0] == [0, 11]
+        assert search3.hsearch.resets == 1
+        # packets of distinct flows keep no order
+        q = one_flow([10, 10], [0, 10], [100, 100], ["f", "g"], 200)
+        sched, skipped = search3.search3(q, order(1, 0), 2, 1)
+        assert skipped == set() and sched[0] == [21, 10]
+    finally:
+        restore()
+
+
+def test_release_order_across_the_hyperperiod():
+    # H = 100: packet 0 of flow f takes [0, 10]; a packet of flow g holds [50, 99]; packet 1 of f
+    # (window [50, 190]) fits at 111, after packet 0 of the next hyperperiod ([100, 110])
+    p = one_flow([10, 49, 10], [0, 50, 50], [10, 99, 200], ["f", "g", "f"], 100)
+    restore = options(PERIODIC=True)
+    try:
+        sched, skipped = search3.search3(p, order(0, 1, 2), 1, 1)
+        assert skipped == set() and sched[0] == [0, 50, 111]
+        search3.RELEASE_ORDER = True
+        sched, skipped = search3.search3(p, order(0, 1, 2), 1, 1)
+        assert skipped == {2} and sched[0] == [0, 50, None]
+    finally:
+        restore()
+        search3.RELEASE_ORDER = False
+    assert search3.order_bounds(1, {0: 5}, ["f", "f"], [(0, 0), (9, 1)], {"f": [0]}, 100) == (5, 105)
+    assert search3.order_bounds(0, {1: 30}, ["f", "f"], [(0, 0), (9, 1)], {"f": [1]}, 100) == (-70, 30)
+    assert search3.order_bounds(0, {1: 30}, ["f", "f"], [(0, 0), (9, 1)], {"f": [1]}) == (None, 30)
+
+
+def test_analysis_flow_options_are_off_by_default():
+    assert search3.PERIODIC is False and search3.RELEASE_ORDER is False
+
+
 def test_dct_verify_schedule_is_valid():
     from rttools.paper.ch6 import load_problem
     p = load_problem("problem_dctVerify")

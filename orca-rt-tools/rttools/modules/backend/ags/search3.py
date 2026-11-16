@@ -38,6 +38,21 @@ Reading adopted where the pseudocode leaves room:
 Each reset follows a failure with T[r] < G, so a run has at most
 |P| (G - 1) resets.
 
+Options of the analysis flow (off by default, so the instances of the
+ORCA RT-Tools reference keep their published schedules; search.schedule_at
+and compose.schedule_union set them around the call, like GUARD):
+
+- PERIODIC: the schedule repeats every hyperperiod H = p['hyperperiod'].
+  allocate also rejects a release whose interval overlaps, on a link of
+  the packet, a placed interval of the next or of the previous
+  hyperperiod ([a + H, b + H] and [a - H, b - H]). Without it a
+  reservation that ends after H can meet a reservation of the next
+  hyperperiod.
+- RELEASE_ORDER: the packets of one flow (p['packets'][j]['flow']) enter
+  the network in the order of their releases (min_start), across the
+  hyperperiod as well: a later packet of the flow is released after the
+  earlier one and before the earlier one of the next hyperperiod.
+
 Counters (module attribute `hsearch`, read by rttools.paper.ch6 and the
 TUI): entered = calls to allocate plus one per run for the final node
 (the depth-first search before counted its leaf node the same way);
@@ -55,6 +70,10 @@ hsearch = SimpleNamespace(entered=0, ignored=0, skipped=[], resets=0)
 GUARD = None
 # per packet index: such a predicate, or None (applications with distinct ticks); used in place of GUARD
 GUARDS = None
+# the schedule repeats every hyperperiod: test each release against the next and the previous hyperperiod
+PERIODIC = False
+# keep the release order of the packets of each flow, across the hyperperiod as well
+RELEASE_ORDER = False
 
 
 '''
@@ -94,14 +113,56 @@ def packet_view(p, j):
   return links, o, a, b
 
 
-def allocate(placed, view, step, guard=None):
+def collides(rng, iv, period=None):
+  """True when `rng` overlaps `iv`, or, with `period`, the interval of
+  `iv` in the next or in the previous period (closed intervals)."""
+  if overleap(rng, iv):
+    return True
+  if period:
+    # an interval of the next period starts at or after `period`, and one of the previous period
+    # reaches a release (at or after 0) only when the interval ends at or after `period`
+    if rng[1] >= period and overleap(rng, (iv[0] + period, iv[1] + period)):
+      return True
+    if iv[1] >= period and overleap(rng, (iv[0] - period, iv[1] - period)):
+      return True
+  return False
+
+
+def order_bounds(r, release, flow_of, rank, by_flow, period=None):
+  """Open interval (lo, hi) of the releases of packet r that keep the
+  release order of its flow against the placed packets of the flow
+  (`by_flow`: flow -> placed packet indices): after every earlier packet
+  and before every later one and, with `period`, before the earlier
+  packets of the next period and after the later ones of the previous
+  period. None for no bound."""
+  lo = hi = None
+  for r2 in by_flow.get(flow_of[r], ()):
+    k2 = release[r2]
+    if rank[r2] < rank[r]:
+      lo2, hi2 = k2, (k2 + period if period else None)
+    else:
+      lo2, hi2 = (k2 - period if period else None), k2
+    if lo2 is not None and (lo is None or lo2 > lo):
+      lo = lo2
+    if hi2 is not None and (hi is None or hi2 < hi):
+      hi = hi2
+  return lo, hi
+
+
+def allocate(placed, view, step, guard=None, period=None, bounds=None):
   """First release of the window of the packet whose interval overlaps no
   interval in `placed` (link -> list of (start, end)) on its links, or
-  None. Counts the rejected candidates in hsearch.ignored."""
+  None. With `period`, the intervals of `placed` repeat every `period`
+  (collides). With `bounds` = (lo, hi), the release lies in the open
+  interval (order_bounds). Counts the rejected candidates in
+  hsearch.ignored."""
   links, o, a, b = view
+  lo, hi = bounds if bounds is not None else (None, None)
   for k in candidates(a, b, step):
     rng = (k, k + o)
-    if (guard is not None and guard(k, o)) or any(overleap(rng, iv) for l in links for iv in placed[l]):
+    if ((guard is not None and guard(k, o))
+        or (lo is not None and k <= lo) or (hi is not None and k >= hi)
+        or any(collides(rng, iv, period) for l in links for iv in placed[l])):
       hsearch.ignored += 1
       continue
     return k
@@ -125,6 +186,12 @@ def search3(p, heuristic, tries, step):
   nlinks = len(p['occupancy'])
   npackets = len(p['occupancy'][0]) if nlinks else 0
   views = [packet_view(p, j) for j in range(npackets)]
+  period = p.get('hyperperiod') if PERIODIC else None
+  flow_of = rank = None
+  if RELEASE_ORDER:
+    # flow of each packet and its position in the release order of the flow (min_start, then index)
+    flow_of = [pk.get('flow') if isinstance(pk, dict) else None for pk in p['packets']]
+    rank = [(views[j][2], j) for j in range(npackets)]
 
   # order of the criterion (rttools/modules/backend/ags/heuristics.py)
   R = list(heuristic(p))
@@ -135,14 +202,19 @@ def search3(p, heuristic, tries, step):
     # reset: empty schedule (Q is empty)
     placed = [[] for _ in range(nlinks)]
     release = {}
+    by_flow = {}
     failed = None
     i = 0
     while i < len(R):
       r = R[i]
       hsearch.entered += 1
-      k = allocate(placed, views[r], step, GUARDS[r] if GUARDS is not None else GUARD)
+      bounds = (order_bounds(r, release, flow_of, rank, by_flow, period)
+                if flow_of is not None and flow_of[r] is not None else None)
+      k = allocate(placed, views[r], step, GUARDS[r] if GUARDS is not None else GUARD, period, bounds)
       if k is not None:
         release[r] = k
+        if flow_of is not None and flow_of[r] is not None:
+          by_flow.setdefault(flow_of[r], []).append(r)
         for l in views[r][0]:
           placed[l].append((k, k + views[r][1]))
         i += 1
