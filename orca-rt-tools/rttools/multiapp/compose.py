@@ -509,11 +509,14 @@ def schedule_union(apps, noc, frequency, cfg):
     guard = {a["name"]: router.release_guard(router.tick_cycles(instantiator.createInstance(a["graph"], noc, frequency)))
              for a in apps}
     search3.GUARDS = [guard.get(p["flow"].split("/")[0]) for p in packets]
+    # the link schedule repeats every hyperperiod and keeps the release order of each flow
+    search3.PERIODIC = search3.RELEASE_ORDER = True
     try:
         problem, result = ags.agsExport(packets, nlinks, H, None, noc, "+".join(a["name"] for a in apps),
                                         cfg["pruning_factor"], cfg["fail_threshold"], cfg["heuristic"])
     finally:
         search3.GUARDS = None
+        search3.PERIODIC = search3.RELEASE_ORDER = False
     sched, skipped = (None, set()) if result is None else result
     if sched is not None and not general(apps) and not all(
             release.handlers_fit(instantiator.createInstance(a["graph"], noc, frequency), a["entries"])
