@@ -74,12 +74,12 @@ Each pipeline compares its output with the stored reference and prints `match`.
 
 | Result of the paper | Pipeline |
 |---|---|
-| Contraction criteria on random graphs (Section 5) | [`experiments/ch7`](experiments/ch7) |
+| Contraction criteria on random graphs (not in the paper; Section IV-A describes the criteria) | [`experiments/ch7`](experiments/ch7) |
 | CPU time per PE against the estimate (RQ1) | [`experiments/cputime`](experiments/cputime) |
 | Response, packets and data age in RTL simulation (RQ2) | [`experiments/exp23`](experiments/exp23), [`experiments/car-v-rtl`](experiments/car-v-rtl), [`experiments/multiapp`](experiments/multiapp), [`experiments/wcet`](experiments/wcet), [`experiments/car-full`](experiments/car-full) |
-| Term that sets the clock, event-triggered baseline, skew (RQ3, Table 5) | [`experiments/ablation`](experiments/ablation), [`experiments/zll`](experiments/zll) |
-| Engine-control workloads, seeds 1 to 10 (Section 7.7) | [`experiments/automotive`](experiments/automotive) (`make seeds setter`) |
-| Analysis flow on every run, run times of the flow (Section 7.1) | [`experiments/tt`](experiments/tt) (`make timing`) |
+| Term that sets the clock, event-triggered baseline, skew (RQ3 and RQ4, Table V) | [`experiments/ablation`](experiments/ablation), [`experiments/zll`](experiments/zll) |
+| Engine-control workloads, seeds 1 to 10 (Section VI-G) | [`experiments/automotive`](experiments/automotive) (`make seeds setter`) |
+| Analysis flow on every run, run times of the flow (Section VII) | [`experiments/tt`](experiments/tt) (`make timing`) |
 | Zero-load latency of the Hermes RTL | [`experiments/zll`](experiments/zll) |
 
 [`ARTIFACT.md`](ARTIFACT.md) lists every command with its output and run time.
