@@ -359,7 +359,20 @@ noc_packet_t* ucx_noc_receive()
     return NULL;
   }
 
+#ifdef UCX_NOC_QUEUE_DI
+  // The receive handler enqueues a packet of this task when its reception ends, and both the
+  // enqueue and the dequeue change the element count of the queue. Without this section, a
+  // packet that ends its reception between the load and the store of the count in the dequeue
+  // loses its increment, and ucx_noc_probe() later reports an empty queue with packets in it
+  // (experiments/str2rts/rtl/README.md, APP-AUDIOBEAM). _interrupt_set returns the previous
+  // state, so a caller that runs with interrupts disabled keeps them disabled.
+  int32_t state = _di();
+  noc_packet_t *pkt = ucx_queue_dequeue(pktdrv_tqueue[task_id]);
+  _interrupt_set(state);
+  return pkt;
+#else
   return ucx_queue_dequeue(pktdrv_tqueue[task_id]);
+#endif
 }
 
 /**
@@ -462,6 +475,12 @@ uint32_t ucx_noc_send(uint16_t target_cpu, uint16_t target_port,
     _di();
     int32_t res = pktdrv_put_latest(pktdrv_tqueue[target_task], pkt);
     _ei();
+#elif defined(UCX_NOC_QUEUE_DI)
+    // the same queue as in ucx_noc_receive(): a packet of the target task from another PE can
+    // end its reception during this enqueue
+    int32_t state = _di();
+    int32_t res = ucx_queue_enqueue(pktdrv_tqueue[target_task], pkt);
+    _interrupt_set(state);
 #else
     int32_t res = ucx_queue_enqueue(pktdrv_tqueue[target_task], pkt);
 #endif

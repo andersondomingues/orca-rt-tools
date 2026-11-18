@@ -115,7 +115,7 @@ for v in F_CLK F_TICK; do
 done
 # limits of the kernel, tick in cycles and RAM: only the variables that are set reach make
 LIM=()
-for v in MAX_TASKS MAX_PKT_QUEUE_SLOTS NOC_TT_SLOTS TICK_CYCLES; do
+for v in MAX_TASKS MAX_PKT_QUEUE_SLOTS NOC_TT_SLOTS TICK_CYCLES NOC_QUEUE_DI; do
 	if [ -n "${!v:-}" ]; then
 		[[ "${!v}" =~ ^[1-9][0-9]*$ ]] || { echo "$v must be a positive integer: ${!v}" >&2; exit 2; }
 		LIM+=("$v=${!v}")
