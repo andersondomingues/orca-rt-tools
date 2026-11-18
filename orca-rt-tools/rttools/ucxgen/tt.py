@@ -32,7 +32,8 @@ import re
 from rttools.modules.routing import router
 
 TIMER_STEP = 16
-MAX_SLOTS = 8          # NOC_TT_SLOTS of lib/noc_tt.c
+MAX_SLOTS = 8          # NOC_TT_SLOTS of lib/noc_tt.c (default of the kernel; a table that needs more says so
+                       # in its line "Queue:", from which experiments/exp23/simulate.sh sets the build)
 
 
 class TTError(ValueError):
@@ -294,6 +295,13 @@ def header(name, cmd, inputs, tables, flows, style="array", w_h=None, w_ni=None,
                 "handlers of the packet events of its PE)") if router.tick_deadline() else "start (start of the job that reads each packet)"
     text = HEADER.format(name=name, cmd=cmd, inputs=inputs, w_h=w_h, w_ni=w_ni,
                          costs=costs or "CSV (Capacity column)", deadline=deadline)
+    # entries of the queue of injections of a PE (lib/noc_tt.c): a table above the default of the kernel
+    # names the power of two that its build needs
+    most = max((max(slots(t["rows"], t["hyperperiod"], w_ni).values(), default=0) for t in tables), default=0)
+    if most > MAX_SLOTS:
+        end = text.rindex(" */\n")
+        text = (text[:end] + f" * Queue: NOC_TT_SLOTS {1 << (most - 1).bit_length()} (a PE keeps up to {most} packets "
+                f"that wait for their instant; the build takes the value, make NOC_TT_SLOTS=)\n" + text[end:])
     by_key = {}
     for f in flows:
         by_key[(f.get("app"), int(f["csv_id"] if "csv_id" in f else f["id"]))] = f
@@ -303,8 +311,6 @@ def header(name, cmd, inputs, tables, flows, style="array", w_h=None, w_ni=None,
         rows = t["rows"]
         P = rows[0]["period"] if rows else None
         need = max(slots(rows, t["hyperperiod"], w_ni).values(), default=0)
-        if need > MAX_SLOTS:
-            raise TTError(f"{f_clk} Hz: a PE needs {need} entries of the queue of lib/noc_tt.c (NOC_TT_SLOTS = {MAX_SLOTS})")
         text += ("#if" if first else "#elif") + f" F_CPU == {f_clk}\n"
         first = False
         text += (f"/* {f_clk} Hz: {len(rows)} packets between PEs in a hyperperiod of {t['hyperperiod']} cycles, "

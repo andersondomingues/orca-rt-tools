@@ -41,6 +41,8 @@ def pe_demand(manifest, in_flight=2, payload_divisor=None, sizes=SIZES):
     payload_divisor, the payloads are csv_bytes // payload_divisor
     (instead of the bytes of the manifest)."""
     flows = manifest["flows"]
+    # queue slots of a build above the default of include/lib/noc.h (manifest "kernel_limits")
+    slots = (manifest.get("kernel_limits") or {}).get("MAX_PKT_QUEUE_SLOTS", sizes["queue_slots"])
 
     def payload(f):
         return f["bytes"] if payload_divisor is None else f["csv_bytes"] // payload_divisor
@@ -49,7 +51,7 @@ def pe_demand(manifest, in_flight=2, payload_divisor=None, sizes=SIZES):
     for node in sorted({t["pe"] for t in manifest["tasks"]}):
         ts = [t for t in manifest["tasks"] if t["pe"] == node]
         task_bytes = (len(ts) + 1) * (block(sizes["tcb"]) + block(sizes["rt"]) + block(sizes["stack"]))
-        task_bytes += len(ts) * (block(sizes["queue"]) + block(sizes["queue_slots"] * sizes["pointer"]))
+        task_bytes += len(ts) * (block(sizes["queue"]) + block(slots * sizes["pointer"]))
         outs = [f for f in flows if f["src_pe"] == node]
         ins = [f for f in flows if f["dst_pe"] == node and not f["local"]]
         out_b = sum(block(sizes["pkt_header"] + payload(f)) for f in outs)

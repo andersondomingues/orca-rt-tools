@@ -26,13 +26,25 @@ MAX_TAG = 0xFFFF
 # payload_size of noc_packet_t is uint16_t (include/lib/noc.h) and the
 # driver rounds the payload up to a multiple of 4 (lib/noc.c)
 MAX_PAYLOAD = 0xFFFF - 3
-# MAX_TASKS of include/lib/noc.h counts the IDLE task
+# MAX_TASKS of include/lib/noc.h counts the IDLE task: default of the kernel
+# (16) and tasks of a PE under it. An application of one release period with
+# more tasks on a PE asks the build for a larger MAX_TASKS (kernel_limits)
 MAX_TASKS_PER_PE = 15
+# MAX_PKT_QUEUE_SLOTS (below; include/lib/noc.h): packets that the queue of a
+# task holds, default of the kernel. A task of an application of one release
+# period with JOIN_SLOTS_FROM input edges or more asks the build for
+# 2 x (input edges) slots, rounded up to a power of two (kernel_limits): one
+# packet per input edge of the iteration the task waits for and one of the
+# next iteration, which a source may deliver before the task runs
+JOIN_SLOTS_FROM = 5
 MAX_NAME = 4               # char name[5] of struct tcb_s (include/kernel/kernel.h)
 DEFAULT_DELAY_NS = 3_000_000
 # letters of the iteration markers (include/device/cacc.h ITER_BEGIN and
 # ITER_END: bits 30:24 of the word, one ASCII letter per task; the parser
-# of the RTL log, rttools/tui/model/parsers.py RE_ITER, reads [A-Za-z])
+# of the RTL log, rttools/tui/model/parsers.py RE_ITER, reads [A-Za-z]).
+# An application of one release period with more tasks than letters takes
+# one letter per task of a PE (manifest "iter_letters": "pe"): the log line
+# of a marker names the PE, and rttools.paper.rtlapp reads (PE, letter)
 ITER_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 # release generator of manycore_pe.sv (wake_up_alarm, wake_up_delay)
 RTL_PERIOD_NS = 500_000
@@ -191,7 +203,9 @@ def read_bodies(path, labels):
 
 
 def build(csv_path, map_path, name, mesh="4x4", cycles_per_count=CYCLES_PER_COUNT, reserve=None,
-          payload_divisor=1, tag_mod=TAG_MOD, delay_ns=DEFAULT_DELAY_NS, bodies=None, release_rule=TICK):
+          payload_divisor=1, tag_mod=None, delay_ns=DEFAULT_DELAY_NS, bodies=None, release_rule=TICK):
+    """tag_mod None: TAG_MOD (1024) when the tags of the flows fit in 16 bits,
+    otherwise the largest power of two that fits (auto_tag_mod)."""
     if release_rule not in RELEASE_RULES:
         raise GenError(f"release rule must be one of {', '.join(RELEASE_RULES)}, got {release_rule!r}")
     if not re.fullmatch(r"[A-Za-z_]\w*", name):
@@ -201,15 +215,16 @@ def build(csv_path, map_path, name, mesh="4x4", cycles_per_count=CYCLES_PER_COUN
         raise GenError("cycles_per_count must be positive")
     if payload_divisor < 1:
         raise GenError("payload_divisor must be >= 1")
-    if tag_mod < 1:
+    if tag_mod is not None and tag_mod < 1:
         raise GenError("tag_mod must be >= 1")
 
     tasks, flows, params = read_csv(csv_path)
+    if tag_mod is None:
+        tag_mod = auto_tag_mod(len(flows))
     labels = [t["label"] for t in tasks]
     if len(set(labels)) != len(labels):
         raise GenError("repeated task label in " + csv_path)
-    if len(labels) > len(ITER_LETTERS):
-        raise GenError(f"{len(labels)} tasks: the iteration markers have {len(ITER_LETTERS)} letters")
+    letters_per_pe = len(labels) > len(ITER_LETTERS)
     known = set(labels)
     for f in flows:
         for end in ("source", "target"):
@@ -219,6 +234,8 @@ def build(csv_path, map_path, name, mesh="4x4", cycles_per_count=CYCLES_PER_COUN
         reserve = int(params.get("scheduler_cycles", 0))
     rates = multirate_rates(csv_path, params)
     if rates is not None:
+        if letters_per_pe:
+            raise GenError(f"{len(labels)} tasks: the iteration markers have {len(ITER_LETTERS)} letters")
         if bodies is not None:
             raise GenError("--bodies applies to applications with one release period and no cycle; "
                            "the time-triggered pattern (several periods or a cycle) runs ucx_sleep(c(v))")
@@ -247,8 +264,24 @@ def build(csv_path, map_path, name, mesh="4x4", cycles_per_count=CYCLES_PER_COUN
         if seq is None:
             seq = list(ts)
         order[int(e["node"])] = seq
-        if len(seq) > MAX_TASKS_PER_PE:
-            raise GenError(f"PE {e['node']}: {len(seq)} tasks (at most {MAX_TASKS_PER_PE}, MAX_TASKS of noc.h)")
+    # limits of the kernel that the application needs above the defaults of include/lib/noc.h
+    kernel_limits = {}
+    most = max(len(seq) for seq in order.values())
+    if most > MAX_TASKS_PER_PE:
+        kernel_limits["MAX_TASKS"] = most + 1
+
+    # letter of the iteration markers of each task: one per task of the application, in the order of the
+    # CSV; with more tasks than letters, one per task of a PE, in the order of the CSV
+    if letters_per_pe:
+        if most > len(ITER_LETTERS):
+            raise GenError(f"{most} tasks on one PE: the iteration markers have {len(ITER_LETTERS)} letters")
+        seen = {}
+        letter_of = {}
+        for v in labels:
+            letter_of[v] = ITER_LETTERS[seen.get(node_of[v], 0)]
+            seen[node_of[v]] = seen.get(node_of[v], 0) + 1
+    else:
+        letter_of = {v: ITER_LETTERS[i] for i, v in enumerate(labels)}
 
     def label(node):
         return f"{node % width}-{node // width}"
@@ -279,9 +312,15 @@ def build(csv_path, map_path, name, mesh="4x4", cycles_per_count=CYCLES_PER_COUN
         outs = [f["id"] for f in out_flows if f["source"] == v]
         out_tasks.append({"name": v, "ident": c_ident(v, used), "port": port, "pe": node,
                           "pe_label": label(node), "order": order[node].index(v),
-                          "kernel_id": order[node].index(v) + 1, "iter_letter": ITER_LETTERS[port - 1],
+                          "kernel_id": order[node].index(v) + 1, "iter_letter": letter_of[v],
                           "wcet": wcet, "workload": workload,
                           "inputs": ins, "outputs": outs, "source": not ins})
+    widest = max(len(t["inputs"]) for t in out_tasks)
+    if widest >= JOIN_SLOTS_FROM:
+        slots = MAX_PKT_QUEUE_SLOTS
+        while slots < 2 * widest:
+            slots *= 2
+        kernel_limits["MAX_PKT_QUEUE_SLOTS"] = slots
     sources = sorted({t["pe"] for t in out_tasks if t["source"]})
     if not sources:
         raise GenError("no source task (every task has an input edge)")
@@ -326,9 +365,29 @@ def build(csv_path, map_path, name, mesh="4x4", cycles_per_count=CYCLES_PER_COUN
             if b["kind"] != "sleep":
                 # the body does not use ucx_sleep: the code does not depend on c(v)
                 t["workload"] = 0
+    # keys of an application above the old limits only (the manifests of the other applications keep
+    # their keys)
+    if letters_per_pe:
+        out["iter_letters"] = "pe"
+    if kernel_limits:
+        out["kernel_limits"] = kernel_limits
     if release_rule == TICK:
         set_tick_release(out, [(f["source"], f["target"]) for f in flows], node_of, width)
     return out
+
+
+def auto_tag_mod(n_flows):
+    """TAG_MOD when flow x TAG_MOD + (k mod TAG_MOD) fits in the 16-bit tag
+    for every flow; otherwise the largest power of two that fits (the
+    iteration of a packet then wraps earlier; rttools.paper.rtlapp unwraps
+    it in time order per flow). GenError when no modulus of at least 2
+    fits."""
+    mod = TAG_MOD
+    while mod > 1 and n_flows * mod + mod - 1 > MAX_TAG:
+        mod //= 2
+    if mod < 2:
+        raise GenError(f"{n_flows} flows exceed the 16-bit tag")
+    return mod
 
 
 def set_tick_release(out, edges, node_of, width):

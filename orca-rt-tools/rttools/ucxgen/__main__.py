@@ -55,7 +55,9 @@ def add_gen_args(p):
     p.add_argument("--reserve", type=int, default=None,
                    help="cycles of c(v) outside ucx_sleep (default: scheduler_cycles of the CSV)")
     p.add_argument("--payload-divisor", type=int, default=1)
-    p.add_argument("--tag-mod", type=int, default=model.TAG_MOD)
+    p.add_argument("--tag-mod", type=int, default=None,
+                   help=f"modulus of the iteration in the tag (default: {model.TAG_MOD}, or the largest power "
+                        "of two that keeps the tags of the flows in 16 bits)")
     p.add_argument("--delay-ns", type=int, default=model.DEFAULT_DELAY_NS)
     p.add_argument("--bodies", default=None,
                    help="JSON file with the body of each task (sleep, sort, search, count); default: sleep")
@@ -83,6 +85,11 @@ def cmd_generate(a):
             f.write(text)
     for w in m["warnings"]:
         print("warning: " + w, file=sys.stderr)
+    if m.get("kernel_limits") or m.get("iter_letters"):
+        print(f"{m['name']}: above the defaults: "
+              + ", ".join([f"{k}={v}" for k, v in m.get("kernel_limits", {}).items()]
+                          + (["marker letters per PE"] if m.get("iter_letters") else [])
+                          + [f"tag modulus {m['tag_mod']}"]), file=sys.stderr)
     r = m["release"]
     print(f"{m['name']}: {len(m['tasks'])} tasks, {len(m['flows'])} flows "
           f"({sum(not f['local'] for f in m['flows'])} between PEs), mesh {a.mesh}, "

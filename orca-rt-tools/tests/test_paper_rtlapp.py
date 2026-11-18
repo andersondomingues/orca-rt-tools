@@ -199,7 +199,7 @@ def test_generator_writes_markers_with_one_letter_per_task(tmp_path):
     assert len(set(letters)) == len(letters) and all(re.fullmatch("[A-Za-z]", x) for x in letters)
     src = emit.c_source(m)
     assert src.count("ITER_BEGIN(t->letter, done + 1);") == 1 and src.count("ITER_END(t->letter, done);") == 1
-    # 53 tasks exceed the letters of the markers
+    # 53 tasks exceed the letters of the markers: one letter per task of a PE; 53 tasks on one PE have none
     rows = "\n".join(f"{i},0,20000,0,T{i},T{i}" for i in range(1, 54))
     flows = "\n".join(f"{i},0.0005,64,0.0005,T{i},T{i + 1}" for i in range(1, 53))
     csv = tmp_path / "a.csv"
@@ -209,5 +209,10 @@ def test_generator_writes_markers_with_one_letter_per_task(tmp_path):
     mp = tmp_path / "a.map"
     mp.write_text("\n".join(f"{n}:" + ",".join(f"T{i}" for i in range(1, 54) if (i - 1) % 16 == n)
                             for n in range(16)) + "\n")
+    wide = genmodel.build(str(csv), str(mp), "a", mesh="4x4")
+    pairs = [(t["pe_label"], t["iter_letter"]) for t in wide["tasks"]]
+    assert wide["iter_letters"] == "pe" and len(set(pairs)) == len(pairs)
+    assert all(re.fullmatch("[A-Za-z]", x) for _, x in pairs)
+    mp.write_text("0:" + ",".join(f"T{i}" for i in range(1, 54)) + "\n")
     with pytest.raises(genmodel.GenError, match="letters"):
         genmodel.build(str(csv), str(mp), "a", mesh="4x4")

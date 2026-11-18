@@ -1018,6 +1018,21 @@ def composition_header(m):
 
 
 def sim_setup(m):
+    return _sim_setup(m) + kernel_limits_setup(m)
+
+
+def kernel_limits_setup(m):
+    """Lines of app/<name>.sim for an application above the defaults of
+    include/lib/noc.h (manifest "kernel_limits"); empty otherwise."""
+    limits = m.get("kernel_limits")
+    if not limits:
+        return ""
+    return ("# Limits of the kernel that this application needs above the defaults of include/lib/noc.h\n"
+            "# (make MAX_TASKS= MAX_PKT_QUEUE_SLOTS=): simulate.sh passes them to the build.\n"
+            + "".join(f"{k}={v}\n" for k, v in limits.items()))
+
+
+def _sim_setup(m):
     w, h = m["mesh"]
     r = m["release"]
     if r.get("rule") == "tick":
