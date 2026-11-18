@@ -44,13 +44,32 @@
 #               multiple of 32000 Hz. F_CLK below 1 GHz (the analysis
 #               recovers the clock edges from $time in ns)
 #   RELEASE_NS  release period T of the source task in ns (default 500000,
-#               config.json release_period_s)
+#               config.json release_period_s). When 1e9 / RELEASE_NS is not
+#               whole (T = 1.5 ms), F_TICK is that value rounded (it only
+#               enables the tick timer) and the build takes the tick in
+#               cycles, TICK_CYCLES = RELEASE_CYCLES (hal.c); RUN_INFO then
+#               has tick_cycles=
 #   WARMUP_NS   instant of the first release in ns of platform time
 #               (default 3000000, config.json warmup_s)
 #   RELEASE_MASK
 #               overrides the value of app/<app>.sim (release generator of
 #               manycore_pe.sv: bit k of the mask, decimal, = PE with node
 #               index k = y * W + x)
+#   MAX_TASKS, MAX_PKT_QUEUE_SLOTS, NOC_TT_SLOTS
+#               limits of the kernel for the build (build_sw.sh); default:
+#               the lines MAX_TASKS= and MAX_PKT_QUEUE_SLOTS= of
+#               app/<app>.sim (rttools.ucxgen writes them for an
+#               application above the defaults of include/lib/noc.h) and
+#               the line "Queue: NOC_TT_SLOTS <n>" of app/<app>_tt.h
+#               (rttools.ucxgen tt, for a link schedule that keeps more
+#               than 8 packets of a PE waiting for their instant),
+#               otherwise the defaults of the kernel. RUN_INFO has
+#               max_tasks=, max_pkt_queue_slots= and noc_tt_slots= when a
+#               limit is set
+#   RAM_BYTES   RAM of each PE in bytes, a power of two (default 65536):
+#               RAM_MSIZE of manycore_top (vsim -g) and the LENGTH of the
+#               linker script of the build (build_sw.sh). RUN_INFO has
+#               ram_bytes= when it is not 65536
 #   RUN_DO      optional .do file that vsim runs after it loads the design,
 #               in place of `run -all` (diagnostic runs that stop at chosen
 #               instants and examine signals, e.g.
@@ -147,11 +166,18 @@ for v in F_CLK RELEASE_NS WARMUP_NS; do
 done
 fail_clock() { echo "F_CLK=$F_CLK RELEASE_NS=$RELEASE_NS WARMUP_NS=$WARMUP_NS: $*" >&2; exit 2; }
 (( F_CLK < 1000000000 )) || fail_clock "F_CLK must be below 1 GHz"
-(( 1000000000 % RELEASE_NS == 0 )) || fail_clock "1e9 / RELEASE_NS (F_TICK) is not an integer"
-F_TICK=$(( 1000000000 / RELEASE_NS ))
+TICK_CYCLES=
+if (( 1000000000 % RELEASE_NS == 0 )); then
+	F_TICK=$(( 1000000000 / RELEASE_NS ))
+else
+	# no whole F_TICK: the build takes the tick in cycles (set below, after RELEASE_CYCLES)
+	F_TICK=$(( (1000000000 + RELEASE_NS / 2) / RELEASE_NS ))
+	TICK_CYCLES=release
+fi
 (( F_CLK * RELEASE_NS % 1000000000 == 0 )) || fail_clock "RELEASE_NS F_CLK is not a whole number of cycles"
 RELEASE_CYCLES=$(( F_CLK * RELEASE_NS / 1000000000 ))
 (( RELEASE_CYCLES % 16 == 0 )) || fail_clock "release period of $RELEASE_CYCLES cycles is not a multiple of 16 (TIMER1)"
+if [ -n "$TICK_CYCLES" ]; then TICK_CYCLES=$RELEASE_CYCLES; fi
 (( F_CLK * WARMUP_NS % 1000000000 == 0 )) || fail_clock "WARMUP_NS F_CLK is not a whole number of cycles"
 WARMUP_CYCLES=$(( F_CLK * WARMUP_NS / 1000000000 ))
 HALF_FS=$(( 500000000000000 / F_CLK ))
@@ -191,6 +217,21 @@ APP_GENERICS=""
 [ "$DIM_X" != 2 ] && APP_GENERICS="$APP_GENERICS -gNOC_DIM_X=$DIM_X"
 [ "$DIM_Y" != 2 ] && APP_GENERICS="$APP_GENERICS -gNOC_DIM_Y=$DIM_Y"
 [ -n "$R_MASK" ] && [ "$R_MASK" != 1 ] && APP_GENERICS="$APP_GENERICS -gRELEASE_MASK=$R_MASK"
+# limits of the kernel (app/<app>.sim of a generated application above the defaults) and RAM of a PE
+K_TASKS=${MAX_TASKS:-$(setup MAX_TASKS)}
+K_SLOTS=${MAX_PKT_QUEUE_SLOTS:-$(setup MAX_PKT_QUEUE_SLOTS)}
+K_TT=${NOC_TT_SLOTS:-}
+if [ -z "$K_TT" ] && [ -f "$UCX_APP/${APP}_tt.h" ]; then
+	K_TT=$(sed -n 's/^ \* Queue: NOC_TT_SLOTS \([0-9]*\) .*$/\1/p' "$UCX_APP/${APP}_tt.h" | head -1)
+fi
+RAM_BYTES=${RAM_BYTES:-}
+if [ -n "$RAM_BYTES" ] && [ "$RAM_BYTES" != 65536 ]; then
+	[[ "$RAM_BYTES" =~ ^[1-9][0-9]*$ ]] && (( (RAM_BYTES & (RAM_BYTES - 1)) == 0 && RAM_BYTES >= 65536 )) \
+		|| { echo "RAM_BYTES must be a power of two of at least 65536: $RAM_BYTES" >&2; exit 2; }
+	APP_GENERICS="$APP_GENERICS -gRAM_MSIZE=$RAM_BYTES"
+else
+	RAM_BYTES=
+fi
 
 RUN_CMD="run -all"
 VSIM_EXTRA=${VSIM_OPTS:+ $VSIM_OPTS}
@@ -226,7 +267,8 @@ fi
 # copy of pkt-sim and build of the software (build_sw.sh: application
 # $APP) at the clock of the run (F_CLK, F_TICK), always with the
 # instrumentation writes (UCX_CFLAGS empty)
-APP="$APP" F_CLK="$F_CLK" F_TICK="$F_TICK" UCX_CFLAGS= "$HERE/build_sw.sh" "$OUT"
+APP="$APP" F_CLK="$F_CLK" F_TICK="$F_TICK" UCX_CFLAGS= MAX_TASKS="$K_TASKS" MAX_PKT_QUEUE_SLOTS="$K_SLOTS" \
+	NOC_TT_SLOTS="$K_TT" TICK_CYCLES="$TICK_CYCLES" RAM_BYTES="$RAM_BYTES" "$HERE/build_sw.sh" "$OUT"
 
 SIM="$OUT/pkt-sim/manycore_modelsim"
 cd "$SIM"
@@ -267,6 +309,11 @@ fi
 	echo "clock_hz_exact=$F_EXACT"
 	echo "release_cycles=$RELEASE_CYCLES"
 	echo "warmup_cycles=$WARMUP_CYCLES"
+	if [ -n "$TICK_CYCLES" ]; then echo "tick_cycles=$TICK_CYCLES"; fi
+	if [ -n "$K_TASKS" ]; then echo "max_tasks=$K_TASKS"; fi
+	if [ -n "$K_SLOTS" ]; then echo "max_pkt_queue_slots=$K_SLOTS"; fi
+	if [ -n "$K_TT" ]; then echo "noc_tt_slots=$K_TT"; fi
+	if [ -n "$RAM_BYTES" ]; then echo "ram_bytes=$RAM_BYTES"; fi
 	if [ "${ISR_NESTING:-0}" = 1 ]; then echo "isr=nesting"; else echo "isr=no_nesting"; fi
 	echo "crt0=$CRT0"
 	LST="$OUT/pkt-sim/software/ucx-os/build/target/image.lst"

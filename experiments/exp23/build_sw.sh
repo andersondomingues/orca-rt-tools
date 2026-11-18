@@ -35,6 +35,18 @@
 #               to tag r11-rc5)
 #   APP         application of pkt-sim/software/ucx-os (Makefile target and
 #               app/<APP>.c; default weird_a, application E of run F)
+#   MAX_TASKS, MAX_PKT_QUEUE_SLOTS, NOC_TT_SLOTS
+#               limits of the kernel (make MAX_TASKS= MAX_PKT_QUEUE_SLOTS=
+#               NOC_TT_SLOTS=; unset: the defaults of include/lib/noc.h, 16
+#               and 8, and of lib/noc_tt.c, 8, the build of every
+#               application of this tree)
+#   TICK_CYCLES tick of the kernel in cycles (make TICK_CYCLES=), for a
+#               release period that is not a whole number of Hz; unset:
+#               F_CLK / F_TICK
+#   RAM_BYTES   RAM of a PE in bytes (unset or 65536: the linker script of
+#               the tree, 64 KiB): the build links with a copy of
+#               arch/riscv/hf-riscv-e/hf-risc.ld with that LENGTH (make
+#               LDSCRIPT=); simulate.sh gives the same size to the RTL
 #   F_CLK, F_TICK
 #               clock and tick of the software in Hz (make F_CLK= F_TICK=;
 #               unset: the defaults of arch.mak, 500000000 and 2000, the
@@ -101,8 +113,25 @@ for v in F_CLK F_TICK; do
 		CLK+=("$v=${!v}")
 	fi
 done
+# limits of the kernel, tick in cycles and RAM: only the variables that are set reach make
+LIM=()
+for v in MAX_TASKS MAX_PKT_QUEUE_SLOTS NOC_TT_SLOTS TICK_CYCLES; do
+	if [ -n "${!v:-}" ]; then
+		[[ "${!v}" =~ ^[1-9][0-9]*$ ]] || { echo "$v must be a positive integer: ${!v}" >&2; exit 2; }
+		LIM+=("$v=${!v}")
+	fi
+done
+if [ -n "${RAM_BYTES:-}" ] && [ "$RAM_BYTES" != 65536 ]; then
+	[[ "$RAM_BYTES" =~ ^[1-9][0-9]*$ ]] && (( (RAM_BYTES & (RAM_BYTES - 1)) == 0 && RAM_BYTES >= 65536 )) \
+		|| { echo "RAM_BYTES must be a power of two of at least 65536: $RAM_BYTES" >&2; exit 2; }
+	LD_DIR="$OUT/pkt-sim/software/ucx-os/arch/riscv/hf-riscv-e"
+	sed "s/LENGTH = 64K/LENGTH = $RAM_BYTES/" "$LD_DIR/hf-risc.ld" > "$LD_DIR/hf-risc-ram.ld"
+	grep -q "LENGTH = $RAM_BYTES\$" "$LD_DIR/hf-risc-ram.ld" \
+		|| { echo "hf-risc.ld: no line \"LENGTH = 64K\"" >&2; exit 2; }
+	LIM+=("LDSCRIPT=arch/riscv/hf-riscv-e/hf-risc-ram.ld")
+fi
 ( cd "$OUT/pkt-sim/software/ucx-os" && make -s ARCH=riscv/hf-riscv-e "$@" incl \
-	&& make -s "$@" "$APP" ${CLK[@]+"${CLK[@]}"} INJECTION="$INJECTION" ) > "$OUT/build_sw.log" 2>&1 \
+	&& make -s "$@" "$APP" ${CLK[@]+"${CLK[@]}"} ${LIM[@]+"${LIM[@]}"} INJECTION="$INJECTION" ) > "$OUT/build_sw.log" 2>&1 \
 	|| { tail -20 "$OUT/build_sw.log" >&2; echo "build of $APP failed" >&2; exit 4; }
 ( cd "$OUT/pkt-sim/software/hfrisc-software" && make -s boot_sim ) > "$OUT/build_boot.log" 2>&1
 riscv64-elf-gcc --version | head -1 > "$OUT/gcc.txt"
