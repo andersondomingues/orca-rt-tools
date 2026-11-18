@@ -1,0 +1,24 @@
+{
+ "_doc": "handlers of one packet event and the handler cycles in t(v) of each task (rttools.wcet, terms send_isr and receive_isr) of the image of the costs file next to this file",
+ "image": {
+  "file": "image.elf",
+  "kind": "elf",
+  "sha256": "3ba1cc180d8e68a7b77414fba4dedbf65228d2e3571f6688ff6c25e0d78c4b65"
+ },
+ "inject": 622,
+ "receive": 2438,
+ "tasks": {
+  "T001": {
+   "isr": 622
+  },
+  "T002": {
+   "isr": 3060
+  },
+  "T003": {
+   "isr": 3060
+  },
+  "T004": {
+   "isr": 2438
+  }
+ }
+}

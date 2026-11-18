@@ -1,0 +1,21 @@
+Acronym,XML task id,WCET
+T001,FileReader_81,180
+T002,WEIGHTED_ROUND_ROBIN_Splitter_102,90
+T003,Interpolate_85,20
+T004,Interpolate_86,20
+T005,Interpolate_87,20
+T006,Interpolate_88,20
+T007,Interpolate_89,20
+T008,Interpolate_90,20
+T009,Interpolate_91,20
+T010,Interpolate_92,20
+T011,Interpolate_93,20
+T012,Interpolate_94,20
+T013,Interpolate_95,20
+T014,Interpolate_96,20
+T015,Interpolate_97,20
+T016,Interpolate_98,20
+T017,Interpolate_99,20
+T018,WEIGHTED_ROUND_ROBIN_Joiner_103,90
+T019,Average_100,140
+T020,Printer_101,25

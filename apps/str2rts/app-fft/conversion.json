@@ -1,0 +1,71 @@
+{
+ "_doc": "values of the conversion of python -m rttools.paper.str2rts convert; do not edit",
+ "name": "APP-FFT",
+ "source": {
+  "xml": "src/fft/SDF-FFT2_nocache.xml",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36",
+  "sha256": "c501d8a9e6d2f386a6b0e4362a1d76623b73cb2c75ac4c0769835cc794f31035"
+ },
+ "files": {
+  "csv": "app-fft.csv",
+  "map": "app-fft-ONTO-hermes4x4.map",
+  "names": "names.csv",
+  "conversion": "conversion.json"
+ },
+ "tasks": 26,
+ "edges": 26,
+ "longest_path": 14,
+ "source_task": "T001",
+ "sink_task": "T026",
+ "mesh": "4x4",
+ "arch": "hermes-4x4.gml",
+ "clusters": 16,
+ "factor": 72.64,
+ "period_s": 0.0005,
+ "deadline_s": 0.0045,
+ "phase_last": 8,
+ "budget_cycles": 190000,
+ "scheduler_cycles": 11000,
+ "criterion": "MAX_PROC",
+ "m2": 45253.159068594316,
+ "largest_cluster_cost": 189985,
+ "largest_cluster_tasks": 4,
+ "f_cpu_hz": 379970000.0,
+ "scheduler_share_of_largest_cluster": 0.23157894736842105,
+ "wcet_xml": {
+  "min": 6,
+  "max": 2464,
+  "sum": 16068
+ },
+ "payload": {
+  "types": {
+   "float": {
+    "bits": 32,
+    "source": "default",
+    "edges": 26
+   }
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532,
+  "edges_at_floor": 0,
+  "edges_of_zero_bytes": 0,
+  "edges_above_max": [],
+  "smallest_bytes": 512,
+  "largest_bytes": 1024
+ },
+ "periods_tried": [
+  {
+   "period_s": 0.0005,
+   "k": 72.64,
+   "largest_cluster_tasks": 4,
+   "scheduler_cycles_of_largest_cluster": 44000,
+   "accepted": true
+  }
+ ],
+ "probe": {
+  "probes": 0,
+  "feasible_above": 0,
+  "restarts": 0,
+  "bound_of_one_task": 72.64
+ }
+}

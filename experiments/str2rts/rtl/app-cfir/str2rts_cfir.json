@@ -1,0 +1,159 @@
+{
+ "name": "str2rts_cfir",
+ "generator": "rttools.ucxgen",
+ "inputs": {
+  "csv": {
+   "file": "app-cfir.csv",
+   "sha256": "c0f0cd67ae5c1131d0ee3b28e08b5b198895c6d450392898f0f190dc6b515afa"
+  },
+  "map": {
+   "file": "app-cfir-ONTO-hermes2x2.map",
+   "sha256": "52b5905e7dd5953624a0e40f05418cadb94c656515e257c4a2d601eae0a5e09a"
+  }
+ },
+ "mesh": [
+  2,
+  2
+ ],
+ "cycles_per_count": 10,
+ "reserve_cycles": 11000,
+ "payload_divisor": 1,
+ "tag_mod": 1024,
+ "release": {
+  "period_ns": 500000,
+  "delay_ns": 3000000,
+  "pes": [
+   0
+  ],
+  "pe_labels": [
+   "0-0"
+  ],
+  "mask": 1,
+  "rule": "tick",
+  "tick_pes": [
+   0,
+   1,
+   3
+  ],
+  "tick_pe_labels": [
+   "0-0",
+   "1-0",
+   "1-1"
+  ],
+  "tick_mask": 11
+ },
+ "pe_tasks": {
+  "0-0": [
+   "IDLE",
+   "T001"
+  ],
+  "1-0": [
+   "IDLE",
+   "T003"
+  ],
+  "1-1": [
+   "IDLE",
+   "T002"
+  ]
+ },
+ "pe_dispatch": {
+  "0-0": [
+   "T001"
+  ],
+  "1-0": [
+   "T003"
+  ],
+  "1-1": [
+   "T002"
+  ]
+ },
+ "tasks": [
+  {
+   "name": "T001",
+   "ident": "T001",
+   "port": 1,
+   "pe": 0,
+   "pe_label": "0-0",
+   "order": 0,
+   "kernel_id": 1,
+   "iter_letter": "A",
+   "wcet": 14129,
+   "workload": 313,
+   "inputs": [],
+   "outputs": [
+    1
+   ],
+   "source": true,
+   "phase": 0
+  },
+  {
+   "name": "T002",
+   "ident": "T002",
+   "port": 2,
+   "pe": 3,
+   "pe_label": "1-1",
+   "order": 0,
+   "kernel_id": 1,
+   "iter_letter": "B",
+   "wcet": 189996,
+   "workload": 17900,
+   "inputs": [
+    1
+   ],
+   "outputs": [
+    2
+   ],
+   "source": false,
+   "phase": 1
+  },
+  {
+   "name": "T003",
+   "ident": "T003",
+   "port": 3,
+   "pe": 1,
+   "pe_label": "1-0",
+   "order": 0,
+   "kernel_id": 1,
+   "iter_letter": "C",
+   "wcet": 14755,
+   "workload": 376,
+   "inputs": [
+    2
+   ],
+   "outputs": [],
+   "source": false,
+   "phase": 2
+  }
+ ],
+ "flows": [
+  {
+   "id": 1,
+   "csv_id": "1",
+   "source": "T001",
+   "target": "T002",
+   "src_pe": 0,
+   "dst_pe": 3,
+   "src_label": "0-0",
+   "dst_label": "1-1",
+   "local": false,
+   "csv_bytes": 8,
+   "bytes": 8,
+   "tag_base": 1024
+  },
+  {
+   "id": 2,
+   "csv_id": "2",
+   "source": "T002",
+   "target": "T003",
+   "src_pe": 3,
+   "dst_pe": 1,
+   "src_label": "1-1",
+   "dst_label": "1-0",
+   "local": false,
+   "csv_bytes": 8,
+   "bytes": 8,
+   "tag_base": 2048
+  }
+ ],
+ "warnings": []
+}

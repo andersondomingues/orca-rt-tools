@@ -1,0 +1,78 @@
+{
+ "_doc": "values of the conversion of python -m rttools.paper.str2rts convert; do not edit",
+ "name": "APP-DCALC",
+ "source": {
+  "xml": "src/dcalc/SDF-dcalc_nocache.xml",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36",
+  "sha256": "4327fe05268762c9bf65e8921e02e5957be07a26dfcc16e56573e7182523f6da"
+ },
+ "files": {
+  "csv": "app-dcalc.csv",
+  "map": "app-dcalc-ONTO-hermes4x4.map",
+  "names": "names.csv",
+  "conversion": "conversion.json"
+ },
+ "tasks": 84,
+ "edges": 101,
+ "longest_path": 53,
+ "source_task": "T001",
+ "sink_task": "T084",
+ "mesh": "4x4",
+ "arch": "hermes-4x4.gml",
+ "clusters": 16,
+ "factor": 80.23,
+ "period_s": 0.001,
+ "deadline_s": 0.017,
+ "phase_last": 16,
+ "budget_cycles": 380000,
+ "scheduler_cycles": 11000,
+ "criterion": "MAX_PROC",
+ "m2": 92706.17400048712,
+ "largest_cluster_cost": 379978,
+ "largest_cluster_tasks": 10,
+ "f_cpu_hz": 379978000.0,
+ "scheduler_share_of_largest_cluster": 0.2894736842105263,
+ "wcet_xml": {
+  "min": 3,
+  "max": 4599,
+  "sum": 14699
+ },
+ "payload": {
+  "types": {
+   "float": {
+    "bits": 32,
+    "source": "default",
+    "edges": 101
+   }
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532,
+  "edges_at_floor": 5,
+  "edges_of_zero_bytes": 5,
+  "edges_above_max": [],
+  "smallest_bytes": 4,
+  "largest_bytes": 1600
+ },
+ "periods_tried": [
+  {
+   "period_s": 0.0005,
+   "k": 38.92,
+   "largest_cluster_tasks": 10,
+   "scheduler_cycles_of_largest_cluster": 110000,
+   "accepted": false
+  },
+  {
+   "period_s": 0.001,
+   "k": 80.23,
+   "largest_cluster_tasks": 10,
+   "scheduler_cycles_of_largest_cluster": 110000,
+   "accepted": true
+  }
+ ],
+ "probe": {
+  "probes": 0,
+  "feasible_above": 0,
+  "restarts": 0,
+  "bound_of_one_task": 80.23
+ }
+}

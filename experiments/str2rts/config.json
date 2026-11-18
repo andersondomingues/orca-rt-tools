@@ -1,0 +1,148 @@
+{
+ "_doc": "make (STR2RTS): the SDF task graphs of the STR2RTS suite in the application format of the flow (apps/str2rts, make convert STR2RTS=<checkout>) and the analysis flow on each of them (rttools/paper/str2rts.py; the module docstring states the rules). Paths of the applications relative to the STR2RTS checkout.",
+ "source": {
+  "_doc": "STR2RTS: B. Rouxel and I. Puaut, STR2RTS: Refactored StreamIT benchmarks into statically analysable parallel benchmarks for WCET estimation and real-time scheduling, WCET 2017 (OASIcs 57). Licence of the suite: GNU GPL v3 (licence.txt of the checkout). The converter reads the XML descriptions only; sha256 of each XML in apps.",
+  "repository": "https://gitlab.inria.fr/brouxel/STR2RTS",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36"
+ },
+ "dir": "str2rts",
+ "apps": [
+  {
+   "name": "APP-80211A",
+   "xml": "src/802.11a/SDF-transmit_nocache.xml",
+   "sha256": "9887e0961a4232df403a9ba646dd16c89e33143fa016dc1a64de0d7aab8466dd"
+  },
+  {
+   "name": "APP-AUDIOBEAM",
+   "xml": "src/Audiobeam/SDF-Audiobeam_nocache.xml",
+   "sha256": "beabb118365803e4c490312ced2d41d3686804dbdf4ea76a2f2e863f5da54e62"
+  },
+  {
+   "name": "APP-BEAMFORMER",
+   "xml": "src/BeamFormer/SDF-BeamFormer_nocache.xml",
+   "sha256": "a89dac45062cc0ea892a1981186a78f5ebba9af69b2eedd52322a84277f9bad1"
+  },
+  {
+   "name": "APP-CFIR",
+   "xml": "src/ComplexFIR/SDF-ComplexFIR_nocache.xml",
+   "sha256": "1f4b38b02acd1b3c9a3f86705d7412fdcdf90b3830bcd877f185a6a94a894b3a"
+  },
+  {
+   "name": "APP-FIR",
+   "xml": "src/FIR/SDF-FIR_nocache.xml",
+   "sha256": "a91e26a6d99335b9d8c73e8426e381f7c004bfefe9297a381299bb18d857f86d"
+  },
+  {
+   "name": "APP-FMRADIO",
+   "xml": "src/FMRadio/SDF-FMRadio_nocache.xml",
+   "sha256": "c7ecf4f7f8c15e875a19cec6d44e1c21a08b63657da9282456f878684b98fad1"
+  },
+  {
+   "name": "APP-FILTERBANK",
+   "xml": "src/Filterbank/SDF-FilterBankNew_nocache.xml",
+   "sha256": "8f38daf2b97245480a8c657a419226fe1d0e3b989b2a6c0af80b039fb712b0fc"
+  },
+  {
+   "name": "APP-BITONIC",
+   "xml": "src/bitonicsort/SDF-BitonicSort_nocache.xml",
+   "sha256": "3014bc18cf90b5bb9ab06053b522e12865d1c6f776611fc926ada9d1ea6ce3cc"
+  },
+  {
+   "name": "APP-CFAR",
+   "xml": "src/cfar/SDF-CFARtest_nocache.xml",
+   "sha256": "5eb22cbd75bb9379621da978bf3a153e06f586919d2dfa0b69657b4f2a004d38"
+  },
+  {
+   "name": "APP-DCALC",
+   "xml": "src/dcalc/SDF-dcalc_nocache.xml",
+   "sha256": "4327fe05268762c9bf65e8921e02e5957be07a26dfcc16e56573e7182523f6da"
+  },
+  {
+   "name": "APP-DCT",
+   "xml": "src/dct/SDF-DCTverify_nocache.xml",
+   "sha256": "8ebd7083bc7610477a74b5e85d3bfd1ed7045f6a8d6c4db62bb2510f78bf4752"
+  },
+  {
+   "name": "APP-DES",
+   "xml": "src/des/SDF-DES_nocache.xml",
+   "sha256": "bd091faafe63ac7ee46f146242b4049d3837f5c6606bc2b922d674376725b4c1"
+  },
+  {
+   "name": "APP-FFT",
+   "xml": "src/fft/SDF-FFT2_nocache.xml",
+   "sha256": "c501d8a9e6d2f386a6b0e4362a1d76623b73cb2c75ac4c0769835cc794f31035"
+  },
+  {
+   "name": "APP-FIRBANK",
+   "xml": "src/firbank/SDF-FIRBank_nocache.xml",
+   "sha256": "c789e93f912c1e889f6c04623997826269db291514647f19e656ae18476eda5f"
+  },
+  {
+   "name": "APP-MATMULT",
+   "xml": "src/matmult/SDF-MatrixMultBlock_nocache.xml",
+   "sha256": "948e988815330d7e49fb9faa9cd73ca4a835e389c7ade952dc8481f4d1a4307c"
+  },
+  {
+   "name": "APP-PERFTEST",
+   "xml": "src/perftest/SDF-perftest_nocache.xml",
+   "sha256": "f0849cd844649b7f980290488bae09c3fb0a5c40ff0fc89968d4693b4ee3ec89"
+  },
+  {
+   "name": "APP-SERPENT",
+   "xml": "src/serpent/SDF-Serpent_nocache.xml",
+   "sha256": "38964643dfa46b6715ded54b09878595d1456acfcca3f4f54880cc595392d610"
+  }
+ ],
+ "payload": {
+  "_doc": "bytes of an edge = ceil(data-sent x bits of its data type / 8); bits: the <data-type name size> rows of the XML (every XML of the list declares int = 64 b and complex = 100 b), otherwise default_bits; floor_bytes: payload of an edge that comes out below it (edges without data: void, or data-sent 0); max_bytes: largest payload of one packet (uint16_t payload_size of noc_packet_t after the kernel rounds the payload up to a multiple of 4: 65,532; MAX_PAYLOAD of rttools/ucxgen/model.py), an edge above it is cut to max_bytes.",
+  "default_bits": {
+   "float": 32,
+   "int": 32,
+   "complex": 64,
+   "bit": 1,
+   "void": 0
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532
+ },
+ "mesh": {
+  "_doc": "4x4 with at least min_tasks_4x4 tasks, otherwise 2x2; arch: file of arch/",
+  "min_tasks_4x4": 16,
+  "large": {
+   "width": 4,
+   "height": 4,
+   "arch": "hermes-4x4.gml"
+  },
+  "small": {
+   "width": 2,
+   "height": 2,
+   "arch": "hermes-2x2.gml"
+  }
+ },
+ "scale": {
+  "_doc": "c(v) = round(k WCET) + scheduler_cycles; budget B(T) = reference_hz x T cycles; T: the first multiple of period_step_s at which scheduler_cycles x (tasks of the cluster with the most tasks) <= scheduler_share x B(T) with the clustering of k(T); k(T): the largest factor with factor_decimals decimals whose largest cluster cost is at most B(T) (f_CPU <= reference_hz), by bisection with the clustering of the flow in the loop and `probes` factors above the result.",
+  "scheduler_cycles": 11000,
+  "reference_hz": 380000000,
+  "period_step_s": 0.0005,
+  "period_max_s": 0.05,
+  "scheduler_share": 0.5,
+  "factor_decimals": 2,
+  "probes": 64
+ },
+ "analysis": {
+  "_doc": "f0_hz: first frequency of the search (as experiments/car-v and experiments/tt). handlers: inject and receive of the handler charge of Eq. (7), the handler terms of the image of CAR (send_isr and receive_isr_size + receive_isr_end of ../wcet/reference_tt.json, ni_images.car_full_gcc12.kernel, the terms that experiments/automotive uses; the largest of the stored images); budget B_v = 0 (the costs of the conversion hold no handler cycles). settings: flow (the model of the flow) and the removals that tell which term sets the clock (rttools/paper/str2rts.py, SETTINGS). timeout_s: an application that runs longer is stopped and reported.",
+  "f0_hz": 500000000,
+  "handlers": {
+   "inject": 622,
+   "receive": 4803
+  },
+  "settings": [
+   "flow",
+   "no_handlers",
+   "no_wni",
+   "no_wh",
+   "links_only"
+  ],
+  "timeout_s": 1200
+ }
+}

@@ -1,0 +1,8 @@
+task,pe,source,iterations,phase_model,phase_observed,cost,cpu_per_iteration_cycles,end_minus_model_finish_max,ends_after_model_finish,max_iterations_per_run,same_run
+T001,0-0,markers,19,0,0:19,189752,180871,-6986,0,1,
+T002,0-1,markers,18,1,1:18,15426,5799.333333,-11493,0,1,
+T003,1-1,markers,17,2,2:17,89557,81800,-10356,0,1,
+T004,1-0,markers,16,3,3:16,89557,80966,-6695,0,1,
+T005,0-1,markers,18,1,1:18,12882,3460.944444,-17045,0,1,
+T006,0-1,markers,15,4,4:15,17676,5637.933333,-28693,0,1,
+T007,0-1,markers,15,4,4:15,11216,1302,-38694,0,1,

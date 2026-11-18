@@ -1,0 +1,88 @@
+{
+ "_doc": "values of the conversion of python -m rttools.paper.str2rts convert; do not edit",
+ "name": "APP-FIRBANK",
+ "source": {
+  "xml": "src/firbank/SDF-FIRBank_nocache.xml",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36",
+  "sha256": "c789e93f912c1e889f6c04623997826269db291514647f19e656ae18476eda5f"
+ },
+ "files": {
+  "csv": "app-firbank.csv",
+  "map": "app-firbank-ONTO-hermes4x4.map",
+  "names": "names.csv",
+  "conversion": "conversion.json"
+ },
+ "tasks": 340,
+ "edges": 350,
+ "longest_path": 31,
+ "source_task": "T001",
+ "sink_task": "T340",
+ "mesh": "4x4",
+ "arch": "hermes-4x4.gml",
+ "clusters": 16,
+ "factor": 24.29,
+ "period_s": 0.002,
+ "deadline_s": 0.008,
+ "phase_last": 3,
+ "budget_cycles": 760000,
+ "scheduler_cycles": 11000,
+ "criterion": "MAX_PROC",
+ "m2": 175812.91565450333,
+ "largest_cluster_cost": 759988,
+ "largest_cluster_tasks": 28,
+ "f_cpu_hz": 379994000.0,
+ "scheduler_share_of_largest_cluster": 0.4052631578947368,
+ "wcet_xml": {
+  "min": 6,
+  "max": 4608,
+  "sum": 228054
+ },
+ "payload": {
+  "types": {
+   "float": {
+    "bits": 32,
+    "source": "default",
+    "edges": 350
+   }
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532,
+  "edges_at_floor": 0,
+  "edges_of_zero_bytes": 0,
+  "edges_above_max": [],
+  "smallest_bytes": 128,
+  "largest_bytes": 1536
+ },
+ "periods_tried": [
+  {
+   "period_s": 0.0005,
+   "k": null,
+   "reason": "scheduler cost of ceil(tasks / N) tasks"
+  },
+  {
+   "period_s": 0.001,
+   "k": null,
+   "reason": "scheduler cost of ceil(tasks / N) tasks"
+  },
+  {
+   "period_s": 0.0015,
+   "k": 14.07,
+   "largest_cluster_tasks": 28,
+   "scheduler_cycles_of_largest_cluster": 308000,
+   "accepted": false
+  },
+  {
+   "period_s": 0.002,
+   "k": 24.29,
+   "largest_cluster_tasks": 28,
+   "scheduler_cycles_of_largest_cluster": 308000,
+   "accepted": true
+  }
+ ],
+ "probe": {
+  "probes": 65,
+  "feasible_above": 0,
+  "restarts": 0,
+  "bound_of_one_task": 162.54
+ }
+}

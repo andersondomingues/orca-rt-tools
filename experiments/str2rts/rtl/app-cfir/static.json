@@ -1,0 +1,61 @@
+{
+ "_doc": "static_costs.py: static t(v) of the image of the pilot run against the CSV, and the flow with t(v) = max(CSV, static) and the handler terms of the image (flow_image) against the flow with the costs of the CSV and no handler charge (flow_csv); experiments/str2rts/reference.json holds the flow with the costs of the CSV and the handler terms of the image of CAR with budget 0",
+ "app": "APP-CFIR",
+ "image": {
+  "file": "image.elf",
+  "kind": "elf",
+  "sha256": "cf3b235d270af969443966ce3d69810a866cb5f9d2263ef5cfa5f93d99761a5d"
+ },
+ "params": {
+  "tcb": 2,
+  "heap_blocks": 16
+ },
+ "kernel": {
+  "dispatch": 429,
+  "tick": 1151,
+  "release": 249,
+  "send_isr": 622,
+  "receive_isr_size": 1766,
+  "receive_isr_end": 672,
+  "receive_isr": 2438
+ },
+ "scheduler_cycles": {
+  "csv": 11000,
+  "static": 1400
+ },
+ "tasks": {
+  "T001": {
+   "csv": 14129,
+   "static": 8199,
+   "used": 14129,
+   "static_above_csv": false,
+   "isr": 622
+  },
+  "T002": {
+   "csv": 189996,
+   "static": 186891,
+   "used": 189996,
+   "static_above_csv": false,
+   "isr": 3060
+  },
+  "T003": {
+   "csv": 14755,
+   "static": 8759,
+   "used": 14755,
+   "static_above_csv": false,
+   "isr": 2438
+  }
+ },
+ "tasks_static_above_csv": [],
+ "largest_static_over_csv": 0.9836575506852776,
+ "flow_image": {
+  "f_cpu_hz": 379992000.0,
+  "f_search_hz": 416568756.1035156,
+  "r_bound_ms": 1.0354185081821594
+ },
+ "flow_csv": {
+  "f_cpu_hz": 379992000.0,
+  "f_search_hz": 410446166.9921875,
+  "r_bound_ms": 1.0359482782259564
+ }
+}

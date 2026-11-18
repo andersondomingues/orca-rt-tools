@@ -1,0 +1,78 @@
+{
+ "_doc": "values of the conversion of python -m rttools.paper.str2rts convert; do not edit",
+ "name": "APP-BITONIC",
+ "source": {
+  "xml": "src/bitonicsort/SDF-BitonicSort_nocache.xml",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36",
+  "sha256": "3014bc18cf90b5bb9ab06053b522e12865d1c6f776611fc926ada9d1ea6ce3cc"
+ },
+ "files": {
+  "csv": "app-bitonic.csv",
+  "map": "app-bitonic-ONTO-hermes4x4.map",
+  "names": "names.csv",
+  "conversion": "conversion.json"
+ },
+ "tasks": 122,
+ "edges": 151,
+ "longest_path": 47,
+ "source_task": "T001",
+ "sink_task": "T122",
+ "mesh": "4x4",
+ "arch": "hermes-4x4.gml",
+ "clusters": 16,
+ "factor": 735.43,
+ "period_s": 0.001,
+ "deadline_s": 0.013,
+ "phase_last": 12,
+ "budget_cycles": 380000,
+ "scheduler_cycles": 11000,
+ "criterion": "MAX_PROC",
+ "m2": 79676.68061992401,
+ "largest_cluster_cost": 379997,
+ "largest_cluster_tasks": 15,
+ "f_cpu_hz": 379997000.0,
+ "scheduler_share_of_largest_cluster": 0.4342105263157895,
+ "wcet_xml": {
+  "min": 12,
+  "max": 183,
+  "sum": 3732
+ },
+ "payload": {
+  "types": {
+   "int": {
+    "bits": 64,
+    "source": "xml",
+    "edges": 151
+   }
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532,
+  "edges_at_floor": 0,
+  "edges_of_zero_bytes": 0,
+  "edges_above_max": [],
+  "smallest_bytes": 16,
+  "largest_bytes": 128
+ },
+ "periods_tried": [
+  {
+   "period_s": 0.0005,
+   "k": 193.49,
+   "largest_cluster_tasks": 12,
+   "scheduler_cycles_of_largest_cluster": 132000,
+   "accepted": false
+  },
+  {
+   "period_s": 0.001,
+   "k": 735.43,
+   "largest_cluster_tasks": 15,
+   "scheduler_cycles_of_largest_cluster": 165000,
+   "accepted": true
+  }
+ ],
+ "probe": {
+  "probes": 65,
+  "feasible_above": 0,
+  "restarts": 0,
+  "bound_of_one_task": 2016.39
+ }
+}

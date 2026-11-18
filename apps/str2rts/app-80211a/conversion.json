@@ -1,0 +1,177 @@
+{
+ "_doc": "values of the conversion of python -m rttools.paper.str2rts convert; do not edit",
+ "name": "APP-80211A",
+ "source": {
+  "xml": "src/802.11a/SDF-transmit_nocache.xml",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36",
+  "sha256": "9887e0961a4232df403a9ba646dd16c89e33143fa016dc1a64de0d7aab8466dd"
+ },
+ "files": {
+  "csv": "app-80211a.csv",
+  "map": "app-80211a-ONTO-hermes4x4.map",
+  "names": "names.csv",
+  "conversion": "conversion.json"
+ },
+ "tasks": 117,
+ "edges": 148,
+ "longest_path": 52,
+ "source_task": "T001",
+ "sink_task": "T117",
+ "mesh": "4x4",
+ "arch": "hermes-4x4.gml",
+ "clusters": 16,
+ "factor": 25.94,
+ "period_s": 0.001,
+ "deadline_s": 0.014,
+ "phase_last": 13,
+ "budget_cycles": 380000,
+ "scheduler_cycles": 11000,
+ "criterion": "MAX_PROC",
+ "m2": 69539.58736710694,
+ "largest_cluster_cost": 361499,
+ "largest_cluster_tasks": 17,
+ "f_cpu_hz": 361499000.0,
+ "scheduler_share_of_largest_cluster": 0.4921052631578947,
+ "wcet_xml": {
+  "min": 3,
+  "max": 10368,
+  "sum": 118849
+ },
+ "payload": {
+  "types": {
+   "void": {
+    "bits": 0,
+    "source": "default",
+    "edges": 16
+   },
+   "complex": {
+    "bits": 100,
+    "source": "xml",
+    "edges": 104
+   },
+   "int": {
+    "bits": 64,
+    "source": "xml",
+    "edges": 28
+   }
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532,
+  "edges_at_floor": 16,
+  "edges_of_zero_bytes": 16,
+  "edges_above_max": [
+   {
+    "flow": 24,
+    "source": "T021",
+    "target": "T023",
+    "bytes": 102400,
+    "data_sent": 8192,
+    "type": "complex"
+   },
+   {
+    "flow": 25,
+    "source": "T020",
+    "target": "T023",
+    "bytes": 102400,
+    "data_sent": 8192,
+    "type": "complex"
+   },
+   {
+    "flow": 34,
+    "source": "T028",
+    "target": "T030",
+    "bytes": 316013,
+    "data_sent": 25281,
+    "type": "complex"
+   },
+   {
+    "flow": 36,
+    "source": "T026",
+    "target": "T030",
+    "bytes": 316013,
+    "data_sent": 25281,
+    "type": "complex"
+   },
+   {
+    "flow": 68,
+    "source": "T053",
+    "target": "T055",
+    "bytes": 5120000,
+    "data_sent": 640000,
+    "type": "int"
+   },
+   {
+    "flow": 92,
+    "source": "T073",
+    "target": "T075",
+    "bytes": 172800,
+    "data_sent": 13824,
+    "type": "complex"
+   },
+   {
+    "flow": 124,
+    "source": "T099",
+    "target": "T101",
+    "bytes": 358400,
+    "data_sent": 28672,
+    "type": "complex"
+   },
+   {
+    "flow": 132,
+    "source": "T105",
+    "target": "T107",
+    "bytes": 468075,
+    "data_sent": 37446,
+    "type": "complex"
+   },
+   {
+    "flow": 136,
+    "source": "T108",
+    "target": "T110",
+    "bytes": 78013,
+    "data_sent": 6241,
+    "type": "complex"
+   },
+   {
+    "flow": 145,
+    "source": "T115",
+    "target": "T116",
+    "bytes": 3920000,
+    "data_sent": 313600,
+    "type": "complex"
+   },
+   {
+    "flow": 147,
+    "source": "T113",
+    "target": "T116",
+    "bytes": 1280000,
+    "data_sent": 102400,
+    "type": "complex"
+   }
+  ],
+  "smallest_bytes": 4,
+  "largest_bytes": 65532
+ },
+ "periods_tried": [
+  {
+   "period_s": 0.0005,
+   "k": 7.2,
+   "largest_cluster_tasks": 15,
+   "scheduler_cycles_of_largest_cluster": 165000,
+   "accepted": false
+  },
+  {
+   "period_s": 0.001,
+   "k": 25.94,
+   "largest_cluster_tasks": 17,
+   "scheduler_cycles_of_largest_cluster": 187000,
+   "accepted": true
+  }
+ ],
+ "probe": {
+  "probes": 130,
+  "feasible_above": 4,
+  "restarts": 1,
+  "bound_of_one_task": 35.59
+ }
+}

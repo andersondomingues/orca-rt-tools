@@ -1,0 +1,76 @@
+{
+ "_doc": "values of the conversion of python -m rttools.paper.str2rts convert; do not edit",
+ "name": "APP-CFAR",
+ "source": {
+  "xml": "src/cfar/SDF-CFARtest_nocache.xml",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36",
+  "sha256": "5eb22cbd75bb9379621da978bf3a153e06f586919d2dfa0b69657b4f2a004d38"
+ },
+ "files": {
+  "csv": "app-cfar.csv",
+  "map": "app-cfar-ONTO-hermes2x2.map",
+  "names": "names.csv",
+  "conversion": "conversion.json"
+ },
+ "tasks": 4,
+ "edges": 3,
+ "longest_path": 3,
+ "source_task": "T001",
+ "sink_task": "T004",
+ "mesh": "2x2",
+ "arch": "hermes-2x2.gml",
+ "clusters": 4,
+ "factor": 2.89,
+ "period_s": 0.0005,
+ "deadline_s": 0.002,
+ "phase_last": 3,
+ "budget_cycles": 190000,
+ "scheduler_cycles": 11000,
+ "criterion": "MIN_COMM",
+ "m2": 77050.27119517491,
+ "largest_cluster_cost": 189486,
+ "largest_cluster_tasks": 1,
+ "f_cpu_hz": 378972000.0,
+ "scheduler_share_of_largest_cluster": 0.05789473684210526,
+ "wcet_xml": {
+  "min": 6,
+  "max": 61760,
+  "sum": 62329
+ },
+ "payload": {
+  "types": {
+   "complex": {
+    "bits": 100,
+    "source": "xml",
+    "edges": 1
+   },
+   "float": {
+    "bits": 32,
+    "source": "default",
+    "edges": 2
+   }
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532,
+  "edges_at_floor": 0,
+  "edges_of_zero_bytes": 0,
+  "edges_above_max": [],
+  "smallest_bytes": 256,
+  "largest_bytes": 800
+ },
+ "periods_tried": [
+  {
+   "period_s": 0.0005,
+   "k": 2.89,
+   "largest_cluster_tasks": 1,
+   "scheduler_cycles_of_largest_cluster": 11000,
+   "accepted": true
+  }
+ ],
+ "probe": {
+  "probes": 0,
+  "feasible_above": 0,
+  "restarts": 0,
+  "bound_of_one_task": 2.89
+ }
+}

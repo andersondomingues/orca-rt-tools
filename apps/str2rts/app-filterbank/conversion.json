@@ -1,0 +1,71 @@
+{
+ "_doc": "values of the conversion of python -m rttools.paper.str2rts convert; do not edit",
+ "name": "APP-FILTERBANK",
+ "source": {
+  "xml": "src/Filterbank/SDF-FilterBankNew_nocache.xml",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36",
+  "sha256": "8f38daf2b97245480a8c657a419226fe1d0e3b989b2a6c0af80b039fb712b0fc"
+ },
+ "files": {
+  "csv": "app-filterbank.csv",
+  "map": "app-filterbank-ONTO-hermes4x4.map",
+  "names": "names.csv",
+  "conversion": "conversion.json"
+ },
+ "tasks": 53,
+ "edges": 59,
+ "longest_path": 10,
+ "source_task": "T001",
+ "sink_task": "T053",
+ "mesh": "4x4",
+ "arch": "hermes-4x4.gml",
+ "clusters": 16,
+ "factor": 174.01,
+ "period_s": 0.0005,
+ "deadline_s": 0.002,
+ "phase_last": 3,
+ "budget_cycles": 190000,
+ "scheduler_cycles": 11000,
+ "criterion": "MAX_PROC",
+ "m2": 32428.95153489153,
+ "largest_cluster_cost": 189995,
+ "largest_cluster_tasks": 7,
+ "f_cpu_hz": 379990000.0,
+ "scheduler_share_of_largest_cluster": 0.4052631578947368,
+ "wcet_xml": {
+  "min": 6,
+  "max": 390,
+  "sum": 7670
+ },
+ "payload": {
+  "types": {
+   "float": {
+    "bits": 32,
+    "source": "default",
+    "edges": 59
+   }
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532,
+  "edges_at_floor": 0,
+  "edges_of_zero_bytes": 0,
+  "edges_above_max": [],
+  "smallest_bytes": 4,
+  "largest_bytes": 256
+ },
+ "periods_tried": [
+  {
+   "period_s": 0.0005,
+   "k": 174.01,
+   "largest_cluster_tasks": 7,
+   "scheduler_cycles_of_largest_cluster": 77000,
+   "accepted": true
+  }
+ ],
+ "probe": {
+  "probes": 65,
+  "feasible_above": 0,
+  "restarts": 0,
+  "bound_of_one_task": 458.97
+ }
+}

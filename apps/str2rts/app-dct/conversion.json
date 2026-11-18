@@ -1,0 +1,71 @@
+{
+ "_doc": "values of the conversion of python -m rttools.paper.str2rts convert; do not edit",
+ "name": "APP-DCT",
+ "source": {
+  "xml": "src/dct/SDF-DCTverify_nocache.xml",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36",
+  "sha256": "8ebd7083bc7610477a74b5e85d3bfd1ed7045f6a8d6c4db62bb2510f78bf4752"
+ },
+ "files": {
+  "csv": "app-dct.csv",
+  "map": "app-dct-ONTO-hermes2x2.map",
+  "names": "names.csv",
+  "conversion": "conversion.json"
+ },
+ "tasks": 7,
+ "edges": 7,
+ "longest_path": 5,
+ "source_task": "T001",
+ "sink_task": "T007",
+ "mesh": "2x2",
+ "arch": "hermes-2x2.gml",
+ "clusters": 4,
+ "factor": 4.9,
+ "period_s": 0.0005,
+ "deadline_s": 0.0025,
+ "phase_last": 4,
+ "budget_cycles": 190000,
+ "scheduler_cycles": 11000,
+ "criterion": "MAX_PROC",
+ "m2": 50981.228508025386,
+ "largest_cluster_cost": 189752,
+ "largest_cluster_tasks": 4,
+ "f_cpu_hz": 379504000.0,
+ "scheduler_share_of_largest_cluster": 0.23157894736842105,
+ "wcet_xml": {
+  "min": 44,
+  "max": 36480,
+  "sum": 70316
+ },
+ "payload": {
+  "types": {
+   "int": {
+    "bits": 64,
+    "source": "xml",
+    "edges": 7
+   }
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532,
+  "edges_at_floor": 0,
+  "edges_of_zero_bytes": 0,
+  "edges_above_max": [],
+  "smallest_bytes": 8,
+  "largest_bytes": 1024
+ },
+ "periods_tried": [
+  {
+   "period_s": 0.0005,
+   "k": 4.9,
+   "largest_cluster_tasks": 4,
+   "scheduler_cycles_of_largest_cluster": 44000,
+   "accepted": true
+  }
+ ],
+ "probe": {
+  "probes": 0,
+  "feasible_above": 0,
+  "restarts": 0,
+  "bound_of_one_task": 4.9
+ }
+}

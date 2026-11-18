@@ -1,0 +1,83 @@
+{
+ "_doc": "values of the conversion of python -m rttools.paper.str2rts convert; do not edit",
+ "name": "APP-SERPENT",
+ "source": {
+  "xml": "src/serpent/SDF-Serpent_nocache.xml",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36",
+  "sha256": "38964643dfa46b6715ded54b09878595d1456acfcca3f4f54880cc595392d610"
+ },
+ "files": {
+  "csv": "app-serpent.csv",
+  "map": "app-serpent-ONTO-hermes4x4.map",
+  "names": "names.csv",
+  "conversion": "conversion.json"
+ },
+ "tasks": 234,
+ "edges": 266,
+ "longest_path": 200,
+ "source_task": "T001",
+ "sink_task": "T234",
+ "mesh": "4x4",
+ "arch": "hermes-4x4.gml",
+ "clusters": 16,
+ "factor": 13.86,
+ "period_s": 0.0015,
+ "deadline_s": 0.024,
+ "phase_last": 15,
+ "budget_cycles": 570000,
+ "scheduler_cycles": 11000,
+ "criterion": "MAX_PROC",
+ "m2": 59047.447100794234,
+ "largest_cluster_cost": 569790,
+ "largest_cluster_tasks": 24,
+ "f_cpu_hz": 379860000.0,
+ "scheduler_share_of_largest_cluster": 0.4631578947368421,
+ "wcet_xml": {
+  "min": 12,
+  "max": 3336,
+  "sum": 215817
+ },
+ "payload": {
+  "types": {
+   "int": {
+    "bits": 64,
+    "source": "xml",
+    "edges": 266
+   }
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532,
+  "edges_at_floor": 33,
+  "edges_of_zero_bytes": 33,
+  "edges_above_max": [],
+  "smallest_bytes": 4,
+  "largest_bytes": 2048
+ },
+ "periods_tried": [
+  {
+   "period_s": 0.0005,
+   "k": null,
+   "reason": "scheduler cost of ceil(tasks / N) tasks"
+  },
+  {
+   "period_s": 0.001,
+   "k": 6.12,
+   "largest_cluster_tasks": 24,
+   "scheduler_cycles_of_largest_cluster": 264000,
+   "accepted": false
+  },
+  {
+   "period_s": 0.0015,
+   "k": 13.86,
+   "largest_cluster_tasks": 24,
+   "scheduler_cycles_of_largest_cluster": 264000,
+   "accepted": true
+  }
+ ],
+ "probe": {
+  "probes": 65,
+  "feasible_above": 0,
+  "restarts": 0,
+  "bound_of_one_task": 167.56
+ }
+}

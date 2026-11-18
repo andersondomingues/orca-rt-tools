@@ -1,0 +1,80 @@
+{
+ "_doc": "values of the conversion of python -m rttools.paper.str2rts convert; do not edit",
+ "name": "APP-PERFTEST",
+ "source": {
+  "xml": "src/perftest/SDF-perftest_nocache.xml",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36",
+  "sha256": "f0849cd844649b7f980290488bae09c3fb0a5c40ff0fc89968d4693b4ee3ec89"
+ },
+ "files": {
+  "csv": "app-perftest.csv",
+  "map": "app-perftest-ONTO-hermes4x4.map",
+  "names": "names.csv",
+  "conversion": "conversion.json"
+ },
+ "tasks": 16,
+ "edges": 18,
+ "longest_path": 6,
+ "source_task": "T001",
+ "sink_task": "T016",
+ "mesh": "4x4",
+ "arch": "hermes-4x4.gml",
+ "clusters": 16,
+ "factor": 16.91,
+ "period_s": 0.0005,
+ "deadline_s": 0.0035,
+ "phase_last": 6,
+ "budget_cycles": 190000,
+ "scheduler_cycles": 11000,
+ "criterion": "MIN_COMM",
+ "m2": 86788.31481964825,
+ "largest_cluster_cost": 189959,
+ "largest_cluster_tasks": 1,
+ "f_cpu_hz": 379918000.0,
+ "scheduler_share_of_largest_cluster": 0.05789473684210526,
+ "wcet_xml": {
+  "min": 6,
+  "max": 10583,
+  "sum": 84309
+ },
+ "payload": {
+  "types": {
+   "float": {
+    "bits": 32,
+    "source": "default",
+    "edges": 18
+   }
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532,
+  "edges_at_floor": 0,
+  "edges_of_zero_bytes": 0,
+  "edges_above_max": [
+   {
+    "flow": 1,
+    "source": "T001",
+    "target": "T002",
+    "bytes": 66000,
+    "data_sent": 16500,
+    "type": "float"
+   }
+  ],
+  "smallest_bytes": 4,
+  "largest_bytes": 65532
+ },
+ "periods_tried": [
+  {
+   "period_s": 0.0005,
+   "k": 16.91,
+   "largest_cluster_tasks": 1,
+   "scheduler_cycles_of_largest_cluster": 11000,
+   "accepted": true
+  }
+ ],
+ "probe": {
+  "probes": 0,
+  "feasible_above": 0,
+  "restarts": 0,
+  "bound_of_one_task": 16.91
+ }
+}

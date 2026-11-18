@@ -1,0 +1,86 @@
+{
+ "_doc": "values of the conversion of python -m rttools.paper.str2rts convert; do not edit",
+ "name": "APP-DES",
+ "source": {
+  "xml": "src/des/SDF-DES_nocache.xml",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36",
+  "sha256": "bd091faafe63ac7ee46f146242b4049d3837f5c6606bc2b922d674376725b4c1"
+ },
+ "files": {
+  "csv": "app-des.csv",
+  "map": "app-des-ONTO-hermes4x4.map",
+  "names": "names.csv",
+  "conversion": "conversion.json"
+ },
+ "tasks": 423,
+ "edges": 598,
+ "longest_path": 214,
+ "source_task": "T001",
+ "sink_task": "T423",
+ "mesh": "4x4",
+ "arch": "hermes-4x4.gml",
+ "clusters": 16,
+ "factor": 61.12,
+ "period_s": 0.002,
+ "deadline_s": 0.032,
+ "phase_last": 15,
+ "budget_cycles": 760000,
+ "scheduler_cycles": 11000,
+ "criterion": "MAX_PROC",
+ "m2": 47716.14428052627,
+ "largest_cluster_cost": 699224,
+ "largest_cluster_tasks": 30,
+ "f_cpu_hz": 349612000.0,
+ "scheduler_share_of_largest_cluster": 0.4342105263157895,
+ "wcet_xml": {
+  "min": 3,
+  "max": 1024,
+  "sum": 67743
+ },
+ "payload": {
+  "types": {
+   "int": {
+    "bits": 64,
+    "source": "xml",
+    "edges": 598
+   }
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532,
+  "edges_at_floor": 32,
+  "edges_of_zero_bytes": 32,
+  "edges_above_max": [],
+  "smallest_bytes": 4,
+  "largest_bytes": 8192
+ },
+ "periods_tried": [
+  {
+   "period_s": 0.0005,
+   "k": null,
+   "reason": "scheduler cost of ceil(tasks / N) tasks"
+  },
+  {
+   "period_s": 0.001,
+   "k": null,
+   "reason": "scheduler cost of ceil(tasks / N) tasks"
+  },
+  {
+   "period_s": 0.0015,
+   "k": null,
+   "reason": "scheduler cost of ceil(tasks / N) tasks"
+  },
+  {
+   "period_s": 0.002,
+   "k": 61.12,
+   "largest_cluster_tasks": 30,
+   "scheduler_cycles_of_largest_cluster": 330000,
+   "accepted": true
+  }
+ ],
+ "probe": {
+  "probes": 65,
+  "feasible_above": 0,
+  "restarts": 0,
+  "bound_of_one_task": 731.44
+ }
+}

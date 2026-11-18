@@ -1,0 +1,4 @@
+flow,source,target,local,src_pe,dst_pe,bytes,phase,release,deadline,packets,send_min,send_max,arrival_max,min_slack_cycles,sent_after_release,sent_before_phase,late,schedule_start
+1,T001,T002,False,1-1,0-1,800,0,189486,206160,17,181270,181272,192453,13707,0,0,0,189486
+2,T002,T003,False,0-1,1-0,256,1,12043,206160,16,4081,4083,14881,191279,0,0,0,12043
+3,T003,T004,False,1-0,0-0,256,2,11584,206160,15,3621,3623,30402,175758,0,0,0,27584

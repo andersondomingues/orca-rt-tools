@@ -1,0 +1,71 @@
+{
+ "_doc": "values of the conversion of python -m rttools.paper.str2rts convert; do not edit",
+ "name": "APP-FMRADIO",
+ "source": {
+  "xml": "src/FMRadio/SDF-FMRadio_nocache.xml",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36",
+  "sha256": "c7ecf4f7f8c15e875a19cec6d44e1c21a08b63657da9282456f878684b98fad1"
+ },
+ "files": {
+  "csv": "app-fmradio.csv",
+  "map": "app-fmradio-ONTO-hermes4x4.map",
+  "names": "names.csv",
+  "conversion": "conversion.json"
+ },
+ "tasks": 67,
+ "edges": 85,
+ "longest_path": 11,
+ "source_task": "T001",
+ "sink_task": "T067",
+ "mesh": "4x4",
+ "arch": "hermes-4x4.gml",
+ "clusters": 16,
+ "factor": 92.65,
+ "period_s": 0.0005,
+ "deadline_s": 0.0025,
+ "phase_last": 4,
+ "budget_cycles": 190000,
+ "scheduler_cycles": 11000,
+ "criterion": "MAX_PROC",
+ "m2": 44014.12710031114,
+ "largest_cluster_cost": 189992,
+ "largest_cluster_tasks": 8,
+ "f_cpu_hz": 379984000.0,
+ "scheduler_share_of_largest_cluster": 0.4631578947368421,
+ "wcet_xml": {
+  "min": 6,
+  "max": 730,
+  "sum": 15790
+ },
+ "payload": {
+  "types": {
+   "float": {
+    "bits": 32,
+    "source": "default",
+    "edges": 85
+   }
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532,
+  "edges_at_floor": 0,
+  "edges_of_zero_bytes": 0,
+  "edges_above_max": [],
+  "smallest_bytes": 4,
+  "largest_bytes": 40
+ },
+ "periods_tried": [
+  {
+   "period_s": 0.0005,
+   "k": 92.65,
+   "largest_cluster_tasks": 8,
+   "scheduler_cycles_of_largest_cluster": 88000,
+   "accepted": true
+  }
+ ],
+ "probe": {
+  "probes": 65,
+  "feasible_above": 0,
+  "restarts": 0,
+  "bound_of_one_task": 245.2
+ }
+}

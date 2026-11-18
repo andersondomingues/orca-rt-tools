@@ -1,0 +1,17 @@
+Acronym,XML task id,WCET
+T001,TestSource_51,11
+T002,WEIGHTED_ROUND_ROBIN_Splitter_70,120
+T003,ComplexFIRFilter_54,10583
+T004,QuadratureDemod_55,10216
+T005,RealFIRFilter_56,238
+T006,ComplexFIRFilter_58,10583
+T007,QuadratureDemod_59,10216
+T008,RealFIRFilter_60,238
+T009,ComplexFIRFilter_62,10583
+T010,QuadratureDemod_63,10216
+T011,RealFIRFilter_64,238
+T012,ComplexFIRFilter_66,10583
+T013,QuadratureDemod_67,10216
+T014,RealFIRFilter_68,238
+T015,WEIGHTED_ROUND_ROBIN_Joiner_71,24
+T016,NullSink_69,6

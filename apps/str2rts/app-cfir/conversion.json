@@ -1,0 +1,71 @@
+{
+ "_doc": "values of the conversion of python -m rttools.paper.str2rts convert; do not edit",
+ "name": "APP-CFIR",
+ "source": {
+  "xml": "src/ComplexFIR/SDF-ComplexFIR_nocache.xml",
+  "commit": "aa57db66774e1f3c06a8a790a3e7097af0591f36",
+  "sha256": "1f4b38b02acd1b3c9a3f86705d7412fdcdf90b3830bcd877f185a6a94a894b3a"
+ },
+ "files": {
+  "csv": "app-cfir.csv",
+  "map": "app-cfir-ONTO-hermes2x2.map",
+  "names": "names.csv",
+  "conversion": "conversion.json"
+ },
+ "tasks": 3,
+ "edges": 2,
+ "longest_path": 2,
+ "source_task": "T001",
+ "sink_task": "T003",
+ "mesh": "2x2",
+ "arch": "hermes-2x2.gml",
+ "clusters": 3,
+ "factor": 312.93,
+ "period_s": 0.0005,
+ "deadline_s": 0.0015,
+ "phase_last": 2,
+ "budget_cycles": 190000,
+ "scheduler_cycles": 11000,
+ "criterion": "MIN_COMM",
+ "m2": 82757.34384733881,
+ "largest_cluster_cost": 189996,
+ "largest_cluster_tasks": 1,
+ "f_cpu_hz": 379992000.0,
+ "scheduler_share_of_largest_cluster": 0.05789473684210526,
+ "wcet_xml": {
+  "min": 10,
+  "max": 572,
+  "sum": 594
+ },
+ "payload": {
+  "types": {
+   "float": {
+    "bits": 32,
+    "source": "default",
+    "edges": 2
+   }
+  },
+  "floor_bytes": 4,
+  "max_bytes": 65532,
+  "edges_at_floor": 0,
+  "edges_of_zero_bytes": 0,
+  "edges_above_max": [],
+  "smallest_bytes": 8,
+  "largest_bytes": 8
+ },
+ "periods_tried": [
+  {
+   "period_s": 0.0005,
+   "k": 312.93,
+   "largest_cluster_tasks": 1,
+   "scheduler_cycles_of_largest_cluster": 11000,
+   "accepted": true
+  }
+ ],
+ "probe": {
+  "probes": 0,
+  "feasible_above": 0,
+  "restarts": 0,
+  "bound_of_one_task": 312.93
+ }
+}

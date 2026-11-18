@@ -1,0 +1,225 @@
+{
+ "_doc": "static_costs.py: static t(v) of the image of the pilot run against the CSV, and the flow with t(v) = max(CSV, static) and the handler terms of the image (flow_image) against the flow with the costs of the CSV and no handler charge (flow_csv); experiments/str2rts/reference.json holds the flow with the costs of the CSV and the handler terms of the image of CAR with budget 0",
+ "app": "APP-FFT",
+ "image": {
+  "file": "image.elf",
+  "kind": "elf",
+  "sha256": "dd7fd7836ca3b5d2512002cbbac8f95f56c0021f694a763f84a42c8b5db704cc"
+ },
+ "params": {
+  "tcb": 5,
+  "heap_blocks": 32
+ },
+ "kernel": {
+  "dispatch": 558,
+  "tick": 1361,
+  "release": 249,
+  "send_isr": 622,
+  "receive_isr_size": 3174,
+  "receive_isr_end": 699,
+  "receive_isr": 3873
+ },
+ "scheduler_cycles": {
+  "csv": 11000,
+  "static": 1610
+ },
+ "tasks": {
+  "T001": {
+   "csv": 56908,
+   "static": 51324,
+   "used": 56908,
+   "static_above_csv": false,
+   "isr": 622
+  },
+  "T002": {
+   "csv": 11872,
+   "static": 13476,
+   "used": 13476,
+   "static_above_csv": true,
+   "isr": 5117
+  },
+  "T003": {
+   "csv": 117926,
+   "static": 116640,
+   "used": 117926,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T004": {
+   "csv": 64463,
+   "static": 63170,
+   "used": 64463,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T005": {
+   "csv": 37732,
+   "static": 36440,
+   "used": 37732,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T006": {
+   "csv": 24366,
+   "static": 23080,
+   "used": 24366,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T007": {
+   "csv": 17683,
+   "static": 16390,
+   "used": 17683,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T008": {
+   "csv": 16593,
+   "static": 15300,
+   "used": 16593,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T009": {
+   "csv": 22187,
+   "static": 20900,
+   "used": 22187,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T010": {
+   "csv": 33373,
+   "static": 32080,
+   "used": 33373,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T011": {
+   "csv": 55746,
+   "static": 54460,
+   "used": 55746,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T012": {
+   "csv": 100492,
+   "static": 99200,
+   "used": 100492,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T013": {
+   "csv": 189985,
+   "static": 188690,
+   "used": 189985,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T014": {
+   "csv": 117926,
+   "static": 116640,
+   "used": 117926,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T015": {
+   "csv": 64463,
+   "static": 63170,
+   "used": 64463,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T016": {
+   "csv": 37732,
+   "static": 36440,
+   "used": 37732,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T017": {
+   "csv": 24366,
+   "static": 23080,
+   "used": 24366,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T018": {
+   "csv": 17683,
+   "static": 16390,
+   "used": 17683,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T019": {
+   "csv": 16593,
+   "static": 15300,
+   "used": 16593,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T020": {
+   "csv": 22187,
+   "static": 20900,
+   "used": 22187,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T021": {
+   "csv": 33373,
+   "static": 32080,
+   "used": 33373,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T022": {
+   "csv": 55746,
+   "static": 54460,
+   "used": 55746,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T023": {
+   "csv": 100492,
+   "static": 99200,
+   "used": 100492,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T024": {
+   "csv": 189985,
+   "static": 188690,
+   "used": 189985,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T025": {
+   "csv": 11872,
+   "static": 14786,
+   "used": 14786,
+   "static_above_csv": true,
+   "isr": 8368
+  },
+  "T026": {
+   "csv": 11436,
+   "static": 7242,
+   "used": 11436,
+   "static_above_csv": false,
+   "isr": 3873
+  }
+ },
+ "tasks_static_above_csv": [
+  "T002",
+  "T025"
+ ],
+ "largest_static_over_csv": 1.2454514824797844,
+ "flow_image": {
+  "f_cpu_hz": 379970000.0,
+  "f_search_hz": 450531005.859375,
+  "r_bound_ms": 4.058193501049922
+ },
+ "flow_csv": {
+  "f_cpu_hz": 379970000.0,
+  "f_search_hz": 441543579.1015625,
+  "r_bound_ms": 4.0527732362027855
+ }
+}

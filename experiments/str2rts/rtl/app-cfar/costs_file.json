@@ -1,0 +1,23 @@
+{
+ "_doc": "static t(v) (rttools.wcet) of the image; the analysis flow takes max(t(v) of the CSV, this t(v)) (rttools/wcet/costs.py, rule max)",
+ "image": {
+  "file": "image.elf",
+  "kind": "elf",
+  "sha256": "3ba1cc180d8e68a7b77414fba4dedbf65228d2e3571f6688ff6c25e0d78c4b65"
+ },
+ "scheduler_cycles": 1400,
+ "tasks": {
+  "T001": {
+   "t": 183559
+  },
+  "T002": {
+   "t": 8931
+  },
+  "T003": {
+   "t": 8471
+  },
+  "T004": {
+   "t": 5019
+  }
+ }
+}

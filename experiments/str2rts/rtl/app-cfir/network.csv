@@ -1,0 +1,3 @@
+flow,source,target,src_pe,dst_pe,hops,flits,L0,header_model,occupancy,header_wait_bound,window,schedule_start,packets,size_mismatch,header_waits,header_waits_above_bound,above_occupancy,contender_flows,latency_min,latency_max,latency_minus_L0_min,latency_minus_L0_max,header_minus_model_min,header_minus_model_max,stall_min,stall_max,gap_min,gap_max,tx_block_min,tx_block_max,software_latency_min,software_latency_max,driver_min,driver_max
+1,T001,T002,0-0,1-1,2,5,24,18,84,60,201951,14129,15,0,0,0,15,[],307,397,283,373,0,0,283,373,0,0,0,0,10933,11049,10626,10653
+2,T002,T003,1-1,1-0,1,5,18,12,58,40,26084,189996,14,0,0,0,14,[],300,381,282,363,0,0,282,363,0,0,0,0,9820,9925,9520,9544

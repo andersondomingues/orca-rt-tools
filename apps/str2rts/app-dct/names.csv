@@ -1,0 +1,8 @@
+Acronym,XML task id,WCET
+T001,AnonFilter_a0_239,36480
+T002,DUPLICATE_Splitter_248,576
+T003,DCT_2D_reference_coarse_243,16032
+T004,iDCT_2D_reference_coarse_245,16032
+T005,Identity_246,384
+T006,WEIGHTED_ROUND_ROBIN_Joiner_249,768
+T007,AnonFilter_a3_247,44

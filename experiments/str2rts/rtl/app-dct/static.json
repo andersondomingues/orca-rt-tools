@@ -1,0 +1,92 @@
+{
+ "_doc": "static_costs.py: static t(v) of the image of the pilot run against the CSV, and the flow with t(v) = max(CSV, static) and the handler terms of the image (flow_image) against the flow with the costs of the CSV and no handler charge (flow_csv); experiments/str2rts/reference.json holds the flow with the costs of the CSV and the handler terms of the image of CAR with budget 0",
+ "app": "APP-DCT",
+ "image": {
+  "file": "image.elf",
+  "kind": "elf",
+  "sha256": "3a5ae31a70fcfe6cefab5af61e71142fc1655869c2c385b16f2aad64fca10e58"
+ },
+ "params": {
+  "tcb": 5,
+  "heap_blocks": 32
+ },
+ "kernel": {
+  "dispatch": 558,
+  "tick": 1361,
+  "release": 249,
+  "send_isr": 622,
+  "receive_isr_size": 3174,
+  "receive_isr_end": 699,
+  "receive_isr": 3873
+ },
+ "scheduler_cycles": {
+  "csv": 11000,
+  "static": 1610
+ },
+ "tasks": {
+  "T001": {
+   "csv": 189752,
+   "static": 184164,
+   "used": 189752,
+   "static_above_csv": false,
+   "isr": 622
+  },
+  "T002": {
+   "csv": 13822,
+   "static": 15426,
+   "used": 15426,
+   "static_above_csv": true,
+   "isr": 5117
+  },
+  "T003": {
+   "csv": 89557,
+   "static": 88270,
+   "used": 89557,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T004": {
+   "csv": 89557,
+   "static": 88270,
+   "used": 89557,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T005": {
+   "csv": 12882,
+   "static": 11590,
+   "used": 12882,
+   "static_above_csv": false,
+   "isr": 4495
+  },
+  "T006": {
+   "csv": 14763,
+   "static": 17676,
+   "used": 17676,
+   "static_above_csv": true,
+   "isr": 8368
+  },
+  "T007": {
+   "csv": 11216,
+   "static": 7022,
+   "used": 11216,
+   "static_above_csv": false,
+   "isr": 3873
+  }
+ },
+ "tasks_static_above_csv": [
+  "T002",
+  "T006"
+ ],
+ "largest_static_over_csv": 1.1973176183702499,
+ "flow_image": {
+  "f_cpu_hz": 379504000.0,
+  "f_search_hz": 410213470.4589844,
+  "r_bound_ms": 2.139432425312689
+ },
+ "flow_csv": {
+  "f_cpu_hz": 379504000.0,
+  "f_search_hz": 410213470.4589844,
+  "r_bound_ms": 2.1284210853024597
+ }
+}

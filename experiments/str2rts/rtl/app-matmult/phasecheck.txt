@@ -1,0 +1,5 @@
+<work>/str2rts_matmult/results/metrics.json: release tick, 32 phases, 631 executions: 0 phases with a task twice, 0 early executions, 0 phases above the CPU bound (0 late executions) -> conforms
+  job ends after F: 0 of 654 (0 unchecked), smallest slack 7607
+  packets enqueued after s: 0 of 463 (0 unchecked), smallest slack 8807
+<work>/str2rts_matmult/results/metrics.json: time-triggered injection: 463 packets (0 unchecked), violations 0: early 0, inject > 3899: 0, header > w_h (m + 1): 0, rx wait > 7113: 0, end wait > 4157: 0, latency > o_i: 0, occupancy > o_i: 0, late 0, NI overlaps 0
+  inject delay 354 to 395, header wait max 5, rx wait max 435, end wait max 345, smallest occupancy slack 14092, smallest deadline slack 25074

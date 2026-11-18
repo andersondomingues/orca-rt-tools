@@ -1,0 +1,7 @@
+# Source of these applications
+
+The applications of this directory are task graphs derived from the XML descriptions of the STR2RTS benchmark suite (B. Rouxel and I. Puaut, "STR2RTS: Refactored StreamIT benchmarks into statically analysable parallel benchmarks for WCET estimation & real-time scheduling", WCET 2017, OASIcs 57), https://gitlab.inria.fr/brouxel/STR2RTS, commit `aa57db66774e1f3c06a8a790a3e7097af0591f36`. STR2RTS is distributed under the GNU General Public License, version 3 (`licence.txt` of the suite).
+
+Each `<app>/conversion.json` names the XML file of its application and its SHA-256. The converter (`orca-rt-tools/rttools/paper/str2rts.py`, `experiments/str2rts`) took from each XML the task identifiers, the WCET of each task, the edges and the amount and type of the data of each edge; it changed them as follows: the tasks have new acronyms (`names.csv` keeps the identifiers and the WCET of the XML), the costs are the WCET times a factor plus 11,000 cycles, the payloads are in bytes with a floor of 4 and a ceiling of 65,532, and the periods, deadlines, clusters and mappings are new. No C source of the suite is in this repository.
+
+The text of that licence is in `LICENSE-GPL-3.0.txt` of this directory. The files of this directory that derive from the XML descriptions of STR2RTS (the CSV files, `names.csv` and `conversion.json` of each application) are distributed under the same licence.

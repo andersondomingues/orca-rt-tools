@@ -1,0 +1,204 @@
+{
+ "_doc": "static_costs.py: static t(v) of the image of the pilot run against the CSV, and the flow with t(v) = max(CSV, static) and the handler terms of the image (flow_image) against the flow with the costs of the CSV and no handler charge (flow_csv); experiments/str2rts/reference.json holds the flow with the costs of the CSV and the handler terms of the image of CAR with budget 0",
+ "app": "APP-MATMULT",
+ "image": {
+  "file": "image.elf",
+  "kind": "elf",
+  "sha256": "e31449499fd219d1715cea4884ba18624ca2f396f16f1d5a52c73eb7a7685f1e"
+ },
+ "params": {
+  "tcb": 4,
+  "heap_blocks": 24
+ },
+ "kernel": {
+  "dispatch": 515,
+  "tick": 1291,
+  "release": 249,
+  "send_isr": 622,
+  "receive_isr_size": 2470,
+  "receive_isr_end": 690,
+  "receive_isr": 3160
+ },
+ "scheduler_cycles": {
+  "csv": 11000,
+  "static": 1540
+ },
+ "tasks": {
+  "T001": {
+   "csv": 11771,
+   "static": 6071,
+   "used": 11771,
+   "static_above_csv": false,
+   "isr": 622
+  },
+  "T002": {
+   "csv": 11661,
+   "static": 12440,
+   "used": 12440,
+   "static_above_csv": true,
+   "isr": 4404
+  },
+  "T003": {
+   "csv": 18878,
+   "static": 16764,
+   "used": 18878,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T004": {
+   "csv": 58598,
+   "static": 56484,
+   "used": 58598,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T005": {
+   "csv": 37939,
+   "static": 35824,
+   "used": 37939,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T006": {
+   "csv": 12487,
+   "static": 10374,
+   "used": 12487,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T007": {
+   "csv": 153793,
+   "static": 151674,
+   "used": 153793,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T008": {
+   "csv": 90825,
+   "static": 88704,
+   "used": 90825,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T009": {
+   "csv": 46698,
+   "static": 44584,
+   "used": 46698,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T010": {
+   "csv": 71654,
+   "static": 69534,
+   "used": 71654,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T011": {
+   "csv": 18878,
+   "static": 16764,
+   "used": 18878,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T012": {
+   "csv": 46698,
+   "static": 44584,
+   "used": 46698,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T013": {
+   "csv": 31328,
+   "static": 29214,
+   "used": 31328,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T014": {
+   "csv": 12487,
+   "static": 10374,
+   "used": 12487,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T015": {
+   "csv": 118095,
+   "static": 115984,
+   "used": 118095,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T016": {
+   "csv": 189987,
+   "static": 187874,
+   "used": 189987,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T017": {
+   "csv": 28849,
+   "static": 30227,
+   "used": 30227,
+   "static_above_csv": true,
+   "isr": 6942
+  },
+  "T018": {
+   "csv": 67412,
+   "static": 65294,
+   "used": 67412,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T019": {
+   "csv": 36782,
+   "static": 34664,
+   "used": 36782,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T020": {
+   "csv": 18768,
+   "static": 16654,
+   "used": 18768,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T021": {
+   "csv": 46698,
+   "static": 44584,
+   "used": 46698,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T022": {
+   "csv": 31438,
+   "static": 29324,
+   "used": 31438,
+   "static_above_csv": false,
+   "isr": 3782
+  },
+  "T023": {
+   "csv": 11331,
+   "static": 6306,
+   "used": 11331,
+   "static_above_csv": false,
+   "isr": 3160
+  }
+ },
+ "tasks_static_above_csv": [
+  "T002",
+  "T017"
+ ],
+ "largest_static_over_csv": 1.0668038761684246,
+ "flow_image": {
+  "f_cpu_hz": 379974000.0,
+  "f_search_hz": 418064117.4316406,
+  "r_bound_ms": 5.6023009446223755
+ },
+ "flow_csv": {
+  "f_cpu_hz": 379974000.0,
+  "f_search_hz": 410503387.4511719,
+  "r_bound_ms": 5.604168127050208
+ }
+}
