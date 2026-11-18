@@ -13,15 +13,22 @@ import re
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
-def run_row(d):
+def run_row(d, previous=None):
     with open(os.path.join(d, "metrics.json")) as f:
         m = json.load(f)
     info = dict(line.split("=", 1) for line in open(os.path.join(d, "RUN_INFO")).read().split() if "=" in line)
-    wall = None
-    for line in open(os.path.join(d, "time.log")):
-        k = re.search(r"Elapsed \(wall clock\) time.*: (?:(\d+):)?(\d+):([\d.]+)", line)
+    # wall time of vsim: time.log of the run (not stored in the repository: *.log is ignored), else the line
+    # vsim_wall_s of wall.txt, else the value of the stored summary.json
+    wall = previous
+    if os.path.exists(os.path.join(d, "wall.txt")):
+        k = re.search(r"^vsim_wall_s=([\d.]+)", open(os.path.join(d, "wall.txt")).read(), re.M)
         if k:
-            wall = int(k.group(1) or 0) * 3600 + int(k.group(2)) * 60 + float(k.group(3))
+            wall = float(k.group(1))
+    if os.path.exists(os.path.join(d, "time.log")):
+        for line in open(os.path.join(d, "time.log")):
+            k = re.search(r"Elapsed \(wall clock\) time.*: (?:(\d+):)?(\d+):([\d.]+)", line)
+            if k:
+                wall = int(k.group(1) or 0) * 3600 + int(k.group(2)) * 60 + float(k.group(3))
     r, cw, tt, pc = m["responses"], m["cpu_windows"], m["tt"], m["phase_conformance"]
     mesh = re.search(r"mesh=(\d+x\d+)", open(os.path.join(d, "RUN_INFO")).read()).group(1)
     pes = cw["pes"]
@@ -57,11 +64,16 @@ def run_row(d):
 
 def main():
     rows = {}
+    old = {}
+    if os.path.exists(os.path.join(HERE, "summary.json")):
+        with open(os.path.join(HERE, "summary.json")) as f:
+            old = json.load(f)
     for app in sorted(os.listdir(HERE)):
         for sub, label in (("", "table"), ("image-flow", "image")):
             d = os.path.join(HERE, app, sub)
             if os.path.isfile(os.path.join(d, "metrics.json")):
-                rows[f"{app.upper()} ({label} clock)"] = run_row(d)
+                key = f"{app.upper()} ({label} clock)"
+                rows[key] = run_row(d, (old.get(key) or {}).get("vsim_wall_s"))
     with open(os.path.join(HERE, "summary.json"), "w") as f:
         json.dump(rows, f, indent=1)
         f.write("\n")
@@ -79,13 +91,13 @@ def main():
             return f"{v / 1e6:.3f}"
         if isinstance(v, float):
             return f"{v:.4f}" if k.endswith("_ms") else f"{v:.1f}"
-        return str(v)
+        return "-" if v is None else str(v)
     with open(os.path.join(HERE, "summary.md"), "w") as f:
         f.write("| Run | " + " | ".join(t for _, t in cols) + " |\n|" + "---|" * (len(cols) + 1) + "\n")
         for name, r in rows.items():
             f.write(f"| {name} | " + " | ".join(cell(k, r[k]) for k, _ in cols) + " |\n")
     for name, r in rows.items():
-        print(f"{name}: {r['clock_hz'] / 1e6:.3f} MHz, {r['sim_ms']:g} ms in {r['vsim_wall_s']:.0f} s, "
+        print(f"{name}: {r['clock_hz'] / 1e6:.3f} MHz, {r['sim_ms']:g} ms in {r['vsim_wall_s'] or 0:.0f} s, "
               f"{r['complete_iterations']} iterations, response {r['response_max_ms']:.4f} <= R_bound "
               f"{r['r_bound_ms']:.4f} <= D {r['deadline_ms']:g} ms, every bound holds: {r['all_bounds_hold']}")
 
