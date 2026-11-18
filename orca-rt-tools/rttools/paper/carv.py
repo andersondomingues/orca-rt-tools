@@ -45,7 +45,7 @@ _heap_size):
 | Item | Bytes | Source |
 |---|---|---|
 | Each task and the idle task | tcb_s (112) + rt_s (12) + stack (2,048), each with a block header (8) | kernel/ucx.c:24-52; include/kernel/kernel.h:13-33; arch/riscv/hf-riscv-e/hal.h:416; include/lib/malloc.h:3-6 |
-| Each application task | queue_s (24) + 8 slot pointers (32), each with a block header | lib/noc.c:165 (ucx_noc_comm_create); lib/queue.c:37-44; include/lib/noc.h:5 |
+| Each application task | queue_s (24) + 8 slot pointers (32), each with a block header | lib/noc.c:165 (ucx_noc_comm_create); lib/queue.c:37-44; include/lib/noc.h:12 |
 | Each outgoing flow | persistent packet: header (12) + payload rounded to 4, block header | lib/noc.c:307 (ucx_noc_create_packet); weird_a.c create_pkt |
 | Each incoming flow from another PE | receive_buffers copies of header + payload, block header (irq2_handler allocates the packet; the target frees it after ucx_noc_receive) | lib/noc.c:55; weird_a.c recv_and_print |
 
@@ -54,8 +54,8 @@ A packet between tasks of one PE shares the buffer of the sender
 only packets from other nodes). receive_buffers = 2 covers the next
 packet of a flow arriving before the target consumes the previous one.
 The check also requires payload <= 65,535 bytes (uint16 payload_size,
-include/lib/noc.h:23), tasks per PE plus idle <= MAX_TASKS (16,
-include/lib/noc.h:2) and receive_buffers times the inputs of a task <=
+include/lib/noc.h:31), tasks per PE plus idle <= MAX_TASKS (16,
+include/lib/noc.h:5) and receive_buffers times the inputs of a task <=
 MAX_PKT_QUEUE_SLOTS (8).
 
 Outputs of `run`: metrics.json, clustering.csv, factors.csv, flows.csv,

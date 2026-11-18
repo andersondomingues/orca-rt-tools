@@ -1,8 +1,16 @@
 // TODO: 
+// tasks of one PE, with the idle task; a build raises it with
+// -DMAX_TASKS=<n> (make MAX_TASKS=<n>: LIMIT_DEFS of the Makefile)
+#ifndef MAX_TASKS
 #define MAX_TASKS 16
+#endif
 
 // configs
+// packets that the queue of a task holds; a build raises it with
+// -DMAX_PKT_QUEUE_SLOTS=<n> (make MAX_PKT_QUEUE_SLOTS=<n>)
+#ifndef MAX_PKT_QUEUE_SLOTS
 #define MAX_PKT_QUEUE_SLOTS 8
+#endif
 
 // error messages
 #define UCX_NOC_TASK_BIND_ALREADY (-1)

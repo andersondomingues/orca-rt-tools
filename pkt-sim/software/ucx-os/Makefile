@@ -177,7 +177,23 @@ INJ_DEFS = -DUCX_NOC_TT
 else ifneq ($(INJECTION),finish)
 $(error INJECTION must be tt or finish)
 endif
+# Limits of the kernel and tick of the build, empty by default (the images of
+# the applications of this tree do not change): MAX_TASKS and
+# MAX_PKT_QUEUE_SLOTS replace the defaults of include/lib/noc.h (16 tasks of a
+# PE with the idle task, 8 packets in the queue of a task); TICK_CYCLES gives
+# the tick in cycles when the release period is not a whole number of Hz
+# (arch/riscv/hf-riscv-e/hal.c). rttools.ucxgen writes the limits that an
+# application needs in app/<name>.sim, and experiments/exp23/simulate.sh
+# passes them. NOC_TT_SLOTS replaces the entries of the queue of injections
+# of a PE (lib/noc_tt.c, 8): rttools.ucxgen tt writes the value in the line
+# "Queue:" of app/<name>_tt.h when a link schedule needs more. Example:
+# make str2rts_des MAX_TASKS=31 MAX_PKT_QUEUE_SLOTS=16
+LIMIT_DEFS = $(if $(MAX_TASKS),-DMAX_TASKS=$(MAX_TASKS)) \
+	$(if $(MAX_PKT_QUEUE_SLOTS),-DMAX_PKT_QUEUE_SLOTS=$(MAX_PKT_QUEUE_SLOTS)) \
+	$(if $(NOC_TT_SLOTS),-DNOC_TT_SLOTS=$(NOC_TT_SLOTS)) \
+	$(if $(TICK_CYCLES),-DUCX_TICK_CYCLES=$(TICK_CYCLES))
 TR_DEFS = -DUCX_APP_IRQ4 -DUCX_APP_TICK -DUCX_TICK_RELEASE $(INJ_DEFS)
+TR_DEFS += $(LIMIT_DEFS)
 
 # application E with the release by tick (app/weird_a.sim: RELEASE_MASK of
 # the four PEs)
@@ -212,6 +228,9 @@ GEN_APPS = car_v wcet_e
 GEN_APPS += carv_e
 # application E alone, generated (control run of experiments/multiapp: make sim-e)
 GEN_APPS += e_ucx
+# STR2RTS applications generated into app/ (experiments/str2rts/rtl/pilot.sh writes them in a copy of this
+# tree; none is stored here)
+GEN_APPS += $(patsubst app/%.c,%,$(wildcard app/str2rts_*.c))
 
 $(GEN_APPS): incl
 	@$(MAKE) --no-print-directory clean
@@ -233,6 +252,7 @@ $(GEN_APPS): incl
 # ARCH=riscv/hf-riscv-e
 GEN_TT_APPS = car_full
 TT_DEFS = -DUCX_APP_IRQ4 -DUCX_APP_TICK -DUCX_NOC_LATEST $(INJ_DEFS)
+TT_DEFS += $(LIMIT_DEFS)
 
 $(GEN_TT_APPS): incl
 	@$(MAKE) --no-print-directory clean

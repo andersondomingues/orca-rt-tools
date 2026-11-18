@@ -140,10 +140,20 @@ void _hardware_init(void)
 	 * (hw/peripherals/peripherals_minimal.vhd, TIMER1 process), so one tick
 	 * lasts 16 * (TIMER1CTC + 1) cycles. TIMER1CTC = F_CPU / F_TIMER / 16 - 1
 	 * gives a tick of F_CPU / F_TIMER cycles (250000 at 500 MHz and 2 kHz). */
+#ifndef UCX_TICK_CYCLES
 #if (F_CPU % (16 * F_TIMER)) != 0 || (F_CPU / F_TIMER / 16) > 65536
 #error "TIMER1: F_CPU / F_TIMER must be a multiple of 16 and at most 16 * 65536"
 #endif
 	TIMER1CTC = (F_CPU / F_TIMER) / 16 - 1;
+#else
+	/* UCX_TICK_CYCLES (make TICK_CYCLES=<cycles>) gives the tick in cycles,
+	 * for a tick that is not a whole number of Hz (a release period of
+	 * 1.5 ms); F_TIMER then only enables the timer. */
+#if (UCX_TICK_CYCLES % 16) != 0 || (UCX_TICK_CYCLES / 16) > 65536 || UCX_TICK_CYCLES < 16
+#error "TIMER1: UCX_TICK_CYCLES must be a multiple of 16 and at most 16 * 65536"
+#endif
+	TIMER1CTC = UCX_TICK_CYCLES / 16 - 1;
+#endif
 #endif
 }
 
