@@ -36,7 +36,10 @@ architecture peripherals_arch of peripherals_minimal is
 	signal paaltcfg0, s0cause, gpiocause, gpiocause_inv, gpiomask, timercause, timercause_inv, timermask: std_logic_vector(3 downto 0);
 	signal paddr, paout, pain, pain_inv, pain_mask: std_logic_vector(7 downto 0);
 	signal timer0: std_logic_vector(31 downto 0);
-	signal timer1, timer1_ctc, timer1_ocr: std_logic_vector(15 downto 0);
+	-- TIMER1, its CTC and its OCR hold 32 bits: with the prescaler of 16 cycles, a tick of up to
+	-- 16 * 2**32 cycles (16 bits held 16 * 65536 = 1,048,576 cycles, below a tick of 2 ms above
+	-- 524.288 MHz)
+	signal timer1, timer1_ctc, timer1_ocr: std_logic_vector(31 downto 0);
 	signal timer1_pre: std_logic_vector(2 downto 0);
 	signal timer1_set: std_logic;
 	signal int_gpio, int_timer: std_logic;
@@ -125,13 +128,13 @@ begin
 						when "010001" =>					-- TIMER1
 							case funct is
 							when "0000" =>					-- TIMER1		(RW)
-								data_o <= x"0000" & timer1;
+								data_o <= timer1;
 							when "0001" =>					-- TIMER1_PRE		(RW)
 								data_o <= x"0000000" & '0' & timer1_pre;
 							when "0010" =>					-- TIMER1_CTC		(RW)
-								data_o <= x"0000" & timer1_ctc;
+								data_o <= timer1_ctc;
 							when "0011" =>					-- TIMER1_OCR		(RW)
-								data_o <= x"0000" & timer1_ocr;
+								data_o <= timer1_ocr;
 							when others =>
 								data_o <= (others => '0');
 							end case;
@@ -165,7 +168,10 @@ begin
 			timer1 <= (others => '0');
 			timer1_set <= '0';
 			timer1_pre <= (others => '0');
-			timer1_ctc <= (others => '1');
+			-- reset value of the 16-bit register (65535): the counter runs from reset with the
+			-- prescaler of 1 cycle until the software programs it (hal.c, _hardware_init), and the
+			-- CTC flag toggles every 65536 cycles until then, as before the registers had 32 bits
+			timer1_ctc <= x"0000ffff";
 			timer1_ocr <= (others => '0');
 			int_timer1_ctc <= '0';
 		elsif clk_i'event and clk_i = '1' then
@@ -212,15 +218,15 @@ begin
 									timer1_set <= '1';
 								end if;
 								if timer1_set = '1' then
-									timer1 <= data_i(15 downto 0);
+									timer1 <= data_i;
 									timer1_set <= '0';
 								end if;
 							when "0001" =>					-- TIMER1_PRE		(RW)
 								timer1_pre <= data_i(2 downto 0);
 							when "0010" =>					-- TIMER1_CTC		(RW)
-								timer1_ctc <= data_i(15 downto 0);
+								timer1_ctc <= data_i;
 							when "0011" =>					-- TIMER1_OCR		(RW)
-								timer1_ocr <= data_i(15 downto 0);
+								timer1_ocr <= data_i;
 							when others =>
 							end case;
 						when others =>

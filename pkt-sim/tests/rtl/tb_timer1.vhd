@@ -7,6 +7,8 @@
 -- gpioa_out(0). The testbench counts the clock cycles between successive
 -- toggles and passes when the last NT intervals equal EXPECT.
 -- The counter runs from 0 to CTC inclusive: one tick = 16 * (CTC + 1) cycles.
+-- TIMER1 and TIMER1CTC hold 32 bits: run.sh also runs CTC = 90540 (a tick
+-- of 1,448,656 cycles, above the 1,048,576 cycles of a 16-bit counter).
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.std_logic_unsigned.all;
