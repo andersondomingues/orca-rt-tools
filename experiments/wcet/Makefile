@@ -91,7 +91,7 @@ GENARGS  = $(CSV) $(MAP) --name $(NAME) --mesh $(MESH) --bodies $(BODIES) --out 
 F_CLK   ?= 500000000
 # clocks of wcet_e_tt.h: the clock of the flow with t(v) = max(CSV, static) (experiments/tt, run W5) and
 # 500 MHz (run W4); TT_COSTS: static t(v) of the image (costs/tt)
-TT_CLOCKS ?= 234656000 500000000
+TT_CLOCKS ?= 234784000 500000000
 TT_COSTS ?= costs/tt/wcet_e.json
 SIM_NS  ?= 10000000
 LOG     ?= logs/W1.events.txt
@@ -199,8 +199,8 @@ images-tt:
 	F_CLK=449152000 APP=weird_a ../exp23/build_sw.sh $(BUILD)/img-tt/weird_a
 	F_CLK=441088000 APP=car_v ../exp23/build_sw.sh $(BUILD)/img-tt/car_v
 	F_CLK=500000000 APP=wcet_e ../exp23/build_sw.sh $(BUILD)/img-tt/wcet_e
-	F_CLK=457600000 APP=carv_e ../exp23/build_sw.sh $(BUILD)/img-tt/carv_e
-	F_CLK=526080000 F_TICK=4000 APP=car_full ../exp23/build_sw.sh $(BUILD)/img-tt/car_full
+	F_CLK=458016000 APP=carv_e ../exp23/build_sw.sh $(BUILD)/img-tt/carv_e
+	F_CLK=526656000 F_TICK=4000 APP=car_full ../exp23/build_sw.sh $(BUILD)/img-tt/car_full
 	for a in weird_a car_v wcet_e carv_e car_full; do ls -l $(BUILD)/img-tt/$$a/$(UCX_IMG)/image.elf; done
 
 clean:
