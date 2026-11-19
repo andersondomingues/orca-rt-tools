@@ -44,9 +44,6 @@ set -euo pipefail
 
 APP=${1:?usage: pilot.sh <APP> <work dir> [<iterations>]}
 WORK=${2:?usage: pilot.sh <APP> <work dir> [<iterations>]}
-# every STR2RTS image has the queue of a task protected against the receive handler (lib/noc.c,
-# UCX_NOC_QUEUE_DI): build_sw.sh and simulate.sh read this variable
-export NOC_QUEUE_DI=1
 ITER=${3:-10}
 PYTHON=${PYTHON:-python3}
 HERE=$(cd "$(dirname "$0")" && pwd)

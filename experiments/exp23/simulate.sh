@@ -314,7 +314,6 @@ fi
 	if [ -n "$K_SLOTS" ]; then echo "max_pkt_queue_slots=$K_SLOTS"; fi
 	if [ -n "$K_TT" ]; then echo "noc_tt_slots=$K_TT"; fi
 	if [ -n "$RAM_BYTES" ]; then echo "ram_bytes=$RAM_BYTES"; fi
-	if [ -n "${NOC_QUEUE_DI:-}" ]; then echo "noc_queue_di=$NOC_QUEUE_DI"; fi
 	if [ "${ISR_NESTING:-0}" = 1 ]; then echo "isr=nesting"; else echo "isr=no_nesting"; fi
 	echo "crt0=$CRT0"
 	LST="$OUT/pkt-sim/software/ucx-os/build/target/image.lst"
