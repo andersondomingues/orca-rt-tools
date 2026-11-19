@@ -209,7 +209,7 @@ paper-flow: flow-clock
 phase-check:
 	PYTHONPATH=$(RTTOOLS) $(PYTHON) -m rttools.paper.phasecheck $(OUTDIR)/metrics.json --rows 5
 
-TICK_RUNS ?= TG TH UG UH VG VH
+TICK_RUNS ?= TG TH UG UH VG VH XG XH
 check-run:
 	for r in $(TICK_RUNS); do $(MAKE) --no-print-directory analyze check phase-check LOG=logs/$$r.events.txt \
 		REF=reference_$$r.json OUTDIR=$(BUILD)/results_$$r || exit 1; done
