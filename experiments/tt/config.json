@@ -1,5 +1,5 @@
 {
- "_doc": "Runs of round r11g (images with the time-triggered injection, tag r11-rc9): the application, its costs file of experiments/wcet (static t(v) of the image, costs/tt; the flow takes max(CSV, static)), the run identifiers (flow: the clock of the flow; keep: runs at a given clock, E and WCET-E at the 500 MHz of round r11e), f0_hz (first frequency of the search), the warmup and the length of the simulation of run_r11g.sh and the number of iterations that the length covers (one release period: warmup + (n(v_last) + iterations - 1) T + R_bound + T) or the number of phases of the run (general phase model). rttools/paper/ttflow.py; paths relative to this file. lead_cycles: cycles from the release request to the tick of its phase (the tick residue of the run, tick_grid of its reference: the timers start that many cycles after reset, and the request comes at a multiple of the phase from reset); terms, terms_image: the kernel terms and sections of the image of the run (sha256 of the costs file), for the check of premise (ii) (premise_release).",
+ "_doc": "Runs of round r12 (the round of the images with the critical section around the queue of a task, lib/noc.c: runs XG, XH, XCV, XMA, W6, W7 and CF7, which replace VG, VH, VCV, VMA, W4, W5 and CF6 of round r11g, tag r11-rc9; images with the time-triggered injection): the application, its costs file of experiments/wcet (static t(v) of the image, costs/tt; the flow takes max(CSV, static)), the run identifiers (flow: the clock of the flow; keep: runs at a given clock, E and WCET-E at the 500 MHz of round r11e), f0_hz (first frequency of the search), the warmup and the length of the simulation of run_r11g.sh and the number of iterations that the length covers (one release period: warmup + (n(v_last) + iterations - 1) T + R_bound + T) or the number of phases of the run (general phase model). rttools/paper/ttflow.py; paths relative to this file. lead_cycles: cycles from the release request to the tick of its phase (the tick residue of the run, tick_grid of its reference: the timers start that many cycles after reset, and the request comes at a multiple of the phase from reset); terms, terms_image: the kernel terms and sections of the image of the run (sha256 of the costs file), for the check of premise (ii) (premise_release).",
  "f0_hz": 500000000,
  "apps": {
   "E": {
@@ -17,9 +17,9 @@
    "iterations": 8,
    "sim_ns": 20000000,
    "runs": {
-    "flow": "VH",
+    "flow": "XH",
     "keep": {
-     "VG": 500000000
+     "XG": 500000000
     }
    },
    "lead_cycles": 1861,
@@ -40,7 +40,7 @@
    "iterations": 8,
    "sim_ns": 11500000,
    "runs": {
-    "flow": "VCV"
+    "flow": "XCV"
    },
    "lead_cycles": 1861,
    "terms": "../wcet/reference_tt.json",
@@ -60,9 +60,9 @@
    "iterations": 8,
    "sim_ns": 10500000,
    "runs": {
-    "flow": "W5",
+    "flow": "W7",
     "keep": {
-     "W4": 500000000
+     "W6": 500000000
     }
    },
    "lead_cycles": 1861,
@@ -80,7 +80,7 @@
    "iterations": 8,
    "sim_ns": 11500000,
    "runs": {
-    "flow": "VMA"
+    "flow": "XMA"
    },
    "lead_cycles": 1861,
    "terms": "../wcet/reference_tt.json",
@@ -99,7 +99,7 @@
    "releases": 244,
    "sim_ns": 64000000,
    "runs": {
-    "flow": "CF6"
+    "flow": "CF7"
    },
    "lead_cycles": 1621,
    "terms": "../wcet/reference_tt.json",

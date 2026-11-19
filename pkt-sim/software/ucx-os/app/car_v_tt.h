@@ -9,8 +9,8 @@
  * Input: car-v.csv (sha256 f2d3d1d0d6d01b1139f2ce6902adad589e36502243cf5202cd6b7d383c23caa0)
  * Input: car-v-ONTO-hermes4x4.map (sha256 9fbf86c91619af9824f716ed918dacdccc2f4a6a53d1b294bcc4ea05eca0bdb2)
  * Input: hermes-4x4.gml (sha256 9358c82c682719cefa86c536dee47390f25034f23c7a9fe7e44fc9876d2546ee)
- * Input: car_v.json (sha256 e2f7ef03a6e10d52da056e977c841f7f39922e7f66f6e5597a68ca630bdabc9d)
- * Input: car_v.handlers.json (sha256 d10a2acbbe210b59f9b659e6725c582bc5108fe7f4cff414cba48be6687a96b6)
+ * Input: car_v.json (sha256 0c9ff545be2fdb5d8be12cc65baede9e31ec7bc78ed33c31954c9dd3c9253f74)
+ * Input: car_v.handlers.json (sha256 a6c729b2d84134b6f5aa6639bb284727fc74fb16f10b8a2088649391da66f66e)
  *
  * Link schedule of each clock below: AGS (rttools/modules/backend/ags, the
  * parameters of the command line of rttools) on the packets of one
@@ -27,7 +27,7 @@
  * that reads the packet (rttools/modules/instances/release.py,
  * rttools/bench_t/multirate.py).
  *
- * Costs: max(CSV, static) car_v.json sha256 e2f7ef03a6e10d52da056e977c841f7f39922e7f66f6e5597a68ca630bdabc9d
+ * Costs: max(CSV, static) car_v.json sha256 0c9ff545be2fdb5d8be12cc65baede9e31ec7bc78ed33c31954c9dd3c9253f74
  * Deadline: tick (tick of the release of the job that reads each packet; finish of each job with the handlers of the packet events of its PE)
  */
 #if F_CPU == 441088000
@@ -48,15 +48,15 @@ static const struct ucx_tt_at TT_AT[24] = {
   {0, 5938},   /* f12 FBU8->BFE8: s 95000, s16 95008, r 95000, a 220544, o 17625 */
   {0, 12875},   /* f13 BFE1->FDF1: s 206000, s16 206000, r 190000, a 231544, o 15405 */
   {0, 11875},   /* f14 BFE2->FDF1: s 190000, s16 190000, r 190000, a 231544, o 15431 */
-  {0, 7688},   /* f15 BFE3->FDF1: s 123000, s16 123008, r 95000, a 220544, o 15379 */
+  {0, 7813},   /* f15 BFE3->FDF1: s 125000, s16 125008, r 95000, a 220544, o 15379 */
   {0, 10125},   /* f16 BFE4->FDF1: s 161998, s16 162000, r 161998, a 231544, o 15431 */
   {0, 11875},   /* f17 BFE5->FDF2: s 190000, s16 190000, r 190000, a 231544, o 15431 */
   {0, 12875},   /* f18 BFE6->FDF2: s 206000, s16 206000, r 190000, a 231544, o 15405 */
   {0, 8813},   /* f19 BFE7->FDF2: s 141000, s16 141008, r 95000, a 220544, o 15379 */
   {0, 9813},   /* f20 BFE8->FDF2: s 157000, s16 157008, r 95000, a 220544, o 15353 */
-  {0, 6689},   /* f21 FDF1->STPH: s 107015, s16 107024, r 107015, a 220544, o 15763 */
-  {0, 7761},   /* f22 FDF2->STPH: s 124166, s16 124176, r 110166, a 220544, o 15737 */
-  {0, 8767},   /* f23 STPH->OBMG: s 140258, s16 140272, r 96258, a 220544, o 15533 */
+  {0, 6706},   /* f21 FDF1->STPH: s 107295, s16 107296, r 107295, a 220544, o 15763 */
+  {0, 7778},   /* f22 FDF2->STPH: s 124446, s16 124448, r 110446, a 220544, o 15737 */
+  {0, 8775},   /* f23 STPH->OBMG: s 140398, s16 140400, r 96398, a 220544, o 15533 */
 };
 #elif F_CPU == 500000000
 /* 500000000 Hz: 16 packets between PEs in a hyperperiod of 250000 cycles, 250000 cycles per tick; at most 2 packets wait for their instant on one PE */
@@ -76,15 +76,15 @@ static const struct ucx_tt_at TT_AT[24] = {
   {0, 5938},   /* f12 FBU8->BFE8: s 95000, s16 95008, r 95000, a 250000, o 17625 */
   {0, 12875},   /* f13 BFE1->FDF1: s 206000, s16 206000, r 190000, a 261000, o 15405 */
   {0, 11875},   /* f14 BFE2->FDF1: s 190000, s16 190000, r 190000, a 261000, o 15431 */
-  {0, 7688},   /* f15 BFE3->FDF1: s 123000, s16 123008, r 95000, a 250000, o 15379 */
+  {0, 7813},   /* f15 BFE3->FDF1: s 125000, s16 125008, r 95000, a 250000, o 15379 */
   {0, 10125},   /* f16 BFE4->FDF1: s 161998, s16 162000, r 161998, a 261000, o 15431 */
   {0, 11875},   /* f17 BFE5->FDF2: s 190000, s16 190000, r 190000, a 261000, o 15431 */
   {0, 12875},   /* f18 BFE6->FDF2: s 206000, s16 206000, r 190000, a 261000, o 15405 */
   {0, 8813},   /* f19 BFE7->FDF2: s 141000, s16 141008, r 95000, a 250000, o 15379 */
   {0, 9813},   /* f20 BFE8->FDF2: s 157000, s16 157008, r 95000, a 250000, o 15353 */
-  {0, 6689},   /* f21 FDF1->STPH: s 107015, s16 107024, r 107015, a 250000, o 15763 */
-  {0, 7761},   /* f22 FDF2->STPH: s 124166, s16 124176, r 110166, a 250000, o 15737 */
-  {0, 8767},   /* f23 STPH->OBMG: s 140258, s16 140272, r 96258, a 250000, o 15533 */
+  {0, 6706},   /* f21 FDF1->STPH: s 107295, s16 107296, r 107295, a 250000, o 15763 */
+  {0, 7778},   /* f22 FDF2->STPH: s 124446, s16 124448, r 110446, a 250000, o 15737 */
+  {0, 8775},   /* f23 STPH->OBMG: s 140398, s16 140400, r 96398, a 250000, o 15533 */
 };
 #else
 #error "app/car_v_tt.h: no injection table for this F_CPU (rttools.ucxgen tt --clock)"

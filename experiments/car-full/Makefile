@@ -89,7 +89,7 @@ MESH    ?= 4x4
 # toolchain in use
 HEAP    ?= 44624
 IN_FLIGHT ?= 2
-F_CLK   ?= 526080000
+F_CLK   ?= 526656000
 # t(v) = max(CSV, static t(v) of the image, experiments/wcet costs/tt) in the link schedule of car_full_tt.h
 TT_COSTS ?= ../wcet/costs/tt/car_full.json
 PHASE_NS ?= 250000

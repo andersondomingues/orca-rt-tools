@@ -89,7 +89,7 @@ CARV_CSV := ../../apps/car-v/car-v.csv
 E_CSV   := ../../apps/synthetic-app-e/synthetic-app-e.csv
 E_MAP2  := ../../apps/synthetic-app-e/synthetic-app-e-ONTO-hermes2x2.map
 APPS     = --app CARV:$(CARV_CSV):maps/CARV.map --app E:$(E_CSV):maps/E.map
-F_CLK   ?= 457600000
+F_CLK   ?= 458016000
 SIM_NS  ?= 11500000
 # clocks of the injection tables carv_e_tt.h and e_ucx_tt.h: F_CLK and 500 MHz, the default clock of
 # a build (arch.mak)
