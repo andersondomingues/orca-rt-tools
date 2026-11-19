@@ -15,7 +15,12 @@
  * 5. A packet for a task of the same PE goes to its queue at once.
  * 6. The queue holds NOC_TT_SLOTS packets; one more returns
  *    UCX_NOC_OUT_OF_MEMORY. ucx_noc_send_at returns 0 when the kernel keeps
- *    the packet and leaves interrupts enabled. */
+ *    the packet and leaves interrupts enabled.
+ * 7. With -DUCX_TT_STEP32 (test_noc_tt32 of run.sh: the step of a tick of
+ *    more than 16 * 65536 cycles; TIMER1 and its compare register hold 32
+ *    bits): a step above 65535 goes whole to the compare register, the
+ *    packet leaves at that step and not at the step with the same low 16
+ *    bits, and the queue orders the steps by their 32 bits. */
 #include <ucx.h>
 #include "host_test.h"
 
@@ -168,6 +173,35 @@ static void test_queue_full(void)                        /* 6 */
 	CHECK(ucx_noc_tt_pending() == 8);
 }
 
+#ifdef UCX_TT_STEP32
+static void test_step_above_16_bits(void)                /* 7 */
+{
+	setup();
+	/* 90000 = 65536 + 24464; 70000 = 65536 + 4464 */
+	struct ucx_tt_at late = {0, 90000}, early = {0, 70000};
+	uint32_t t0 = ucx_noc_tt_ticks();
+	CHECK(ucx_noc_send_at(3, 1, pkts[1], 11, t0 + 1, &late) == 0);
+	CHECK(ucx_noc_send_at(2, 1, pkts[2], 12, t0 + 1, &early) == 0);
+	tick();
+	CHECK(host_timer1ocr == 70000);
+	step_to(24464);
+	CHECK(host_ddma_regs[4] == 0 && ucx_noc_tt_pending() == 2);
+	step_to(69999);
+	CHECK(host_ddma_regs[4] == 0);
+	step_to(70000);
+	CHECK(injected(pkts[2]));
+	CHECK(host_timer1ocr == 90000 && (host_timermask & MASK_TIMER1OCR));
+	host_ddma_regs[5] = ST_HANDSHAKE;
+	/* the compare interrupt before the step (TIMER1 read below the step) keeps the packet */
+	host_timer1 = 89999;
+	host_isr(timer1ocr_handler);
+	CHECK(!injected(pkts[1]) && ucx_noc_tt_pending() == 1);
+	step_to(90000);
+	CHECK(injected(pkts[1]));
+	CHECK(ucx_noc_tt_pending() == 0);
+}
+#endif
+
 int main(void)
 {
 	RUN_FORK(test_inject_at_instant);
@@ -176,5 +210,8 @@ int main(void)
 	RUN_FORK(test_handshake_and_busy);
 	RUN_FORK(test_local_target);
 	RUN_FORK(test_queue_full);
+#ifdef UCX_TT_STEP32
+	RUN_FORK(test_step_above_16_bits);
+#endif
 	DONE();
 }
