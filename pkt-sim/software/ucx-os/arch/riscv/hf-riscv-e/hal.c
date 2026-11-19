@@ -139,18 +139,20 @@ void _hardware_init(void)
 	/* TIMER1 counts from 0 to TIMER1CTC inclusive, one step per 16 cycles
 	 * (hw/peripherals/peripherals_minimal.vhd, TIMER1 process), so one tick
 	 * lasts 16 * (TIMER1CTC + 1) cycles. TIMER1CTC = F_CPU / F_TIMER / 16 - 1
-	 * gives a tick of F_CPU / F_TIMER cycles (250000 at 500 MHz and 2 kHz). */
+	 * gives a tick of F_CPU / F_TIMER cycles (250000 at 500 MHz and 2 kHz).
+	 * TIMER1 and TIMER1CTC hold 32 bits, so a tick lasts up to 16 * 2^32
+	 * cycles (a tick of 2 ms above 524.288 MHz has more than 65536 steps). */
 #ifndef UCX_TICK_CYCLES
-#if (F_CPU % (16 * F_TIMER)) != 0 || (F_CPU / F_TIMER / 16) > 65536
-#error "TIMER1: F_CPU / F_TIMER must be a multiple of 16 and at most 16 * 65536"
+#if (F_CPU % (16 * F_TIMER)) != 0 || (F_CPU / F_TIMER / 16) > 4294967296
+#error "TIMER1: F_CPU / F_TIMER must be a multiple of 16 and at most 16 * 2^32"
 #endif
 	TIMER1CTC = (F_CPU / F_TIMER) / 16 - 1;
 #else
 	/* UCX_TICK_CYCLES (make TICK_CYCLES=<cycles>) gives the tick in cycles,
 	 * for a tick that is not a whole number of Hz (a release period of
 	 * 1.5 ms); F_TIMER then only enables the timer. */
-#if (UCX_TICK_CYCLES % 16) != 0 || (UCX_TICK_CYCLES / 16) > 65536 || UCX_TICK_CYCLES < 16
-#error "TIMER1: UCX_TICK_CYCLES must be a multiple of 16 and at most 16 * 65536"
+#if (UCX_TICK_CYCLES % 16) != 0 || (UCX_TICK_CYCLES / 16) > 4294967296 || UCX_TICK_CYCLES < 16
+#error "TIMER1: UCX_TICK_CYCLES must be a multiple of 16 and at most 16 * 2^32"
 #endif
 	TIMER1CTC = UCX_TICK_CYCLES / 16 - 1;
 #endif
