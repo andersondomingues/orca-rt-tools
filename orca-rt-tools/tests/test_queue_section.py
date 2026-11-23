@@ -11,6 +11,8 @@ from tests.conftest import REPO_ROOT
 
 EXP = os.path.join(REPO_ROOT, "experiments")
 SPEC = os.path.join(EXP, "wcet", "specs", "weird_a_tt.json")
+# image of run VH (tag r11-rc9): the code before the section entered every image
+SPEC_VH = os.path.join(EXP, "wcet", "specs", "weird_a_VH.json")
 NOC_C = os.path.join(REPO_ROOT, "pkt-sim", "software", "ucx-os", "lib", "noc.c")
 
 
@@ -29,13 +31,16 @@ def test_section_is_not_an_option():
 
 
 def test_stored_image_without_the_section():
-    """An image up to tag r11-rc9 (experiments/wcet/images/tt) dequeues with interrupts enabled: the
-    analysis reports no queue section for it."""
+    """An image up to tag r11-rc9 (run VH, experiments/exp23/logs/VH.image.elf) dequeues with interrupts
+    enabled: the analysis reports no queue section for it. The images of this tree (images/tt) have both."""
     pytest.importorskip("elftools")
     pytest.importorskip("scipy")
     from rttools.wcet.__main__ import load_spec, run_spec
-    res = run_spec(load_spec(SPEC), None)
+    res = run_spec(load_spec(SPEC_VH), None)
     assert "ucx_noc_receive" not in res["sections"]["sections"] and "ucx_noc_send" not in res["sections"]["sections"]
+    new = run_spec(load_spec(SPEC), None)["sections"]
+    assert new["sections"]["ucx_noc_receive"] == 96 and new["sections"]["ucx_noc_send"] == 107
+    assert new["max"] == res["sections"]["max"] == 1151
 
 
 @pytest.mark.skipif(shutil.which("riscv64-elf-gcc") is None, reason="riscv64-elf-gcc ausente")

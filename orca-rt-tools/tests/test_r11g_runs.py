@@ -181,11 +181,16 @@ def test_wcet_of_the_r11g_runs(tmp_path):
 
 
 def test_run_images_equal_the_images_of_the_analysis():
-    """The images of VH, VCV, W4 and VMA (riscv64-elf-gcc 12.2.0 of the
-    simulation server) load the bytes of images/tt (container build of the
-    same compiler): every allocated section has the same address and
-    content, and the symbols are the same except the names of the mapping
-    symbols of the assembler ($xrv32e1p9 against $x)."""
+    """The images of the runs of round r12 at the clocks of images/tt (XH,
+    XCV, W6: riscv64-elf-gcc 12.2.0 of the simulation server) against
+    images/tt (the same compiler; make images-tt): the same symbols at the
+    same addresses and the same bytes in every allocated section, except
+    inside the injection tables (symbols TT_*). images/tt holds the images
+    from which costs/tt comes, built with the tables of the costs of round
+    r11g; the tables of the runs come from costs/tt, and a table is data,
+    so the static t(v) is the same (experiments/REGENERATE.md). The images
+    of the runs of round r11g (VH, VCV, W4, VMA) equal images/tt of tag
+    r11-rc9, without the critical section around the queue of a task."""
     pytest.importorskip("elftools")
     from elftools.elf.elffile import ELFFile
 
@@ -194,13 +199,25 @@ def test_run_images_equal_the_images_of_the_analysis():
             elf = ELFFile(fh)
             secs = {sec.name: (sec["sh_addr"], sec.data()) for sec in elf.iter_sections()
                     if sec["sh_flags"] & 2 and sec["sh_type"] == "SHT_PROGBITS"}
-            syms = sorted((("$x" if x.name.startswith("$x") else x.name), x["st_value"])
-                          for x in elf.get_section_by_name(".symtab").iter_symbols())
+            syms = sorted((x.name, x["st_value"], x["st_size"])
+                          for x in elf.get_section_by_name(".symtab").iter_symbols()
+                          if x.name and not x.name.startswith("$"))
         return secs, syms
-    pairs = {"exp23/logs/VH.image.elf": "weird_a", "car-v-rtl/logs/VCV.image.elf": "car_v",
-             "wcet/logs/W4.image.elf": "wcet_e", "multiapp/logs/VMA.image.elf": "carv_e"}
+    pairs = {"exp23/logs/XH.image.elf": "weird_a", "car-v-rtl/logs/XCV.image.elf": "car_v",
+             "wcet/logs/W6.image.elf": "wcet_e"}
     for run, img in pairs.items():
-        assert content(os.path.join(EXP, run)) == content(os.path.join(EXP, "wcet", "images", "tt", img + ".elf")), run
+        (a, sa), (b, sb) = content(os.path.join(EXP, run)), content(os.path.join(EXP, "wcet", "images", "tt", img + ".elf"))
+        assert sa == sb and list(a) == list(b), run
+        tables = [(v, v + n) for name, v, n in sa if name.startswith("TT_")]
+        assert tables, run
+        differing = 0
+        for name, (addr, da) in a.items():
+            db = b[name][1]
+            assert len(da) == len(db), (run, name)
+            for i in (i for i in range(len(da)) if da[i] != db[i]):
+                assert any(lo <= addr + i < hi for lo, hi in tables), (run, name, hex(addr + i))
+                differing += 1
+        assert 0 < differing <= 8, (run, differing)
 
 
 def test_run_cf5_jobs_after_their_finish(tmp_path, monkeypatch):

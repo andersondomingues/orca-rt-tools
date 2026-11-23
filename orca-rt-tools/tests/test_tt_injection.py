@@ -107,14 +107,14 @@ def test_buffers_cover_the_occupancy():
      "--arch", os.path.join(ARCH, "hermes-4x4.gml"), "--name", "car_v", "--clock", "441088000",
      "--clock", "500000000", "--out", APP_DIR, "--costs", os.path.join(EXP, "wcet", "costs", "tt", "car_v.json")],
     ["tt-check", os.path.join(APPS, "wcet-e", "wcet-e.csv"), os.path.join(APPS, "wcet-e", "wcet-e-ONTO-hermes2x2.map"),
-     "--arch", os.path.join(ARCH, "hermes-2x2.gml"), "--name", "wcet_e", "--clock", "234656000",
+     "--arch", os.path.join(ARCH, "hermes-2x2.gml"), "--name", "wcet_e", "--clock", "234784000",
      "--clock", "500000000", "--out", APP_DIR, "--costs", os.path.join(EXP, "wcet", "costs", "tt", "wcet_e.json")],
     ["tt-check", os.path.join(APPS, "car-full", "car-full.csv"),
      os.path.join(APPS, "car-full", "car-full-ONTO-hermes4x4.map"), "--arch", os.path.join(ARCH, "hermes-4x4.gml"),
-     "--name", "car_full", "--clock", "526080000", "--out", APP_DIR,
+     "--name", "car_full", "--clock", "526656000", "--out", APP_DIR,
      "--costs", os.path.join(EXP, "wcet", "costs", "tt", "car_full.json")],
     ["tt-check", E_CSV, E_MAP, "--arch", os.path.join(ARCH, "hermes-2x2.gml"), "--name", "e_ucx",
-     "--clock", "457600000", "--clock", "500000000", "--out", APP_DIR],
+     "--clock", "458016000", "--clock", "500000000", "--out", APP_DIR],
 ])
 def test_stored_tables_match_the_generator(args):
     from rttools.ucxgen.__main__ import main
@@ -125,7 +125,7 @@ def test_composition_table_matches_the_generator(monkeypatch):
     from rttools.ucxgen.__main__ import main
     monkeypatch.chdir(os.path.join(EXP, "multiapp"))
     assert main(["tt-compose-check", "--composition", "composition.json", "--name", "carv_e",
-                 "--clock", "457600000", "--clock", "500000000", "--out", APP_DIR,
+                 "--clock", "458016000", "--clock", "500000000", "--out", APP_DIR,
                  "--costs", os.path.join(EXP, "wcet", "costs", "tt", "carv_e.json")]) == 0
 
 
