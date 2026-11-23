@@ -608,14 +608,31 @@ def cpu_attributed(mdl, its):
     return out
 
 
-def packets(app, mdl, clk, releases, ev):
+def release_offset(info, period):
+    """Cycles from a release of the run to the release of the model: the
+    model takes the release request of each phase at a multiple of the
+    period P from reset, the lead of the timers before the tick that
+    applies it. The release generator raises its requests at WARMUP + k P
+    (RUN_INFO warmup_cycles), so the model release follows release k by
+    (-WARMUP) mod P cycles: 0 when the first release is at a multiple of
+    the period (every run with T = 0.5, 1 or 1.5 ms and the first release
+    at 3 ms), half a period for T = 2 ms (APP-DES and APP-FIRBANK of
+    STR2RTS), whose releases come in the middle of a tick."""
+    w = (info or {}).get("warmup_cycles")
+    if w is None or not period:
+        return 0
+    return (-int(w)) % int(period)
+
+
+def packets(app, mdl, clk, releases, ev, offset=0):
     """Send and arrival of each packet against the window [r, d] of its
-    flow, in cycles from r_k + phi(source) P."""
+    flow, in cycles from r_k + phi(source) P; `offset`: cycles from
+    release k of the log to r_k (release_offset)."""
     period = mdl["period_cycles"]
     out = []
     for fid, fl in sorted(app["flows"].items()):
         w = mdl["flows"][fid]
-        shift = mdl["tasks"][fl["source"]]["phase"] * period
+        shift = mdl["tasks"][fl["source"]]["phase"] * period + offset
         rows = []
         for k, ts in sorted(ev[fid]["send"].items()):
             if k > len(releases):
@@ -640,12 +657,15 @@ def packets(app, mdl, clk, releases, ev):
                     "late": sum(1 for v in slack if v < 0),
                     "min_slack_cycles": min(slack) if slack else None, "rows": rows})
     remote = [f for f in out if not f["local"]]
-    return {"flows": out,
-            "packets": sum(f["packets"] for f in out),
-            "remote_packets": sum(f["packets"] for f in remote),
-            "late": sum(f["late"] for f in out),
-            "min_slack_remote_cycles": min((f["min_slack_cycles"] for f in remote
-                                            if f["min_slack_cycles"] is not None), default=None)}
+    res = {"flows": out,
+           "packets": sum(f["packets"] for f in out),
+           "remote_packets": sum(f["packets"] for f in remote),
+           "late": sum(f["late"] for f in out),
+           "min_slack_remote_cycles": min((f["min_slack_cycles"] for f in remote
+                                           if f["min_slack_cycles"] is not None), default=None)}
+    if offset:
+        res["release_offset_cycles"] = offset
+    return res
 
 
 # ------------------------------------------------------------ network
@@ -879,7 +899,7 @@ def _analyze(log_path, manifest_path, csv_path, map_path, out_dir, run_info="aut
     resp = responses(app, mdl, clk, releases, its)
     win = cpu_windows(tr, app, mdl, clk, releases)
     att = cpu_attributed(mdl, its)
-    pkts = packets(app, mdl, clk, releases, ev)
+    pkts = packets(app, mdl, clk, releases, ev, release_offset(info, mdl["period_cycles"]))
     # link schedule of the model of the run: the network interface as a
     # resource and w_NI in o_i for the time-triggered injection
     prev_ni = router.set_ni("tt" if injection == "tt" else "off")

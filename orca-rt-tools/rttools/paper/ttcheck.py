@@ -16,9 +16,14 @@ of the monitor (cyc):
 Start of a phase: the ticks of a PE come every P cycles (P = tick period,
 RUN_INFO release_cycles), so the residue of the TIMER cycles modulo P that
 most lines share gives the ticks of the PE (tick_grid). The tick of phase
-q on a PE is the tick nearest to release q (TRIGGER line: the release
-request precedes the tick of its phase by less than P / 2, and the kernel
-applies it at that tick, lib/tick_release.c and the hook of car_full.c).
+q on a PE is the first tick at or after release q (TRIGGER line): the
+release interrupt counts the release and the tick hook applies it at the
+next tick (lib/tick_release.c and the hook of car_full.c). With a first
+release at a multiple of the release period the request precedes that
+tick by the lead of the timers (under 2,000 cycles); with any other first
+release (3 ms and T = 2 ms: APP-DES and APP-FIRBANK of STR2RTS) it
+precedes it by up to one period, and the nearest tick would be the tick
+before.
 The packet of the job of phase q has its instant s (cycles from the start
 of that phase) in the table of the image (s16 = s rounded up to 16
 cycles).
@@ -46,6 +51,7 @@ RX.head to END), which the resource of the link schedule excludes.
 """
 from __future__ import annotations
 
+import math
 import contextlib
 import os
 import re
@@ -256,11 +262,19 @@ VIOLATION_KEYS = ("early", "inject_above_bound", "header_above_bound", "rx_wait_
                   "latency_above_occupancy", "occupancy_above", "late", "ni_overlaps")
 
 
+def release_tick(grid, cyc, period):
+    """Tick of the grid of a PE that applies a release taken at cycle
+    `cyc`: the first tick at or after it (the tick hook of the kernel
+    applies the releases counted since the tick before)."""
+    r = grid["residue"]
+    return r + math.ceil((cyc - r) / period) * period
+
+
 def phase_ticks(release_cycles, grid, period):
-    """Tick of each phase (index of the release, from 0) on a PE: the tick
-    nearest to the release; and whether consecutive phases are one tick
-    apart."""
-    ticks = [nearest_tick(grid, c, period) for c in release_cycles]
+    """Tick of each phase (index of the release, from 0) on a PE: the first
+    tick at or after the release; and whether consecutive phases are one
+    tick apart."""
+    ticks = [release_tick(grid, c, period) for c in release_cycles]
     return ticks, all(b - a == period for a, b in zip(ticks, ticks[1:]))
 
 

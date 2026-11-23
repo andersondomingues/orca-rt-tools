@@ -152,6 +152,29 @@ def test_parse_lines_and_tick_grid():
     g = ttcheck.tick_grid(timers, 100)["0-0"]
     assert (g["residue"], g["ticks"], g["lines_on_grid"]) == (7, 3, 3)
     assert ttcheck.nearest_tick(g, 160, 100) == 207 and ttcheck.nearest_tick(g, 140, 100) == 107
+    # the tick that applies a release: the first one at or after it, also when the release comes
+    # more than half a period before it
+    assert [ttcheck.release_tick(g, c, 100) for c in (100, 107, 108, 140, 160, 206)] == [107, 107, 207, 207, 207, 207]
+    assert ttcheck.phase_ticks([100, 200, 300], g, 100) == ([107, 207, 307], True)
+    assert ttcheck.phase_ticks([108, 208, 308], g, 100) == ([207, 307, 407], True)
+
+
+def test_phase_tick_of_a_release_in_the_middle_of_a_tick():
+    """APP-DES of STR2RTS at 725.768 MHz (T = 2 ms, first release at 3 ms): the ticks come at
+    1,453,877 + k 1,451,536 cycles and the first release at cycle 2,177,443, 723,566 cycles after
+    a tick and 727,970 before the next one. The kernel applies it at the next tick, cycle 2,905,413
+    (the compare interrupt of the first packet, step 85,571, rises at 2,905,413 + 16 x 85,571 =
+    4,274,549 in the log); the nearest tick is the one before."""
+    P = 1451536
+    g = {"residue": 1453877 % P}
+    rel = [2177443 + k * P for k in range(4)]
+    assert ttcheck.nearest_tick(g, rel[0], P) == 1453877
+    assert ttcheck.release_tick(g, rel[0], P) == 2905413 == 4274549 - 16 * 85571
+    ticks, regular = ttcheck.phase_ticks(rel, g, P)
+    assert ticks == [2905413 + k * P for k in range(4)] and regular
+    # a release that precedes its tick by the lead of the timers: both rules give the same tick
+    lead = [2905413 - 1861 + k * P for k in range(4)]
+    assert ttcheck.phase_ticks(lead, g, P)[0] == [ttcheck.nearest_tick(g, c, P) for c in lead]
 
 
 def packet_row(**kw):
