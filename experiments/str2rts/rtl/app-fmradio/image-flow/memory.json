@@ -1,0 +1,150 @@
+{
+ "heap": 38576,
+ "usable": 38560,
+ "in_flight": 2,
+ "per_pe": {
+  "0": {
+   "bytes": 6988,
+   "tasks": 6924,
+   "out_packets": 64,
+   "in_packets": 0
+  },
+  "1": {
+   "bytes": 7044,
+   "tasks": 6924,
+   "out_packets": 72,
+   "in_packets": 48
+  },
+  "2": {
+   "bytes": 7044,
+   "tasks": 6924,
+   "out_packets": 72,
+   "in_packets": 48
+  },
+  "3": {
+   "bytes": 7044,
+   "tasks": 6924,
+   "out_packets": 72,
+   "in_packets": 48
+  },
+  "4": {
+   "bytes": 14236,
+   "tasks": 14016,
+   "out_packets": 124,
+   "in_packets": 96
+  },
+  "5": {
+   "bytes": 14236,
+   "tasks": 14016,
+   "out_packets": 124,
+   "in_packets": 96
+  },
+  "6": {
+   "bytes": 14236,
+   "tasks": 14016,
+   "out_packets": 124,
+   "in_packets": 96
+  },
+  "7": {
+   "bytes": 7044,
+   "tasks": 6924,
+   "out_packets": 72,
+   "in_packets": 48
+  },
+  "8": {
+   "bytes": 14236,
+   "tasks": 14016,
+   "out_packets": 124,
+   "in_packets": 96
+  },
+  "9": {
+   "bytes": 21708,
+   "tasks": 21108,
+   "out_packets": 552,
+   "in_packets": 48
+  },
+  "10": {
+   "bytes": 19456,
+   "tasks": 18744,
+   "out_packets": 184,
+   "in_packets": 528
+  },
+  "11": {
+   "bytes": 11848,
+   "tasks": 11652,
+   "out_packets": 100,
+   "in_packets": 96
+  },
+  "12": {
+   "bytes": 14236,
+   "tasks": 14016,
+   "out_packets": 124,
+   "in_packets": 96
+  },
+  "13": {
+   "bytes": 14236,
+   "tasks": 14016,
+   "out_packets": 124,
+   "in_packets": 96
+  },
+  "14": {
+   "bytes": 11848,
+   "tasks": 11652,
+   "out_packets": 100,
+   "in_packets": 96
+  },
+  "15": {
+   "bytes": 11848,
+   "tasks": 11652,
+   "out_packets": 100,
+   "in_packets": 96
+  }
+ },
+ "divisors": [
+  {
+   "divisor": 1,
+   "worst_pe": 9,
+   "bytes": 21708,
+   "heap": 38576,
+   "margin": 16852,
+   "fits": true,
+   "largest_payload": 40
+  },
+  {
+   "divisor": 2,
+   "worst_pe": 9,
+   "bytes": 21708,
+   "heap": 38576,
+   "margin": 16852,
+   "fits": true,
+   "largest_payload": 20
+  },
+  {
+   "divisor": 4,
+   "worst_pe": 9,
+   "bytes": 21708,
+   "heap": 38576,
+   "margin": 16852,
+   "fits": true,
+   "largest_payload": 10
+  },
+  {
+   "divisor": 8,
+   "worst_pe": 9,
+   "bytes": 21608,
+   "heap": 38576,
+   "margin": 16952,
+   "fits": true,
+   "largest_payload": 5
+  },
+  {
+   "divisor": 16,
+   "worst_pe": 9,
+   "bytes": 21608,
+   "heap": 38576,
+   "margin": 16952,
+   "fits": true,
+   "largest_payload": 2
+  }
+ ]
+}

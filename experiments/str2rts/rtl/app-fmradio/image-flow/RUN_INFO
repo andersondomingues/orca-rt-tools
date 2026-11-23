@@ -1,0 +1,24 @@
+repo_commit=unknown
+repo_state=nogit
+repo_tag=none
+src_sha256=af132540aefc99c0f69d331347035626174a8ca6a9d1184c2f963c8060ead8f7
+sim_ns=12500000 monitor=1
+app=str2rts_fmradio mesh=4x4 generics=-gCLOCK_HALF_PERIOD_FS=707782 -gRELEASE_CYCLES=353216 -gWARMUP_CYCLES=2119296 -gNOC_DIM_X=4 -gNOC_DIM_Y=4 -gRELEASE_MASK=65535
+vsim=Questa Sim-64 vsim 2025.3 Simulator 2025.09 Sep 15 2025
+gcc=riscv64-elf-gcc (Arch Linux Repositories) 12.2.0
+date=2026-11-18T23:59:26Z
+f_clk_hz=706432000
+f_tick_hz=2000
+clock_half_period_fs=707782
+clock_hz_exact=706432206.527
+release_cycles=353216
+warmup_cycles=2119296
+max_pkt_queue_slots=32
+noc_tt_slots=16
+noc_queue_di=1
+isr=no_nesting
+crt0=guard_readback
+injection=tt
+costs=max_csv_static costs_file=str2rts_fmradio.json costs_sha256=1aa31916d9cfe8c910ca1b3c826b7d2878e2eda6255a95bccaa55d9f8585a8a9
+release=tick
+deadline=tick

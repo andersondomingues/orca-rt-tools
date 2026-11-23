@@ -1,0 +1,5 @@
+<work>/str2rts_bitonic_image/results/metrics.json: release tick, 34 phases, 3478 executions: 0 phases with a task twice, 0 early executions, 0 phases above the CPU bound (0 late executions) -> conforms
+  job ends after F: 0 of 3599 (0 unchecked), smallest slack 11503
+  packets enqueued after s: 0 of 847 (0 unchecked), smallest slack 32601
+<work>/str2rts_bitonic_image/results/metrics.json: time-triggered injection: 832 packets (0 unchecked), violations 0: early 0, inject > 3899: 0, header > w_h (m + 1): 0, rx wait > 7113: 0, end wait > 4157: 0, latency > o_i: 0, occupancy > o_i: 0, late 0, NI overlaps 0
+  inject delay 354 to 522, header wait max 0, rx wait max 1281, end wait max 486, smallest occupancy slack 13211, smallest deadline slack 14106

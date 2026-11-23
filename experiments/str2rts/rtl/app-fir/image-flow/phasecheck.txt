@@ -1,0 +1,5 @@
+<work>/str2rts_fir_image/results/metrics.json: release tick, 40 phases, 4260 executions: 0 phases with a task twice, 0 early executions, 0 phases above the CPU bound (0 late executions) -> conforms
+  job ends after F: 0 of 4392 (0 unchecked), smallest slack 9184
+  packets enqueued after s: 0 of 510 (0 unchecked), smallest slack 102080
+<work>/str2rts_fir_image/results/metrics.json: time-triggered injection: 510 packets (0 unchecked), violations 0: early 0, inject > 3899: 0, header > w_h (m + 1): 0, rx wait > 7113: 0, end wait > 4157: 0, latency > o_i: 0, occupancy > o_i: 0, late 0, NI overlaps 0
+  inject delay 361 to 392, header wait max 0, rx wait max 1021, end wait max 360, smallest occupancy slack 13460, smallest deadline slack 85569

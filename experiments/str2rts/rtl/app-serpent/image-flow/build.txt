@@ -1,0 +1,5 @@
+app=APP-SERPENT name=str2rts_serpent mesh=4x4
+f_clk_hz=608864000 release_ns=1500000 sim_ns=64000000 tick_cycles=913296
+max_tasks=25 max_pkt_queue_slots=default noc_tt_slots=default ram_bytes=131072
+heap=94604 demand_worst_pe=80788 margin=13800 fits=True
+image text=22092 data=11284 bss=97696

@@ -6,6 +6,7 @@ RTL runs of converted STR2RTS applications on the manycore of the repository (Qu
 |---|---|
 | `pilot.sh <APP> <work dir> [<iterations>]` | Generates the UCX-OS application (`rttools.ucxgen generate` and `tt`), simulates it (`experiments/exp23/simulate.sh`) and analyzes the log (`rttools.paper.rtlapp`, `rttools.paper.phasecheck`); header of the script |
 | `static_costs.py <APP> <work dir>` | Static t(v) of the image of a run (`rttools.wcet`) against the CSV, and the flow with t(v) = max(CSV, static) and the handler terms of that image (`static.json`, `costs_file.json`, `costs_file.handlers.json`, `costs.csv`) |
+| `run_all.sh <work dir> [<jobs>]` | Batch of the applications without a run, resumable (section below) |
 | `summary.py` | `summary.json`, `summary.md` |
 | `<app>/` | Run at the clock of `../reference.json`: generated `str2rts_<app>.{c,json,sim}` and `str2rts_<app>_tt.h`, `events.txt`, `RUN_INFO`, `time.log`, `metrics.json` and the CSV files of the analysis, `phasecheck.txt`, `memory.json` |
 | `<app>/image-flow/` | Second run (`IMAGE_FLOW=1`) at the clock of the flow of the image, with the injection table of t(v) = max(CSV, static) |
@@ -17,65 +18,67 @@ export ENV_SETUP="source /usr/share/Modules/init/bash; module load riscv64-elf/1
 rtl/pilot.sh APP-CFIR <work>; rtl/pilot.sh APP-CFAR <work>; rtl/pilot.sh APP-DCT <work>
 rtl/pilot.sh APP-MATMULT <work>; rtl/pilot.sh APP-FFT <work>
 RAM_BYTES=262144 rtl/pilot.sh APP-PERFTEST <work>
+rtl/pilot.sh APP-FILTERBANK <work>; rtl/pilot.sh APP-AUDIOBEAM <work>     (after the limits were lifted)
 PYTHONPATH=../../orca-rt-tools python rtl/static_costs.py APP-CFIR <work>      (and APP-CFAR, APP-DCT, APP-MATMULT)
 IMAGE_FLOW=1 rtl/pilot.sh APP-CFIR <work>                                      (and APP-CFAR, APP-DCT)
 python rtl/summary.py
 ```
 
-Do not edit `pilot.sh` while a run of it is in progress (bash reads the script as it runs): the runs of APP-MATMULT, APP-PERFTEST and APP-FFT of this directory lost their last step that way, and the commands of that step (heap check of the image, `rtlapp`, `phasecheck`, copy of the results) ran by hand on the finished simulations; their directories have no `wall.txt`.
+Do not edit `pilot.sh` in place while a run of it is in progress (bash reads the script as it runs; replace the file instead): the runs of APP-MATMULT, APP-PERFTEST and APP-FFT of this directory lost their last step that way, and the commands of that step (heap check of the image, `rtlapp`, `phasecheck`, copy of the results) ran by hand on the finished simulations; their directories have no `wall.txt`. The first six applications ran before the limits of the next section were lifted, with `GEN_APPS=<name>` in `MAKEFLAGS` and, for APP-PERFTEST, `LDSCRIPT` in `MAKEFLAGS` and `VSIM_OPTS=-gRAM_MSIZE=262144`; APP-CFAR ran again with the present scripts and gave the same `metrics.json`, `events.txt` and analysis files.
 
 ## How a run is set up
 
-- The script works on a copy of the repository in the work directory, so the generated application does not enter `pkt-sim/software/ucx-os/app` of this tree. The UCX-OS Makefile builds a generated application through its `GEN_APPS` rule, which lists `car_v`, `wcet_e`, `carv_e` and `e_ucx`; the script passes `GEN_APPS=<name>` in `MAKEFLAGS`. To build these applications with plain `make <name>`, their names have to enter `GEN_APPS` of `pkt-sim/software/ucx-os/Makefile`.
-- Clock: the first F_CLK at or above f_search of `../reference.json` whose release period is a whole number of 16-cycle steps of TIMER1 (a multiple of 32 kHz for T = 0.5 ms).
+- The script works on a copy of the repository in the work directory, so the generated application does not enter `pkt-sim/software/ucx-os/app` of this tree. The UCX-OS Makefile builds every `app/str2rts_*.c` with the rule of the generated applications.
+- Clock: the first F_CLK at or above f_search of `../reference.json` whose release period is a whole number of cycles and of 16-cycle steps of TIMER1 (a multiple of 32 kHz for T = 0.5 ms and 1.5 ms, 16 kHz for 1 ms, 8 kHz for 2 ms).
 - Injection table (`rttools.ucxgen tt`): link schedule at that clock with the costs of the CSV (`RUN_INFO`: `costs=csv`), so the model of the analysis of the run has no handler charge. The `image-flow` runs follow the procedure of the runs of `experiments/tt` instead.
 - Simulated time: warm-up 3 ms + (n(v_last) + 9) T + R_bound + T, rounded up to 0.5 ms, for at least ten complete iterations.
-- `RUN_INFO` has `repo_state=nogit` (the copy has no git metadata): the source is commit 830ed4a of branch `ieee-access` plus the files of this task.
+- Limits and RAM: next section. `<work>/<name>/build.txt` (copied to `<app>/build.txt`) records the limits, the RAM and the heap of the build.
+- `RUN_INFO` has `repo_state=nogit` (the copy has no git metadata).
 
-## RAM of a PE
+## Limits of the kernel, of the generator and of the scripts
 
-| Where | Value | How to change it without editing a file |
+Every limit below keeps its value for the applications of the tree: their generated files and their images are byte-identical to those before the change (commit messages of `pkt-sim/software/ucx-os`, `rttools/ucxgen` and `experiments/exp23`).
+
+| Limit | Default | Above it |
 |---|---|---|
-| `pkt-sim/manycore_modelsim/manycore_top.sv:20` | parameter `RAM_MSIZE = 65536` (bytes; `manycore_pe`, `dual_port_ram` and `ddma` take it; the address mask `RAM_MSIZE - 1` needs a power of two; the RAM region of the PE spans 0x40000000 to 0x5fffffff) | `VSIM_OPTS=-gRAM_MSIZE=<bytes>` of `simulate.sh` |
-| `pkt-sim/software/ucx-os/arch/riscv/hf-riscv-e/hf-risc.ld:5` | `RAM (rwx) : ORIGIN = 0x40000000, LENGTH = 64K` (stack at the end of the RAM, heap from `_ebss` to 2 KiB below it) | `LDSCRIPT=<copy of the script with another LENGTH>` on the make command line; `build_sw.sh` passes no such variable, so `pilot.sh` puts it in `MAKEFLAGS` |
+| Tasks of an application | 52: one marker letter per task (`ITER_LETTERS` of `rttools/ucxgen/model.py`) | One letter per task of a PE (manifest `"iter_letters": "pe"`); the log line of a marker names the PE and `rttools.paper.rtlapp` reads (PE, letter). At most 52 tasks on one PE. One release period only: the time-triggered pattern and the composition keep the limit |
+| Flows | 63 with the tag modulus 1024 (16-bit tag = flow x modulus + iteration mod modulus) | The generator takes the largest power of two that fits (64 for the 598 flows of APP-DES); the analysis unwraps the iteration of a packet in time order per flow |
+| Tasks of a PE | 15 (`MAX_TASKS` 16 of `include/lib/noc.h`, with the idle task) | The generator writes `MAX_TASKS=<tasks + 1>` in `<name>.sim`; `simulate.sh` passes it to the build (`make MAX_TASKS=`) |
+| Packets in the queue of a task | 8 (`MAX_PKT_QUEUE_SLOTS` of `noc.h`) | For a task with 5 input edges or more the generator writes `MAX_PKT_QUEUE_SLOTS=<power of two of at least 2 x input edges>` in `<name>.sim`: one packet per input edge of the iteration the task waits for and one of the next |
+| Packets of a PE that wait for their injection instant | 8 (`NOC_TT_SLOTS` of `lib/noc_tt.c`) | `rttools.ucxgen tt` writes the line `Queue: NOC_TT_SLOTS <n>` in the injection table instead of stopping; `simulate.sh` passes it to the build |
+| RAM of a PE | 64 KiB (`RAM_MSIZE` of `manycore_top.sv`, `LENGTH` of `hf-risc.ld`) | `RAM_BYTES=<power of two>` of `simulate.sh` and `build_sw.sh` sets both; `pilot.sh` takes the first size from 64 KiB whose image links and whose heap holds the demand of the worst PE |
+| Release period | 1e9 / T(ns) whole (F_TICK in Hz) | `simulate.sh` gives the build the tick in cycles (`TICK_CYCLES`, `UCX_TICK_CYCLES` of `hal.c`) for another period (1.5 ms of APP-SERPENT); T F_CLK stays a multiple of 16 cycles |
+| Payload | 65,532 bytes (`MAX_PAYLOAD`) | Not lifted (the ceiling of the converter) |
 
-`RAM_BYTES=262144 pilot.sh APP-PERFTEST` does both (the image has a heap of 248,032 bytes). To make it a parameter of the repository scripts, `build_sw.sh` and `simulate.sh` need a variable that reaches `make LDSCRIPT=` and `vsim -gRAM_MSIZE=`.
+What each application takes above the defaults (`rttools.ucxgen generate` and `tt`, build of `pilot.sh` with `STEP=build`; heap demand of the worst PE with 2 packets in flight per input edge between PEs):
 
-## What the generator and the platform accept
+| Application | Tasks | Flows | Marker letters | Tag modulus | MAX_TASKS | MAX_PKT_QUEUE_SLOTS | NOC_TT_SLOTS | RAM | Heap of the image (B) | Demand (B) | T (ms) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| APP-FILTERBANK | 53 | 59 | per PE | 1024 | default | 16 | default | 64 KiB | 42,256 | 19,024 | 0.5 |
+| APP-AUDIOBEAM | 20 | 33 | per task | 1024 | default | 32 | 16 | 64 KiB | 45,584 | 10,136 | 0.5 |
+| APP-BEAMFORMER | 56 | 69 | per PE | 512 | default | 32 | 16 | 64 KiB | 39,360 | 23,888 | 1 |
+| APP-FMRADIO | 67 | 85 | per PE | 512 | default | 32 | 16 | 64 KiB | 38,656 | 21,708 | 0.5 |
+| APP-DCALC | 84 | 101 | per PE | 512 | default | default | default | 64 KiB | 42,672 | 25,292 | 1 |
+| APP-80211A | 117 | 148 | per PE | 256 | 18 | 16 | default | 512 KiB | 495,132 | 388,288 | 1 |
+| APP-BITONIC | 122 | 151 | per PE | 256 | default | default | default | 128 KiB | 102,368 | 37,684 | 1 |
+| APP-FIR | 132 | 131 | per PE | 256 | default | default | default | 64 KiB | 40,192 | 29,772 | 1 |
+| APP-SERPENT | 234 | 266 | per PE | 128 | 25 | default | default | 128 KiB | 94,684 | 80,788 | 1.5 |
+| APP-FIRBANK | 340 | 350 | per PE | 128 | 29 | 32 | 16 | 256 KiB | 182,132 | 83,196 | 2 |
+| APP-DES | 423 | 598 | per PE | 64 | 31 | 16 | default | 256 KiB | 183,984 | 96,516 | 2 |
 
-Checked with `rttools.ucxgen generate` and `rttools.ucxgen memory` on the 17 applications (`max tasks per PE`, `in-degree` and heap from the CSV and the .map; heap of the worst PE with 2 packets in flight per input edge between PEs; the heap of a 64 KiB image is about 48 to 50 KiB):
+The six applications of the first pilot take every default except the RAM of APP-PERFTEST (256 KiB).
 
-| Application | Tasks | Flows | Tasks of the largest PE | Largest in-degree | Heap of the worst PE (B) | T (ms) | Generator |
-|---|---|---|---|---|---|---|---|
-| APP-CFIR | 3 | 2 | 1 | 1 | 4,548 | 0.5 | ok |
-| APP-CFAR | 4 | 3 | 1 | 1 | 6,380 | 0.5 | ok |
-| APP-DCT | 7 | 7 | 4 | 2 | 15,028 | 0.5 | ok |
-| APP-PERFTEST | 16 | 18 | 1 | 4 | 201,648 | 0.5 | ok; RAM of 256 KiB |
-| APP-AUDIOBEAM | 20 | 33 | 3 | 15 | 9,848 | 0.5 | ok; in-degree above the 8 queue slots |
-| APP-MATMULT | 23 | 23 | 3 | 2 | 11,868 | 0.5 | ok |
-| APP-FFT | 26 | 26 | 4 | 2 | 14,460 | 0.5 | ok |
-| APP-FILTERBANK | 53 | 59 | 7 | 8 | 18,800 | 0.5 | refused: 52 letters |
-| APP-BEAMFORMER | 56 | 69 | 9 | 12 | 23,024 | 1 | refused: 52 letters; tags; in-degree |
-| APP-FMRADIO | 67 | 85 | 8 | 10 | 20,940 | 0.5 | refused: 52 letters; tags; in-degree |
-| APP-DCALC | 84 | 101 | 10 | 2 | 25,292 | 1 | refused: 52 letters; tags |
-| APP-80211A | 117 | 148 | 17 | 5 | 387,936 | 1 | refused: 52 letters; tags; tasks per PE; RAM of 512 KiB |
-| APP-BITONIC | 122 | 151 | 15 | 4 | 37,684 | 1 | refused: 52 letters; tags |
-| APP-FIR | 132 | 131 | 12 | 1 | 29,772 | 1 | refused: 52 letters; tags |
-| APP-SERPENT | 234 | 266 | 24 | 2 | 80,788 | 1.5 | refused: 52 letters; tags; tasks per PE; RAM of 128 KiB; T |
-| APP-FIRBANK | 340 | 350 | 28 | 12 | 80,508 | 2 | refused: 52 letters; tags; tasks per PE; in-degree; RAM of 128 KiB |
-| APP-DES | 423 | 598 | 30 | 8 | 95,556 | 2 | refused: 52 letters; tags; tasks per PE; RAM of 128 KiB |
+## Batch of the remaining applications (`run_all.sh`)
 
-| Limit | Where | What it stops |
-|---|---|---|
-| 52 tasks per application | `ITER_LETTERS` of `rttools/ucxgen/model.py`: the iteration markers carry one ASCII letter per task (`include/device/cacc.h`, bits 30:24 of the word; the parser of the log reads `[A-Za-z]`) | Ten applications; the generator stops with `the iteration markers have 52 letters` |
-| Tag of 16 bits | `flows x tag_mod + tag_mod - 1 <= 65535` (`model.py`); with the default `tag_mod` 1024, 63 flows | Nine applications with the default; `--tag-mod 64` covers 598 flows (the iteration of a packet then wraps at 64) |
-| 15 tasks per PE | `MAX_TASKS 16` of `include/lib/noc.h` (with the idle task; arrays of `lib/noc.c` and `lib/tick_release.c`); `MAX_TASKS_PER_PE` of `model.py` | APP-80211A (17), APP-SERPENT (24), APP-FIRBANK (28), APP-DES (30) |
-| 8 packets in the queue of a task | `MAX_PKT_QUEUE_SLOTS 8` of `include/lib/noc.h`; a join holds one packet per input edge until the last one arrives (the generator checks it only in the time-triggered pattern) | In-degree above 8: APP-AUDIOBEAM (15), APP-BEAMFORMER (12), APP-FIRBANK (12), APP-FMRADIO (10); not tried in simulation |
-| Heap | 64 KiB of RAM less the image and the stack | APP-PERFTEST, APP-80211A, APP-SERPENT, APP-FIRBANK, APP-DES need more RAM (table above) |
-| Release period | `simulate.sh` needs 1e9 / T(ns) whole (F_TICK in Hz) and T F_CLK a multiple of 16 cycles | APP-SERPENT (T = 1.5 ms: F_TICK 666.67 Hz) |
-| Payload | 65,532 bytes (`MAX_PAYLOAD`) | None after the conversion (the ceiling of the converter) |
+```
+export ENV_SETUP="source /usr/share/Modules/init/bash; module load riscv64-elf/12.2.0; module load questa/2025.3"
+STEP=build rtl/run_all.sh <work> 3      # dry run: generate, build and check the heap of each application (about 2 min)
+nohup rtl/run_all.sh <work> 3 > <work>/run_all.out 2>&1 &
+```
 
-`MAX_TASKS` and `MAX_PKT_QUEUE_SLOTS` are plain `#define` lines of `noc.h`: raising them is an edit of that file (and of `MAX_TASKS_PER_PE` and the queue check of the generator), with more heap per task (2,268 bytes: TCB, scheduler record, stack, queue and its slots, each with a block header).
+The batch runs the applications without a run (APP-DES, APP-SERPENT, APP-DCALC, APP-FIR, APP-80211A, APP-BITONIC, APP-FIRBANK, APP-BEAMFORMER, APP-FMRADIO; `APPS=` names others), the longest first, three at a time. `<work>/status.txt` has one line per application (waiting, running, done, failed, skipped, built), `<work>/logs/<APP>.log` the output of `pilot.sh`, `<work>/failed/<APP>` the exit code and the last lines of a failed one; a failure does not stop the others. An application whose `rtl/<app>/` holds `metrics.json`, `events.txt`, `RUN_INFO` and `phasecheck.txt` is skipped, so the same command resumes an interrupted batch. At the end `summary.py` rewrites `summary.json` and `summary.md`.
+
+Simulated time and expected wall time of `vsim` (105 s per simulated ms on the 4x4 mesh with three at a time, the rate of the pilot): APP-DES 85 ms (2 h 29 min), APP-SERPENT 64 ms (1 h 52 min), APP-DCALC 45.5 ms (1 h 20 min), APP-FIR 44 ms (1 h 17 min), APP-80211A 40 ms (1 h 10 min), APP-BITONIC 38 ms (1 h 6 min), APP-FIRBANK 36.5 ms (1 h 4 min), APP-BEAMFORMER 21.5 ms (38 min), APP-FMRADIO 12.5 ms (22 min); 11 h 18 min of `vsim` in all, about 4 hours with three at a time.
 
 ## Results
 
@@ -109,3 +112,36 @@ Wall time of `vsim` with three simulations at a time: 26 to 29 s per simulated m
 | APP-PERFTEST | 2 | 24 | 622 | 3,142 | T002 (19,359 against 13,029), T015 (19,501 against 11,406) | 1.710 | 379.918 | 448.639 | 462.811 | 3.0247 |
 
 The static cost is above the cost of the CSV only for tasks with small bodies and two to four edges on one side (splitters and joiners: the send path costs 2,233 cycles per output edge and the handlers 622 per output and `receive` per input edge), and never on the PE that sets f_CPU, so f_CPU of the image equals f_CPU of the table in the six images. The clock of the flow of each image is below the clock of the table (the handler terms of these images are below those of the image of CAR, and the budgets are not 0). The images of the three `image-flow` runs, built at their clock with their table, have the same static t(v) as the images of the first runs.
+
+## Runs at the clock of the image (`run_image_flow.sh`), 18 November 2026
+
+The runs of the tables above with the costs of the CSV ("table clock") are kept as they were made, with
+the kernel before the correction of the queue of a task. They are not the procedure of the paper. The
+procedure is the one of `experiments/tt`: build the image, compute its static t(v) and handler terms
+(`static_costs.py`), take the clock of the flow with t(v) = max(CSV, static), and simulate at that clock
+(`IMAGE_FLOW=1 pilot.sh`, results in `app-<name>/image-flow/`). `run_image_flow.sh <work dir> [<jobs>]`
+does this for every application, a few at a time, and is resumable. `summary.py` lists both kinds of run
+in `summary.json` and `summary.md`.
+
+Three findings of these runs:
+
+- **Costs of the CSV alone are not sound for a task that sends many packets.** APP-AUDIOBEAM at the
+  table clock (690.368 MHz): task T002, a splitter with 15 output packets, has a CSV cost of 100,500
+  cycles and a static t(v) of 141,745; 40 of 379 jobs ended after F and 39 packets were injected after
+  the injection bound. With the static costs the flow returns 728.40 MHz. For the large applications
+  the static cost exceeds the CSV cost for almost every task (422 of 423 in APP-DES), so the clocks of
+  `../reference.json`, which take the costs of the CSV, are below the clocks of the complete flow.
+- **A data race in the kernel lost counts of the queue of a task** (`lib/noc.c`, `ucx_noc_receive()`:
+  dequeue with interrupts enabled). APP-AUDIOBEAM at the image clock met every bound for 13 iterations,
+  then the join of 15 inputs found its queue reported as empty with packets in it and ran one phase
+  late. Commit f97a8a8 adds the critical section (`NOC_QUEUE_DI=1`), and `pilot.sh` builds every STR2RTS
+  image with it. Every run of `image-flow/` has it (`noc_queue_di=1` in `RUN_INFO`).
+- **Start-up of APP-80211A.** Each task does its one-time setup on its first dispatch, one task per
+  tick. With 13 tasks on a PE and a tick of 1 ms, the setup of three tasks was still running after the
+  first release at 3 ms: three PEs exceeded their CPU estimate in the first three phases and the first
+  job of one task ended 4,836 cycles after F. The stored run has `WARMUP_NS=8000000` (first release at
+  8 ms) and five more iterations (`WARMUP_NS=8000000 IMAGE_FLOW=1 pilot.sh APP-80211A <work> 15`).
+
+Result: the fifteen applications whose tick fits TIMER1 meet every bound at the clock of their image
+(`summary.md`). APP-DES and APP-FIRBANK need a tick above 16 x 65,536 cycles at their image clock and
+do not build on this tree; branch `platform-all` widens TIMER1.

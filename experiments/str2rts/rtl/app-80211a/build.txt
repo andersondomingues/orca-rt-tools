@@ -1,0 +1,5 @@
+app=APP-80211A name=str2rts_80211a mesh=4x4
+f_clk_hz=409728000 release_ns=1000000 sim_ns=40000000 tick_cycles=default
+max_tasks=18 max_pkt_queue_slots=16 noc_tt_slots=default ram_bytes=524288
+heap=495052 demand_worst_pe=388288 margin=106748 fits=True
+image text=16524 data=9748 bss=498016

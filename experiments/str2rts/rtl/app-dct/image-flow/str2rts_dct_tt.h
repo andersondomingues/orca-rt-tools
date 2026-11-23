@@ -9,8 +9,8 @@
  * Input: app-dct.csv (sha256 97efca673907d852110d12263f4171c46fbb1c13d8ad62871fc3a6f5f92030f3)
  * Input: app-dct-ONTO-hermes2x2.map (sha256 7f46cc4a76d3836ab9f44a2109853f754aafe7c4e95908dc8fe66de611be9edf)
  * Input: hermes-2x2.gml (sha256 7f5b99836ef8b0644c57f3b4403f1f1798e5b947e5afc6aa08ea7ced18960759)
- * Input: str2rts_dct.json (sha256 c3206330a51379285841d1c522c4b0d47d854466e68a4f53ad9ebe57bf6d3048)
- * Input: str2rts_dct.handlers.json (sha256 9b381e75796a3946790e691f196393ae0bf0d21886a2225d6a10e1bd4763d4d3)
+ * Input: str2rts_dct.json (sha256 705b6585c3787b1c75f362fd5f7f98f2d527118290e5dc383272e566765b36dc)
+ * Input: str2rts_dct.handlers.json (sha256 45aca1d54d0ce51c1326ae2805a44f21dba48951b8ee581eb9851e17a6281bd9)
  *
  * Link schedule of each clock below: AGS (rttools/modules/backend/ags, the
  * parameters of the command line of rttools) on the packets of one
@@ -27,7 +27,7 @@
  * that reads the packet (rttools/modules/instances/release.py,
  * rttools/bench_t/multirate.py).
  *
- * Costs: max(CSV, static) str2rts_dct.json sha256 c3206330a51379285841d1c522c4b0d47d854466e68a4f53ad9ebe57bf6d3048
+ * Costs: max(CSV, static) str2rts_dct.json sha256 705b6585c3787b1c75f362fd5f7f98f2d527118290e5dc383272e566765b36dc
  * Deadline: tick (tick of the release of the job that reads each packet; finish of each job with the handlers of the packet events of its PE)
  */
 #if F_CPU == 410240000
@@ -35,7 +35,7 @@
 static const struct ucx_tt_at TT_AT[8] = {
   {0, 0},   /* no flow 0 */
   {0, 11860},   /* f1 T001->T002: s 189752, s16 189760, r 189752, a 205120, o 15353 */
-  {0, 1207},   /* f2 T002->T003: s 19299, s16 19312, r 19299, a 205120, o 15353 */
+  {0, 1211},   /* f2 T002->T003: s 19369, s16 19376, r 19369, a 205120, o 15353 */
   {0, 5879},   /* f3 T003->T004: s 94052, s16 94064, r 94052, a 205120, o 15353 */
   {0, 0},   /* f4 T002->T005: same PE */
   {0, 0},   /* f5 T005->T006: same PE */

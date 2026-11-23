@@ -1,0 +1,5 @@
+app=APP-FILTERBANK name=str2rts_filterbank mesh=4x4
+f_clk_hz=533696000 release_ns=500000 sim_ns=11500000 tick_cycles=default
+max_tasks=default max_pkt_queue_slots=16 noc_tt_slots=default ram_bytes=65536
+heap=42176 demand_worst_pe=19024 margin=23136 fits=True
+image text=13496 data=6936 bss=45104

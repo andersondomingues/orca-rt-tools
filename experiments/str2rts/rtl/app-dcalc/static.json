@@ -1,0 +1,712 @@
+{
+ "_doc": "static_costs.py: static t(v) of the image of the pilot run against the CSV, and the flow with t(v) = max(CSV, static) and the handler terms of the image (flow_image) against the flow with the costs of the CSV and no handler charge (flow_csv); experiments/str2rts/reference.json holds the flow with the costs of the CSV and the handler terms of the image of CAR with budget 0",
+ "app": "APP-DCALC",
+ "image": {
+  "file": "image.elf",
+  "kind": "elf",
+  "sha256": "f869a2db9ca5643cee5d701bd9961c5af2ad3c2df2d5709e3d49aad0cdced01b"
+ },
+ "params": {
+  "tcb": 11,
+  "heap_blocks": 72
+ },
+ "kernel": {
+  "dispatch": 816,
+  "tick": 1781,
+  "release": 249,
+  "send_isr": 622,
+  "receive_isr_size": 6694,
+  "receive_isr_end": 753,
+  "receive_isr": 7447
+ },
+ "scheduler_cycles": {
+  "csv": 11000,
+  "static": 2030
+ },
+ "tasks": {
+  "T001": {
+   "csv": 13567,
+   "static": 8662,
+   "used": 13567,
+   "static_above_csv": false,
+   "isr": 622
+  },
+  "T002": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T003": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T004": {
+   "csv": 11241,
+   "static": 14272,
+   "used": 14272,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T005": {
+   "csv": 11963,
+   "static": 14992,
+   "used": 14992,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T006": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T007": {
+   "csv": 13407,
+   "static": 16442,
+   "used": 16442,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T008": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T009": {
+   "csv": 12444,
+   "static": 15472,
+   "used": 15472,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T010": {
+   "csv": 11241,
+   "static": 14272,
+   "used": 14272,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T011": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T012": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T013": {
+   "csv": 11241,
+   "static": 14272,
+   "used": 14272,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T014": {
+   "csv": 11963,
+   "static": 14992,
+   "used": 14992,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T015": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T016": {
+   "csv": 13407,
+   "static": 16442,
+   "used": 16442,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T017": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T018": {
+   "csv": 12444,
+   "static": 15472,
+   "used": 15472,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T019": {
+   "csv": 11241,
+   "static": 14272,
+   "used": 14272,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T020": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T021": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T022": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T023": {
+   "csv": 14610,
+   "static": 20538,
+   "used": 20538,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T024": {
+   "csv": 13407,
+   "static": 16442,
+   "used": 16442,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T025": {
+   "csv": 11481,
+   "static": 14512,
+   "used": 14512,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T026": {
+   "csv": 15814,
+   "static": 26692,
+   "used": 26692,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T027": {
+   "csv": 14610,
+   "static": 20538,
+   "used": 20538,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T028": {
+   "csv": 13407,
+   "static": 16442,
+   "used": 16442,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T029": {
+   "csv": 11481,
+   "static": 14512,
+   "used": 14512,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T030": {
+   "csv": 15814,
+   "static": 26692,
+   "used": 26692,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T031": {
+   "csv": 15814,
+   "static": 26692,
+   "used": 26692,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T032": {
+   "csv": 25441,
+   "static": 31368,
+   "used": 31368,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T033": {
+   "csv": 20628,
+   "static": 23662,
+   "used": 23662,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T034": {
+   "csv": 20628,
+   "static": 23662,
+   "used": 23662,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T035": {
+   "csv": 27929,
+   "static": 30962,
+   "used": 30962,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T036": {
+   "csv": 75826,
+   "static": 78862,
+   "used": 78862,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T037": {
+   "csv": 18221,
+   "static": 24148,
+   "used": 24148,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T038": {
+   "csv": 352459,
+   "static": 355492,
+   "used": 355492,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T039": {
+   "csv": 15814,
+   "static": 18842,
+   "used": 18842,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T040": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T041": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T042": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T043": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T044": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T045": {
+   "csv": 13808,
+   "static": 16842,
+   "used": 16842,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T046": {
+   "csv": 20628,
+   "static": 23662,
+   "used": 23662,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T047": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T048": {
+   "csv": 33063,
+   "static": 36092,
+   "used": 36092,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T049": {
+   "csv": 12524,
+   "static": 15552,
+   "used": 15552,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T050": {
+   "csv": 14851,
+   "static": 17882,
+   "used": 17882,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T051": {
+   "csv": 17980,
+   "static": 21012,
+   "used": 21012,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T052": {
+   "csv": 12524,
+   "static": 15552,
+   "used": 15552,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T053": {
+   "csv": 20628,
+   "static": 23662,
+   "used": 23662,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T054": {
+   "csv": 27608,
+   "static": 30642,
+   "used": 30642,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T055": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T056": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T057": {
+   "csv": 12524,
+   "static": 15552,
+   "used": 15552,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T058": {
+   "csv": 14851,
+   "static": 17882,
+   "used": 17882,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T059": {
+   "csv": 17980,
+   "static": 21012,
+   "used": 21012,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T060": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T061": {
+   "csv": 42771,
+   "static": 45802,
+   "used": 45802,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T062": {
+   "csv": 15814,
+   "static": 18842,
+   "used": 18842,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T063": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T064": {
+   "csv": 43092,
+   "static": 46122,
+   "used": 46122,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T065": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T066": {
+   "csv": 15814,
+   "static": 18842,
+   "used": 18842,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T067": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T068": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T069": {
+   "csv": 12926,
+   "static": 15962,
+   "used": 15962,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T070": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T071": {
+   "csv": 17659,
+   "static": 20692,
+   "used": 20692,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T072": {
+   "csv": 15814,
+   "static": 18842,
+   "used": 18842,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T073": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T074": {
+   "csv": 379978,
+   "static": 383012,
+   "used": 383012,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T075": {
+   "csv": 12524,
+   "static": 15552,
+   "used": 15552,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T076": {
+   "csv": 20628,
+   "static": 23662,
+   "used": 23662,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T077": {
+   "csv": 27608,
+   "static": 30642,
+   "used": 30642,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T078": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T079": {
+   "csv": 11963,
+   "static": 17888,
+   "used": 17888,
+   "static_above_csv": true,
+   "isr": 8691
+  },
+  "T080": {
+   "csv": 42771,
+   "static": 45802,
+   "used": 45802,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T081": {
+   "csv": 15814,
+   "static": 18842,
+   "used": 18842,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T082": {
+   "csv": 11963,
+   "static": 22842,
+   "used": 22842,
+   "static_above_csv": true,
+   "isr": 15516
+  },
+  "T083": {
+   "csv": 43092,
+   "static": 46122,
+   "used": 46122,
+   "static_above_csv": true,
+   "isr": 8069
+  },
+  "T084": {
+   "csv": 13567,
+   "static": 13694,
+   "used": 13694,
+   "static_above_csv": true,
+   "isr": 7447
+  }
+ },
+ "tasks_static_above_csv": [
+  "T002",
+  "T003",
+  "T004",
+  "T005",
+  "T006",
+  "T007",
+  "T008",
+  "T009",
+  "T010",
+  "T011",
+  "T012",
+  "T013",
+  "T014",
+  "T015",
+  "T016",
+  "T017",
+  "T018",
+  "T019",
+  "T020",
+  "T021",
+  "T022",
+  "T023",
+  "T024",
+  "T025",
+  "T026",
+  "T027",
+  "T028",
+  "T029",
+  "T030",
+  "T031",
+  "T032",
+  "T033",
+  "T034",
+  "T035",
+  "T036",
+  "T037",
+  "T038",
+  "T039",
+  "T040",
+  "T041",
+  "T042",
+  "T043",
+  "T044",
+  "T045",
+  "T046",
+  "T047",
+  "T048",
+  "T049",
+  "T050",
+  "T051",
+  "T052",
+  "T053",
+  "T054",
+  "T055",
+  "T056",
+  "T057",
+  "T058",
+  "T059",
+  "T060",
+  "T061",
+  "T062",
+  "T063",
+  "T064",
+  "T065",
+  "T066",
+  "T067",
+  "T068",
+  "T069",
+  "T070",
+  "T071",
+  "T072",
+  "T073",
+  "T074",
+  "T075",
+  "T076",
+  "T077",
+  "T078",
+  "T079",
+  "T080",
+  "T081",
+  "T082",
+  "T083",
+  "T084"
+ ],
+ "largest_static_over_csv": 1.9093872774387695,
+ "flow_image": {
+  "f_cpu_hz": 383012000.0,
+  "f_search_hz": 406421661.3769531,
+  "r_bound_ms": 16.362410353497715
+ },
+ "flow_csv": {
+  "f_cpu_hz": 379978000.0,
+  "f_search_hz": 395317077.63671875,
+  "r_bound_ms": 16.321781590041496
+ }
+}

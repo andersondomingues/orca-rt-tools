@@ -1,0 +1,5 @@
+app=APP-DCT name=str2rts_dct mesh=2x2
+f_clk_hz=410240000 release_ns=500000 sim_ns=12500000 tick_cycles=default
+max_tasks=default max_pkt_queue_slots=default noc_tt_slots=default ram_bytes=65536
+heap=49648 demand_worst_pe=15028 margin=34604 fits=True
+image text=11183 data=1776 bss=52576

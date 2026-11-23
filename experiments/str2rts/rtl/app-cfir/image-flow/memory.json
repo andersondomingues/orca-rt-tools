@@ -1,6 +1,6 @@
 {
- "heap": 50208,
- "usable": 50192,
+ "heap": 50128,
+ "usable": 50112,
  "in_flight": 2,
  "per_pe": {
   "0": {
@@ -27,8 +27,8 @@
    "divisor": 1,
    "worst_pe": 3,
    "bytes": 4548,
-   "heap": 50208,
-   "margin": 45644,
+   "heap": 50128,
+   "margin": 45564,
    "fits": true,
    "largest_payload": 8
   },
@@ -36,8 +36,8 @@
    "divisor": 2,
    "worst_pe": 3,
    "bytes": 4536,
-   "heap": 50208,
-   "margin": 45656,
+   "heap": 50128,
+   "margin": 45576,
    "fits": true,
    "largest_payload": 4
   },
@@ -45,8 +45,8 @@
    "divisor": 4,
    "worst_pe": 3,
    "bytes": 4536,
-   "heap": 50208,
-   "margin": 45656,
+   "heap": 50128,
+   "margin": 45576,
    "fits": true,
    "largest_payload": 2
   },
@@ -54,8 +54,8 @@
    "divisor": 8,
    "worst_pe": 3,
    "bytes": 4536,
-   "heap": 50208,
-   "margin": 45656,
+   "heap": 50128,
+   "margin": 45576,
    "fits": true,
    "largest_payload": 1
   },
@@ -63,8 +63,8 @@
    "divisor": 16,
    "worst_pe": 3,
    "bytes": 4524,
-   "heap": 50208,
-   "margin": 45668,
+   "heap": 50128,
+   "margin": 45588,
    "fits": true,
    "largest_payload": 0
   }

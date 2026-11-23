@@ -1,0 +1,2760 @@
+{
+ "_doc": "static_costs.py: static t(v) of the image of the pilot run against the CSV, and the flow with t(v) = max(CSV, static) and the handler terms of the image (flow_image) against the flow with the costs of the CSV and no handler charge (flow_csv); experiments/str2rts/reference.json holds the flow with the costs of the CSV and the handler terms of the image of CAR with budget 0",
+ "app": "APP-FIRBANK",
+ "image": {
+  "file": "image.elf",
+  "kind": "elf",
+  "sha256": "036dc78f4201e3f06061070f51d0c4f1ef90d08cbb945a830f72fe71911db45d"
+ },
+ "params": {
+  "tcb": 29,
+  "heap_blocks": 176
+ },
+ "kernel": {
+  "dispatch": 1590,
+  "tick": 3041,
+  "release": 249,
+  "send_isr": 622,
+  "receive_isr_size": 15846,
+  "receive_isr_end": 1098,
+  "receive_isr": 16944
+ },
+ "scheduler_cycles": {
+  "csv": 11000,
+  "static": 3290
+ },
+ "tasks": {
+  "T001": {
+   "csv": 122928,
+   "static": 120056,
+   "used": 122928,
+   "static_above_csv": false,
+   "isr": 622
+  },
+  "T002": {
+   "csv": 12749,
+   "static": 59170,
+   "used": 59170,
+   "static_above_csv": true,
+   "isr": 24408
+  },
+  "T003": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T004": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T005": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T006": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T007": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T008": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T009": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T010": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T011": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T012": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T013": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T014": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T015": {
+   "csv": 57637,
+   "static": 72204,
+   "used": 72204,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T016": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T017": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T018": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T019": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T020": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T021": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T022": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T023": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T024": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T025": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T026": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T027": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T028": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T029": {
+   "csv": 11923,
+   "static": 26484,
+   "used": 26484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T030": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T031": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T032": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T033": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T034": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T035": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T036": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T037": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T038": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T039": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T040": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T041": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T042": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T043": {
+   "csv": 57637,
+   "static": 72204,
+   "used": 72204,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T044": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T045": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T046": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T047": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T048": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T049": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T050": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T051": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T052": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T053": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T054": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T055": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T056": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T057": {
+   "csv": 11923,
+   "static": 26484,
+   "used": 26484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T058": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T059": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T060": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T061": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T062": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T063": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T064": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T065": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T066": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T067": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T068": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T069": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T070": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T071": {
+   "csv": 57637,
+   "static": 72204,
+   "used": 72204,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T072": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T073": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T074": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T075": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T076": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T077": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T078": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T079": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T080": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T081": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T082": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T083": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T084": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T085": {
+   "csv": 11923,
+   "static": 26484,
+   "used": 26484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T086": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T087": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T088": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T089": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T090": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T091": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T092": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T093": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T094": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T095": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T096": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T097": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T098": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T099": {
+   "csv": 57637,
+   "static": 72204,
+   "used": 72204,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T100": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T101": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T102": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T103": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T104": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T105": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T106": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T107": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T108": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T109": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T110": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T111": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T112": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T113": {
+   "csv": 11923,
+   "static": 26484,
+   "used": 26484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T114": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T115": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T116": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T117": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T118": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T119": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T120": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T121": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T122": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T123": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T124": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T125": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T126": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T127": {
+   "csv": 57637,
+   "static": 72204,
+   "used": 72204,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T128": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T129": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T130": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T131": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T132": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T133": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T134": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T135": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T136": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T137": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T138": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T139": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T140": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T141": {
+   "csv": 11923,
+   "static": 26484,
+   "used": 26484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T142": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T143": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T144": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T145": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T146": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T147": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T148": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T149": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T150": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T151": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T152": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T153": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T154": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T155": {
+   "csv": 57637,
+   "static": 72204,
+   "used": 72204,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T156": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T157": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T158": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T159": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T160": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T161": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T162": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T163": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T164": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T165": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T166": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T167": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T168": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T169": {
+   "csv": 11923,
+   "static": 26484,
+   "used": 26484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T170": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T171": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T172": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T173": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T174": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T175": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T176": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T177": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T178": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T179": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T180": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T181": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T182": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T183": {
+   "csv": 57637,
+   "static": 72204,
+   "used": 72204,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T184": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T185": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T186": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T187": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T188": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T189": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T190": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T191": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T192": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T193": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T194": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T195": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T196": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T197": {
+   "csv": 11923,
+   "static": 26484,
+   "used": 26484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T198": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T199": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T200": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T201": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T202": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T203": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T204": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T205": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T206": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T207": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T208": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T209": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T210": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T211": {
+   "csv": 57637,
+   "static": 72204,
+   "used": 72204,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T212": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T213": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T214": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T215": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T216": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T217": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T218": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T219": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T220": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T221": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T222": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T223": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T224": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T225": {
+   "csv": 11923,
+   "static": 26484,
+   "used": 26484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T226": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T227": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T228": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T229": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T230": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T231": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T232": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T233": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T234": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T235": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T236": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T237": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T238": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T239": {
+   "csv": 57637,
+   "static": 72204,
+   "used": 72204,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T240": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T241": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T242": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T243": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T244": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T245": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T246": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T247": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T248": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T249": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T250": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T251": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T252": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T253": {
+   "csv": 11923,
+   "static": 26484,
+   "used": 26484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T254": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T255": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T256": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T257": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T258": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T259": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T260": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T261": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T262": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T263": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T264": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T265": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T266": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T267": {
+   "csv": 57637,
+   "static": 72204,
+   "used": 72204,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T268": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T269": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T270": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T271": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T272": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T273": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T274": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T275": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T276": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T277": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T278": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T279": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T280": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T281": {
+   "csv": 11923,
+   "static": 26484,
+   "used": 26484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T282": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T283": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T284": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T285": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T286": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T287": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T288": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T289": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T290": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T291": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T292": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T293": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T294": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T295": {
+   "csv": 57637,
+   "static": 72204,
+   "used": 72204,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T296": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T297": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T298": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T299": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T300": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T301": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T302": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T303": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T304": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T305": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T306": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T307": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T308": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T309": {
+   "csv": 11923,
+   "static": 26484,
+   "used": 26484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T310": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T311": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T312": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T313": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T314": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T315": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T316": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T317": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T318": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T319": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T320": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T321": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T322": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T323": {
+   "csv": 57637,
+   "static": 72204,
+   "used": 72204,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T324": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T325": {
+   "csv": 46755,
+   "static": 61324,
+   "used": 61324,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T326": {
+   "csv": 28877,
+   "static": 43444,
+   "used": 43444,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T327": {
+   "csv": 19939,
+   "static": 34504,
+   "used": 34504,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T328": {
+   "csv": 15469,
+   "static": 30034,
+   "used": 30034,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T329": {
+   "csv": 13235,
+   "static": 27804,
+   "used": 27804,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T330": {
+   "csv": 12870,
+   "static": 27434,
+   "used": 27434,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T331": {
+   "csv": 14741,
+   "static": 29304,
+   "used": 29304,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T332": {
+   "csv": 18481,
+   "static": 33044,
+   "used": 33044,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T333": {
+   "csv": 25963,
+   "static": 40524,
+   "used": 40524,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T334": {
+   "csv": 40925,
+   "static": 55484,
+   "used": 55484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T335": {
+   "csv": 70851,
+   "static": 85414,
+   "used": 85414,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T336": {
+   "csv": 11340,
+   "static": 25904,
+   "used": 25904,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T337": {
+   "csv": 11923,
+   "static": 26484,
+   "used": 26484,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T338": {
+   "csv": 25768,
+   "static": 40334,
+   "used": 40334,
+   "static_above_csv": true,
+   "isr": 17566
+  },
+  "T339": {
+   "csv": 12749,
+   "static": 218940,
+   "used": 218940,
+   "static_above_csv": true,
+   "isr": 203950
+  },
+  "T340": {
+   "csv": 11146,
+   "static": 22806,
+   "used": 22806,
+   "static_above_csv": true,
+   "isr": 16944
+  }
+ },
+ "tasks_static_above_csv": [
+  "T002",
+  "T003",
+  "T004",
+  "T005",
+  "T006",
+  "T007",
+  "T008",
+  "T009",
+  "T010",
+  "T011",
+  "T012",
+  "T013",
+  "T014",
+  "T015",
+  "T016",
+  "T017",
+  "T018",
+  "T019",
+  "T020",
+  "T021",
+  "T022",
+  "T023",
+  "T024",
+  "T025",
+  "T026",
+  "T027",
+  "T028",
+  "T029",
+  "T030",
+  "T031",
+  "T032",
+  "T033",
+  "T034",
+  "T035",
+  "T036",
+  "T037",
+  "T038",
+  "T039",
+  "T040",
+  "T041",
+  "T042",
+  "T043",
+  "T044",
+  "T045",
+  "T046",
+  "T047",
+  "T048",
+  "T049",
+  "T050",
+  "T051",
+  "T052",
+  "T053",
+  "T054",
+  "T055",
+  "T056",
+  "T057",
+  "T058",
+  "T059",
+  "T060",
+  "T061",
+  "T062",
+  "T063",
+  "T064",
+  "T065",
+  "T066",
+  "T067",
+  "T068",
+  "T069",
+  "T070",
+  "T071",
+  "T072",
+  "T073",
+  "T074",
+  "T075",
+  "T076",
+  "T077",
+  "T078",
+  "T079",
+  "T080",
+  "T081",
+  "T082",
+  "T083",
+  "T084",
+  "T085",
+  "T086",
+  "T087",
+  "T088",
+  "T089",
+  "T090",
+  "T091",
+  "T092",
+  "T093",
+  "T094",
+  "T095",
+  "T096",
+  "T097",
+  "T098",
+  "T099",
+  "T100",
+  "T101",
+  "T102",
+  "T103",
+  "T104",
+  "T105",
+  "T106",
+  "T107",
+  "T108",
+  "T109",
+  "T110",
+  "T111",
+  "T112",
+  "T113",
+  "T114",
+  "T115",
+  "T116",
+  "T117",
+  "T118",
+  "T119",
+  "T120",
+  "T121",
+  "T122",
+  "T123",
+  "T124",
+  "T125",
+  "T126",
+  "T127",
+  "T128",
+  "T129",
+  "T130",
+  "T131",
+  "T132",
+  "T133",
+  "T134",
+  "T135",
+  "T136",
+  "T137",
+  "T138",
+  "T139",
+  "T140",
+  "T141",
+  "T142",
+  "T143",
+  "T144",
+  "T145",
+  "T146",
+  "T147",
+  "T148",
+  "T149",
+  "T150",
+  "T151",
+  "T152",
+  "T153",
+  "T154",
+  "T155",
+  "T156",
+  "T157",
+  "T158",
+  "T159",
+  "T160",
+  "T161",
+  "T162",
+  "T163",
+  "T164",
+  "T165",
+  "T166",
+  "T167",
+  "T168",
+  "T169",
+  "T170",
+  "T171",
+  "T172",
+  "T173",
+  "T174",
+  "T175",
+  "T176",
+  "T177",
+  "T178",
+  "T179",
+  "T180",
+  "T181",
+  "T182",
+  "T183",
+  "T184",
+  "T185",
+  "T186",
+  "T187",
+  "T188",
+  "T189",
+  "T190",
+  "T191",
+  "T192",
+  "T193",
+  "T194",
+  "T195",
+  "T196",
+  "T197",
+  "T198",
+  "T199",
+  "T200",
+  "T201",
+  "T202",
+  "T203",
+  "T204",
+  "T205",
+  "T206",
+  "T207",
+  "T208",
+  "T209",
+  "T210",
+  "T211",
+  "T212",
+  "T213",
+  "T214",
+  "T215",
+  "T216",
+  "T217",
+  "T218",
+  "T219",
+  "T220",
+  "T221",
+  "T222",
+  "T223",
+  "T224",
+  "T225",
+  "T226",
+  "T227",
+  "T228",
+  "T229",
+  "T230",
+  "T231",
+  "T232",
+  "T233",
+  "T234",
+  "T235",
+  "T236",
+  "T237",
+  "T238",
+  "T239",
+  "T240",
+  "T241",
+  "T242",
+  "T243",
+  "T244",
+  "T245",
+  "T246",
+  "T247",
+  "T248",
+  "T249",
+  "T250",
+  "T251",
+  "T252",
+  "T253",
+  "T254",
+  "T255",
+  "T256",
+  "T257",
+  "T258",
+  "T259",
+  "T260",
+  "T261",
+  "T262",
+  "T263",
+  "T264",
+  "T265",
+  "T266",
+  "T267",
+  "T268",
+  "T269",
+  "T270",
+  "T271",
+  "T272",
+  "T273",
+  "T274",
+  "T275",
+  "T276",
+  "T277",
+  "T278",
+  "T279",
+  "T280",
+  "T281",
+  "T282",
+  "T283",
+  "T284",
+  "T285",
+  "T286",
+  "T287",
+  "T288",
+  "T289",
+  "T290",
+  "T291",
+  "T292",
+  "T293",
+  "T294",
+  "T295",
+  "T296",
+  "T297",
+  "T298",
+  "T299",
+  "T300",
+  "T301",
+  "T302",
+  "T303",
+  "T304",
+  "T305",
+  "T306",
+  "T307",
+  "T308",
+  "T309",
+  "T310",
+  "T311",
+  "T312",
+  "T313",
+  "T314",
+  "T315",
+  "T316",
+  "T317",
+  "T318",
+  "T319",
+  "T320",
+  "T321",
+  "T322",
+  "T323",
+  "T324",
+  "T325",
+  "T326",
+  "T327",
+  "T328",
+  "T329",
+  "T330",
+  "T331",
+  "T332",
+  "T333",
+  "T334",
+  "T335",
+  "T336",
+  "T337",
+  "T338",
+  "T339",
+  "T340"
+ ],
+ "largest_static_over_csv": 17.17311161659738,
+ "flow_image": {
+  "f_cpu_hz": 583896000.0,
+  "f_search_hz": 583896636.9628906,
+  "r_bound_ms": 7.566594359886323
+ },
+ "flow_csv": {
+  "f_cpu_hz": 379994000.0,
+  "f_search_hz": 379994000.0,
+  "r_bound_ms": 7.220753485581351
+ }
+}

@@ -4,7 +4,7 @@
  "image": {
   "file": "image.elf",
   "kind": "elf",
-  "sha256": "dd7fd7836ca3b5d2512002cbbac8f95f56c0021f694a763f84a42c8b5db704cc"
+  "sha256": "18611f57a31ff13336fedea9b4a4163b85042765fe1ed2815244bcae0a2b7ad5"
  },
  "params": {
   "tcb": 5,
@@ -33,175 +33,175 @@
   },
   "T002": {
    "csv": 11872,
-   "static": 13476,
-   "used": 13476,
+   "static": 13546,
+   "used": 13546,
    "static_above_csv": true,
    "isr": 5117
   },
   "T003": {
    "csv": 117926,
-   "static": 116640,
+   "static": 116710,
    "used": 117926,
    "static_above_csv": false,
    "isr": 4495
   },
   "T004": {
    "csv": 64463,
-   "static": 63170,
+   "static": 63240,
    "used": 64463,
    "static_above_csv": false,
    "isr": 4495
   },
   "T005": {
    "csv": 37732,
-   "static": 36440,
+   "static": 36510,
    "used": 37732,
    "static_above_csv": false,
    "isr": 4495
   },
   "T006": {
    "csv": 24366,
-   "static": 23080,
+   "static": 23150,
    "used": 24366,
    "static_above_csv": false,
    "isr": 4495
   },
   "T007": {
    "csv": 17683,
-   "static": 16390,
+   "static": 16460,
    "used": 17683,
    "static_above_csv": false,
    "isr": 4495
   },
   "T008": {
    "csv": 16593,
-   "static": 15300,
+   "static": 15370,
    "used": 16593,
    "static_above_csv": false,
    "isr": 4495
   },
   "T009": {
    "csv": 22187,
-   "static": 20900,
+   "static": 20970,
    "used": 22187,
    "static_above_csv": false,
    "isr": 4495
   },
   "T010": {
    "csv": 33373,
-   "static": 32080,
+   "static": 32150,
    "used": 33373,
    "static_above_csv": false,
    "isr": 4495
   },
   "T011": {
    "csv": 55746,
-   "static": 54460,
+   "static": 54530,
    "used": 55746,
    "static_above_csv": false,
    "isr": 4495
   },
   "T012": {
    "csv": 100492,
-   "static": 99200,
+   "static": 99270,
    "used": 100492,
    "static_above_csv": false,
    "isr": 4495
   },
   "T013": {
    "csv": 189985,
-   "static": 188690,
+   "static": 188760,
    "used": 189985,
    "static_above_csv": false,
    "isr": 4495
   },
   "T014": {
    "csv": 117926,
-   "static": 116640,
+   "static": 116710,
    "used": 117926,
    "static_above_csv": false,
    "isr": 4495
   },
   "T015": {
    "csv": 64463,
-   "static": 63170,
+   "static": 63240,
    "used": 64463,
    "static_above_csv": false,
    "isr": 4495
   },
   "T016": {
    "csv": 37732,
-   "static": 36440,
+   "static": 36510,
    "used": 37732,
    "static_above_csv": false,
    "isr": 4495
   },
   "T017": {
    "csv": 24366,
-   "static": 23080,
+   "static": 23150,
    "used": 24366,
    "static_above_csv": false,
    "isr": 4495
   },
   "T018": {
    "csv": 17683,
-   "static": 16390,
+   "static": 16460,
    "used": 17683,
    "static_above_csv": false,
    "isr": 4495
   },
   "T019": {
    "csv": 16593,
-   "static": 15300,
+   "static": 15370,
    "used": 16593,
    "static_above_csv": false,
    "isr": 4495
   },
   "T020": {
    "csv": 22187,
-   "static": 20900,
+   "static": 20970,
    "used": 22187,
    "static_above_csv": false,
    "isr": 4495
   },
   "T021": {
    "csv": 33373,
-   "static": 32080,
+   "static": 32150,
    "used": 33373,
    "static_above_csv": false,
    "isr": 4495
   },
   "T022": {
    "csv": 55746,
-   "static": 54460,
+   "static": 54530,
    "used": 55746,
    "static_above_csv": false,
    "isr": 4495
   },
   "T023": {
    "csv": 100492,
-   "static": 99200,
+   "static": 99270,
    "used": 100492,
    "static_above_csv": false,
    "isr": 4495
   },
   "T024": {
    "csv": 189985,
-   "static": 188690,
+   "static": 188760,
    "used": 189985,
    "static_above_csv": false,
    "isr": 4495
   },
   "T025": {
    "csv": 11872,
-   "static": 14786,
-   "used": 14786,
+   "static": 14926,
+   "used": 14926,
    "static_above_csv": true,
    "isr": 8368
   },
   "T026": {
    "csv": 11436,
-   "static": 7242,
+   "static": 7312,
    "used": 11436,
    "static_above_csv": false,
    "isr": 3873
@@ -211,11 +211,11 @@
   "T002",
   "T025"
  ],
- "largest_static_over_csv": 1.2454514824797844,
+ "largest_static_over_csv": 1.2572439353099731,
  "flow_image": {
   "f_cpu_hz": 379970000.0,
   "f_search_hz": 450531005.859375,
-  "r_bound_ms": 4.058193501049922
+  "r_bound_ms": 4.058504245478561
  },
  "flow_csv": {
   "f_cpu_hz": 379970000.0,

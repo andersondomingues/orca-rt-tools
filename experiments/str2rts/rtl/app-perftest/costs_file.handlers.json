@@ -3,7 +3,7 @@
  "image": {
   "file": "image.elf",
   "kind": "elf",
-  "sha256": "b0269a4ca4b8cac4a9cc23d821e91cc1ae0ee080513718387e2d8e52786e3c4f"
+  "sha256": "2215cbf068f717f17c083fefa614500504cbd869374f7edfac96c04477f3a895"
  },
  "inject": 622,
  "receive": 3142,

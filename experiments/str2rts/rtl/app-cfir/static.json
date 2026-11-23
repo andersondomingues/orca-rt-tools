@@ -4,7 +4,7 @@
  "image": {
   "file": "image.elf",
   "kind": "elf",
-  "sha256": "cf3b235d270af969443966ce3d69810a866cb5f9d2263ef5cfa5f93d99761a5d"
+  "sha256": "eff13719bae292f7c5db58cf64cb08e9d8964d0de8717f010520c2abdb5714bc"
  },
  "params": {
   "tcb": 2,
@@ -33,21 +33,21 @@
   },
   "T002": {
    "csv": 189996,
-   "static": 186891,
+   "static": 186961,
    "used": 189996,
    "static_above_csv": false,
    "isr": 3060
   },
   "T003": {
    "csv": 14755,
-   "static": 8759,
+   "static": 8829,
    "used": 14755,
    "static_above_csv": false,
    "isr": 2438
   }
  },
  "tasks_static_above_csv": [],
- "largest_static_over_csv": 0.9836575506852776,
+ "largest_static_over_csv": 0.9840259794943051,
  "flow_image": {
   "f_cpu_hz": 379992000.0,
   "f_search_hz": 416568756.1035156,

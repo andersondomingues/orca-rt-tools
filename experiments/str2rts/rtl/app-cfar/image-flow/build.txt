@@ -1,0 +1,5 @@
+app=APP-CFAR name=str2rts_cfar mesh=2x2
+f_clk_hz=409856000 release_ns=500000 sim_ns=11500000 tick_cycles=default
+max_tasks=default max_pkt_queue_slots=default noc_tt_slots=default ram_bytes=65536
+heap=50048 demand_worst_pe=6380 margin=43652 fits=True
+image text=10960 data=1600 bss=52976

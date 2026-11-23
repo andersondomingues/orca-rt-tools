@@ -1,0 +1,5 @@
+app=APP-BITONIC name=str2rts_bitonic mesh=4x4
+f_clk_hz=424192000 release_ns=1000000 sim_ns=38000000 tick_cycles=default
+max_tasks=default max_pkt_queue_slots=default noc_tt_slots=default ram_bytes=131072
+heap=102288 demand_worst_pe=37684 margin=64588 fits=True
+image text=16740 data=9116 bss=105216

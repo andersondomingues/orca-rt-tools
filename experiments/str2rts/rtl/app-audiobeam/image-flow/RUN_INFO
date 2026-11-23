@@ -1,0 +1,24 @@
+repo_commit=unknown
+repo_state=nogit
+repo_tag=none
+src_sha256=9ebc4f0ec62a3b6fbafc0a95218a9baddc2fbfc21a24e0aee695481afe1a19ed
+sim_ns=13500000 monitor=1
+app=str2rts_audiobeam mesh=4x4 generics=-gCLOCK_HALF_PERIOD_FS=686300 -gRELEASE_CYCLES=364272 -gWARMUP_CYCLES=2185632 -gNOC_DIM_X=4 -gNOC_DIM_Y=4 -gRELEASE_MASK=65535
+vsim=Questa Sim-64 vsim 2025.3 Simulator 2025.09 Sep 15 2025
+gcc=riscv64-elf-gcc (Arch Linux Repositories) 12.2.0
+date=2026-11-18T23:19:02Z
+f_clk_hz=728544000
+f_tick_hz=2000
+clock_half_period_fs=686300
+clock_hz_exact=728544368.352
+release_cycles=364272
+warmup_cycles=2185632
+max_pkt_queue_slots=32
+noc_tt_slots=16
+noc_queue_di=1
+isr=no_nesting
+crt0=guard_readback
+injection=tt
+costs=max_csv_static costs_file=str2rts_audiobeam.json costs_sha256=42739bb770ee2528a9ab6097fdd5ae90ea298a1892049164413aa4fd5f9bdedf
+release=tick
+deadline=tick

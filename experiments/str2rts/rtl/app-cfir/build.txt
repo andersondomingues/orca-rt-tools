@@ -1,0 +1,5 @@
+app=APP-CFIR name=str2rts_cfir mesh=2x2
+f_clk_hz=432160000 release_ns=500000 sim_ns=10500000 tick_cycles=default
+max_tasks=default max_pkt_queue_slots=default noc_tt_slots=default ram_bytes=65536
+heap=50128 demand_worst_pe=4548 margin=45564 fits=True
+image text=10907 data=1572 bss=53056

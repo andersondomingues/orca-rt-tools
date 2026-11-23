@@ -1,0 +1,5 @@
+<work>/str2rts_serpent_image/results/metrics.json: release tick, 40 phases, 7680 executions: 0 phases with a task twice, 0 early executions, 0 phases above the CPU bound (0 late executions) -> conforms
+  job ends after F: 0 of 7914 (0 unchecked), smallest slack 8413
+  packets enqueued after s: 0 of 510 (0 unchecked), smallest slack 327138
+<work>/str2rts_serpent_image/results/metrics.json: time-triggered injection: 509 packets (0 unchecked), violations 0: early 0, inject > 3899: 0, header > w_h (m + 1): 0, rx wait > 7113: 0, end wait > 4157: 0, latency > o_i: 0, occupancy > o_i: 0, late 0, NI overlaps 0
+  inject delay 360 to 388, header wait max 0, rx wait max 1175, end wait max 312, smallest occupancy slack 13336, smallest deadline slack 13367

@@ -1,0 +1,11 @@
+# Setup of manycore_top for app/str2rts_beamformer.c (rttools.ucxgen, release by tick); read by
+# experiments/exp23/simulate.sh. RELEASE_MASK: bit k = PE with node index k
+# (PEs 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15): every PE with a task counts the phases
+# (lib/tick_release.c); source tasks on PEs 10. Release period 1000000 ns,
+# first release at 3000000 ns: the defaults of the release generator (manycore_pe.sv).
+MESH=4x4
+RELEASE_MASK=65535
+TICK_RELEASE=1
+# Limits of the kernel that this application needs above the defaults of include/lib/noc.h
+# (make MAX_TASKS= MAX_PKT_QUEUE_SLOTS=): simulate.sh passes them to the build.
+MAX_PKT_QUEUE_SLOTS=32

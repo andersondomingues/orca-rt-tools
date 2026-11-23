@@ -1,0 +1,22 @@
+repo_commit=unknown
+repo_state=nogit
+repo_tag=none
+src_sha256=e6ee1dbe809490a4adb0b36da49057cafe39bf34e484cabd66919c1a501e7e9d
+sim_ns=11500000 monitor=1
+app=str2rts_filterbank mesh=4x4 generics=-gCLOCK_HALF_PERIOD_FS=936862 -gRELEASE_CYCLES=266848 -gWARMUP_CYCLES=1601088 -gNOC_DIM_X=4 -gNOC_DIM_Y=4 -gRELEASE_MASK=65535
+vsim=Questa Sim-64 vsim 2025.3 Simulator 2025.09 Sep 15 2025
+gcc=riscv64-elf-gcc (Arch Linux Repositories) 12.2.0
+date=2026-11-18T15:58:44Z
+f_clk_hz=533696000
+f_tick_hz=2000
+clock_half_period_fs=936862
+clock_hz_exact=533696531.613
+release_cycles=266848
+warmup_cycles=1601088
+max_pkt_queue_slots=16
+isr=no_nesting
+crt0=guard_readback
+injection=tt
+costs=csv
+release=tick
+deadline=tick

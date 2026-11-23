@@ -80,10 +80,10 @@
 # 3506065 0-0 scheduled 0
 # 3506070 1-0 scheduled 0
 # 3506553 1-1 ITER begin A 2
-# 3507182 0-1 ITER begin B 1
-# 3510298 0-1 -> TAG 2049
-# 3513289 0-1 ITER end B 1
-# 3514331 0-1 scheduled 0
+# 3507329 0-1 ITER begin B 1
+# 3510444 0-1 -> TAG 2049
+# 3513436 0-1 ITER end B 1
+# 3514478 0-1 scheduled 0
 # TIMER t=3533933 pe=0-1 cyc=1448405
 # FLIT TX t=3534794 src=0-1 dst=1-0 tag=2049 size=67 head=1448758 last=1449106 block=279 gap=1
 # FLIT RX t=3535695 src=0-1 dst=1-0 tag=2049 size=67 head=1448776 last=1449127 stall=283 gap=0
@@ -111,14 +111,14 @@
 # 4006001 0-1 scheduled 1
 # 4006069 0-0 scheduled 0
 # 4006550 1-1 ITER begin A 3
-# 4007182 1-0 ITER begin C 1
-# 4007187 0-1 ITER begin B 2
-# 4009175 1-0 -> TAG 3073
-# 4010303 0-1 -> TAG 2050
-# 4012167 1-0 ITER end C 1
-# 4013209 1-0 scheduled 0
-# 4013294 0-1 ITER end B 2
-# 4014336 0-1 scheduled 0
+# 4007328 1-0 ITER begin C 1
+# 4007333 0-1 ITER begin B 2
+# 4009322 1-0 -> TAG 3073
+# 4010449 0-1 -> TAG 2050
+# 4012313 1-0 ITER end C 1
+# 4013355 1-0 scheduled 0
+# 4013440 0-1 ITER end B 2
+# 4014482 0-1 scheduled 0
 # TIMER t=4033933 pe=0-1 cyc=1653333
 # FLIT TX t=4034860 src=0-1 dst=1-0 tag=2050 size=67 head=1653713 last=1654149 block=367 gap=1
 # FLIT RX t=4035975 src=0-1 dst=1-0 tag=2050 size=67 head=1653731 last=1654170 stall=371 gap=0
@@ -151,17 +151,17 @@
 # 4505998 1-0 scheduled 1
 # 4506001 0-1 scheduled 1
 # 4506547 1-1 ITER begin A 4
-# 4507182 0-0 ITER begin D 1
-# 4507184 1-0 ITER begin C 2
-# 4507187 0-1 ITER begin B 3
-# 4507443 0-0 ITER end D 1
-# 4508485 0-0 scheduled 0
-# 4509178 1-0 -> TAG 3074
-# 4510302 0-1 -> TAG 2051
-# 4512169 1-0 ITER end C 2
-# 4513211 1-0 scheduled 0
-# 4513294 0-1 ITER end B 3
-# 4514336 0-1 scheduled 0
+# 4507328 0-0 ITER begin D 1
+# 4507331 1-0 ITER begin C 2
+# 4507333 0-1 ITER begin B 3
+# 4507589 0-0 ITER end D 1
+# 4508631 0-0 scheduled 0
+# 4509324 1-0 -> TAG 3074
+# 4510449 0-1 -> TAG 2051
+# 4512315 1-0 ITER end C 2
+# 4513357 1-0 scheduled 0
+# 4513440 0-1 ITER end B 3
+# 4514482 0-1 scheduled 0
 # TIMER t=4533933 pe=0-1 cyc=1858261
 # FLIT TX t=4534860 src=0-1 dst=1-0 tag=2051 size=67 head=1858641 last=1859080 block=370 gap=1
 # FLIT RX t=4535982 src=0-1 dst=1-0 tag=2051 size=67 head=1858659 last=1859101 stall=374 gap=0
@@ -194,17 +194,17 @@
 # 5006001 0-1 scheduled 1
 # 5006001 1-1 scheduled 1
 # 5006552 1-1 ITER begin A 5
-# 5007182 1-0 ITER begin C 3
-# 5007184 0-0 ITER begin D 2
-# 5007186 0-1 ITER begin B 4
-# 5007445 0-0 ITER end D 2
-# 5008487 0-0 scheduled 0
-# 5009175 1-0 -> TAG 3075
-# 5010302 0-1 -> TAG 2052
-# 5012166 1-0 ITER end C 3
-# 5013208 1-0 scheduled 0
-# 5013293 0-1 ITER end B 4
-# 5014335 0-1 scheduled 0
+# 5007328 1-0 ITER begin C 3
+# 5007330 0-0 ITER begin D 2
+# 5007333 0-1 ITER begin B 4
+# 5007591 0-0 ITER end D 2
+# 5008633 0-0 scheduled 0
+# 5009321 1-0 -> TAG 3075
+# 5010449 0-1 -> TAG 2052
+# 5012313 1-0 ITER end C 3
+# 5013354 1-0 scheduled 0
+# 5013440 0-1 ITER end B 4
+# 5014482 0-1 scheduled 0
 # TIMER t=5033932 pe=0-1 cyc=2063189
 # FLIT TX t=5034860 src=0-1 dst=1-0 tag=2052 size=67 head=2063569 last=2064007 block=369 gap=1
 # FLIT RX t=5035979 src=0-1 dst=1-0 tag=2052 size=67 head=2063587 last=2064028 stall=373 gap=0
@@ -237,17 +237,17 @@
 # 5506000 0-1 scheduled 1
 # 5506000 1-0 scheduled 1
 # 5506549 1-1 ITER begin A 6
-# 5507186 0-0 ITER begin D 3
-# 5507186 0-1 ITER begin B 5
-# 5507186 1-0 ITER begin C 4
-# 5507447 0-0 ITER end D 3
-# 5508489 0-0 scheduled 0
-# 5509180 1-0 -> TAG 3076
-# 5510302 0-1 -> TAG 2053
-# 5512171 1-0 ITER end C 4
-# 5513213 1-0 scheduled 0
-# 5513293 0-1 ITER end B 5
-# 5514335 0-1 scheduled 0
+# 5507333 0-0 ITER begin D 3
+# 5507333 0-1 ITER begin B 5
+# 5507333 1-0 ITER begin C 4
+# 5507594 0-0 ITER end D 3
+# 5508635 0-0 scheduled 0
+# 5509326 1-0 -> TAG 3076
+# 5510448 0-1 -> TAG 2053
+# 5512317 1-0 ITER end C 4
+# 5513359 1-0 scheduled 0
+# 5513440 0-1 ITER end B 5
+# 5514481 0-1 scheduled 0
 # TIMER t=5533932 pe=0-1 cyc=2268117
 # FLIT TX t=5534859 src=0-1 dst=1-0 tag=2053 size=67 head=2268497 last=2268937 block=371 gap=1
 # FLIT RX t=5535984 src=0-1 dst=1-0 tag=2053 size=67 head=2268515 last=2268958 stall=375 gap=0
@@ -280,17 +280,17 @@
 # 6005998 1-0 scheduled 1
 # 6006000 0-1 scheduled 1
 # 6006547 1-1 ITER begin A 7
-# 6007181 0-0 ITER begin D 4
-# 6007183 1-0 ITER begin C 5
-# 6007186 0-1 ITER begin B 6
-# 6007442 0-0 ITER end D 4
-# 6008484 0-0 scheduled 0
-# 6009177 1-0 -> TAG 3077
-# 6010302 0-1 -> TAG 2054
-# 6012168 1-0 ITER end C 5
-# 6013210 1-0 scheduled 0
-# 6013293 0-1 ITER end B 6
-# 6014335 0-1 scheduled 0
+# 6007327 0-0 ITER begin D 4
+# 6007330 1-0 ITER begin C 5
+# 6007332 0-1 ITER begin B 6
+# 6007588 0-0 ITER end D 4
+# 6008630 0-0 scheduled 0
+# 6009323 1-0 -> TAG 3077
+# 6010448 0-1 -> TAG 2054
+# 6012314 1-0 ITER end C 5
+# 6013356 1-0 scheduled 0
+# 6013439 0-1 ITER end B 6
+# 6014481 0-1 scheduled 0
 # TIMER t=6033932 pe=0-1 cyc=2473045
 # FLIT TX t=6034859 src=0-1 dst=1-0 tag=2054 size=67 head=2473425 last=2473864 block=370 gap=1
 # FLIT RX t=6035981 src=0-1 dst=1-0 tag=2054 size=67 head=2473443 last=2473885 stall=374 gap=0
@@ -323,17 +323,17 @@
 # 6506000 0-1 scheduled 1
 # 6506000 1-1 scheduled 1
 # 6506551 1-1 ITER begin A 8
-# 6507181 1-0 ITER begin C 6
-# 6507183 0-0 ITER begin D 5
-# 6507186 0-1 ITER begin B 7
-# 6507444 0-0 ITER end D 5
-# 6508486 0-0 scheduled 0
-# 6509174 1-0 -> TAG 3078
-# 6510301 0-1 -> TAG 2055
-# 6512165 1-0 ITER end C 6
-# 6513207 1-0 scheduled 0
-# 6513293 0-1 ITER end B 7
-# 6514334 0-1 scheduled 0
+# 6507327 1-0 ITER begin C 6
+# 6507330 0-0 ITER begin D 5
+# 6507332 0-1 ITER begin B 7
+# 6507591 0-0 ITER end D 5
+# 6508632 0-0 scheduled 0
+# 6509320 1-0 -> TAG 3078
+# 6510448 0-1 -> TAG 2055
+# 6512312 1-0 ITER end C 6
+# 6513354 1-0 scheduled 0
+# 6513439 0-1 ITER end B 7
+# 6514481 0-1 scheduled 0
 # TIMER t=6533932 pe=0-1 cyc=2677973
 # FLIT TX t=6534859 src=0-1 dst=1-0 tag=2055 size=67 head=2678353 last=2678791 block=369 gap=1
 # FLIT RX t=6535979 src=0-1 dst=1-0 tag=2055 size=67 head=2678371 last=2678812 stall=373 gap=0
@@ -366,17 +366,17 @@
 # 7006000 0-1 scheduled 1
 # 7006000 1-0 scheduled 1
 # 7006548 1-1 ITER begin A 9
-# 7007185 0-0 ITER begin D 6
-# 7007185 0-1 ITER begin B 8
-# 7007185 1-0 ITER begin C 7
-# 7007446 0-0 ITER end D 6
-# 7008488 0-0 scheduled 0
-# 7009179 1-0 -> TAG 3079
-# 7010301 0-1 -> TAG 2056
-# 7012170 1-0 ITER end C 7
-# 7013212 1-0 scheduled 0
-# 7013292 0-1 ITER end B 8
-# 7014334 0-1 scheduled 0
+# 7007332 0-0 ITER begin D 6
+# 7007332 0-1 ITER begin B 8
+# 7007332 1-0 ITER begin C 7
+# 7007593 0-0 ITER end D 6
+# 7008635 0-0 scheduled 0
+# 7009325 1-0 -> TAG 3079
+# 7010447 0-1 -> TAG 2056
+# 7012316 1-0 ITER end C 7
+# 7013358 1-0 scheduled 0
+# 7013439 0-1 ITER end B 8
+# 7014481 0-1 scheduled 0
 # TIMER t=7033931 pe=0-1 cyc=2882901
 # FLIT TX t=7034858 src=0-1 dst=1-0 tag=2056 size=67 head=2883281 last=2883721 block=371 gap=1
 # FLIT RX t=7035983 src=0-1 dst=1-0 tag=2056 size=67 head=2883299 last=2883742 stall=375 gap=0
@@ -409,17 +409,17 @@
 # 7505997 1-0 scheduled 1
 # 7505999 0-1 scheduled 1
 # 7506546 1-1 ITER begin A 10
-# 7507180 0-0 ITER begin D 7
-# 7507183 1-0 ITER begin C 8
-# 7507185 0-1 ITER begin B 9
-# 7507441 0-0 ITER end D 7
-# 7508483 0-0 scheduled 0
-# 7509176 1-0 -> TAG 3080
-# 7510301 0-1 -> TAG 2057
-# 7512167 1-0 ITER end C 8
-# 7513209 1-0 scheduled 0
-# 7513292 0-1 ITER end B 9
-# 7514334 0-1 scheduled 0
+# 7507327 0-0 ITER begin D 7
+# 7507329 1-0 ITER begin C 8
+# 7507331 0-1 ITER begin B 9
+# 7507588 0-0 ITER end D 7
+# 7508629 0-0 scheduled 0
+# 7509322 1-0 -> TAG 3080
+# 7510447 0-1 -> TAG 2057
+# 7512314 1-0 ITER end C 8
+# 7513355 1-0 scheduled 0
+# 7513438 0-1 ITER end B 9
+# 7514480 0-1 scheduled 0
 # TIMER t=7533931 pe=0-1 cyc=3087829
 # FLIT TX t=7534858 src=0-1 dst=1-0 tag=2057 size=67 head=3088209 last=3088648 block=370 gap=1
 # FLIT RX t=7535980 src=0-1 dst=1-0 tag=2057 size=67 head=3088227 last=3088669 stall=374 gap=0
@@ -452,17 +452,17 @@
 # 8005999 0-1 scheduled 1
 # 8005999 1-1 scheduled 1
 # 8006550 1-1 ITER begin A 11
-# 8007180 1-0 ITER begin C 9
-# 8007182 0-0 ITER begin D 8
-# 8007185 0-1 ITER begin B 10
-# 8007443 0-0 ITER end D 8
-# 8008485 0-0 scheduled 0
-# 8009173 1-0 -> TAG 3081
-# 8010300 0-1 -> TAG 2058
-# 8012165 1-0 ITER end C 9
-# 8013206 1-0 scheduled 0
-# 8013292 0-1 ITER end B 10
-# 8014334 0-1 scheduled 0
+# 8007326 1-0 ITER begin C 9
+# 8007329 0-0 ITER begin D 8
+# 8007331 0-1 ITER begin B 10
+# 8007590 0-0 ITER end D 8
+# 8008632 0-0 scheduled 0
+# 8009320 1-0 -> TAG 3081
+# 8010447 0-1 -> TAG 2058
+# 8012311 1-0 ITER end C 9
+# 8013353 1-0 scheduled 0
+# 8013438 0-1 ITER end B 10
+# 8014480 0-1 scheduled 0
 # TIMER t=8033931 pe=0-1 cyc=3292757
 # FLIT TX t=8034858 src=0-1 dst=1-0 tag=2058 size=67 head=3293137 last=3293575 block=369 gap=1
 # FLIT RX t=8035978 src=0-1 dst=1-0 tag=2058 size=67 head=3293155 last=3293596 stall=373 gap=0
@@ -495,17 +495,17 @@
 # 8505999 0-1 scheduled 1
 # 8505999 1-0 scheduled 1
 # 8506548 1-1 ITER begin A 12
-# 8507184 0-0 ITER begin D 9
-# 8507184 0-1 ITER begin B 11
-# 8507184 1-0 ITER begin C 10
-# 8507446 0-0 ITER end D 9
-# 8508487 0-0 scheduled 0
-# 8509178 1-0 -> TAG 3082
-# 8510300 0-1 -> TAG 2059
-# 8512169 1-0 ITER end C 10
-# 8513211 1-0 scheduled 0
-# 8513292 0-1 ITER end B 11
-# 8514333 0-1 scheduled 0
+# 8507331 0-0 ITER begin D 9
+# 8507331 0-1 ITER begin B 11
+# 8507331 1-0 ITER begin C 10
+# 8507592 0-0 ITER end D 9
+# 8508634 0-0 scheduled 0
+# 8509324 1-0 -> TAG 3082
+# 8510447 0-1 -> TAG 2059
+# 8512316 1-0 ITER end C 10
+# 8513357 1-0 scheduled 0
+# 8513438 0-1 ITER end B 11
+# 8514480 0-1 scheduled 0
 # TIMER t=8533930 pe=0-1 cyc=3497685
 # FLIT TX t=8534858 src=0-1 dst=1-0 tag=2059 size=67 head=3498065 last=3498505 block=371 gap=1
 # FLIT RX t=8535982 src=0-1 dst=1-0 tag=2059 size=67 head=3498083 last=3498526 stall=375 gap=0
@@ -538,17 +538,17 @@
 # 9005996 1-0 scheduled 1
 # 9005998 0-1 scheduled 1
 # 9006545 1-1 ITER begin A 13
-# 9007179 0-0 ITER begin D 10
-# 9007182 1-0 ITER begin C 11
-# 9007184 0-1 ITER begin B 12
-# 9007440 0-0 ITER end D 10
-# 9008482 0-0 scheduled 0
-# 9009175 1-0 -> TAG 3083
-# 9010300 0-1 -> TAG 2060
-# 9012166 1-0 ITER end C 11
-# 9013208 1-0 scheduled 0
-# 9013291 0-1 ITER end B 12
-# 9014333 0-1 scheduled 0
+# 9007326 0-0 ITER begin D 10
+# 9007328 1-0 ITER begin C 11
+# 9007331 0-1 ITER begin B 12
+# 9007587 0-0 ITER end D 10
+# 9008629 0-0 scheduled 0
+# 9009322 1-0 -> TAG 3083
+# 9010446 0-1 -> TAG 2060
+# 9012313 1-0 ITER end C 11
+# 9013355 1-0 scheduled 0
+# 9013438 0-1 ITER end B 12
+# 9014479 0-1 scheduled 0
 # TIMER t=9033930 pe=0-1 cyc=3702613
 # FLIT TX t=9034857 src=0-1 dst=1-0 tag=2060 size=67 head=3702993 last=3703432 block=370 gap=1
 # FLIT RX t=9035980 src=0-1 dst=1-0 tag=2060 size=67 head=3703011 last=3703453 stall=374 gap=0
@@ -581,17 +581,17 @@
 # 9505998 0-1 scheduled 1
 # 9505998 1-1 scheduled 1
 # 9506550 1-1 ITER begin A 14
-# 9507179 1-0 ITER begin C 12
-# 9507182 0-0 ITER begin D 11
-# 9507184 0-1 ITER begin B 13
-# 9507443 0-0 ITER end D 11
-# 9508484 0-0 scheduled 0
-# 9509172 1-0 -> TAG 3084
-# 9510300 0-1 -> TAG 2061
-# 9512164 1-0 ITER end C 12
-# 9513206 1-0 scheduled 0
-# 9513291 0-1 ITER end B 13
-# 9514333 0-1 scheduled 0
+# 9507325 1-0 ITER begin C 12
+# 9507328 0-0 ITER begin D 11
+# 9507330 0-1 ITER begin B 13
+# 9507589 0-0 ITER end D 11
+# 9508631 0-0 scheduled 0
+# 9509319 1-0 -> TAG 3084
+# 9510446 0-1 -> TAG 2061
+# 9512310 1-0 ITER end C 12
+# 9513352 1-0 scheduled 0
+# 9513437 0-1 ITER end B 13
+# 9514479 0-1 scheduled 0
 # TIMER t=9533930 pe=0-1 cyc=3907541
 # FLIT TX t=9534857 src=0-1 dst=1-0 tag=2061 size=67 head=3907921 last=3908359 block=369 gap=1
 # FLIT RX t=9535977 src=0-1 dst=1-0 tag=2061 size=67 head=3907939 last=3908380 stall=373 gap=0
@@ -624,17 +624,17 @@
 # 10005998 0-1 scheduled 1
 # 10005998 1-0 scheduled 1
 # 10006547 1-1 ITER begin A 15
-# 10007184 0-0 ITER begin D 12
-# 10007184 0-1 ITER begin B 14
-# 10007184 1-0 ITER begin C 13
-# 10007445 0-0 ITER end D 12
-# 10008487 0-0 scheduled 0
-# 10009177 1-0 -> TAG 3085
-# 10010299 0-1 -> TAG 2062
-# 10012168 1-0 ITER end C 13
-# 10013210 1-0 scheduled 0
-# 10013291 0-1 ITER end B 14
-# 10014333 0-1 scheduled 0
+# 10007330 0-0 ITER begin D 12
+# 10007330 0-1 ITER begin B 14
+# 10007330 1-0 ITER begin C 13
+# 10007591 0-0 ITER end D 12
+# 10008633 0-0 scheduled 0
+# 10009323 1-0 -> TAG 3085
+# 10010446 0-1 -> TAG 2062
+# 10012315 1-0 ITER end C 13
+# 10013357 1-0 scheduled 0
+# 10013437 0-1 ITER end B 14
+# 10014479 0-1 scheduled 0
 # TIMER t=10033930 pe=0-1 cyc=4112469
 # FLIT TX t=10034857 src=0-1 dst=1-0 tag=2062 size=67 head=4112849 last=4113289 block=371 gap=1
 # FLIT RX t=10035982 src=0-1 dst=1-0 tag=2062 size=67 head=4112867 last=4113310 stall=375 gap=0
@@ -667,17 +667,17 @@
 # 10505995 1-0 scheduled 1
 # 10505998 0-1 scheduled 1
 # 10506544 1-1 ITER begin A 16
-# 10507179 0-0 ITER begin D 13
-# 10507181 1-0 ITER begin C 14
-# 10507183 0-1 ITER begin B 15
-# 10507440 0-0 ITER end D 13
-# 10508481 0-0 scheduled 0
-# 10509174 1-0 -> TAG 3086
-# 10510299 0-1 -> TAG 2063
-# 10512166 1-0 ITER end C 14
-# 10513207 1-0 scheduled 0
-# 10513290 0-1 ITER end B 15
-# 10514332 0-1 scheduled 0
+# 10507325 0-0 ITER begin D 13
+# 10507327 1-0 ITER begin C 14
+# 10507330 0-1 ITER begin B 15
+# 10507586 0-0 ITER end D 13
+# 10508628 0-0 scheduled 0
+# 10509321 1-0 -> TAG 3086
+# 10510446 0-1 -> TAG 2063
+# 10512312 1-0 ITER end C 14
+# 10513354 1-0 scheduled 0
+# 10513437 0-1 ITER end B 15
+# 10514479 0-1 scheduled 0
 # TIMER t=10533929 pe=0-1 cyc=4317397
 # FLIT TX t=10534857 src=0-1 dst=1-0 tag=2063 size=67 head=4317777 last=4318216 block=370 gap=1
 # FLIT RX t=10535979 src=0-1 dst=1-0 tag=2063 size=67 head=4317795 last=4318237 stall=374 gap=0
@@ -710,17 +710,17 @@
 # 11005997 0-1 scheduled 1
 # 11005997 1-1 scheduled 1
 # 11006549 1-1 ITER begin A 17
-# 11007178 1-0 ITER begin C 15
-# 11007181 0-0 ITER begin D 14
-# 11007183 0-1 ITER begin B 16
-# 11007442 0-0 ITER end D 14
-# 11008484 0-0 scheduled 0
-# 11009172 1-0 -> TAG 3087
-# 11010299 0-1 -> TAG 2064
-# 11012163 1-0 ITER end C 15
-# 11013205 1-0 scheduled 0
-# 11013290 0-1 ITER end B 16
-# 11014332 0-1 scheduled 0
+# 11007325 1-0 ITER begin C 15
+# 11007327 0-0 ITER begin D 14
+# 11007330 0-1 ITER begin B 16
+# 11007588 0-0 ITER end D 14
+# 11008630 0-0 scheduled 0
+# 11009318 1-0 -> TAG 3087
+# 11010445 0-1 -> TAG 2064
+# 11012309 1-0 ITER end C 15
+# 11013351 1-0 scheduled 0
+# 11013437 0-1 ITER end B 16
+# 11014478 0-1 scheduled 0
 # TIMER t=11033929 pe=0-1 cyc=4522325
 # FLIT TX t=11034856 src=0-1 dst=1-0 tag=2064 size=67 head=4522705 last=4523143 block=369 gap=1
 # FLIT RX t=11035976 src=0-1 dst=1-0 tag=2064 size=67 head=4522723 last=4523164 stall=373 gap=0

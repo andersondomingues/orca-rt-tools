@@ -1,1 +1,2 @@
-wall_s=300
+wall_s=379
+vsim_wall_s=369.51

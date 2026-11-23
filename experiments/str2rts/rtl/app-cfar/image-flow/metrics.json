@@ -167,9 +167,9 @@
    "phase_observed": {
     "1": 16
    },
-   "end_minus_model_finish_max": -6733,
+   "end_minus_model_finish_max": -6673,
    "ends_after_model_finish": 0,
-   "cpu_per_iteration_cycles": 3416,
+   "cpu_per_iteration_cycles": 3476,
    "cost": 12043
   },
   "T003": {
@@ -183,9 +183,9 @@
    "phase_observed": {
     "2": 15
    },
-   "end_minus_model_finish_max": -6734,
+   "end_minus_model_finish_max": -6674,
    "ends_after_model_finish": 0,
-   "cpu_per_iteration_cycles": 2956,
+   "cpu_per_iteration_cycles": 3016,
    "cost": 11584
   },
   "T004": {
@@ -199,9 +199,9 @@
    "phase_observed": {
     "3": 14
    },
-   "end_minus_model_finish_max": -8104,
+   "end_minus_model_finish_max": -8044,
    "ends_after_model_finish": 0,
-   "cpu_per_iteration_cycles": 1020,
+   "cpu_per_iteration_cycles": 1080,
    "cost": 11017
   }
  },
@@ -209,29 +209,29 @@
   "complete": 14,
   "exact": 14,
   "upper_bound_only": 0,
-  "max_cycles": 617697,
-  "max_ms": 1.507107374,
-  "max_exact_cycles": 617697,
+  "max_cycles": 617757,
+  "max_ms": 1.507253767,
+  "max_exact_cycles": 617757,
   "max_upper_cycles": null,
-  "max_lower_cycles": 617697,
+  "max_lower_cycles": 617757,
   "above_bound": 0,
   "exact_above_bound": 0,
   "lower_above_bound": 0,
-  "margin_bound_exact_cycles": 8104,
-  "margin_bound_all_cycles": 8104,
+  "margin_bound_exact_cycles": 8044,
+  "margin_bound_all_cycles": 8044,
   "above_deadline": 0,
-  "margin_deadline_cycles": 202015,
+  "margin_deadline_cycles": 201955,
   "rows": [
    {
     "iteration": 1,
     "task": "T004",
-    "response_cycles": 617695,
-    "response_ms": 1.507102495,
+    "response_cycles": 617755,
+    "response_ms": 1.507248887,
     "exact": true,
-    "lower_cycles": 617695,
+    "lower_cycles": 617755,
     "outputs": {
      "T004": {
-      "cycles": 617695,
+      "cycles": 617755,
       "exact": true,
       "lower_cycles": null
      }
@@ -240,13 +240,13 @@
    {
     "iteration": 2,
     "task": "T004",
-    "response_cycles": 617697,
-    "response_ms": 1.507107374,
+    "response_cycles": 617757,
+    "response_ms": 1.507253767,
     "exact": true,
-    "lower_cycles": 617697,
+    "lower_cycles": 617757,
     "outputs": {
      "T004": {
-      "cycles": 617697,
+      "cycles": 617757,
       "exact": true,
       "lower_cycles": null
      }
@@ -255,13 +255,13 @@
    {
     "iteration": 3,
     "task": "T004",
-    "response_cycles": 617696,
-    "response_ms": 1.507104934,
+    "response_cycles": 617756,
+    "response_ms": 1.507251327,
     "exact": true,
-    "lower_cycles": 617696,
+    "lower_cycles": 617756,
     "outputs": {
      "T004": {
-      "cycles": 617696,
+      "cycles": 617756,
       "exact": true,
       "lower_cycles": null
      }
@@ -270,13 +270,13 @@
    {
     "iteration": 4,
     "task": "T004",
-    "response_cycles": 617696,
-    "response_ms": 1.507104934,
+    "response_cycles": 617756,
+    "response_ms": 1.507251327,
     "exact": true,
-    "lower_cycles": 617696,
+    "lower_cycles": 617756,
     "outputs": {
      "T004": {
-      "cycles": 617696,
+      "cycles": 617756,
       "exact": true,
       "lower_cycles": null
      }
@@ -285,13 +285,13 @@
    {
     "iteration": 5,
     "task": "T004",
-    "response_cycles": 617696,
-    "response_ms": 1.507104934,
+    "response_cycles": 617756,
+    "response_ms": 1.507251327,
     "exact": true,
-    "lower_cycles": 617696,
+    "lower_cycles": 617756,
     "outputs": {
      "T004": {
-      "cycles": 617696,
+      "cycles": 617756,
       "exact": true,
       "lower_cycles": null
      }
@@ -300,13 +300,13 @@
    {
     "iteration": 6,
     "task": "T004",
-    "response_cycles": 617696,
-    "response_ms": 1.507104934,
+    "response_cycles": 617756,
+    "response_ms": 1.507251327,
     "exact": true,
-    "lower_cycles": 617696,
+    "lower_cycles": 617756,
     "outputs": {
      "T004": {
-      "cycles": 617696,
+      "cycles": 617756,
       "exact": true,
       "lower_cycles": null
      }
@@ -315,13 +315,13 @@
    {
     "iteration": 7,
     "task": "T004",
-    "response_cycles": 617696,
-    "response_ms": 1.507104934,
+    "response_cycles": 617756,
+    "response_ms": 1.507251327,
     "exact": true,
-    "lower_cycles": 617696,
+    "lower_cycles": 617756,
     "outputs": {
      "T004": {
-      "cycles": 617696,
+      "cycles": 617756,
       "exact": true,
       "lower_cycles": null
      }
@@ -330,13 +330,13 @@
    {
     "iteration": 8,
     "task": "T004",
-    "response_cycles": 617696,
-    "response_ms": 1.507104934,
+    "response_cycles": 617756,
+    "response_ms": 1.507251327,
     "exact": true,
-    "lower_cycles": 617696,
+    "lower_cycles": 617756,
     "outputs": {
      "T004": {
-      "cycles": 617696,
+      "cycles": 617756,
       "exact": true,
       "lower_cycles": null
      }
@@ -345,13 +345,13 @@
    {
     "iteration": 9,
     "task": "T004",
-    "response_cycles": 617696,
-    "response_ms": 1.507104934,
+    "response_cycles": 617756,
+    "response_ms": 1.507251327,
     "exact": true,
-    "lower_cycles": 617696,
+    "lower_cycles": 617756,
     "outputs": {
      "T004": {
-      "cycles": 617696,
+      "cycles": 617756,
       "exact": true,
       "lower_cycles": null
      }
@@ -360,13 +360,13 @@
    {
     "iteration": 10,
     "task": "T004",
-    "response_cycles": 617696,
-    "response_ms": 1.507104934,
+    "response_cycles": 617756,
+    "response_ms": 1.507251327,
     "exact": true,
-    "lower_cycles": 617696,
+    "lower_cycles": 617756,
     "outputs": {
      "T004": {
-      "cycles": 617696,
+      "cycles": 617756,
       "exact": true,
       "lower_cycles": null
      }
@@ -375,13 +375,13 @@
    {
     "iteration": 11,
     "task": "T004",
-    "response_cycles": 617696,
-    "response_ms": 1.507104934,
+    "response_cycles": 617756,
+    "response_ms": 1.507251327,
     "exact": true,
-    "lower_cycles": 617696,
+    "lower_cycles": 617756,
     "outputs": {
      "T004": {
-      "cycles": 617696,
+      "cycles": 617756,
       "exact": true,
       "lower_cycles": null
      }
@@ -390,13 +390,13 @@
    {
     "iteration": 12,
     "task": "T004",
-    "response_cycles": 617696,
-    "response_ms": 1.507104934,
+    "response_cycles": 617756,
+    "response_ms": 1.507251327,
     "exact": true,
-    "lower_cycles": 617696,
+    "lower_cycles": 617756,
     "outputs": {
      "T004": {
-      "cycles": 617696,
+      "cycles": 617756,
       "exact": true,
       "lower_cycles": null
      }
@@ -405,13 +405,13 @@
    {
     "iteration": 13,
     "task": "T004",
-    "response_cycles": 617696,
-    "response_ms": 1.507104934,
+    "response_cycles": 617756,
+    "response_ms": 1.507251327,
     "exact": true,
-    "lower_cycles": 617696,
+    "lower_cycles": 617756,
     "outputs": {
      "T004": {
-      "cycles": 617696,
+      "cycles": 617756,
       "exact": true,
       "lower_cycles": null
      }
@@ -420,13 +420,13 @@
    {
     "iteration": 14,
     "task": "T004",
-    "response_cycles": 617696,
-    "response_ms": 1.507104934,
+    "response_cycles": 617756,
+    "response_ms": 1.507251327,
     "exact": true,
-    "lower_cycles": 617696,
+    "lower_cycles": 617756,
     "outputs": {
      "T004": {
-      "cycles": 617696,
+      "cycles": 617756,
       "exact": true,
       "lower_cycles": null
      }
@@ -458,13 +458,13 @@
    "0-0": {
     "estimated": 11017,
     "per_window": [
-     1020,
-     1020,
-     1020
+     1080,
+     1080,
+     1080
     ],
-    "mean": 1020,
-    "overestimation_percent": 980.0980392156863,
-    "phase_busy_max": 1020,
+    "mean": 1080,
+    "overestimation_percent": 920.0925925925926,
+    "phase_busy_max": 1080,
     "phases_above_estimate": 0,
     "tasks": [
      "T004"
@@ -473,13 +473,13 @@
    "1-0": {
     "estimated": 11584,
     "per_window": [
-     2956,
-     2956,
-     2956
+     3016,
+     3016,
+     3016
     ],
-    "mean": 2956,
-    "overestimation_percent": 291.8809201623816,
-    "phase_busy_max": 2956,
+    "mean": 3016,
+    "overestimation_percent": 284.0848806366048,
+    "phase_busy_max": 3016,
     "phases_above_estimate": 0,
     "tasks": [
      "T003"
@@ -488,13 +488,13 @@
    "0-1": {
     "estimated": 12043,
     "per_window": [
-     3416,
-     3416,
-     3416
+     3476,
+     3476,
+     3476
     ],
-    "mean": 3416,
-    "overestimation_percent": 252.54683840749414,
-    "phase_busy_max": 3416,
+    "mean": 3476,
+    "overestimation_percent": 246.4614499424626,
+    "phase_busy_max": 3476,
     "phases_above_estimate": 0,
     "tasks": [
      "T002"
@@ -516,24 +516,24 @@
     ]
    }
   },
-  "mean_overestimation_percent": 382.3607897193619,
+  "mean_overestimation_percent": 363.8890710658864,
   "min_overestimation_percent": 4.917361091885606
  },
  "cpu_attributed": {
   "0-0": {
-   "measured": 1020,
+   "measured": 1080,
    "estimated": 11017,
-   "overestimation_percent": 980.0980392156863
+   "overestimation_percent": 920.0925925925926
   },
   "1-0": {
-   "measured": 2956,
+   "measured": 3016,
    "estimated": 11584,
-   "overestimation_percent": 291.8809201623816
+   "overestimation_percent": 284.0848806366048
   },
   "0-1": {
-   "measured": 3416,
+   "measured": 3476,
    "estimated": 12043,
-   "overestimation_percent": 252.54683840749414
+   "overestimation_percent": 246.4614499424626
   },
   "1-1": {
    "measured": 180605,
@@ -700,8 +700,8 @@
     "phase": 1,
     "packets": 16,
     "received": 16,
-    "send_min": 4081,
-    "send_max": 4084,
+    "send_min": 4141,
+    "send_max": 4144,
     "arrival_min": 14763,
     "arrival_max": 14882,
     "sent_before_phase": 0,
@@ -712,112 +712,112 @@
      {
       "flow": 2,
       "iteration": 1,
-      "send_cycles": 4081,
+      "send_cycles": 4141,
       "arrival_cycles": 14763,
       "slack_cycles": 190165
      },
      {
       "flow": 2,
       "iteration": 2,
-      "send_cycles": 4084,
+      "send_cycles": 4144,
       "arrival_cycles": 14881,
       "slack_cycles": 190047
      },
      {
       "flow": 2,
       "iteration": 3,
-      "send_cycles": 4082,
+      "send_cycles": 4142,
       "arrival_cycles": 14880,
       "slack_cycles": 190048
      },
      {
       "flow": 2,
       "iteration": 4,
-      "send_cycles": 4084,
+      "send_cycles": 4144,
       "arrival_cycles": 14881,
       "slack_cycles": 190047
      },
      {
       "flow": 2,
       "iteration": 5,
-      "send_cycles": 4083,
+      "send_cycles": 4143,
       "arrival_cycles": 14882,
       "slack_cycles": 190046
      },
      {
       "flow": 2,
       "iteration": 6,
-      "send_cycles": 4082,
+      "send_cycles": 4142,
       "arrival_cycles": 14880,
       "slack_cycles": 190048
      },
      {
       "flow": 2,
       "iteration": 7,
-      "send_cycles": 4084,
+      "send_cycles": 4144,
       "arrival_cycles": 14881,
       "slack_cycles": 190047
      },
      {
       "flow": 2,
       "iteration": 8,
-      "send_cycles": 4083,
+      "send_cycles": 4143,
       "arrival_cycles": 14882,
       "slack_cycles": 190046
      },
      {
       "flow": 2,
       "iteration": 9,
-      "send_cycles": 4082,
+      "send_cycles": 4142,
       "arrival_cycles": 14880,
       "slack_cycles": 190048
      },
      {
       "flow": 2,
       "iteration": 10,
-      "send_cycles": 4084,
+      "send_cycles": 4144,
       "arrival_cycles": 14881,
       "slack_cycles": 190047
      },
      {
       "flow": 2,
       "iteration": 11,
-      "send_cycles": 4083,
+      "send_cycles": 4143,
       "arrival_cycles": 14882,
       "slack_cycles": 190046
      },
      {
       "flow": 2,
       "iteration": 12,
-      "send_cycles": 4082,
+      "send_cycles": 4142,
       "arrival_cycles": 14880,
       "slack_cycles": 190048
      },
      {
       "flow": 2,
       "iteration": 13,
-      "send_cycles": 4084,
+      "send_cycles": 4144,
       "arrival_cycles": 14881,
       "slack_cycles": 190047
      },
      {
       "flow": 2,
       "iteration": 14,
-      "send_cycles": 4083,
+      "send_cycles": 4143,
       "arrival_cycles": 14882,
       "slack_cycles": 190046
      },
      {
       "flow": 2,
       "iteration": 15,
-      "send_cycles": 4082,
+      "send_cycles": 4142,
       "arrival_cycles": 14880,
       "slack_cycles": 190048
      },
      {
       "flow": 2,
       "iteration": 16,
-      "send_cycles": 4084,
+      "send_cycles": 4144,
       "arrival_cycles": 14881,
       "slack_cycles": 190047
      }
@@ -837,8 +837,8 @@
     "phase": 2,
     "packets": 15,
     "received": 15,
-    "send_min": 3620,
-    "send_max": 3624,
+    "send_min": 3680,
+    "send_max": 3684,
     "arrival_min": 30294,
     "arrival_max": 30401,
     "sent_before_phase": 0,
@@ -849,105 +849,105 @@
      {
       "flow": 3,
       "iteration": 1,
-      "send_cycles": 3621,
+      "send_cycles": 3681,
       "arrival_cycles": 30294,
       "slack_cycles": 174634
      },
      {
       "flow": 3,
       "iteration": 2,
-      "send_cycles": 3623,
+      "send_cycles": 3683,
       "arrival_cycles": 30401,
       "slack_cycles": 174527
      },
      {
       "flow": 3,
       "iteration": 3,
-      "send_cycles": 3620,
+      "send_cycles": 3680,
       "arrival_cycles": 30400,
       "slack_cycles": 174528
      },
      {
       "flow": 3,
       "iteration": 4,
-      "send_cycles": 3624,
+      "send_cycles": 3684,
       "arrival_cycles": 30400,
       "slack_cycles": 174528
      },
      {
       "flow": 3,
       "iteration": 5,
-      "send_cycles": 3622,
+      "send_cycles": 3682,
       "arrival_cycles": 30400,
       "slack_cycles": 174528
      },
      {
       "flow": 3,
       "iteration": 6,
-      "send_cycles": 3620,
+      "send_cycles": 3680,
       "arrival_cycles": 30400,
       "slack_cycles": 174528
      },
      {
       "flow": 3,
       "iteration": 7,
-      "send_cycles": 3624,
+      "send_cycles": 3684,
       "arrival_cycles": 30400,
       "slack_cycles": 174528
      },
      {
       "flow": 3,
       "iteration": 8,
-      "send_cycles": 3622,
+      "send_cycles": 3682,
       "arrival_cycles": 30400,
       "slack_cycles": 174528
      },
      {
       "flow": 3,
       "iteration": 9,
-      "send_cycles": 3620,
+      "send_cycles": 3680,
       "arrival_cycles": 30400,
       "slack_cycles": 174528
      },
      {
       "flow": 3,
       "iteration": 10,
-      "send_cycles": 3624,
+      "send_cycles": 3684,
       "arrival_cycles": 30400,
       "slack_cycles": 174528
      },
      {
       "flow": 3,
       "iteration": 11,
-      "send_cycles": 3622,
+      "send_cycles": 3682,
       "arrival_cycles": 30400,
       "slack_cycles": 174528
      },
      {
       "flow": 3,
       "iteration": 12,
-      "send_cycles": 3620,
+      "send_cycles": 3680,
       "arrival_cycles": 30400,
       "slack_cycles": 174528
      },
      {
       "flow": 3,
       "iteration": 13,
-      "send_cycles": 3624,
+      "send_cycles": 3684,
       "arrival_cycles": 30400,
       "slack_cycles": 174528
      },
      {
       "flow": 3,
       "iteration": 14,
-      "send_cycles": 3622,
+      "send_cycles": 3682,
       "arrival_cycles": 30400,
       "slack_cycles": 174528
      },
      {
       "flow": 3,
       "iteration": 15,
-      "send_cycles": 3620,
+      "send_cycles": 3680,
       "arrival_cycles": 30400,
       "slack_cycles": 174528
      }
@@ -1043,10 +1043,10 @@
     "gap_max": 0,
     "tx_block_min": 279,
     "tx_block_max": 371,
-    "software_latency_min": 10682,
-    "software_latency_max": 10799,
-    "driver_min": 10313,
-    "driver_max": 10340
+    "software_latency_min": 10622,
+    "software_latency_max": 10739,
+    "driver_min": 10253,
+    "driver_max": 10280
    },
    {
     "flow": 3,
@@ -1080,10 +1080,10 @@
     "gap_max": 0,
     "tx_block_min": 280,
     "tx_block_max": 360,
-    "software_latency_min": 26673,
-    "software_latency_max": 26780,
-    "driver_min": 26310,
-    "driver_max": 26337
+    "software_latency_min": 26613,
+    "software_latency_max": 26720,
+    "driver_min": 26250,
+    "driver_max": 26277
    }
   ]
  },
@@ -1242,13 +1242,13 @@
    "events": 62,
    "unchecked": 0,
    "late": 0,
-   "slack_min": 8454
+   "slack_min": 8394
   },
   "ready": {
    "events": 48,
    "unchecked": 0,
    "late": 0,
-   "slack_min": 9680
+   "slack_min": 9620
   }
  },
  "phase_conformance": {
@@ -1303,7 +1303,7 @@
      "T004"
     ],
     "bound_max": 11017,
-    "busy_max": 1020,
+    "busy_max": 1080,
     "phases_above": 0,
     "excess_max": 0
    },
@@ -1312,7 +1312,7 @@
      "T002"
     ],
     "bound_max": 12043,
-    "busy_max": 3416,
+    "busy_max": 3476,
     "phases_above": 0,
     "excess_max": 0
    },
@@ -1321,7 +1321,7 @@
      "T003"
     ],
     "bound_max": 11584,
-    "busy_max": 2956,
+    "busy_max": 3016,
     "phases_above": 0,
     "excess_max": 0
    },

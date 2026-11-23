@@ -1,0 +1,5 @@
+app=APP-BEAMFORMER name=str2rts_beamformer mesh=4x4
+f_clk_hz=454848000 release_ns=1000000 sim_ns=21500000 tick_cycles=default
+max_tasks=default max_pkt_queue_slots=32 noc_tt_slots=16 ram_bytes=65536
+heap=39280 demand_worst_pe=23888 margin=15376 fits=True
+image text=13628 data=9508 bss=42400

@@ -1,0 +1,5 @@
+app=APP-AUDIOBEAM name=str2rts_audiobeam mesh=4x4
+f_clk_hz=690368000 release_ns=500000 sim_ns=13500000 tick_cycles=default
+max_tasks=default max_pkt_queue_slots=32 noc_tt_slots=16 ram_bytes=65536
+heap=45504 demand_worst_pe=10136 margin=35352 fits=True
+image text=11932 data=4980 bss=48624

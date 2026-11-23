@@ -1,0 +1,5 @@
+<work>/str2rts_audiobeam/results/metrics.json: release tick, 20 phases, 359 executions: 0 phases with a task twice, 0 early executions, 0 phases above the CPU bound (0 late executions) -> conforms
+  job ends after F: 40 of 379 (0 unchecked), smallest slack -13357
+  packets enqueued after s: 40 of 565 (0 unchecked), smallest slack -8751
+<work>/str2rts_audiobeam/results/metrics.json: time-triggered injection: 564 packets (0 unchecked), violations 119: early 0, inject > 3899: 39, header > w_h (m + 1): 0, rx wait > 7113: 0, end wait > 4157: 0, latency > o_i: 0, occupancy > o_i: 0, late 0, NI overlaps 0
+  inject delay 354 to 10887, header wait max 0, rx wait max 741, end wait max 430, smallest occupancy slack 3528, smallest deadline slack 17541

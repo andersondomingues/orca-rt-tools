@@ -4,7 +4,7 @@
  "image": {
   "file": "image.elf",
   "kind": "elf",
-  "sha256": "3ba1cc180d8e68a7b77414fba4dedbf65228d2e3571f6688ff6c25e0d78c4b65"
+  "sha256": "17f85ac8a77751627d3e8006ce52a61ff20d85cf0ca158d7b2af5cab5bb11ce0"
  },
  "params": {
   "tcb": 2,
@@ -33,21 +33,21 @@
   },
   "T002": {
    "csv": 12043,
-   "static": 8931,
+   "static": 9001,
    "used": 12043,
    "static_above_csv": false,
    "isr": 3060
   },
   "T003": {
    "csv": 11584,
-   "static": 8471,
+   "static": 8541,
    "used": 11584,
    "static_above_csv": false,
    "isr": 3060
   },
   "T004": {
    "csv": 11017,
-   "static": 5019,
+   "static": 5089,
    "used": 11017,
    "static_above_csv": false,
    "isr": 2438

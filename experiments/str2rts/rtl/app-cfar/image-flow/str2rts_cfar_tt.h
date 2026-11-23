@@ -9,8 +9,8 @@
  * Input: app-cfar.csv (sha256 a966ef8e072c836fb96613e555022a0d0d6569c7809aea8b452e56fa7e5ac83e)
  * Input: app-cfar-ONTO-hermes2x2.map (sha256 7d70f38aff3a39ffcca7b2a1aa397ef9b732a9ec477b672ec0c45eda7db663f4)
  * Input: hermes-2x2.gml (sha256 7f5b99836ef8b0644c57f3b4403f1f1798e5b947e5afc6aa08ea7ced18960759)
- * Input: str2rts_cfar.json (sha256 4b4173b9c6fc47ebc3e30e76308bcdca91e1980312d80561c4fd0f384cd6b253)
- * Input: str2rts_cfar.handlers.json (sha256 56a17539c51252c53b13a7f6754e4b3c5978b56b5a9fd8cbfe2194b8bd052333)
+ * Input: str2rts_cfar.json (sha256 4e50ccefeaf4ee4aa874be2299162930789b950a6175b1d721d82681a153114b)
+ * Input: str2rts_cfar.handlers.json (sha256 c68f16cfd0dbb6b555726e5e82e05fcba2fdbfa0b5434fd07461984c2280f068)
  *
  * Link schedule of each clock below: AGS (rttools/modules/backend/ags, the
  * parameters of the command line of rttools) on the packets of one
@@ -27,7 +27,7 @@
  * that reads the packet (rttools/modules/instances/release.py,
  * rttools/bench_t/multirate.py).
  *
- * Costs: max(CSV, static) str2rts_cfar.json sha256 4b4173b9c6fc47ebc3e30e76308bcdca91e1980312d80561c4fd0f384cd6b253
+ * Costs: max(CSV, static) str2rts_cfar.json sha256 4e50ccefeaf4ee4aa874be2299162930789b950a6175b1d721d82681a153114b
  * Deadline: tick (tick of the release of the job that reads each packet; finish of each job with the handlers of the packet events of its PE)
  */
 #if F_CPU == 409856000

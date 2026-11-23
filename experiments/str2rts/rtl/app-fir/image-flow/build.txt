@@ -1,0 +1,5 @@
+app=APP-FIR name=str2rts_fir mesh=4x4
+f_clk_hz=424368000 release_ns=1000000 sim_ns=44000000 tick_cycles=default
+max_tasks=default max_pkt_queue_slots=default noc_tt_slots=default ram_bytes=65536
+heap=40112 demand_worst_pe=29772 margin=10324 fits=True
+image text=17112 data=5384 bss=43040

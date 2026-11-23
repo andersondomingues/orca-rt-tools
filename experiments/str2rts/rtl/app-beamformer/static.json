@@ -1,0 +1,489 @@
+{
+ "_doc": "static_costs.py: static t(v) of the image of the pilot run against the CSV, and the flow with t(v) = max(CSV, static) and the handler terms of the image (flow_image) against the flow with the costs of the CSV and no handler charge (flow_csv); experiments/str2rts/reference.json holds the flow with the costs of the CSV and the handler terms of the image of CAR with budget 0",
+ "app": "APP-BEAMFORMER",
+ "image": {
+  "file": "image.elf",
+  "kind": "elf",
+  "sha256": "700ec6353ac531d8d20981c84aee71e16feb7d2cf62dfd5f898826a91a17282d"
+ },
+ "params": {
+  "tcb": 10,
+  "heap_blocks": 80
+ },
+ "kernel": {
+  "dispatch": 773,
+  "tick": 1711,
+  "release": 249,
+  "send_isr": 622,
+  "receive_isr_size": 7398,
+  "receive_isr_end": 744,
+  "receive_isr": 8142
+ },
+ "scheduler_cycles": {
+  "csv": 11000,
+  "static": 1960
+ },
+ "tasks": {
+  "T001": {
+   "csv": 12328,
+   "static": 39165,
+   "used": 39165,
+   "static_above_csv": true,
+   "isr": 7464
+  },
+  "T002": {
+   "csv": 22857,
+   "static": 26475,
+   "used": 26475,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T003": {
+   "csv": 57801,
+   "static": 61415,
+   "used": 61415,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T004": {
+   "csv": 57985,
+   "static": 61595,
+   "used": 61595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T005": {
+   "csv": 22857,
+   "static": 26475,
+   "used": 26475,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T006": {
+   "csv": 57801,
+   "static": 61415,
+   "used": 61415,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T007": {
+   "csv": 57985,
+   "static": 61595,
+   "used": 61595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T008": {
+   "csv": 22857,
+   "static": 26475,
+   "used": 26475,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T009": {
+   "csv": 57801,
+   "static": 61415,
+   "used": 61415,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T010": {
+   "csv": 57985,
+   "static": 61595,
+   "used": 61595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T011": {
+   "csv": 22857,
+   "static": 26475,
+   "used": 26475,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T012": {
+   "csv": 57801,
+   "static": 61415,
+   "used": 61415,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T013": {
+   "csv": 57985,
+   "static": 61595,
+   "used": 61595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T014": {
+   "csv": 22857,
+   "static": 26475,
+   "used": 26475,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T015": {
+   "csv": 57801,
+   "static": 61415,
+   "used": 61415,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T016": {
+   "csv": 57985,
+   "static": 61595,
+   "used": 61595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T017": {
+   "csv": 22857,
+   "static": 26475,
+   "used": 26475,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T018": {
+   "csv": 57801,
+   "static": 61415,
+   "used": 61415,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T019": {
+   "csv": 57985,
+   "static": 61595,
+   "used": 61595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T020": {
+   "csv": 22857,
+   "static": 26475,
+   "used": 26475,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T021": {
+   "csv": 57801,
+   "static": 61415,
+   "used": 61415,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T022": {
+   "csv": 57985,
+   "static": 61595,
+   "used": 61595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T023": {
+   "csv": 22857,
+   "static": 26475,
+   "used": 26475,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T024": {
+   "csv": 57801,
+   "static": 61415,
+   "used": 61415,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T025": {
+   "csv": 57985,
+   "static": 61595,
+   "used": 61595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T026": {
+   "csv": 22857,
+   "static": 26475,
+   "used": 26475,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T027": {
+   "csv": 57801,
+   "static": 61415,
+   "used": 61415,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T028": {
+   "csv": 57985,
+   "static": 61595,
+   "used": 61595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T029": {
+   "csv": 22857,
+   "static": 26475,
+   "used": 26475,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T030": {
+   "csv": 57801,
+   "static": 61415,
+   "used": 61415,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T031": {
+   "csv": 57985,
+   "static": 61595,
+   "used": 61595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T032": {
+   "csv": 22857,
+   "static": 26475,
+   "used": 26475,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T033": {
+   "csv": 57801,
+   "static": 61415,
+   "used": 61415,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T034": {
+   "csv": 57985,
+   "static": 61595,
+   "used": 61595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T035": {
+   "csv": 22857,
+   "static": 26475,
+   "used": 26475,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T036": {
+   "csv": 57801,
+   "static": 61415,
+   "used": 61415,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T037": {
+   "csv": 57985,
+   "static": 61595,
+   "used": 61595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T038": {
+   "csv": 12328,
+   "static": 110749,
+   "used": 110749,
+   "static_above_csv": true,
+   "isr": 98326
+  },
+  "T039": {
+   "csv": 17638,
+   "static": 29943,
+   "used": 29943,
+   "static_above_csv": true,
+   "isr": 10630
+  },
+  "T040": {
+   "csv": 18192,
+   "static": 21805,
+   "used": 21805,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T041": {
+   "csv": 379984,
+   "static": 383595,
+   "used": 383595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T042": {
+   "csv": 17122,
+   "static": 20735,
+   "used": 20735,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T043": {
+   "csv": 11111,
+   "static": 14725,
+   "used": 14725,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T044": {
+   "csv": 18192,
+   "static": 21805,
+   "used": 21805,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T045": {
+   "csv": 379984,
+   "static": 383595,
+   "used": 383595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T046": {
+   "csv": 17122,
+   "static": 20735,
+   "used": 20735,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T047": {
+   "csv": 11111,
+   "static": 14725,
+   "used": 14725,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T048": {
+   "csv": 18192,
+   "static": 21805,
+   "used": 21805,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T049": {
+   "csv": 379984,
+   "static": 383595,
+   "used": 383595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T050": {
+   "csv": 17122,
+   "static": 20735,
+   "used": 20735,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T051": {
+   "csv": 11111,
+   "static": 14725,
+   "used": 14725,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T052": {
+   "csv": 18192,
+   "static": 21805,
+   "used": 21805,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T053": {
+   "csv": 379984,
+   "static": 383595,
+   "used": 383595,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T054": {
+   "csv": 17122,
+   "static": 20735,
+   "used": 20735,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T055": {
+   "csv": 11111,
+   "static": 14725,
+   "used": 14725,
+   "static_above_csv": true,
+   "isr": 8764
+  },
+  "T056": {
+   "csv": 11443,
+   "static": 37807,
+   "used": 37807,
+   "static_above_csv": true,
+   "isr": 32568
+  }
+ },
+ "tasks_static_above_csv": [
+  "T001",
+  "T002",
+  "T003",
+  "T004",
+  "T005",
+  "T006",
+  "T007",
+  "T008",
+  "T009",
+  "T010",
+  "T011",
+  "T012",
+  "T013",
+  "T014",
+  "T015",
+  "T016",
+  "T017",
+  "T018",
+  "T019",
+  "T020",
+  "T021",
+  "T022",
+  "T023",
+  "T024",
+  "T025",
+  "T026",
+  "T027",
+  "T028",
+  "T029",
+  "T030",
+  "T031",
+  "T032",
+  "T033",
+  "T034",
+  "T035",
+  "T036",
+  "T037",
+  "T038",
+  "T039",
+  "T040",
+  "T041",
+  "T042",
+  "T043",
+  "T044",
+  "T045",
+  "T046",
+  "T047",
+  "T048",
+  "T049",
+  "T050",
+  "T051",
+  "T052",
+  "T053",
+  "T054",
+  "T055",
+  "T056"
+ ],
+ "largest_static_over_csv": 8.983533419857235,
+ "flow_image": {
+  "f_cpu_hz": 383595000.0,
+  "f_search_hz": 454841613.76953125,
+  "r_bound_ms": 4.394960662093027
+ },
+ "flow_csv": {
+  "f_cpu_hz": 379984000.0,
+  "f_search_hz": 442466735.83984375,
+  "r_bound_ms": 4.281087924959048
+ }
+}

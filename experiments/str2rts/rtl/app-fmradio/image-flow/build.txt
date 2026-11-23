@@ -1,0 +1,5 @@
+app=APP-FMRADIO name=str2rts_fmradio mesh=4x4
+f_clk_hz=706432000 release_ns=500000 sim_ns=12500000 tick_cycles=default
+max_tasks=default max_pkt_queue_slots=32 noc_tt_slots=16 ram_bytes=65536
+heap=38576 demand_worst_pe=21708 margin=16852 fits=True
+image text=14112 data=9728 bss=41696
