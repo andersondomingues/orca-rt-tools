@@ -1,14 +1,14 @@
 {
- "_doc": "experiments/cputime: CPU time of each PE in the stored runs of tag r11-rc9 with the kernel work that runs while the idle task holds the CPU (rttools/paper/cputime.py), in windows of phi(v_last) + 1 releases from r_{phi(v_last)}. Paths relative to this file. rx_isr: the static WCETs of irq2_handler (size flit) and irq3_handler (end of reception) with their entry (terms receive_isr_size and receive_isr_end of ../wcet/reference_r11g.json and reference_tt.json, image of the run); release_isr: the term release of the kernel of ../wcet/reference_r11g.json (249 cycles in the images of E, CAR-V and WCET-E; the image of VMA has the kernel of these images).",
+ "_doc": "experiments/cputime: CPU time of each PE in the stored runs of round r12 (commit de85565: the images with the critical section around the queue of a task, lib/noc.c; runs XH, XG, XCV, XMA, W6 and W7, which replace VH, VG, VCV, VMA, W4 and W5 of tag r11-rc9) with the kernel work that runs while the idle task holds the CPU (rttools/paper/cputime.py), in windows of phi(v_last) + 1 releases from r_{phi(v_last)}. Paths relative to this file. rx_isr: the static WCETs of irq2_handler (size flit) and irq3_handler (end of reception) with their entry (terms receive_isr_size and receive_isr_end of ../wcet/reference_r12.json and reference_tt.json, image of the run); release_isr: the term release of the kernel of ../wcet/reference_r12.json (249 cycles in the images of E, CAR-V and WCET-E; the image of XMA has the kernel of these images).",
  "runs": {
-  "VH": {
+  "XH": {
    "kind": "exp23",
-   "log": "../exp23/logs/VH.events.txt",
+   "log": "../exp23/logs/XH.events.txt",
    "exp23_config": "../exp23/config.json",
-   "reference": "../exp23/reference_VH.json",
+   "reference": "../exp23/reference_XH.json",
    "handlers": "../wcet/costs/tt/weird_a.handlers.json",
    "static_of": {
-    "reference": "../wcet/reference_r11g.json",
+    "reference": "../wcet/reference_r12.json",
     "app": "E",
     "key": "name"
    },
@@ -18,11 +18,11 @@
     699
    ]
   },
-  "VG": {
+  "XG": {
    "kind": "exp23",
-   "log": "../exp23/logs/VG.events.txt",
+   "log": "../exp23/logs/XG.events.txt",
    "exp23_config": "../exp23/config.json",
-   "reference": "../exp23/reference_VG.json",
+   "reference": "../exp23/reference_XG.json",
    "handlers": "../wcet/costs/tt/weird_a.handlers.json",
    "release_isr": 249,
    "rx_isr": [
@@ -30,17 +30,17 @@
     699
    ]
   },
-  "VCV": {
+  "XCV": {
    "kind": "rtlapp",
-   "log": "../car-v-rtl/logs/VCV.events.txt",
+   "log": "../car-v-rtl/logs/XCV.events.txt",
    "period_cycles": 220544,
    "manifest": "../../pkt-sim/software/ucx-os/app/car_v.json",
    "csv": "../../apps/car-v/car-v.csv",
    "map": "../../apps/car-v/car-v-ONTO-hermes4x4.map",
-   "reference": "../car-v-rtl/reference_VCV.json",
+   "reference": "../car-v-rtl/reference_XCV.json",
    "handlers": "../wcet/costs/tt/car_v.handlers.json",
    "static_of": {
-    "reference": "../wcet/reference_r11g.json",
+    "reference": "../wcet/reference_r12.json",
     "app": "CAR-V",
     "key": "lane"
    },
@@ -50,15 +50,15 @@
     681
    ]
   },
-  "VMA_CARV": {
+  "XMA_CARV": {
    "kind": "rtlapp",
-   "log": "../multiapp/logs/VMA.events.txt",
-   "period_cycles": 228800,
+   "log": "../multiapp/logs/XMA.events.txt",
+   "period_cycles": 229008,
    "app": "CARV",
    "manifest": "../../pkt-sim/software/ucx-os/app/carv_e.json",
    "csv": "../../apps/car-v/car-v.csv",
    "map": "../multiapp/maps/CARV.map",
-   "reference": "../multiapp/reference_VMA_CARV.json",
+   "reference": "../multiapp/reference_XMA_CARV.json",
    "handlers": "../wcet/costs/tt/carv_e.handlers.json",
    "release_isr": 249,
    "rx_isr": [
@@ -66,15 +66,15 @@
     699
    ]
   },
-  "VMA_E": {
+  "XMA_E": {
    "kind": "rtlapp",
-   "log": "../multiapp/logs/VMA.events.txt",
-   "period_cycles": 228800,
+   "log": "../multiapp/logs/XMA.events.txt",
+   "period_cycles": 229008,
    "app": "E",
    "manifest": "../../pkt-sim/software/ucx-os/app/carv_e.json",
    "csv": "../../apps/synthetic-app-e/synthetic-app-e.csv",
    "map": "../multiapp/maps/E.map",
-   "reference": "../multiapp/reference_VMA_E.json",
+   "reference": "../multiapp/reference_XMA_E.json",
    "handlers": "../wcet/costs/tt/carv_e.handlers.json",
    "release_isr": 249,
    "rx_isr": [
@@ -82,14 +82,14 @@
     699
    ]
   },
-  "W4": {
+  "W6": {
    "kind": "rtlapp",
-   "log": "../wcet/logs/W4.events.txt",
+   "log": "../wcet/logs/W6.events.txt",
    "period_cycles": 250000,
    "manifest": "../../pkt-sim/software/ucx-os/app/wcet_e.json",
    "csv": "../../apps/wcet-e/wcet-e.csv",
    "map": "../../apps/wcet-e/wcet-e-ONTO-hermes2x2.map",
-   "reference": "../wcet/reference_W4.json",
+   "reference": "../wcet/reference_W6.json",
    "handlers": "../wcet/costs/tt/wcet_e.handlers.json",
    "release_isr": 249,
    "rx_isr": [
@@ -97,14 +97,14 @@
     699
    ]
   },
-  "W5": {
+  "W7": {
    "kind": "rtlapp",
-   "log": "../wcet/logs/W5.events.txt",
-   "period_cycles": 117328,
+   "log": "../wcet/logs/W7.events.txt",
+   "period_cycles": 117392,
    "manifest": "../../pkt-sim/software/ucx-os/app/wcet_e.json",
    "csv": "../../apps/wcet-e/wcet-e.csv",
    "map": "../../apps/wcet-e/wcet-e-ONTO-hermes2x2.map",
-   "reference": "../wcet/reference_W5.json",
+   "reference": "../wcet/reference_W7.json",
    "handlers": "../wcet/costs/tt/wcet_e.handlers.json",
    "release_isr": 249,
    "rx_isr": [
