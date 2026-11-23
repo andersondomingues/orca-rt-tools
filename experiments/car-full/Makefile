@@ -98,9 +98,9 @@ LOG     ?= logs/CF.events.txt
 REF     ?= reference_CF.json
 OUTDIR  ?= $(BUILD)/results_CF
 
-.PHONY: all app generate run check ucx ucx-check build sim analyze check-run check-cf2 check-cf4 check-cf5 check-cf6 clean
+.PHONY: all app generate run check ucx ucx-check build sim analyze check-run check-cf2 check-cf4 check-cf5 check-cf6 check-cf7 clean
 
-all: app run check ucx-check analyze check-run check-cf2 check-cf4 check-cf5 check-cf6
+all: app run check ucx-check analyze check-run check-cf2 check-cf4 check-cf5 check-cf6 check-cf7
 
 app:
 	$(RUN) generate --config config.json --apps $(APPS) --check
@@ -158,6 +158,12 @@ check-cf5:
 check-cf6:
 	$(MAKE) --no-print-directory analyze check-run LOG=logs/CF6.events.txt REF=reference_CF6.json \
 		OUTDIR=$(BUILD)/results_CF6
+
+# CF7: car_full of round r12 (commit de85565: as CF6 with the critical section around the queue of a task, lib/noc.c),
+# 526.656 MHz, the clock of the flow with the static costs of that image, 64 ms
+check-cf7:
+	$(MAKE) --no-print-directory analyze check-run LOG=logs/CF7.events.txt REF=reference_CF7.json \
+		OUTDIR=$(BUILD)/results_CF7
 
 clean:
 	rm -rf $(BUILD)

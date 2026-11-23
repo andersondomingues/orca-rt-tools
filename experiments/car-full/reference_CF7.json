@@ -1,0 +1,2111 @@
+{
+ "_doc": "Reference of make check-cf7 (experiments/car-full) for run CF7: car_full of commit de85565 of branch platform-all (round r12, git archive), Questa 2025.3, riscv64-elf-gcc 12.2.0, F_CLK 526.656 MHz, phase 0.25 ms (131,664 cycles), 64 ms (logs/CF7.*; experiments/REGENERATE.md, the command of run CF6 at the clock of this run: make -C experiments/car-full sim F_CLK=526656000 SIM_NS=64000000 BUILD=build/cf7), kernel without nested interrupts, crt0=guard_readback, time-triggered injection with t(v) = max(CSV, static) (costs_file=car_full.json, experiments/wcet/costs/tt), the deadline model tick (deadline=tick: each packet between PEs by the release tick of its reader, each job with the handlers of the packet events of its PE) and the tick hook that starts the search of the scheduler at the position of the model (TT_TICK of app/car_full_tt.h). All 2,945 jobs complete, none after F of the model (smallest slack 7,645 cycles), no deadline miss, no task stops, no job begun twice in a phase, no read older than the model, no phase of a PE above the busy time of the model, 34 of 34 chains measured and within their bound DA (smallest margin 20,063 cycles; largest data age 14,762,994 cycles, 28.06 ms, POSI-OBMG-OBDB-NAVC-DIRC, bound 14,975,294), 1,695 packets between PEs at or after their instant (delay 355 to 395 cycles), header wait at most 1, within o_i (smallest occupancy slack 13,827) and before their deadline (smallest slack 40,321), every packet enqueued before its instant, monitor without errors. The phase_conformance block applies the single-period phase model (one job per task per phase), which jobs of several ticks do not follow; cpu_phases is the check of the general phase model. Round r12: the image has the critical section around the queue of a task (lib/noc.c, every image of this tree); this run replaces run CF6 of round r11g.",
+ "inputs": {
+  "csv": "car-full.csv",
+  "map": "car-full-ONTO-hermes4x4.map",
+  "manifest": "car_full.json",
+  "csv_matches_manifest": true,
+  "map_matches_manifest": true
+ },
+ "clock": {
+  "clock_hz": 526656000,
+  "cycle_hz": 526656175.6756472,
+  "half_period_fs": 949386,
+  "source": "RUN_INFO",
+  "run_info": "CF7.RUN_INFO",
+  "isr": "no_nesting",
+  "crt0": "guard_readback",
+  "edges_snapped": true
+ },
+ "model": {
+  "clock_hz": 526656000,
+  "phase_cycles": 131664,
+  "hyper_ticks": 50,
+  "hyper_cycles": 6583200,
+  "cpu_feasible": true,
+  "periodic_from_hyperperiod": 0,
+  "misses": 0,
+  "chains": {
+   "TPMS-STAC-TPRC": 11406800,
+   "TPMS-STAC-THRC": 4772799,
+   "VIBS-STAC-TPRC": 8773520,
+   "VIBS-STAC-THRC": 1481199,
+   "SPES-NAVC-DIRC": 1974930,
+   "SPES-NAVC-THRC": 1481199,
+   "SPES-STAC-TPRC": 8773520,
+   "SPES-STAC-THRC": 1481199,
+   "POSI-NAVC-DIRC": 6301874,
+   "POSI-NAVC-THRC": 6089439,
+   "POSI-OBMG-OBDB-NAVC-DIRC": 14991698,
+   "POSI-OBMG-OBDB-NAVC-THRC": 14647599,
+   "USOS-OBMG-OBDB-NAVC-DIRC": 12358418,
+   "USOS-OBMG-OBDB-NAVC-THRC": 12014319,
+   "FBU1-BFE1-FDF1-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+   "FBU1-BFE1-FDF1-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+   "FBU2-BFE2-FDF1-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+   "FBU2-BFE2-FDF1-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+   "FBU3-VOD1-NAVC-DIRC": 1957584,
+   "FBU3-VOD1-NAVC-THRC": 1481199,
+   "FBU3-BFE3-FDF1-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+   "FBU3-BFE3-FDF1-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+   "FBU4-BFE4-FDF1-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+   "FBU4-BFE4-FDF1-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+   "FBU5-BFE5-FDF2-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+   "FBU5-BFE5-FDF2-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+   "FBU6-BFE6-FDF2-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+   "FBU6-BFE6-FDF2-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+   "FBU7-BFE7-FDF2-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+   "FBU7-BFE7-FDF2-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+   "FBU8-VOD2-NAVC-DIRC": 1957584,
+   "FBU8-VOD2-NAVC-THRC": 1481199,
+   "FBU8-BFE8-FDF2-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+   "FBU8-BFE8-FDF2-STPH-OBMG-OBDB-NAVC-THRC": 12409311
+  }
+ },
+ "releases": {
+  "count": 244,
+  "first_ms": 3.000264879,
+  "period_cycles_min": 131662,
+  "period_cycles_max": 131666
+ },
+ "markers": {
+  "jobs": 2945,
+  "stray": 0
+ },
+ "jobs": {
+  "complete": 2945,
+  "end_after_model_finish": 0,
+  "deadline_misses": 0,
+  "end_minus_model_max_cycles": -6234,
+  "begin_after_release_min_cycles": 2514,
+  "begin_after_release_max_cycles": 266595
+ },
+ "phases": {
+  "jobs_begun_twice_in_a_phase": 0,
+  "rows": []
+ },
+ "progress": {
+  "stalled_tasks": [],
+  "stalled_pes": [],
+  "tasks": {
+   "TPMS": {
+    "pe": "3-0",
+    "released": 10,
+    "begun": 10,
+    "ended": 10,
+    "last_end_ms": 61.20106768,
+    "stalled": false
+   },
+   "VIBS": {
+    "pe": "3-0",
+    "released": 49,
+    "begun": 49,
+    "ended": 49,
+    "last_end_ms": 63.525218549,
+    "stalled": false
+   },
+   "SPES": {
+    "pe": "1-0",
+    "released": 49,
+    "begun": 49,
+    "ended": 49,
+    "last_end_ms": 63.284938366,
+    "stalled": false
+   },
+   "POSI": {
+    "pe": "0-2",
+    "released": 10,
+    "begun": 10,
+    "ended": 10,
+    "last_end_ms": 61.73465317,
+    "stalled": false
+   },
+   "USOS": {
+    "pe": "0-1",
+    "released": 49,
+    "begun": 49,
+    "ended": 49,
+    "last_end_ms": 63.184616714,
+    "stalled": false
+   },
+   "FBU1": {
+    "pe": "3-2",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.613640593,
+    "stalled": false
+   },
+   "FBU2": {
+    "pe": "3-3",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.613640593,
+    "stalled": false
+   },
+   "FBU3": {
+    "pe": "1-1",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.619494509,
+    "stalled": false
+   },
+   "FBU4": {
+    "pe": "3-1",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.578190508,
+    "stalled": false
+   },
+   "FBU5": {
+    "pe": "2-3",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.613638694,
+    "stalled": false
+   },
+   "FBU6": {
+    "pe": "1-3",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.613640593,
+    "stalled": false
+   },
+   "FBU7": {
+    "pe": "0-3",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.613638694,
+    "stalled": false
+   },
+   "FBU8": {
+    "pe": "2-1",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.619498306,
+    "stalled": false
+   },
+   "STAC": {
+    "pe": "3-0",
+    "released": 49,
+    "begun": 49,
+    "ended": 49,
+    "last_end_ms": 63.554835604,
+    "stalled": false
+   },
+   "TPRC": {
+    "pe": "0-0",
+    "released": 5,
+    "begun": 5,
+    "ended": 5,
+    "last_end_ms": 55.684550257,
+    "stalled": false
+   },
+   "DIRC": {
+    "pe": "0-2",
+    "released": 49,
+    "begun": 49,
+    "ended": 49,
+    "last_end_ms": 63.55959203,
+    "stalled": false
+   },
+   "NAVC": {
+    "pe": "0-2",
+    "released": 49,
+    "begun": 49,
+    "ended": 49,
+    "last_end_ms": 63.534486458,
+    "stalled": false
+   },
+   "OBDB": {
+    "pe": "0-1",
+    "released": 10,
+    "begun": 10,
+    "ended": 10,
+    "last_end_ms": 60.977040991,
+    "stalled": false
+   },
+   "BFE1": {
+    "pe": "3-2",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.728134684,
+    "stalled": false
+   },
+   "BFE2": {
+    "pe": "3-3",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.728134684,
+    "stalled": false
+   },
+   "BFE3": {
+    "pe": "1-2",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.6145577,
+    "stalled": false
+   },
+   "BFE4": {
+    "pe": "3-1",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.692743461,
+    "stalled": false
+   },
+   "BFE5": {
+    "pe": "2-3",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.728132785,
+    "stalled": false
+   },
+   "BFE6": {
+    "pe": "1-3",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.728134684,
+    "stalled": false
+   },
+   "BFE7": {
+    "pe": "0-3",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.728132785,
+    "stalled": false
+   },
+   "BFE8": {
+    "pe": "2-2",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.614476053,
+    "stalled": false
+   },
+   "FDF1": {
+    "pe": "1-2",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.730923981,
+    "stalled": false
+   },
+   "FDF2": {
+    "pe": "2-2",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.733185419,
+    "stalled": false
+   },
+   "STPH": {
+    "pe": "1-2",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.853127089,
+    "stalled": false
+   },
+   "THRC": {
+    "pe": "2-0",
+    "released": 49,
+    "begun": 49,
+    "ended": 49,
+    "last_end_ms": 63.274495116,
+    "stalled": false
+   },
+   "VOD1": {
+    "pe": "1-1",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.734943682,
+    "stalled": false
+   },
+   "VOD2": {
+    "pe": "2-1",
+    "released": 122,
+    "begun": 122,
+    "ended": 122,
+    "last_end_ms": 63.73494748,
+    "stalled": false
+   },
+   "OBMG": {
+    "pe": "0-1",
+    "released": 5,
+    "begun": 5,
+    "ended": 5,
+    "last_end_ms": 57.791682806,
+    "stalled": false
+   }
+  }
+ },
+ "reads": {
+  "older_than_model": 0,
+  "newer_than_model": 1392,
+  "equal_to_model": 1632
+ },
+ "cpu_phases": {
+  "first_phase": 0,
+  "pes": {
+   "0-0": {
+    "tasks": [
+     "TPRC"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 1532000,
+    "measured_busy_max": 131666,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "1-0": {
+    "tasks": [
+     "SPES"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 1640440,
+    "measured_busy_max": 129534,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "2-0": {
+    "tasks": [
+     "THRC"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 1645590,
+    "measured_busy_max": 129533,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "3-0": {
+    "tasks": [
+     "VIBS",
+     "TPMS",
+     "STAC"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 4546968,
+    "measured_busy_max": 131666,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "0-1": {
+    "tasks": [
+     "OBDB",
+     "USOS",
+     "OBMG"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 4347426,
+    "measured_busy_max": 131666,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "1-1": {
+    "tasks": [
+     "FBU3",
+     "VOD1"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 3729600,
+    "measured_busy_max": 121867,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "2-1": {
+    "tasks": [
+     "FBU8",
+     "VOD2"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 3729600,
+    "measured_busy_max": 121867,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "3-1": {
+    "tasks": [
+     "FBU4",
+     "BFE4"
+    ],
+    "model_busy_max": 117472,
+    "model_busy_hyperperiod": 2936800,
+    "measured_busy_max": 99628,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "0-2": {
+    "tasks": [
+     "POSI",
+     "NAVC",
+     "DIRC"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 5664540,
+    "measured_busy_max": 131666,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "1-2": {
+    "tasks": [
+     "BFE3",
+     "FDF1",
+     "STPH"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 6456650,
+    "measured_busy_max": 129456,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "2-2": {
+    "tasks": [
+     "BFE8",
+     "FDF2"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 4128050,
+    "measured_busy_max": 120929,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "3-2": {
+    "tasks": [
+     "FBU1",
+     "BFE1"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 3678500,
+    "measured_busy_max": 118267,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "0-3": {
+    "tasks": [
+     "FBU7",
+     "BFE7"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 3678500,
+    "measured_busy_max": 118267,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "1-3": {
+    "tasks": [
+     "FBU6",
+     "BFE6"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 3678500,
+    "measured_busy_max": 118267,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "2-3": {
+    "tasks": [
+     "FBU5",
+     "BFE5"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 3678500,
+    "measured_busy_max": 118267,
+    "phases": 243,
+    "phases_above_model": 0
+   },
+   "3-3": {
+    "tasks": [
+     "FBU2",
+     "BFE2"
+    ],
+    "model_busy_max": 131664,
+    "model_busy_hyperperiod": 3678500,
+    "measured_busy_max": 118267,
+    "phases": 243,
+    "phases_above_model": 0
+   }
+  },
+  "phases_above_model": 0
+ },
+ "data_age": {
+  "chains": 34,
+  "measured_chains": 34,
+  "above_bound": 0,
+  "margin_min_cycles": 20134,
+  "rows": [
+   {
+    "chain": "TPMS-STAC-TPRC",
+    "bound_cycles": 11406800,
+    "measured_max_cycles": 11288494,
+    "jobs": 3,
+    "above_bound": 0,
+    "margin_cycles": 118306
+   },
+   {
+    "chain": "TPMS-STAC-THRC",
+    "bound_cycles": 4772799,
+    "measured_max_cycles": 4752665,
+    "jobs": 46,
+    "above_bound": 0,
+    "margin_cycles": 20134
+   },
+   {
+    "chain": "VIBS-STAC-TPRC",
+    "bound_cycles": 8773520,
+    "measured_max_cycles": 8655214,
+    "jobs": 3,
+    "above_bound": 0,
+    "margin_cycles": 118306
+   },
+   {
+    "chain": "VIBS-STAC-THRC",
+    "bound_cycles": 1481199,
+    "measured_max_cycles": 1461065,
+    "jobs": 47,
+    "above_bound": 0,
+    "margin_cycles": 20134
+   },
+   {
+    "chain": "SPES-NAVC-DIRC",
+    "bound_cycles": 1974930,
+    "measured_max_cycles": 1877982,
+    "jobs": 47,
+    "above_bound": 0,
+    "margin_cycles": 96948
+   },
+   {
+    "chain": "SPES-NAVC-THRC",
+    "bound_cycles": 1481199,
+    "measured_max_cycles": 1461065,
+    "jobs": 47,
+    "above_bound": 0,
+    "margin_cycles": 20134
+   },
+   {
+    "chain": "SPES-STAC-TPRC",
+    "bound_cycles": 8773520,
+    "measured_max_cycles": 7996895,
+    "jobs": 4,
+    "above_bound": 0,
+    "margin_cycles": 776625
+   },
+   {
+    "chain": "SPES-STAC-THRC",
+    "bound_cycles": 1481199,
+    "measured_max_cycles": 1461065,
+    "jobs": 48,
+    "above_bound": 0,
+    "margin_cycles": 20134
+   },
+   {
+    "chain": "POSI-NAVC-DIRC",
+    "bound_cycles": 6301874,
+    "measured_max_cycles": 4904457,
+    "jobs": 46,
+    "above_bound": 0,
+    "margin_cycles": 1397417
+   },
+   {
+    "chain": "POSI-NAVC-THRC",
+    "bound_cycles": 6089439,
+    "measured_max_cycles": 4752665,
+    "jobs": 46,
+    "above_bound": 0,
+    "margin_cycles": 1336774
+   },
+   {
+    "chain": "POSI-OBMG-OBDB-NAVC-DIRC",
+    "bound_cycles": 14991698,
+    "measured_max_cycles": 14779257,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 212441
+   },
+   {
+    "chain": "POSI-OBMG-OBDB-NAVC-THRC",
+    "bound_cycles": 14647599,
+    "measured_max_cycles": 14627464,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 20135
+   },
+   {
+    "chain": "USOS-OBMG-OBDB-NAVC-DIRC",
+    "bound_cycles": 12358418,
+    "measured_max_cycles": 11487657,
+    "jobs": 41,
+    "above_bound": 0,
+    "margin_cycles": 870761
+   },
+   {
+    "chain": "USOS-OBMG-OBDB-NAVC-THRC",
+    "bound_cycles": 12014319,
+    "measured_max_cycles": 11335865,
+    "jobs": 41,
+    "above_bound": 0,
+    "margin_cycles": 678454
+   },
+   {
+    "chain": "FBU1-BFE1-FDF1-STPH-OBMG-OBDB-NAVC-DIRC",
+    "bound_cycles": 12753410,
+    "measured_max_cycles": 11750985,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 1002425
+   },
+   {
+    "chain": "FBU1-BFE1-FDF1-STPH-OBMG-OBDB-NAVC-THRC",
+    "bound_cycles": 12409311,
+    "measured_max_cycles": 11599192,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 810119
+   },
+   {
+    "chain": "FBU2-BFE2-FDF1-STPH-OBMG-OBDB-NAVC-DIRC",
+    "bound_cycles": 12753410,
+    "measured_max_cycles": 11750985,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 1002425
+   },
+   {
+    "chain": "FBU2-BFE2-FDF1-STPH-OBMG-OBDB-NAVC-THRC",
+    "bound_cycles": 12409311,
+    "measured_max_cycles": 11599192,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 810119
+   },
+   {
+    "chain": "FBU3-VOD1-NAVC-DIRC",
+    "bound_cycles": 1957584,
+    "measured_max_cycles": 1613870,
+    "jobs": 47,
+    "above_bound": 0,
+    "margin_cycles": 343714
+   },
+   {
+    "chain": "FBU3-VOD1-NAVC-THRC",
+    "bound_cycles": 1481199,
+    "measured_max_cycles": 1197737,
+    "jobs": 47,
+    "above_bound": 0,
+    "margin_cycles": 283462
+   },
+   {
+    "chain": "FBU3-BFE3-FDF1-STPH-OBMG-OBDB-NAVC-DIRC",
+    "bound_cycles": 12753410,
+    "measured_max_cycles": 11750985,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 1002425
+   },
+   {
+    "chain": "FBU3-BFE3-FDF1-STPH-OBMG-OBDB-NAVC-THRC",
+    "bound_cycles": 12409311,
+    "measured_max_cycles": 11599192,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 810119
+   },
+   {
+    "chain": "FBU4-BFE4-FDF1-STPH-OBMG-OBDB-NAVC-DIRC",
+    "bound_cycles": 12753410,
+    "measured_max_cycles": 11750985,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 1002425
+   },
+   {
+    "chain": "FBU4-BFE4-FDF1-STPH-OBMG-OBDB-NAVC-THRC",
+    "bound_cycles": 12409311,
+    "measured_max_cycles": 11599192,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 810119
+   },
+   {
+    "chain": "FBU5-BFE5-FDF2-STPH-OBMG-OBDB-NAVC-DIRC",
+    "bound_cycles": 12753410,
+    "measured_max_cycles": 12014313,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 739097
+   },
+   {
+    "chain": "FBU5-BFE5-FDF2-STPH-OBMG-OBDB-NAVC-THRC",
+    "bound_cycles": 12409311,
+    "measured_max_cycles": 11862520,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 546791
+   },
+   {
+    "chain": "FBU6-BFE6-FDF2-STPH-OBMG-OBDB-NAVC-DIRC",
+    "bound_cycles": 12753410,
+    "measured_max_cycles": 12014313,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 739097
+   },
+   {
+    "chain": "FBU6-BFE6-FDF2-STPH-OBMG-OBDB-NAVC-THRC",
+    "bound_cycles": 12409311,
+    "measured_max_cycles": 11862520,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 546791
+   },
+   {
+    "chain": "FBU7-BFE7-FDF2-STPH-OBMG-OBDB-NAVC-DIRC",
+    "bound_cycles": 12753410,
+    "measured_max_cycles": 12014313,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 739097
+   },
+   {
+    "chain": "FBU7-BFE7-FDF2-STPH-OBMG-OBDB-NAVC-THRC",
+    "bound_cycles": 12409311,
+    "measured_max_cycles": 11862520,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 546791
+   },
+   {
+    "chain": "FBU8-VOD2-NAVC-DIRC",
+    "bound_cycles": 1957584,
+    "measured_max_cycles": 1613870,
+    "jobs": 47,
+    "above_bound": 0,
+    "margin_cycles": 343714
+   },
+   {
+    "chain": "FBU8-VOD2-NAVC-THRC",
+    "bound_cycles": 1481199,
+    "measured_max_cycles": 1197737,
+    "jobs": 47,
+    "above_bound": 0,
+    "margin_cycles": 283462
+   },
+   {
+    "chain": "FBU8-BFE8-FDF2-STPH-OBMG-OBDB-NAVC-DIRC",
+    "bound_cycles": 12753410,
+    "measured_max_cycles": 12014313,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 739097
+   },
+   {
+    "chain": "FBU8-BFE8-FDF2-STPH-OBMG-OBDB-NAVC-THRC",
+    "bound_cycles": 12409311,
+    "measured_max_cycles": 11862520,
+    "jobs": 31,
+    "above_bound": 0,
+    "margin_cycles": 546791
+   }
+  ]
+ },
+ "packets": {
+  "remote_received": 1695,
+  "after_deadline": 0,
+  "min_slack_cycles": 40253,
+  "tags": {
+   "unknown_tags": 0,
+   "lane_errors": 0,
+   "repeated": 0,
+   "fifo_mismatch": 26
+  }
+ },
+ "monitor": {
+  "send_err": 0,
+  "send_incomplete": 0,
+  "recv_err": 0,
+  "recv_spurious": 0,
+  "recv_missing": 0,
+  "send_pkts": 1695,
+  "recv_pkts": 1695,
+  "nodes": 16,
+  "errors": 0
+ },
+ "phase_conformance": {
+  "release": "tick",
+  "phases": 243,
+  "jobs": 2945,
+  "tasks": {
+   "BFE1": {
+    "pe": "3-2",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "BFE2": {
+    "pe": "3-3",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "BFE3": {
+    "pe": "1-2",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "BFE4": {
+    "pe": "3-1",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "BFE5": {
+    "pe": "2-3",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "BFE6": {
+    "pe": "1-3",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "BFE7": {
+    "pe": "0-3",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "BFE8": {
+    "pe": "2-2",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "DIRC": {
+    "pe": "0-2",
+    "jobs": 49,
+    "phases_with_jobs": 49,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 49,
+    "max_dispatches_per_phase": 1
+   },
+   "FBU1": {
+    "pe": "3-2",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "FBU2": {
+    "pe": "3-3",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "FBU3": {
+    "pe": "1-1",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "FBU4": {
+    "pe": "3-1",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "FBU5": {
+    "pe": "2-3",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "FBU6": {
+    "pe": "1-3",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "FBU7": {
+    "pe": "0-3",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "FBU8": {
+    "pe": "2-1",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "FDF1": {
+    "pe": "1-2",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "FDF2": {
+    "pe": "2-2",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "NAVC": {
+    "pe": "0-2",
+    "jobs": 49,
+    "phases_with_jobs": 49,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 10,
+    "max_dispatches_per_phase": 1
+   },
+   "OBDB": {
+    "pe": "0-1",
+    "jobs": 10,
+    "phases_with_jobs": 10,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "OBMG": {
+    "pe": "0-1",
+    "jobs": 5,
+    "phases_with_jobs": 5,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 5,
+    "max_dispatches_per_phase": 1
+   },
+   "POSI": {
+    "pe": "0-2",
+    "jobs": 10,
+    "phases_with_jobs": 10,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "SPES": {
+    "pe": "1-0",
+    "jobs": 49,
+    "phases_with_jobs": 49,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "STAC": {
+    "pe": "3-0",
+    "jobs": 49,
+    "phases_with_jobs": 49,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 39,
+    "max_dispatches_per_phase": 1
+   },
+   "STPH": {
+    "pe": "1-2",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "THRC": {
+    "pe": "2-0",
+    "jobs": 49,
+    "phases_with_jobs": 49,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "TPMS": {
+    "pe": "3-0",
+    "jobs": 10,
+    "phases_with_jobs": 10,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 10,
+    "max_dispatches_per_phase": 1
+   },
+   "TPRC": {
+    "pe": "0-0",
+    "jobs": 5,
+    "phases_with_jobs": 5,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "USOS": {
+    "pe": "0-1",
+    "jobs": 49,
+    "phases_with_jobs": 49,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 10,
+    "max_dispatches_per_phase": 1
+   },
+   "VIBS": {
+    "pe": "3-0",
+    "jobs": 49,
+    "phases_with_jobs": 49,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 10,
+    "max_dispatches_per_phase": 1
+   },
+   "VOD1": {
+    "pe": "1-1",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   },
+   "VOD2": {
+    "pe": "2-1",
+    "jobs": 122,
+    "phases_with_jobs": 122,
+    "max_jobs_per_phase": 1,
+    "phases_twice": 0,
+    "early": 0,
+    "late": 0,
+    "max_dispatches_per_phase": 1
+   }
+  },
+  "pes": {
+   "0-0": {
+    "tasks": [
+     "TPRC"
+    ],
+    "bound_max": 131664,
+    "busy_max": 131666,
+    "phases_above": 19,
+    "excess_max": 2
+   },
+   "0-1": {
+    "tasks": [
+     "OBDB",
+     "OBMG",
+     "USOS"
+    ],
+    "bound_max": 131664,
+    "busy_max": 131666,
+    "phases_above": 19,
+    "excess_max": 2
+   },
+   "0-2": {
+    "tasks": [
+     "DIRC",
+     "NAVC",
+     "POSI"
+    ],
+    "bound_max": 131664,
+    "busy_max": 131666,
+    "phases_above": 15,
+    "excess_max": 2
+   },
+   "0-3": {
+    "tasks": [
+     "BFE7",
+     "FBU7"
+    ],
+    "bound_max": 131664,
+    "busy_max": 118267,
+    "phases_above": 0,
+    "excess_max": 0
+   },
+   "1-0": {
+    "tasks": [
+     "SPES"
+    ],
+    "bound_max": 131664,
+    "busy_max": 129534,
+    "phases_above": 0,
+    "excess_max": 0
+   },
+   "1-1": {
+    "tasks": [
+     "FBU3",
+     "VOD1"
+    ],
+    "bound_max": 131664,
+    "busy_max": 121867,
+    "phases_above": 0,
+    "excess_max": 0
+   },
+   "1-2": {
+    "tasks": [
+     "BFE3",
+     "FDF1",
+     "STPH"
+    ],
+    "bound_max": 131664,
+    "busy_max": 129456,
+    "phases_above": 0,
+    "excess_max": 0
+   },
+   "1-3": {
+    "tasks": [
+     "BFE6",
+     "FBU6"
+    ],
+    "bound_max": 131664,
+    "busy_max": 118267,
+    "phases_above": 0,
+    "excess_max": 0
+   },
+   "2-0": {
+    "tasks": [
+     "THRC"
+    ],
+    "bound_max": 131664,
+    "busy_max": 129533,
+    "phases_above": 0,
+    "excess_max": 0
+   },
+   "2-1": {
+    "tasks": [
+     "FBU8",
+     "VOD2"
+    ],
+    "bound_max": 131664,
+    "busy_max": 121867,
+    "phases_above": 0,
+    "excess_max": 0
+   },
+   "2-2": {
+    "tasks": [
+     "BFE8",
+     "FDF2"
+    ],
+    "bound_max": 131664,
+    "busy_max": 120929,
+    "phases_above": 0,
+    "excess_max": 0
+   },
+   "2-3": {
+    "tasks": [
+     "BFE5",
+     "FBU5"
+    ],
+    "bound_max": 131664,
+    "busy_max": 118267,
+    "phases_above": 0,
+    "excess_max": 0
+   },
+   "3-0": {
+    "tasks": [
+     "STAC",
+     "TPMS",
+     "VIBS"
+    ],
+    "bound_max": 131664,
+    "busy_max": 131666,
+    "phases_above": 14,
+    "excess_max": 2
+   },
+   "3-1": {
+    "tasks": [
+     "BFE4",
+     "FBU4"
+    ],
+    "bound_max": 117472,
+    "busy_max": 99628,
+    "phases_above": 0,
+    "excess_max": 0
+   },
+   "3-2": {
+    "tasks": [
+     "BFE1",
+     "FBU1"
+    ],
+    "bound_max": 131664,
+    "busy_max": 118267,
+    "phases_above": 0,
+    "excess_max": 0
+   },
+   "3-3": {
+    "tasks": [
+     "BFE2",
+     "FBU2"
+    ],
+    "bound_max": 131664,
+    "busy_max": 118267,
+    "phases_above": 0,
+    "excess_max": 0
+   }
+  },
+  "phases_with_a_task_twice": 0,
+  "early_jobs": 0,
+  "late_jobs": 133,
+  "phases_cpu_above": 19,
+  "rows": [
+   {
+    "phase": 3,
+    "start_ms": 3.750264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 6,
+    "start_ms": 4.500264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 8,
+    "start_ms": 5.000264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2"
+    ]
+   },
+   {
+    "phase": 52,
+    "start_ms": 16.000264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 54,
+    "start_ms": 16.500266778,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 57,
+    "start_ms": 17.250264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 59,
+    "start_ms": 17.750264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1"
+    ]
+   },
+   {
+    "phase": 102,
+    "start_ms": 28.500264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 104,
+    "start_ms": 29.000266778,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 107,
+    "start_ms": 29.750264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 109,
+    "start_ms": 30.250264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1"
+    ]
+   },
+   {
+    "phase": 152,
+    "start_ms": 41.000264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 154,
+    "start_ms": 41.500266778,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 157,
+    "start_ms": 42.250264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 159,
+    "start_ms": 42.750264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1"
+    ]
+   },
+   {
+    "phase": 202,
+    "start_ms": 53.500264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 204,
+    "start_ms": 54.000266778,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 207,
+    "start_ms": 54.750264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1",
+     "0-2",
+     "3-0"
+    ]
+   },
+   {
+    "phase": 209,
+    "start_ms": 55.250264879,
+    "twice": [],
+    "cpu_above": [
+     "0-0",
+     "0-1"
+    ]
+   }
+  ],
+  "conforms": false
+ },
+ "injection": "tt",
+ "costs": {
+  "file": "car_full.json",
+  "rule": "max"
+ },
+ "tt": {
+  "model": "o_i = L0 + w_h (m + 1) + w_NI; tau = tick of the phase of the sending job",
+  "bounds": {
+   "inject": 3899,
+   "rx_size": 7113,
+   "rx_end": 4157,
+   "w_ni": 15169,
+   "header_wait_per_router": 20
+  },
+  "packets": 1695,
+  "unchecked": 0,
+  "early": 0,
+  "inject_above_bound": 0,
+  "header_above_bound": 0,
+  "rx_wait_above_bound": 0,
+  "end_wait_above_bound": 0,
+  "latency_above_occupancy": 0,
+  "occupancy_above": 0,
+  "late": 0,
+  "ni_overlaps": 0,
+  "inject_delay_min": 355,
+  "inject_delay_max": 395,
+  "header_wait_max": 1,
+  "rx_wait_max": 591,
+  "end_wait_max": 601,
+  "occupancy_slack_min": 13827,
+  "deadline_slack_min": 41713,
+  "violations": 0,
+  "flows": [
+   {
+    "flow": 10,
+    "src": "1-1",
+    "dst": "0-2",
+    "packets": 122,
+    "s": [
+     165184
+    ],
+    "occupancy": 15283,
+    "inject_delay_max": 380,
+    "header_wait_max": 0,
+    "rx_wait_max": 591,
+    "end_wait_max": 427,
+    "latency_max": 645,
+    "occupancy_used_max": 1438,
+    "inject_delay_min": 378,
+    "occupancy_slack_min": 13845
+   },
+   {
+    "flow": 11,
+    "src": "2-1",
+    "dst": "0-2",
+    "packets": 122,
+    "s": [
+     149184
+    ],
+    "occupancy": 15309,
+    "inject_delay_max": 380,
+    "header_wait_max": 0,
+    "rx_wait_max": 575,
+    "end_wait_max": 413,
+    "latency_max": 635,
+    "occupancy_used_max": 1374,
+    "inject_delay_min": 378,
+    "occupancy_slack_min": 13935
+   },
+   {
+    "flow": 14,
+    "src": "1-1",
+    "dst": "1-2",
+    "packets": 122,
+    "s": [
+     69044
+    ],
+    "occupancy": 17625,
+    "inject_delay_max": 392,
+    "header_wait_max": 0,
+    "rx_wait_max": 499,
+    "end_wait_max": 330,
+    "latency_max": 2915,
+    "occupancy_used_max": 3637,
+    "inject_delay_min": 366,
+    "occupancy_slack_min": 13988
+   },
+   {
+    "flow": 19,
+    "src": "2-1",
+    "dst": "2-2",
+    "packets": 122,
+    "s": [
+     69044
+    ],
+    "occupancy": 17625,
+    "inject_delay_max": 392,
+    "header_wait_max": 0,
+    "rx_wait_max": 469,
+    "end_wait_max": 330,
+    "latency_max": 2885,
+    "occupancy_used_max": 3606,
+    "inject_delay_min": 365,
+    "occupancy_slack_min": 14019
+   },
+   {
+    "flow": 2,
+    "src": "0-2",
+    "dst": "0-1",
+    "packets": 10,
+    "s": [
+     606152,
+     631892
+    ],
+    "occupancy": 15353,
+    "inject_delay_max": 392,
+    "header_wait_max": 0,
+    "rx_wait_max": 505,
+    "end_wait_max": 328,
+    "latency_max": 649,
+    "occupancy_used_max": 1369,
+    "inject_delay_min": 386,
+    "occupancy_slack_min": 13984
+   },
+   {
+    "flow": 20,
+    "src": "3-2",
+    "dst": "1-2",
+    "packets": 122,
+    "s": [
+     181140
+    ],
+    "occupancy": 15379,
+    "inject_delay_max": 392,
+    "header_wait_max": 0,
+    "rx_wait_max": 525,
+    "end_wait_max": 382,
+    "latency_max": 675,
+    "occupancy_used_max": 1422,
+    "inject_delay_min": 366,
+    "occupancy_slack_min": 13957
+   },
+   {
+    "flow": 21,
+    "src": "3-3",
+    "dst": "1-2",
+    "packets": 122,
+    "s": [
+     147140
+    ],
+    "occupancy": 15405,
+    "inject_delay_max": 392,
+    "header_wait_max": 1,
+    "rx_wait_max": 537,
+    "end_wait_max": 368,
+    "latency_max": 694,
+    "occupancy_used_max": 1451,
+    "inject_delay_min": 367,
+    "occupancy_slack_min": 13954
+   },
+   {
+    "flow": 23,
+    "src": "3-1",
+    "dst": "1-2",
+    "packets": 122,
+    "s": [
+     117472
+    ],
+    "occupancy": 15405,
+    "inject_delay_max": 380,
+    "header_wait_max": 0,
+    "rx_wait_max": 466,
+    "end_wait_max": 601,
+    "latency_max": 622,
+    "occupancy_used_max": 1578,
+    "inject_delay_min": 355,
+    "occupancy_slack_min": 13827
+   },
+   {
+    "flow": 24,
+    "src": "2-3",
+    "dst": "2-2",
+    "packets": 122,
+    "s": [
+     197140
+    ],
+    "occupancy": 15353,
+    "inject_delay_max": 392,
+    "header_wait_max": 0,
+    "rx_wait_max": 281,
+    "end_wait_max": 381,
+    "latency_max": 425,
+    "occupancy_used_max": 1198,
+    "inject_delay_min": 367,
+    "occupancy_slack_min": 14155
+   },
+   {
+    "flow": 25,
+    "src": "1-3",
+    "dst": "2-2",
+    "packets": 122,
+    "s": [
+     181140
+    ],
+    "occupancy": 15379,
+    "inject_delay_max": 392,
+    "header_wait_max": 0,
+    "rx_wait_max": 282,
+    "end_wait_max": 368,
+    "latency_max": 432,
+    "occupancy_used_max": 1192,
+    "inject_delay_min": 366,
+    "occupancy_slack_min": 14187
+   },
+   {
+    "flow": 26,
+    "src": "0-3",
+    "dst": "2-2",
+    "packets": 122,
+    "s": [
+     147140
+    ],
+    "occupancy": 15405,
+    "inject_delay_max": 392,
+    "header_wait_max": 0,
+    "rx_wait_max": 280,
+    "end_wait_max": 343,
+    "latency_max": 436,
+    "occupancy_used_max": 1170,
+    "inject_delay_min": 366,
+    "occupancy_slack_min": 14235
+   },
+   {
+    "flow": 29,
+    "src": "2-2",
+    "dst": "1-2",
+    "packets": 122,
+    "s": [
+     165122
+    ],
+    "occupancy": 15737,
+    "inject_delay_max": 394,
+    "header_wait_max": 0,
+    "rx_wait_max": 281,
+    "end_wait_max": 358,
+    "latency_max": 809,
+    "occupancy_used_max": 1561,
+    "inject_delay_min": 369,
+    "occupancy_slack_min": 14176
+   },
+   {
+    "flow": 3,
+    "src": "0-1",
+    "dst": "0-2",
+    "packets": 10,
+    "s": [
+     1026546,
+     1602291
+    ],
+    "occupancy": 16249,
+    "inject_delay_max": 394,
+    "header_wait_max": 0,
+    "rx_wait_max": 281,
+    "end_wait_max": 395,
+    "latency_max": 1321,
+    "occupancy_used_max": 2109,
+    "inject_delay_min": 366,
+    "occupancy_slack_min": 14140
+   },
+   {
+    "flow": 30,
+    "src": "1-2",
+    "dst": "0-1",
+    "packets": 122,
+    "s": [
+     220005
+    ],
+    "occupancy": 15507,
+    "inject_delay_max": 391,
+    "header_wait_max": 0,
+    "rx_wait_max": 581,
+    "end_wait_max": 396,
+    "latency_max": 859,
+    "occupancy_used_max": 1645,
+    "inject_delay_min": 364,
+    "occupancy_slack_min": 13862
+   },
+   {
+    "flow": 31,
+    "src": "0-2",
+    "dst": "0-1",
+    "packets": 10,
+    "s": [
+     2342429,
+     2343775
+    ],
+    "occupancy": 15289,
+    "inject_delay_max": 383,
+    "header_wait_max": 0,
+    "rx_wait_max": 514,
+    "end_wait_max": 438,
+    "latency_max": 594,
+    "occupancy_used_max": 1413,
+    "inject_delay_min": 379,
+    "occupancy_slack_min": 13876
+   },
+   {
+    "flow": 36,
+    "src": "3-0",
+    "dst": "0-0",
+    "packets": 5,
+    "s": [
+     590742
+    ],
+    "occupancy": 15405,
+    "inject_delay_max": 390,
+    "header_wait_max": 0,
+    "rx_wait_max": 362,
+    "end_wait_max": 330,
+    "latency_max": 518,
+    "occupancy_used_max": 1237,
+    "inject_delay_min": 388,
+    "occupancy_slack_min": 14168
+   },
+   {
+    "flow": 37,
+    "src": "1-0",
+    "dst": "3-0",
+    "packets": 49,
+    "s": [
+     164044
+    ],
+    "occupancy": 15315,
+    "inject_delay_max": 384,
+    "header_wait_max": 0,
+    "rx_wait_max": 517,
+    "end_wait_max": 396,
+    "latency_max": 603,
+    "occupancy_used_max": 1343,
+    "inject_delay_min": 359,
+    "occupancy_slack_min": 13972
+   },
+   {
+    "flow": 38,
+    "src": "3-0",
+    "dst": "2-0",
+    "packets": 49,
+    "s": [
+     345931,
+     443078,
+     574742
+    ],
+    "occupancy": 15289,
+    "inject_delay_max": 390,
+    "header_wait_max": 0,
+    "rx_wait_max": 375,
+    "end_wait_max": 354,
+    "latency_max": 455,
+    "occupancy_used_max": 1174,
+    "inject_delay_min": 364,
+    "occupancy_slack_min": 14115
+   },
+   {
+    "flow": 6,
+    "src": "1-0",
+    "dst": "0-2",
+    "packets": 49,
+    "s": [
+     180044,
+     182044
+    ],
+    "occupancy": 15309,
+    "inject_delay_max": 384,
+    "header_wait_max": 0,
+    "rx_wait_max": 572,
+    "end_wait_max": 399,
+    "latency_max": 632,
+    "occupancy_used_max": 1377,
+    "inject_delay_min": 382,
+    "occupancy_slack_min": 13932
+   },
+   {
+    "flow": 7,
+    "src": "0-2",
+    "dst": "2-0",
+    "packets": 49,
+    "s": [
+     326824,
+     458488,
+     461425,
+     476757,
+     493481,
+     590152,
+     597892
+    ],
+    "occupancy": 15367,
+    "inject_delay_max": 395,
+    "header_wait_max": 0,
+    "rx_wait_max": 375,
+    "end_wait_max": 354,
+    "latency_max": 473,
+    "occupancy_used_max": 1190,
+    "inject_delay_min": 362,
+    "occupancy_slack_min": 14177
+   }
+  ],
+  "period_cycles": 131664,
+  "cycle_offset": -0.5,
+  "unpaired_end": 0,
+  "phase_ticks_irregular_pes": 0,
+  "tick_grid": {
+   "0-0": {
+    "residue": 1621,
+    "first": 133285,
+    "last": 33575941,
+    "ticks": 255,
+    "lines_on_grid": 255,
+    "coverage": 1.0
+   },
+   "0-1": {
+    "residue": 1621,
+    "first": 264949,
+    "last": 33575941,
+    "ticks": 254,
+    "lines_on_grid": 254,
+    "coverage": 1.0
+   },
+   "0-2": {
+    "residue": 1621,
+    "first": 264949,
+    "last": 33575941,
+    "ticks": 254,
+    "lines_on_grid": 254,
+    "coverage": 1.0
+   },
+   "0-3": {
+    "residue": 1621,
+    "first": 133285,
+    "last": 33575941,
+    "ticks": 255,
+    "lines_on_grid": 255,
+    "coverage": 1.0
+   },
+   "1-0": {
+    "residue": 1621,
+    "first": 133285,
+    "last": 33575941,
+    "ticks": 255,
+    "lines_on_grid": 255,
+    "coverage": 1.0
+   },
+   "1-1": {
+    "residue": 1621,
+    "first": 133285,
+    "last": 33575941,
+    "ticks": 255,
+    "lines_on_grid": 255,
+    "coverage": 1.0
+   },
+   "1-2": {
+    "residue": 1621,
+    "first": 264949,
+    "last": 33575941,
+    "ticks": 254,
+    "lines_on_grid": 254,
+    "coverage": 1.0
+   },
+   "1-3": {
+    "residue": 1621,
+    "first": 133285,
+    "last": 33575941,
+    "ticks": 255,
+    "lines_on_grid": 255,
+    "coverage": 1.0
+   },
+   "2-0": {
+    "residue": 1621,
+    "first": 133285,
+    "last": 33575941,
+    "ticks": 255,
+    "lines_on_grid": 255,
+    "coverage": 1.0
+   },
+   "2-1": {
+    "residue": 1621,
+    "first": 133285,
+    "last": 33575941,
+    "ticks": 255,
+    "lines_on_grid": 255,
+    "coverage": 1.0
+   },
+   "2-2": {
+    "residue": 1621,
+    "first": 133285,
+    "last": 33575941,
+    "ticks": 255,
+    "lines_on_grid": 255,
+    "coverage": 1.0
+   },
+   "2-3": {
+    "residue": 1621,
+    "first": 133285,
+    "last": 33575941,
+    "ticks": 255,
+    "lines_on_grid": 255,
+    "coverage": 1.0
+   },
+   "3-0": {
+    "residue": 1621,
+    "first": 264949,
+    "last": 33575941,
+    "ticks": 254,
+    "lines_on_grid": 254,
+    "coverage": 1.0
+   },
+   "3-1": {
+    "residue": 1621,
+    "first": 133285,
+    "last": 33575941,
+    "ticks": 255,
+    "lines_on_grid": 255,
+    "coverage": 1.0
+   },
+   "3-2": {
+    "residue": 1621,
+    "first": 133285,
+    "last": 33575941,
+    "ticks": 255,
+    "lines_on_grid": 255,
+    "coverage": 1.0
+   },
+   "3-3": {
+    "residue": 1621,
+    "first": 133285,
+    "last": 33575941,
+    "ticks": 255,
+    "lines_on_grid": 255,
+    "coverage": 1.0
+   }
+  },
+  "tick_grid_coverage_min": 1.0,
+  "end_lines": 1695,
+  "timer_lines": 5839,
+  "jobs": {
+   "events": 2945,
+   "unchecked": 0,
+   "late": 0,
+   "slack_min": 7714
+  },
+  "ready": {
+   "events": 1695,
+   "unchecked": 0,
+   "late": 0,
+   "slack_min": 8922
+  }
+ }
+}
