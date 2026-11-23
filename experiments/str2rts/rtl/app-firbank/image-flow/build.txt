@@ -1,0 +1,5 @@
+app=APP-FIRBANK name=str2rts_firbank mesh=4x4
+f_clk_hz=583904000 release_ns=2000000 sim_ns=37000000 tick_cycles=default
+max_tasks=29 max_pkt_queue_slots=32 noc_tt_slots=16 ram_bytes=262144
+heap=180676 demand_worst_pe=83196 margin=97464 fits=True
+image text=27180 data=50932 bss=184032
