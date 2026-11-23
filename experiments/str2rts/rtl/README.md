@@ -80,7 +80,7 @@ Checked with `rttools.ucxgen generate` and `rttools.ucxgen memory` on the 17 app
 
 ## Results
 
-Nine runs, every check passed in each: no response above R_bound or the deadline, no phase of a PE above t(V_k), no late packet, no error of the packet monitor, the phases conform (`phasecheck`), no job ends after F, and no violation of the injection checks (injection delay, header wait, RX wait, end wait, occupancy, deadline, overlap at a network interface). `(table clock)`: the clock of `../reference.json` with the injection table of the costs of the CSV; `(image clock)`: the clock of the flow of the image with the table of t(v) = max(CSV, static). R_bound is the bound of the model of the run at its clock.
+Ten runs, every check passed in each: no response above R_bound or the deadline, no phase of a PE above t(V_k), no late packet, no error of the packet monitor, the phases conform (`phasecheck`), no job ends after F, and no violation of the injection checks (injection delay, header wait, RX wait, end wait, occupancy, deadline, overlap at a network interface). `(table clock)`: the clock of `../reference.json` with the injection table of the costs of the CSV; `(image clock)`: the clock of the flow of the image with the table of t(v) = max(CSV, static). R_bound is the bound of the model of the run at its clock.
 
 | Run | Mesh | F_CLK (MHz) | Costs of the table | RAM (B) | Simulated (ms) | vsim wall (s) | Iterations | Largest response (ms) | R_bound (ms) | D (ms) | Smallest CPU margin of a phase (%) | Packets | Late | Smallest packet slack (cycles) | Jobs after F | Injection violations | Phases conform | Every bound holds |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -90,11 +90,14 @@ Nine runs, every check passed in each: no response above R_bound or the deadline
 | APP-CFIR (image clock) | 2x2 | 416.576 | max_csv_static | 65536 | 10.5000 | 272.6 | 13 | 1.0160 | 1.0354 | 1.5000 | 4.1 | 29 | 0 | 12430 | 0 | 0 | True | True |
 | APP-DCT (table clock) | 2x2 | 412.704 | csv | 65536 | 12.5000 | 339.6 | 15 | 2.0461 | 2.1277 | 2.5000 | 4.7 | 70 | 0 | 13518 | 0 | 0 | True | True |
 | APP-DCT (image clock) | 2x2 | 410.240 | max_csv_static | 65536 | 12.5000 | 333.4 | 15 | 2.0451 | 2.1394 | 2.5000 | 4.7 | 70 | 0 | 12286 | 0 | 0 | True | True |
+| APP-DES (image clock) | 4x4 | 725.768 | max_csv_static | 262144 | 85.0000 | 13150.0 | 26 | 31.6262 | 32.0000 | 32.0000 | 68.9 | 510 | 0 | 77413 | 0 | 0 | True | True |
 | APP-FFT (table clock) | 4x4 | 463.264 | csv | 65536 | 16.5000 | 1758.4 | 19 | 4.0131 | 4.0503 | 4.5000 | 4.1 | 376 | 0 | 22839 | 0 | 0 | True | True |
 | APP-MATMULT (table clock) | 4x4 | 432.224 | csv | 65536 | 19.5000 | 1935.5 | 22 | 5.5584 | 5.5990 | 6.0000 | 4.1 | 463 | 0 | 23391 | 0 | 0 | True | True |
 | APP-PERFTEST (table clock) | 4x4 | 462.816 | csv | 262144 | 14.5000 | 1619.3 | 17 | 3.0065 | 3.0240 | 3.5000 | 4.1 | 369 | 0 | 12610 | 0 | 0 | True | True |
 
 Wall time of `vsim` with three simulations at a time: 26 to 29 s per simulated ms on the 2x2 mesh and 99 to 112 s per simulated ms on the 4x4 mesh.
+
+APP-DES (423 tasks, 30 on the largest PE, T = 2 ms) runs with `MAX_TASKS=31`, `MAX_PKT_QUEUE_SLOTS=16`, 256 KiB of RAM per PE and a tick of 1,451,536 cycles (90,721 steps of TIMER1, above the 65,536 of a 16-bit counter: the 32-bit TIMER1 and the 32-bit step of `lib/noc_tt.c`); every step of its 15 injection instants is above 65,535. Its first release (3 ms) comes in the middle of a tick (the ticks come every 2 ms from reset), 727,969 cycles before the tick that applies it; the analysis takes that tick as the start of the phase (`rttools/paper/ttcheck.py`, `release_tick`) and counts the packet windows from the release of the model, 725,768 cycles after the release of the log (`rttools/paper/rtlapp.py`, `release_offset`). The responses count from the release of the log, so they hold that wait: the largest is 31.626 ms against D = 32 ms. The start-up of the 30 tasks of a PE ends 0.59 ms after the first tick (2.59 ms), before the first release.
 
 ## Static costs of the images
 
