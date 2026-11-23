@@ -1,8 +1,8 @@
-# Regeneration of the stored results after the queue correction
+# Regeneration of the stored results with the queue section in every image
 
-The critical section around the queue of a task (`pkt-sim/software/ucx-os/lib/noc.c`: dequeue of `ucx_noc_receive()`, local enqueue of `ucx_noc_send()`) is part of every image of this tree. The stored RTL logs, images, static costs and references of the runs up to tag r11-rc9 come from the code without it. This file gives the ordered commands that produce a new round of runs and every reference derived from them, what each step feeds, its time, and the values of the paper it can change. Nothing here has been run on the tree, except where Section 5 says so (in a scratch copy).
+The critical section around the queue of a task (`pkt-sim/software/ucx-os/lib/noc.c`: dequeue of `ucx_noc_receive()`, local enqueue of `ucx_noc_send()`) is part of every image of this tree. The stored RTL logs, images, static costs and references of the runs up to tag r11-rc9 come from the code without it. This file gives the ordered commands that produce a new round of runs and every reference derived from them, what each step feeds, its time, and the values of the paper it can change. Section 7 records the round that these steps produced on this tree (round r12).
 
-`<R>` stands for the letter of the new round (the round of tag r11-rc9 used V: VG, VH, VCV, VMA, W4, W5, CF6). `$ENV_SETUP` is the value of `experiments/exp23/README.md` (Questa and riscv64-elf-gcc 12.2.0); `$PY` is a Python with `orca-rt-tools/requirements.txt`. Every `make` below takes `PYTHON=$PY`.
+`<R>` stands for the letter of the new round (the round of tag r11-rc9 used V: VG, VH, VCV, VMA, W4, W5, CF6; round r12 uses X: XG, XH, XCV, XMA, with W6, W7, CF7 and XUCV). `$ENV_SETUP` is the value of `experiments/exp23/README.md` (Questa and riscv64-elf-gcc 12.2.0); `$PY` is a Python with `orca-rt-tools/requirements.txt`. Every `make` below takes `PYTHON=$PY`.
 
 ## 1. What changes and what does not
 
@@ -20,7 +20,7 @@ The critical section around the queue of a task (`pkt-sim/software/ucx-os/lib/no
 | `exp23` (runs VG, VH), `car-v-rtl` (VCV), `multiapp` (VMA), `wcet` (W4, W5, `reference_r11g.json`), `car-full` (CF6) | yes: RTL logs | steps 6, 7 |
 | `cputime`, `ablation` | yes: read the logs, the job tables and the handler files of the runs | step 8 |
 | `automotive` | reads the kernel terms of `wcet/reference_tt.json`, which do not change (Section 5) | check only (step 8) |
-| `str2rts/rtl` | the stored runs and the runs of `run_all.sh` / `run_image_flow.sh` were built with `NOC_QUEUE_DI=1`, the code of this tree | APP-DES and APP-FIRBANK only (step 9); their `RUN_INFO` has the line `noc_queue_di=1`, which `simulate.sh` no longer writes |
+| `str2rts/rtl` | the stored runs and the runs of `run_all.sh` / `run_image_flow.sh` were built with `NOC_QUEUE_DI=1`, the code of this tree | APP-DES and APP-FIRBANK only (step 9); their `RUN_INFO` has the line `noc_queue_di=1`, which `simulate.sh` of this tree does not write |
 | `exp23` run F (`reference_head.json`), `figures` (`reference_exp23.json`), runs A to H, T*, U*, CV, CV2, MA, W1 to W3, CF to CF5 | historical runs of their tags (other release rule, crt0, injection) | no, unless the paper keeps a number of them (Section 6) |
 
 ## 2. Before the runs
@@ -45,7 +45,7 @@ The critical section around the queue of a task (`pkt-sim/software/ucx-os/lib/no
 | 2 | `make -C experiments/wcet analyze-tt costs-tt`; write `reference_tt.json` from `build/tt/metrics.json` | Python | 11 s | `wcet/costs/tt/<app>.json`, `<app>.handlers.json`, `wcet/reference_tt.json` | steps 3, 4, 8; `tt`, `cputime`, `ablation`, `automotive`, `str2rts/config.json` (handlers) |
 | 3 | `make -C experiments/tt run` (do not check yet: the tables of the tree still have the old costs) | Python | 14 s | `tt/build/metrics.json`: f_CPU, f_NoC, clock of each run | step 4 |
 | 4 | Set the clocks of step 3 in the Makefiles (`exp23` `TT_CLOCKS`, `car-v-rtl` `TT_CLOCKS`, `wcet` `TT_CLOCKS` and the `F_CLK` lines of `images-tt`, `multiapp` `F_CLK`, `car-full` `F_CLK`), then `make -C experiments/exp23 tt`, `make -C experiments/car-v-rtl tt`, `make -C experiments/wcet app`, `make -C experiments/multiapp app`, `make -C experiments/car-full ucx` | Python | 5 s | `pkt-sim/software/ucx-os/app/{weird_a,car_v,wcet_e,carv_e,car_full}_tt.h` | steps 5, 6 |
-| 5 | Check of the fixed point, with no file of `wcet` replaced: `make -C experiments/wcet images-tt` (the images at the clocks and with the tables of step 4) and the static analysis of those images in another directory (`BUILD=build/fix`, with `images/tt` pointing to them in a copy). Then `make -C experiments/wcet check-tt`, and `make -C experiments/tt run check` after `tt/reference.json` takes `tt/build/metrics.json` | toolchain, Python | 40 s | `tt/reference.json` | the costs of the new images must equal those of step 2 in every field but the hash of the image (the tables are data); `images/tt` and `costs/tt` stay those of steps 1 and 2, because each table names the hash of its costs file and each costs file the hash of its image; if a cost differs, repeat steps 1 to 5 |
+| 5 | Check that the costs do not move, with no file of `wcet` replaced: `make -C experiments/wcet images-tt` (the images at the clocks and with the tables of step 4) and the static analysis of those images in another directory (`BUILD=build/again`, with `images/tt` pointing to them in a copy). Then `make -C experiments/wcet check-tt`, and `make -C experiments/tt run check` after `tt/reference.json` takes `tt/build/metrics.json` | toolchain, Python | 40 s | `tt/reference.json` | the costs of the new images must equal those of step 2 in every field but the hash of the image (the tables are data); `images/tt` and `costs/tt` stay those of steps 1 and 2, because each table names the hash of its costs file and each costs file the hash of its image; if a cost differs, repeat steps 1 to 5 |
 | 6 | Commit, tag, and run from a clean checkout of the tag or a `git archive` of it (`REQUIRE_CLEAN=1`), in a directory outside /home. Runs of Section 4 | Questa, toolchain | Section 4 | `build/sim*/{events.txt,RUN_INFO,time.log}`, image and listing | step 7 |
 | 7 | Store each run as `logs/<run>.{events.txt,RUN_INFO,time.txt,image.elf,image.lst}` (`exp23` also `noinstr.lst`, from `make software-without` at the clock of the run), analyze it and write its reference (Section 4, last column); add the runs to `TICK_RUNS` (`exp23`), to `check` (`car-v-rtl`, `wcet`, `car-full`), and a `check-<r>ma` target (`multiapp`) | Python | 1 to 2 min | `reference_<run>.json` | step 8 |
 | 8 | `wcet`: a `config_<round>.json` as `config_r11g.json` on the new runs, `make analyze-<round> check-<round>`; `cputime/config.json` and `ablation/config.json` on the new runs and job tables, `make -C experiments/cputime`, `make -C experiments/ablation`; `make -C experiments/automotive`; `make -C experiments/tt timing` | Python | 3 min | `wcet/reference_<round>.json`, `cputime/reference.json`, `ablation/reference.json` | the paper |
@@ -113,3 +113,27 @@ Decisions that the steps do not take:
 - Runs TCV and UCV (event-triggered injection, Table V and Section VI-J) are of tags r11-rc3 and r11-rc5. A run with this kernel is `INJECTION=finish` (the crt0 of UCV); TCV has the crt0 of tag r11-rc3, which this platform does not use.
 - `exp23` `make` and `figures` analyze run F (tag exp23-F: data-driven release, nested interrupts, injection at the end of the job). The application of that run on this kernel is `weird_a_data` with `INJECTION=finish`; the Gantt and the response per iteration of the article then come from another code than the runs of RQ1 and RQ2.
 - `wcet/images/tt13` (riscv64-unknown-elf-gcc 13.2.0) needs that compiler; without it the gcc 13 rows of `reference_tt.json` stay those of the old images.
+
+## 7. Round r12 (done)
+
+The steps above ran on this tree. The runs come from a `git archive` of commit de85565 of branch `platform-all` (`repo_state=archive`, no tag), Questa Sim-64 2025.3 and riscv64-elf-gcc 12.2.0, with other simulations on the machine.
+
+| Run | Replaces | Clock (MHz) | Simulated | vsim wall | Stored in |
+|---|---|---|---|---|---|
+| XG | VG | 500 | 20 ms | 11 min 37 s | `exp23/logs/XG.*`, `reference_XG.json` |
+| XH | VH | 449.152 | 20 ms | 10 min 30 s | `exp23/logs/XH.*`, `reference_XH.json` |
+| XCV | VCV | 441.088 | 11.5 ms | 22 min 14 s | `car-v-rtl/logs/XCV.*`, `reference_XCV.json` |
+| XMA | VMA | 458.016 | 11.5 ms | 29 min 27 s | `multiapp/logs/XMA.*`, `reference_XMA_{CARV,E}.json` |
+| W6 | W4 | 500 | 10.5 ms | 6 min 35 s | `wcet/logs/W6.*`, `reference_W6.json` |
+| W7 | W5 | 234.784 | 10.5 ms | 2 min 53 s | `wcet/logs/W7.*`, `reference_W7.json` |
+| CF7 | CF6 | 526.656 | 64 ms | 2 h 26 min 26 s | `car-full/logs/CF7.*`, `reference_CF7.json` |
+| XUCV | TCV, UCV | 380 | 11.5 ms | 19 min 30 s | `car-v-rtl/logs/XUCV.*`, `reference_XUCV.json` |
+
+Differences from the steps as written:
+
+- Step 5: `wcet/images/tt` holds the images of step 1, built with the tables of the costs of round r11g, and `costs/tt` names their hashes. The images of the runs have the tables of the new costs: the same symbols, the same code and the same static t(v), other bytes inside the injection tables only (1 byte for E, 4 for CAR-V, 4 for WCET-E; `orca-rt-tools/tests/test_r11g_runs.py`). A round whose `images/tt` equals the images of its runs needs steps 1 and 2 once more after step 4 and before the runs.
+- `wcet/images/tt13` comes from the module riscv64-elf/13.2.0 of the simulation host (`riscv64-elf-gcc (GCC) 13.2.0`), not from the container toolchain of round r11g.
+- XUCV is the one run with the event-triggered injection (`INJECTION=finish`); the kernel of this tree has one `crt0.s`, so it replaces both TCV and UCV in `ablation/config.json`. Its `RUN_INFO` has `costs=max_csv_static`, because `app/car_v_tt.h` exists in the tree; the image does not use the table and the analysis takes the model of `injection=finish` (costs of the CSV).
+- `tt/config.json`, `cputime/config.json` and `ablation/config.json` name the runs of round r12; `wcet/config_r12.json` and `make analyze-r12 check-r12` are the analysis of `config_r11g.json` on them. The runs of round r11g stay in the tree with their references and checks.
+- APP-DES ran at 725.768 MHz (`str2rts/rtl/app-des/image-flow`). Its release comes in the middle of a tick, and the run analysis took the tick before as the start of each phase; `rttools/paper/ttcheck.py` (`release_tick`) and `rttools/paper/rtlapp.py` (`release_offset`) take the tick that applies the release. No stored analysis changes with it.
+- `experiments/REGENERATED_VALUES.json` lists every number of the paper that comes from a stored reference, with its value in round r11g and in round r12.
