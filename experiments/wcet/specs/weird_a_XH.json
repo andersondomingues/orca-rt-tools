@@ -1,0 +1,9 @@
+{
+ "_doc": "rttools.wcet spec of application E on the image of run XH (experiments/exp23/logs/XH.image.elf, riscv64-elf-gcc 12.2.0, commit de85565 (round r12: the image has the critical section around the queue of a task, lib/noc.c; release by tick, kernel without nested interrupts, crt0=guard_readback, time-triggered injection (INJECTION=tt)).",
+ "image": "../../exp23/logs/XH.image.elf",
+ "annotations": [
+  "../../../pkt-sim/software/ucx-os/wcet/ucx-os.json",
+  "../annotations/weird_a.json"
+ ],
+ "app": "../../../apps/synthetic-app-e/synthetic-app-e.csv"
+}

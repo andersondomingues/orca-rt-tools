@@ -40,6 +40,11 @@
 #                  E on run VH (../exp23/logs/VH.*), CAR-V on run VCV (../car-v-rtl/logs/VCV.*), WCET-E on
 #                  run W5 (logs/W5.*), flow of E with the static costs of the image of VH; into $(BUILD)/r11g
 #   make check-r11g  $(BUILD)/r11g/metrics.json against reference_r11g.json
+#   make analyze-r12  the same analysis on the runs of round r12 (the images with the critical section around the
+#                  queue of a task, lib/noc.c; config_r12.json): E on run XH (../exp23/logs/XH.*), CAR-V on run XCV
+#                  (../car-v-rtl/logs/XCV.*), WCET-E on run W7 (logs/W7.*), flow of E with the static costs of the
+#                  image of XH; into $(BUILD)/r12
+#   make check-r12  $(BUILD)/r12/metrics.json against reference_r12.json
 #   make analyze-tt  the images with the time-triggered injection (config_tt.json; images/tt: riscv64-elf-gcc
 #                  12.2.0, images/tt13: riscv64-unknown-elf-gcc 13.2.0, images/*/BUILD.txt): t(v) of E,
 #                  CAR-V, WCET-E, CARV-E and CAR-FULL (every task of every image of round r11g) with
@@ -70,7 +75,11 @@
 # run-analyze check-run LOG=logs/W5.events.txt REF=reference_W5.json SPEC=specs/wcet_e_tt.json (image of
 # images/tt); rtlapp of run-log takes the model of the RUN_INFO (network-interface model tt, t(v) =
 # max(CSV, static), deadline=tick).
-# (`make check` runs W1 to W5, check-r11c, check-r11e and check-r11g).
+# Runs W6 and W7 (logs/W6.*, logs/W7.*, reference_W6.json, reference_W7.json): wcet_e of round r12 (commit de85565: as W4
+# and W5 with the critical section around the queue of a task, lib/noc.c; 10.5 ms at 500 MHz and at 234.784 MHz, the
+# clock of the flow with the static costs of that image): make run-analyze check-run LOG=logs/W7.events.txt
+# REF=reference_W7.json SPEC=specs/wcet_e_tt.json.
+# (`make check` runs W1 to W7, check-r11c, check-r11e, check-r11g and check-r12).
 #
 # SIM_NS: release delay 3 ms + 14 releases of 0.5 ms (rtlapp cpu_windows takes windows of
 # n(J) + 1 = 4 releases from the release of iteration 4) = 10 ms.
@@ -106,7 +115,7 @@ RTL     := ../../pkt-sim/tests/rtl
 UCX_IMG := pkt-sim/software/ucx-os/build/target
 
 .PHONY: all analyze check app csv images bodies trace sim run-analyze check-run analyze-r11c check-r11c analyze-r11e check-r11e
-.PHONY: analyze-r11g check-r11g clean
+.PHONY: analyze-r11g check-r11g analyze-r12 check-r12 clean
 .PHONY: analyze-tt check-tt images-tt costs-tt
 
 all: analyze check
@@ -123,9 +132,12 @@ check:
 	$(MAKE) run-analyze check-run LOG=logs/W3.events.txt REF=reference_W3.json
 	$(MAKE) run-analyze check-run LOG=logs/W4.events.txt REF=reference_W4.json SPEC=specs/wcet_e_tt.json
 	$(MAKE) run-analyze check-run LOG=logs/W5.events.txt REF=reference_W5.json SPEC=specs/wcet_e_tt.json
+	$(MAKE) run-analyze check-run LOG=logs/W6.events.txt REF=reference_W6.json SPEC=specs/wcet_e_tt.json
+	$(MAKE) run-analyze check-run LOG=logs/W7.events.txt REF=reference_W7.json SPEC=specs/wcet_e_tt.json
 	$(MAKE) analyze-r11c check-r11c
 	$(MAKE) analyze-r11e check-r11e
 	$(MAKE) analyze-r11g check-r11g
+	$(MAKE) analyze-r12 check-r12
 	$(MAKE) analyze-tt check-tt
 
 app:
@@ -177,6 +189,12 @@ analyze-r11g:
 
 check-r11g:
 	PYTHONPATH=$(RTTOOLS) $(PYTHON) -m rttools.paper.exp23 check $(BUILD)/r11g/metrics.json reference_r11g.json
+
+analyze-r12:
+	$(RUN) analyze --config config_r12.json --out $(BUILD)/r12
+
+check-r12:
+	PYTHONPATH=$(RTTOOLS) $(PYTHON) -m rttools.paper.exp23 check $(BUILD)/r12/metrics.json reference_r12.json
 
 analyze-tt:
 	$(RUN) analyze --config config_tt.json --out $(BUILD)/tt
