@@ -1,5 +1,5 @@
 
-/tmp/claude-0/-home-claude/4c22c33d-4f59-5e66-9257-727cba3ee1b5/scratchpad/forge/wt/wcet-static/pkt-sim/tests/rtl/wcet_bodies.elf:     file format elf32-littleriscv
+wcet_bodies.elf:     file format elf32-littleriscv
 
 
 Disassembly of section .text:
