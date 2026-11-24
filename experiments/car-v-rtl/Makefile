@@ -51,7 +51,7 @@
 # experiments/wcet), 11.5 ms:
 #   make analyze check-run phase-check LOG=logs/VCV.events.txt REF=reference_VCV.json OUTDIR=build/results_VCV
 # Runs XCV and XUCV (logs/XCV.*, logs/XUCV.*, reference_XCV.json, reference_XUCV.json): car_v of round r12 (commit
-# de85565: the image with the critical section around the queue of a task, lib/noc.c), 11.5 ms. XCV replaces VCV
+# 524ca79: the image with the critical section around the queue of a task, lib/noc.c), 11.5 ms. XCV replaces VCV
 # (time-triggered injection, 441.088 MHz, XCV.image.elf for experiments/wcet); XUCV replaces TCV and UCV, the runs with
 # the event-triggered injection (INJECTION=finish make sim F_CLK=380000000; the kernel of this tree has one crt0.s):
 #   make analyze check-run phase-check LOG=logs/XCV.events.txt REF=reference_XCV.json OUTDIR=build/results_XCV

@@ -40,7 +40,7 @@
 #   make check-vma the same for the stored run VMA (logs/VMA.*: carv_e of tag r11-rc9, as UMA with the
 #                  time-triggered injection, table carv_e_tt.h of t(v) = max(CSV, static), at 457.6 MHz)
 #                  against reference_VMA_CARV.json and reference_VMA_E.json, into $(BUILD)/results_VMA
-#   make check-xma the same for the stored run XMA (logs/XMA.*: carv_e of round r12, commit de85565: as VMA with the
+#   make check-xma the same for the stored run XMA (logs/XMA.*: carv_e of round r12, commit 524ca79: as VMA with the
 #                  critical section around the queue of a task, lib/noc.c, at 458.016 MHz, the clock of the flow with
 #                  the static costs of that image) against reference_XMA_CARV.json and reference_XMA_E.json, into
 #                  $(BUILD)/results_XMA

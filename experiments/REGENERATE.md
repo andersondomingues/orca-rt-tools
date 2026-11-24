@@ -8,8 +8,8 @@ The critical section around the queue of a task (`pkt-sim/software/ucx-os/lib/no
 
 | Change | Effect on the images | Effect on the stored results |
 |---|---|---|
-| 32-bit TIMER1, CTC and OCR (RTL), limits of `hal.c`, step type of `lib/noc_tt.c` | none for a tick of at most 1,048,576 cycles: the images of `weird_a`, `car_v`, `wcet_e`, `carv_e` and `car_full` are byte-identical to those of commit 9aa22aa, and the RTL gives the same events log (application E, parameters of run VH) | none |
-| Queue section in every image | every image changes: `ucx_noc_receive` 29 to 42 instructions, `ucx_noc_send` 99 to 106; the image is the one that commit 9aa22aa builds with `NOC_QUEUE_DI=1` | every RTL log, image and static cost of the applications below |
+| 32-bit TIMER1, CTC and OCR (RTL), limits of `hal.c`, step type of `lib/noc_tt.c` | none for a tick of at most 1,048,576 cycles: the images of `weird_a`, `car_v`, `wcet_e`, `carv_e` and `car_full` are byte-identical to those of commit 0cba32a, and the RTL gives the same events log (application E, parameters of run VH) | none |
+| Queue section in every image | every image changes: `ucx_noc_receive` 29 to 42 instructions, `ucx_noc_send` 99 to 106; the image is the one that commit 0cba32a builds with `NOC_QUEUE_DI=1` | every RTL log, image and static cost of the applications below |
 
 | Directory | Depends on the images | Regenerate |
 |---|---|---|
@@ -116,7 +116,7 @@ Decisions that the steps do not take:
 
 ## 7. Round r12 (done)
 
-The steps above ran on this tree. The runs come from a `git archive` of commit de85565 of branch `platform-all` (`repo_state=archive`, no tag), Questa Sim-64 2025.3 and riscv64-elf-gcc 12.2.0, with other simulations on the machine.
+The steps above ran on this tree. The runs come from a `git archive` of commit 524ca79 of branch `platform-all` (`repo_state=archive`, no tag), Questa Sim-64 2025.3 and riscv64-elf-gcc 12.2.0, with other simulations on the machine.
 
 | Run | Replaces | Clock (MHz) | Simulated | vsim wall | Stored in |
 |---|---|---|---|---|---|

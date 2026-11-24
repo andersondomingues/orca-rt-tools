@@ -1,5 +1,5 @@
 {
- "_doc": "Numbers of the paper that come from a stored reference: value of round r11g (commit 9aa22aa, the references that the paper was written from) and value of round r12 (this tree: the images with the critical section around the queue of a task, lib/noc.c). Built by a script from the map of the paper sources (file, line, context, printed form, reference file and key, transform). old.value: the value of the key at commit 9aa22aa; new.value: the value of the key in the reference of this tree (run names: VG, VH, VCV, VMA, W4, W5, CF6, TCV and UCV become XG, XH, XCV, XMA, W6, W7, CF7 and XUCV); status: changed, unchanged, or why there is no new value; printed_new: the printed form recomputed from the new value when the transform is a scale and a rounding that reproduces the old printed form (printed_changes: whether the text of the paper changes); otherwise null with printed_note. Section runs: every check of each RTL run of round r12 next to the run of round r11g that it replaces. Section str2rts_new_rows: the two STR2RTS applications that had no RTL run.",
+ "_doc": "Numbers of the paper that come from a stored reference: value of round r11g (commit 0cba32a, the references that the paper was written from) and value of round r12 (this tree: the images with the critical section around the queue of a task, lib/noc.c). Built by a script from the map of the paper sources (file, line, context, printed form, reference file and key, transform). old.value: the value of the key at commit 0cba32a; new.value: the value of the key in the reference of this tree (run names: VG, VH, VCV, VMA, W4, W5, CF6, TCV and UCV become XG, XH, XCV, XMA, W6, W7, CF7 and XUCV); status: changed, unchanged, or why there is no new value; printed_new: the printed form recomputed from the new value when the transform is a scale and a rounding that reproduces the old printed form (printed_changes: whether the text of the paper changes); otherwise null with printed_note. Section runs: every check of each RTL run of round r12 next to the run of round r11g that it replaces. Section str2rts_new_rows: the two STR2RTS applications that had no RTL run.",
  "counts": {
   "changed": 432,
   "unchanged": 654,
@@ -12,7 +12,7 @@
     "reference": "experiments/exp23/reference_XH.json",
     "reference_of_the_replaced_run": "experiments/exp23/reference_VH.json",
     "run_info": {
-     "repo_commit": "de85565a114ec29fcb5a40c8507643fc473d7785",
+     "repo_commit": "524ca794eaafd91a9d178bf3bfc14534dbe750a1",
      "repo_state": "archive",
      "repo_tag": "none",
      "sim_ns": "20000000",
@@ -305,7 +305,7 @@
     "reference": "experiments/exp23/reference_XG.json",
     "reference_of_the_replaced_run": "experiments/exp23/reference_VG.json",
     "run_info": {
-     "repo_commit": "de85565a114ec29fcb5a40c8507643fc473d7785",
+     "repo_commit": "524ca794eaafd91a9d178bf3bfc14534dbe750a1",
      "repo_state": "archive",
      "repo_tag": "none",
      "sim_ns": "20000000",
@@ -600,7 +600,7 @@
     "reference": "experiments/car-v-rtl/reference_XCV.json",
     "reference_of_the_replaced_run": "experiments/car-v-rtl/reference_VCV.json",
     "run_info": {
-     "repo_commit": "de85565a114ec29fcb5a40c8507643fc473d7785",
+     "repo_commit": "524ca794eaafd91a9d178bf3bfc14534dbe750a1",
      "repo_state": "archive",
      "repo_tag": "none",
      "sim_ns": "11500000",
@@ -927,7 +927,7 @@
     "reference": "experiments/car-v-rtl/reference_XUCV.json",
     "reference_of_the_replaced_run": "experiments/car-v-rtl/reference_UCV.json",
     "run_info": {
-     "repo_commit": "de85565a114ec29fcb5a40c8507643fc473d7785",
+     "repo_commit": "524ca794eaafd91a9d178bf3bfc14534dbe750a1",
      "repo_state": "archive",
      "repo_tag": "none",
      "sim_ns": "11500000",
@@ -1157,7 +1157,7 @@
     "reference": "experiments/multiapp/reference_XMA_CARV.json",
     "reference_of_the_replaced_run": "experiments/multiapp/reference_VMA_CARV.json",
     "run_info": {
-     "repo_commit": "de85565a114ec29fcb5a40c8507643fc473d7785",
+     "repo_commit": "524ca794eaafd91a9d178bf3bfc14534dbe750a1",
      "repo_state": "archive",
      "repo_tag": "none",
      "sim_ns": "11500000",
@@ -1488,7 +1488,7 @@
     "reference": "experiments/multiapp/reference_XMA_E.json",
     "reference_of_the_replaced_run": "experiments/multiapp/reference_VMA_E.json",
     "run_info": {
-     "repo_commit": "de85565a114ec29fcb5a40c8507643fc473d7785",
+     "repo_commit": "524ca794eaafd91a9d178bf3bfc14534dbe750a1",
      "repo_state": "archive",
      "repo_tag": "none",
      "sim_ns": "11500000",
@@ -1821,7 +1821,7 @@
     "reference": "experiments/wcet/reference_W7.json",
     "reference_of_the_replaced_run": "experiments/wcet/reference_W5.json",
     "run_info": {
-     "repo_commit": "de85565a114ec29fcb5a40c8507643fc473d7785",
+     "repo_commit": "524ca794eaafd91a9d178bf3bfc14534dbe750a1",
      "repo_state": "archive",
      "repo_tag": "none",
      "sim_ns": "10500000",
@@ -2148,7 +2148,7 @@
     "reference": "experiments/wcet/reference_W6.json",
     "reference_of_the_replaced_run": "experiments/wcet/reference_W4.json",
     "run_info": {
-     "repo_commit": "de85565a114ec29fcb5a40c8507643fc473d7785",
+     "repo_commit": "524ca794eaafd91a9d178bf3bfc14534dbe750a1",
      "repo_state": "archive",
      "repo_tag": "none",
      "sim_ns": "10500000",
@@ -2477,7 +2477,7 @@
     "reference": "experiments/car-full/reference_CF7.json",
     "reference_of_the_replaced_run": "experiments/car-full/reference_CF6.json",
     "run_info": {
-     "repo_commit": "de85565a114ec29fcb5a40c8507643fc473d7785",
+     "repo_commit": "524ca794eaafd91a9d178bf3bfc14534dbe750a1",
      "repo_state": "archive",
      "repo_tag": "none",
      "sim_ns": "64000000",
@@ -27365,7 +27365,7 @@
   }
  ],
  "map_notes": [
-  "OLD VALUES: every old_value was read from commit 9aa22aa (git show), never from the worktree. All mappings were recomputed in Python from these values; confidence 'exact' means that the transform reproduces the printed string. Scripts and the extracted old references: this directory (lib.py, p01..p13_*.py, merge.py, old/).",
+  "OLD VALUES: every old_value was read from commit 0cba32a (git show), never from the worktree. All mappings were recomputed in Python from these values; confidence 'exact' means that the transform reproduces the printed string. Scripts and the extracted old references: this directory (lib.py, p01..p13_*.py, merge.py, old/).",
   "KEYS: 'key' is a dotted path with list indices as numbers; 'key_path' gives the same path as a list of components, which is unambiguous when a component holds a dot or spaces (e.g. ablation apps.E.deadline_sweep['1.730'], str2rts/rtl/summary.json 'APP-CFIR (table clock)', car_band reader_change['615']['f10:2']). A key with '*' is a pattern (min, max, count or series over the matches; the transform says which). 'ref_regenerated' repeats the row of experiments/REGENERATE.md for the reference file.",
   "RUN NAMES AND FILE NAMES CHANGE: REGENERATE.md stores the new round under new names (<R>G, <R>H, <R>CV, <R>MA, W6, W7, CF7), so reference_VH.json becomes reference_<R>H.json, runs.VH of cputime/reference.json becomes runs.<R>H, apps.E.runs.VH of tt/reference.json may be renamed, etc. Apply each key to the file and run key that replaces the one listed here (VH -> <R>H, VG -> <R>G, VCV -> <R>CV, VMA_CARV/VMA_E -> <R>MA, W4 -> W6, W5 -> W7, CF6 -> CF7).",
   "CLOCKS THAT MOVE (REGENERATE.md Section 5): WCET-E 234.656 -> 234.784 MHz (phase 117,328 -> 117,392 cycles), CARV-E 457.6 -> 458.016 MHz (228,800 -> 229,008), CAR 526.08 -> 526.656 MHz (131,520 -> 131,664); f_CPU of WCET-E 220.388 -> 220.528, CARV-E 443.346 -> 443.766, CAR 477.952 -> 479.352 MHz. E (449.152) and CAR-V (441.088) keep f_CPU, f_search and the clock. These clocks appear in many places as literals: Section VI-A, captions of fig-res-wcete, fig-res-multiapp, fig-res-car, fig-carv, Table V, Sections VI-F, VI-H, VI-I, and words such as '457.6'.",

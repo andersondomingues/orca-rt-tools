@@ -30,7 +30,7 @@ Do not edit `pilot.sh` while a run of it is in progress (bash reads the script a
 - Clock: the first F_CLK at or above f_search of `../reference.json` whose release period is a whole number of 16-cycle steps of TIMER1 (a multiple of 32 kHz for T = 0.5 ms).
 - Injection table (`rttools.ucxgen tt`): link schedule at that clock with the costs of the CSV (`RUN_INFO`: `costs=csv`), so the model of the analysis of the run has no handler charge. The `image-flow` runs follow the procedure of the runs of `experiments/tt` instead.
 - Simulated time: warm-up 3 ms + (n(v_last) + 9) T + R_bound + T, rounded up to 0.5 ms, for at least ten complete iterations.
-- `RUN_INFO` has `repo_state=nogit` (the copy has no git metadata): the source is commit 830ed4a of branch `ieee-access` plus the files of this task.
+- `RUN_INFO` has `repo_state=nogit` (the copy has no git metadata): the source is commit 070ba63 of branch `ieee-access` plus the files of this task.
 
 ## RAM of a PE
 

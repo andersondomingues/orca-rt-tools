@@ -1,5 +1,5 @@
 {
- "_doc": "rttools.wcet spec of WCET-E on the image of run W7 (logs/W7.image.elf, riscv64-elf-gcc 12.2.0, commit de85565 (round r12: the image has the critical section around the queue of a task, lib/noc.c; release by tick, kernel without nested interrupts, crt0=guard_readback, time-triggered injection (INJECTION=tt), 234.784 MHz).",
+ "_doc": "rttools.wcet spec of WCET-E on the image of run W7 (logs/W7.image.elf, riscv64-elf-gcc 12.2.0, commit 524ca79 (round r12: the image has the critical section around the queue of a task, lib/noc.c; release by tick, kernel without nested interrupts, crt0=guard_readback, time-triggered injection (INJECTION=tt), 234.784 MHz).",
  "image": "../logs/W7.image.elf",
  "annotations": [
   "../../../pkt-sim/software/ucx-os/wcet/ucx-os.json",

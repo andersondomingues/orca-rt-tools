@@ -159,7 +159,7 @@ check-cf6:
 	$(MAKE) --no-print-directory analyze check-run LOG=logs/CF6.events.txt REF=reference_CF6.json \
 		OUTDIR=$(BUILD)/results_CF6
 
-# CF7: car_full of round r12 (commit de85565: as CF6 with the critical section around the queue of a task, lib/noc.c),
+# CF7: car_full of round r12 (commit 524ca79: as CF6 with the critical section around the queue of a task, lib/noc.c),
 # 526.656 MHz, the clock of the flow with the static costs of that image, 64 ms
 check-cf7:
 	$(MAKE) --no-print-directory analyze check-run LOG=logs/CF7.events.txt REF=reference_CF7.json \

@@ -1,5 +1,5 @@
 {
- "_doc": "experiments/wcet, runs of round r12 (commit de85565: the images with the critical section around the queue of a task, lib/noc.c; release by tick, kernel without nested interrupts, crt0=guard_readback, time-triggered injection, t(v) = max(CSV, static) in the model of each run): static t(v) (rttools.wcet) of the image of each run against its CPU time: E on run XH, CAR-V on run XCV, WCET-E on run W7; flow of E with the static costs of the image of XH, the network-interface model tt (the default) and the deadline model tick of the tables of this tree. make analyze-r12 check-r12; rttools/paper/wcet.py. Paths relative to this file.",
+ "_doc": "experiments/wcet, runs of round r12 (commit 524ca79: the images with the critical section around the queue of a task, lib/noc.c; release by tick, kernel without nested interrupts, crt0=guard_readback, time-triggered injection, t(v) = max(CSV, static) in the model of each run): static t(v) (rttools.wcet) of the image of each run against its CPU time: E on run XH, CAR-V on run XCV, WCET-E on run W7; flow of E with the static costs of the image of XH, the network-interface model tt (the default) and the deadline model tick of the tables of this tree. make analyze-r12 check-r12; rttools/paper/wcet.py. Paths relative to this file.",
  "apps": {
   "E": {
    "spec": "specs/weird_a_XH.json",

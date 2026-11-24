@@ -75,7 +75,7 @@
 # run-analyze check-run LOG=logs/W5.events.txt REF=reference_W5.json SPEC=specs/wcet_e_tt.json (image of
 # images/tt); rtlapp of run-log takes the model of the RUN_INFO (network-interface model tt, t(v) =
 # max(CSV, static), deadline=tick).
-# Runs W6 and W7 (logs/W6.*, logs/W7.*, reference_W6.json, reference_W7.json): wcet_e of round r12 (commit de85565: as W4
+# Runs W6 and W7 (logs/W6.*, logs/W7.*, reference_W6.json, reference_W7.json): wcet_e of round r12 (commit 524ca79: as W4
 # and W5 with the critical section around the queue of a task, lib/noc.c; 10.5 ms at 500 MHz and at 234.784 MHz, the
 # clock of the flow with the static costs of that image): make run-analyze check-run LOG=logs/W7.events.txt
 # REF=reference_W7.json SPEC=specs/wcet_e_tt.json.
