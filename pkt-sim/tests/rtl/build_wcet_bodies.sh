@@ -21,7 +21,8 @@ SECTIONS
 LD
 "$CC" -march=rv32e -mabi=ilp32e -O2 -Wall -ffreestanding -nostdlib -mstrict-align \
 	-I"$T/../../software/ucx-os/include" -T "$OUT/wcet_bodies.ld" -o "$OUT/wcet_bodies.elf" "$T/wcet_bodies.c"
-"${PFX}objdump" --disassemble -Mno-aliases "$OUT/wcet_bodies.elf" > "$OUT/wcet_bodies.lst"
+# from $OUT, with a relative name: the header of the listing names the file as given
+(cd "$OUT" && "${PFX}objdump" --disassemble -Mno-aliases wcet_bodies.elf > wcet_bodies.lst)
 "${PFX}objcopy" -O binary "$OUT/wcet_bodies.elf" "$OUT/wcet_bodies.bin"
 hexdump -v -e '4/1 "%02x" "\n"' "$OUT/wcet_bodies.bin" > "$OUT/wcet_bodies.hex"
 rm -f "$OUT/wcet_bodies.bin" "$OUT/wcet_bodies.ld"

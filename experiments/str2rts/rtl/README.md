@@ -134,7 +134,7 @@ Three findings of these runs:
 - **A data race in the kernel lost counts of the queue of a task** (`lib/noc.c`, `ucx_noc_receive()`:
   dequeue with interrupts enabled). APP-AUDIOBEAM at the image clock met every bound for 13 iterations,
   then the join of 15 inputs found its queue reported as empty with packets in it and ran one phase
-  late. Commit f97a8a8 adds the critical section (`NOC_QUEUE_DI=1`), and `pilot.sh` builds every STR2RTS
+  late. Commit 4cb925f adds the critical section (`NOC_QUEUE_DI=1`), and `pilot.sh` builds every STR2RTS
   image with it. Every run of `image-flow/` has it (`noc_queue_di=1` in `RUN_INFO`).
 - **Start-up of APP-80211A.** Each task does its one-time setup on its first dispatch, one task per
   tick. With 13 tasks on a PE and a tick of 1 ms, the setup of three tasks was still running after the
