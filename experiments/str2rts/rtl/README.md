@@ -48,6 +48,7 @@ Every limit below keeps its value for the applications of the tree: their genera
 | Packets of a PE that wait for their injection instant | 8 (`NOC_TT_SLOTS` of `lib/noc_tt.c`) | `rttools.ucxgen tt` writes the line `Queue: NOC_TT_SLOTS <n>` in the injection table instead of stopping; `simulate.sh` passes it to the build |
 | RAM of a PE | 64 KiB (`RAM_MSIZE` of `manycore_top.sv`, `LENGTH` of `hf-risc.ld`) | `RAM_BYTES=<power of two>` of `simulate.sh` and `build_sw.sh` sets both; `pilot.sh` takes the first size from 64 KiB whose image links and whose heap holds the demand of the worst PE |
 | Release period | 1e9 / T(ns) whole (F_TICK in Hz) | `simulate.sh` gives the build the tick in cycles (`TICK_CYCLES`, `UCX_TICK_CYCLES` of `hal.c`) for another period (1.5 ms of APP-SERPENT); T F_CLK stays a multiple of 16 cycles |
+| Tick | 1,048,576 cycles with the 16-bit TIMER1 of the first runs (16 cycles per step) | TIMER1, its CTC and its OCR hold 32 bits (`hw/peripherals/peripherals_minimal.vhd`): a tick of up to 16 x 2^32 cycles, which APP-DES and APP-FIRBANK need at the clock of the flow of their image |
 | Payload | 65,532 bytes (`MAX_PAYLOAD`) | Not lifted (the ceiling of the converter) |
 
 What each application takes above the defaults (`rttools.ucxgen generate` and `tt`, build of `pilot.sh` with `STEP=build`; heap demand of the worst PE with 2 packets in flight per input edge between PEs):
@@ -82,7 +83,7 @@ Simulated time and expected wall time of `vsim` (105 s per simulated ms on the 4
 
 ## Results
 
-Nine runs, every check passed in each: no response above R_bound or the deadline, no phase of a PE above t(V_k), no late packet, no error of the packet monitor, the phases conform (`phasecheck`), no job ends after F, and no violation of the injection checks (injection delay, header wait, RX wait, end wait, occupancy, deadline, overlap at a network interface). `(table clock)`: the clock of `../reference.json` with the injection table of the costs of the CSV; `(image clock)`: the clock of the flow of the image with the table of t(v) = max(CSV, static). R_bound is the bound of the model of the run at its clock.
+Eleven runs, every check passed in each: no response above R_bound or the deadline, no phase of a PE above t(V_k), no late packet, no error of the packet monitor, the phases conform (`phasecheck`), no job ends after F, and no violation of the injection checks (injection delay, header wait, RX wait, end wait, occupancy, deadline, overlap at a network interface). `(table clock)`: the clock of `../reference.json` with the injection table of the costs of the CSV; `(image clock)`: the clock of the flow of the image with the table of t(v) = max(CSV, static). R_bound is the bound of the model of the run at its clock.
 
 | Run | Mesh | F_CLK (MHz) | Costs of the table | RAM (B) | Simulated (ms) | vsim wall (s) | Iterations | Largest response (ms) | R_bound (ms) | D (ms) | Smallest CPU margin of a phase (%) | Packets | Late | Smallest packet slack (cycles) | Jobs after F | Injection violations | Phases conform | Every bound holds |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -92,11 +93,17 @@ Nine runs, every check passed in each: no response above R_bound or the deadline
 | APP-CFIR (image clock) | 2x2 | 416.576 | max_csv_static | 65536 | 10.5000 | 272.6 | 13 | 1.0160 | 1.0354 | 1.5000 | 4.1 | 29 | 0 | 12430 | 0 | 0 | True | True |
 | APP-DCT (table clock) | 2x2 | 412.704 | csv | 65536 | 12.5000 | 339.6 | 15 | 2.0461 | 2.1277 | 2.5000 | 4.7 | 70 | 0 | 13518 | 0 | 0 | True | True |
 | APP-DCT (image clock) | 2x2 | 410.240 | max_csv_static | 65536 | 12.5000 | 333.4 | 15 | 2.0451 | 2.1394 | 2.5000 | 4.7 | 70 | 0 | 12286 | 0 | 0 | True | True |
+| APP-DES (image clock) | 4x4 | 725.768 | max_csv_static | 262144 | 85.0000 | 13150.0 | 26 | 31.6262 | 32.0000 | 32.0000 | 68.9 | 510 | 0 | 77413 | 0 | 0 | True | True |
+| APP-FIRBANK (image clock) | 4x4 | 583.904 | max_csv_static | 262144 | 37.0000 | 5725.0 | 14 | 7.5428 | 7.5666 | 8.0000 | 48.2 | 426 | 0 | 434393 | 0 | 0 | True | True |
 | APP-FFT (table clock) | 4x4 | 463.264 | csv | 65536 | 16.5000 | 1758.4 | 19 | 4.0131 | 4.0503 | 4.5000 | 4.1 | 376 | 0 | 22839 | 0 | 0 | True | True |
 | APP-MATMULT (table clock) | 4x4 | 432.224 | csv | 65536 | 19.5000 | 1935.5 | 22 | 5.5584 | 5.5990 | 6.0000 | 4.1 | 463 | 0 | 23391 | 0 | 0 | True | True |
 | APP-PERFTEST (table clock) | 4x4 | 462.816 | csv | 262144 | 14.5000 | 1619.3 | 17 | 3.0065 | 3.0240 | 3.5000 | 4.1 | 369 | 0 | 12610 | 0 | 0 | True | True |
 
 Wall time of `vsim` with three simulations at a time: 26 to 29 s per simulated ms on the 2x2 mesh and 99 to 112 s per simulated ms on the 4x4 mesh.
+
+APP-DES (423 tasks, 30 on the largest PE, T = 2 ms) runs with `MAX_TASKS=31`, `MAX_PKT_QUEUE_SLOTS=16`, 256 KiB of RAM per PE and a tick of 1,451,536 cycles (90,721 steps of TIMER1, above the 65,536 of a 16-bit counter: the 32-bit TIMER1 and the 32-bit step of `lib/noc_tt.c`); every step of its 15 injection instants is above 65,535. Its first release (3 ms) comes in the middle of a tick (the ticks come every 2 ms from reset), 727,969 cycles before the tick that applies it; the analysis takes that tick as the start of the phase (`rttools/paper/ttcheck.py`, `release_tick`) and counts the packet windows from the release of the model, 725,768 cycles after the release of the log (`rttools/paper/rtlapp.py`, `release_offset`). The responses count from the release of the log, so they hold that wait: the largest is 31.626 ms against D = 32 ms. The start-up of the 30 tasks of a PE ends 0.58 ms after the first tick (2.59 ms), before the first release.
+
+APP-FIRBANK (340 tasks, 28 on the largest PE, T = 2 ms) runs with `MAX_TASKS=29`, `MAX_PKT_QUEUE_SLOTS=32`, `NOC_TT_SLOTS=16`, 256 KiB of RAM per PE and a tick of 1,167,808 cycles (72,988 steps of TIMER1); three of its 26 injection steps are above 65,535 and five instants fall in the tick after the phase of their job. Its releases also come in the middle of a tick, 583,904 cycles before the release of the model. The largest response from the release of the log is 7.5428 ms against R_bound = 7.5666 ms (13,870 cycles of margin) and D = 8 ms: that response holds the wait of half a period from the release to the tick, which R_bound does not count, so the margin of these two applications depends on the instant of the first release. At the end of the log one packet is in the network (413 sent, 412 received, no error of the monitor).
 
 ## Static costs of the images
 
@@ -111,7 +118,7 @@ Wall time of `vsim` with three simulations at a time: 26 to 29 s per simulated m
 | APP-MATMULT | 4 | 24 | 622 | 3,160 | T002 (12,440 against 11,661), T017 (30,227 against 28,849) | 1.067 | 379.974 | 418.064 | 432.201 | 5.6023 |
 | APP-PERFTEST | 2 | 24 | 622 | 3,142 | T002 (19,359 against 13,029), T015 (19,501 against 11,406) | 1.710 | 379.918 | 448.639 | 462.811 | 3.0247 |
 
-The static cost is above the cost of the CSV only for tasks with small bodies and two to four edges on one side (splitters and joiners: the send path costs 2,233 cycles per output edge and the handlers 622 per output and `receive` per input edge), and never on the PE that sets f_CPU, so f_CPU of the image equals f_CPU of the table in the six images. The clock of the flow of each image is below the clock of the table (the handler terms of these images are below those of the image of CAR, and the budgets are not 0). The images of the three `image-flow` runs, built at their clock with their table, have the same static t(v) as the images of the first runs.
+The static cost is above the cost of the CSV only for tasks with small bodies and two to four edges on one side (splitters and joiners: the send path costs 2,233 cycles per output edge and the handlers 622 per output and `receive` per input edge), and never on the PE that sets f_CPU, so f_CPU of the image equals f_CPU of the table in the six images. The clock of the flow of each image is below the clock of the table (the handler terms of these images are below those of the image of CAR, and the budgets are not 0). The images of the three `image-flow` runs, built at their clock with their table, have the same static t(v) as the images of the first runs. This holds while the tick of both builds has at most 65,536 steps of TIMER1 (1,048,576 cycles). APP-DES and APP-FIRBANK (T = 2 ms) cross that limit between the two builds: the first image (354.416 and 385.424 MHz) keeps the step of an injection instant in 16 bits, and the image at the clock of the flow (725.768 and 583.904 MHz, ticks of 1,451,536 and 1,167,808 cycles) keeps it in 32 bits (`ucx_tt_step_t`, `include/lib/noc_tt.h`). The 32-bit code is shorter: the tick and the injection handler cost 2 cycles less (send_isr 620 against 622) and the static t(v) of each task is 2 to 114 cycles (APP-DES) or 2 to 170 cycles (APP-FIRBANK) lower, for no task higher. The costs file and the injection table of these two runs come from the first image, so each cost of the table is at or above the cost of the image that runs.
 
 ## Runs at the clock of the image (`run_image_flow.sh`), 18 November 2026
 
@@ -134,14 +141,16 @@ Three findings of these runs:
 - **A data race in the kernel lost counts of the queue of a task** (`lib/noc.c`, `ucx_noc_receive()`:
   dequeue with interrupts enabled). APP-AUDIOBEAM at the image clock met every bound for 13 iterations,
   then the join of 15 inputs found its queue reported as empty with packets in it and ran one phase
-  late. Commit 4cb925f adds the critical section (`NOC_QUEUE_DI=1`), and `pilot.sh` builds every STR2RTS
-  image with it. Every run of `image-flow/` has it (`noc_queue_di=1` in `RUN_INFO`).
+  late. Commit 4cb925f adds the critical section (`NOC_QUEUE_DI=1`), and the fifteen runs of `image-flow/`
+  made on that code have it (`noc_queue_di=1` in `RUN_INFO`). In this tree the section is part of every
+  image (`experiments/REGENERATE.md`), so the `RUN_INFO` of APP-DES and APP-FIRBANK has no such line.
 - **Start-up of APP-80211A.** Each task does its one-time setup on its first dispatch, one task per
   tick. With 13 tasks on a PE and a tick of 1 ms, the setup of three tasks was still running after the
   first release at 3 ms: three PEs exceeded their CPU estimate in the first three phases and the first
   job of one task ended 4,836 cycles after F. The stored run has `WARMUP_NS=8000000` (first release at
   8 ms) and five more iterations (`WARMUP_NS=8000000 IMAGE_FLOW=1 pilot.sh APP-80211A <work> 15`).
 
-Result: the fifteen applications whose tick fits TIMER1 meet every bound at the clock of their image
-(`summary.md`). APP-DES and APP-FIRBANK need a tick above 16 x 65,536 cycles at their image clock and
-do not build on this tree; branch `platform-all` widens TIMER1.
+Result: the fifteen applications whose tick fits a 16-bit TIMER1 meet every bound at the clock of their
+image (`summary.md`); their runs come from the code before TIMER1 was widened. APP-DES and APP-FIRBANK need
+a tick above 16 x 65,536 cycles at their image clock: they ran with the 32-bit TIMER1 of this tree and meet
+every bound as well (section Results and `summary.md`), so all seventeen applications pass.

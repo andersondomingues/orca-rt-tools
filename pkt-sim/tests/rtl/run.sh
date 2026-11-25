@@ -32,7 +32,22 @@ ghdl_hermes() { # ghdl_hermes <nome> <generics...>
 		| grep -E "PASS|FAIL|wrong" | sed 's/.*(report note): //' || true
 }
 
+# VHDL simulator of the test benches of TIMER1: TB_SIM=ghdl, or TB_SIM=questa (vcom and vsim of
+# Questa or ModelSim); default: ghdl when it is on the PATH, otherwise questa
+TB_SIM=${TB_SIM:-$(command -v ghdl > /dev/null 2>&1 && echo ghdl || echo questa)}
+
+questa_timer() { # questa_timer <test bench> <generics...>: the report lines of the test bench
+	tb=$1; shift
+	W="$OUT/questa_$tb"
+	mkdir -p "$W"
+	(cd "$W" && { [ -d work ] || vlib work > /dev/null; } \
+		&& vcom -quiet -93 -explicit -work work "$HW/peripherals/peripherals_minimal.vhd" "$T/$tb.vhd" \
+		&& vsim -c -quiet "work.$tb" "$@" -do "run -all; quit -f" 2>&1) \
+		| sed -n 's/^# \*\* Note: //p' | grep -E "TICK|OCR|PASS|FAIL" || true
+}
+
 ghdl_timer1() { # ghdl_timer1 <CTC> <expected tick in cycles>
+	if [ "$TB_SIM" = questa ]; then questa_timer tb_timer1 -gCTC="$1" -gEXPECT="$2"; return; fi
 	W="$OUT/ghdl_timer1"
 	mkdir -p "$W"
 	ghdl -a --workdir="$W" -fsynopsys -fexplicit "$HW/peripherals/peripherals_minimal.vhd"
@@ -43,6 +58,7 @@ ghdl_timer1() { # ghdl_timer1 <CTC> <expected tick in cycles>
 }
 
 ghdl_timer1_ocr() { # ghdl_timer1_ocr <CTC> <OCR>
+	if [ "$TB_SIM" = questa ]; then questa_timer tb_timer1_ocr -gCTC="$1" -gOCR="$2"; return; fi
 	W="$OUT/ghdl_timer1_ocr"
 	mkdir -p "$W"
 	ghdl -a --workdir="$W" -fsynopsys -fexplicit "$HW/peripherals/peripherals_minimal.vhd"
@@ -152,11 +168,16 @@ for t in ${*:-tb_ddma_send tb_ddma_recv tb_hermes_local tb_tcd tb_manycore_pe tb
 	tb_timer1)
 		# TB_TIMER1_CTC, TB_TIMER1_EXPECT: TIMER1CTC and the expected tick
 		# (default: hal.c at 500 MHz and F_TICK = 2000, 250000 cycles)
-		ghdl_timer1 "${TB_TIMER1_CTC:-15624}" "${TB_TIMER1_EXPECT:-250000}" ;;
+		ghdl_timer1 "${TB_TIMER1_CTC:-15624}" "${TB_TIMER1_EXPECT:-250000}"
+		# a tick above the 16 * 65536 cycles of a 16-bit counter: 2 ms at 724.328 MHz
+		# (APP-DES of STR2RTS), TIMER1CTC = 90540
+		if [ -z "${TB_TIMER1_CTC:-}" ]; then ghdl_timer1 90540 1448656; fi ;;
 	tb_timer1_ocr)
 		# compare interrupt of TIMER1 at steps 1, 5 and 15 of a tick of 16
 		# steps, and at step 0 (pending from the write of TIMER1OCR)
-		for o in 1 5 15 0; do ghdl_timer1_ocr 15 "$o"; done ;;
+		for o in 1 5 15 0; do ghdl_timer1_ocr 15 "$o"; done
+		# a tick and a step above 16 bits: step 66000 of a tick of 70001 steps
+		ghdl_timer1_ocr 70000 66000 ;;
 	tb_cpu_cycles) ghdl_cpu ;;
 	tb_cpu_trace) ghdl_trace ;;
 	tb_cpu_irq) ghdl_cpu_irq ;;

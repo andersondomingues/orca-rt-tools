@@ -11,7 +11,7 @@ tick lasts exactly the release period T, in cycles (T * F_CLK):
 |---|---|
 | arch/riscv/hf-riscv-e/arch.mak | F_CLK, F_TICK (defaults of the build) |
 | arch/riscv/hf-riscv-e/hal.c, hal.h | TIMER1PRE (prescaler code), TIMER1CTC expression |
-| hw/peripherals/peripherals_minimal.vhd | prescaler bit per code; counter from 0 to TIMER1CTC inclusive |
+| hw/peripherals/peripherals_minimal.vhd | prescaler bit per code; counter from 0 to TIMER1CTC inclusive; bits of TIMER1 and TIMER1CTC |
 | manycore_modelsim/manycore_pe.sv | RELEASE_CYCLES (release period), WARMUP_CYCLES (first release), defaults |
 | manycore_modelsim/manycore_top.sv | CLOCK_HALF_PERIOD_FS (half period of the clock, fs), default |
 | experiments/exp23/config.json | clock_hz, release_period_s |
@@ -154,6 +154,11 @@ def code_values(repo, f_clk_run=None):
     if not inclusive:
         raise SourceError("TIMER1 counter of peripherals_minimal.vhd not recognized")
     steps = ctc + 1
+    # width of the counter and of its CTC register (one signal declaration)
+    m = re.search(r"signal\s+timer1\s*,\s*timer1_ctc\s*,\s*timer1_ocr\s*:\s*std_logic_vector\((\d+)\s+downto\s+0\)", vhd)
+    if not m:
+        raise SourceError("TIMER1 registers of peripherals_minimal.vhd not recognized")
+    timer_bits = int(m.group(1)) + 1
 
     pe = strip_comments(read(repo, "pe_sv"), "//")
     if not re.search(r"`timescale\s+1ns/", read(repo, "pe_sv")):
@@ -176,7 +181,7 @@ def code_values(repo, f_clk_run=None):
     return {
         "f_clk_hz": f_clk, "f_tick_hz": f_tick, "run_clock": f_clk_run is not None,
         "timer1pre": pre_name, "timer1pre_code": pre_code, "prescaler_cycles": prescaler,
-        "timer1ctc_expr": ctc_expr, "timer1ctc": ctc, "steps_per_tick": steps,
+        "timer1ctc_expr": ctc_expr, "timer1ctc": ctc, "timer1_bits": timer_bits, "steps_per_tick": steps,
         "tick_cycles": prescaler * steps,
         "release_cycles": release_cycles, "first_release_cycles": warmup_cycles,
         "clock_half_period_fs": half_fs, "clock_hz": 10 ** 15 / (2 * half_fs),
@@ -195,7 +200,8 @@ def code_checks(v):
         # the clock runs at or above F_CLK, within one fs of the half period
         ("clock 1e15 / (2 CLOCK_HALF_PERIOD_FS) >= F_CLK (Hz)", round(v["clock_hz"], 3), f,
          v["clock_hz"] >= f and 10 ** 15 / (2 * (v["clock_half_period_fs"] + 1)) < f),
-        ("TIMER1CTC fits 16 bits", v["timer1ctc"], "0..65535", 0 <= v["timer1ctc"] <= 0xFFFF),
+        (f"TIMER1CTC fits the {v['timer1_bits']} bits of TIMER1", v["timer1ctc"], f"0..{2 ** v['timer1_bits'] - 1}",
+         0 <= v["timer1ctc"] < 2 ** v["timer1_bits"]),
         ("RELEASE_CYCLES = config T (cycles)", release_cycles, t_cycles, abs(release_cycles - t_cycles) < 1e-6),
         ("F_TICK = 1 / T (Hz)", v["f_tick_hz"], 1 / v["config_release_period_s"],
          abs(v["f_tick_hz"] * v["config_release_period_s"] - 1) < 1e-9),

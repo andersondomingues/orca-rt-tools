@@ -3,7 +3,7 @@
  "image": {
   "file": "weird_a.elf",
   "kind": "elf",
-  "sha256": "aff5b7aef18111fa1db944dcf70afe65c62f12be9a6598bb84ace7474f393e3d"
+  "sha256": "84bfaebed831e68e7838f3b6ddc1bd1b9e8b5128b56afd7f92136ce9209da5a3"
  },
  "inject": 622,
  "receive": 3873,

@@ -188,13 +188,7 @@ endif
 # of a PE (lib/noc_tt.c, 8): rttools.ucxgen tt writes the value in the line
 # "Queue:" of app/<name>_tt.h when a link schedule needs more. Example:
 # make str2rts_des MAX_TASKS=31 MAX_PKT_QUEUE_SLOTS=16
-# NOC_QUEUE_DI=1 builds lib/noc.c with interrupts disabled around the dequeue
-# of ucx_noc_receive() and the local enqueue of ucx_noc_send() (-DUCX_NOC_QUEUE_DI):
-# without it, a packet whose reception ends during a read of its target task
-# can lose its count in the queue of the task. The default keeps the code of
-# the stored images.
 LIMIT_DEFS = $(if $(MAX_TASKS),-DMAX_TASKS=$(MAX_TASKS)) \
-	$(if $(NOC_QUEUE_DI),-DUCX_NOC_QUEUE_DI) \
 	$(if $(MAX_PKT_QUEUE_SLOTS),-DMAX_PKT_QUEUE_SLOTS=$(MAX_PKT_QUEUE_SLOTS)) \
 	$(if $(NOC_TT_SLOTS),-DNOC_TT_SLOTS=$(NOC_TT_SLOTS)) \
 	$(if $(TICK_CYCLES),-DUCX_TICK_CYCLES=$(TICK_CYCLES))

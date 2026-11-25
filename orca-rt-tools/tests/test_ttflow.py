@@ -83,7 +83,7 @@ def test_tables_of_the_check(run, tmp_path):
             # deadline a (cycles from the same phase start as s): the packet holds its links within it
             assert int(s) + int(o) <= int(a)
     # one release period: one line per task, F of the model after the tick of its phase
-    for run_id in ("VH", "VG", "VCV", "W5", "W4"):
+    for run_id in ("XH", "XG", "XCV", "W7", "W6"):
         tasks = runs[run_id]["tasks"]
         rows = [x.split() for x in (tmp_path / f"{run_id}.jobs").read_text().splitlines()]
         assert len(rows) == len(tasks)
@@ -115,18 +115,18 @@ def test_model_of_car_full(run):
     md = m["apps"]["CAR-FULL"]["model"]
     assert (md["phase_ms"], md["hyperperiod_ms"], md["phases_per_hyperperiod"]) == (0.25, 12.5, 50)
     assert (md["flows"], md["flows_on_one_pe"]) == (38, 18)
-    assert (md["p_min_cycles"], md["f_cpu_hz"]) == (119488, 477952000.0)
-    # utilization bound: the largest utilization of a PE reaches 1 at 113,988 cycles per phase
-    assert (md["utilization_bound_cycles"], md["utilization_bound_hz"]) == (113988, 455952000.0)
+    assert (md["p_min_cycles"], md["f_cpu_hz"]) == (119838, 479352000.0)
+    # utilization bound: the largest utilization of a PE reaches 1 at 114,338 cycles per phase
+    assert (md["utilization_bound_cycles"], md["utilization_bound_hz"]) == (114338, 457352000.0)
     # phase rule: every job within the phase of its release
-    assert md["f_cpu_phase_hz"] == 9025160000.0
-    r = m["apps"]["CAR-FULL"]["runs"]["CF6"]
-    assert (r["chains"], r["packets_per_hyperperiod"], r["hyper_cycles"]) == (34, 347, 6576000)
-    assert r["data_age_max"]["chain"] == "POSI-OBMG-OBDB-NAVC-DIRC" and r["data_age_max"]["cycles"] == 14975294
-    assert md["data_age_max_at_minimum"]["cycles"] == 14974628
+    assert md["f_cpu_phase_hz"] == 9027400000.0
+    r = m["apps"]["CAR-FULL"]["runs"]["CF7"]
+    assert (r["chains"], r["packets_per_hyperperiod"], r["hyper_cycles"]) == (34, 347, 6583200)
+    assert r["data_age_max"]["chain"] == "POSI-OBMG-OBDB-NAVC-DIRC" and r["data_age_max"]["cycles"] == 14991698
+    assert md["data_age_max_at_minimum"]["cycles"] == 14990588
     values = (out / "values.tex").read_text()
-    for macro, v in (("ExpTtCarfullUtilizationBoundMhz", "455.952"), ("ExpTtCarfullCpuPhaseMhz", "9025.160"),
-                     ("ExpTtCarfullPMinCycles", "119,488"), ("ExpTtCarfullLocalFlows", "18"),
-                     ("ExpTtCarfullCfsixPackets", "347"), ("ExpTtCarfullCfsixChains", "34"),
+    for macro, v in (("ExpTtCarfullUtilizationBoundMhz", "457.352"), ("ExpTtCarfullCpuPhaseMhz", "9027.400"),
+                     ("ExpTtCarfullPMinCycles", "119,838"), ("ExpTtCarfullLocalFlows", "18"),
+                     ("ExpTtCarfullCfsevenPackets", "347"), ("ExpTtCarfullCfsevenChains", "34"),
                      ("ExpTtWNi", "15169")):
         assert f"\\newcommand{{\\{macro}}}{{{v}}}" in values, macro

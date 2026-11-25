@@ -19,63 +19,63 @@
      "B": {
       "pe": "0",
       "csv": 58600,
-      "static": 53972,
+      "static": 54042,
       "used": 58600,
       "source": "csv"
      },
      "C": {
       "pe": "1",
       "csv": 96330,
-      "static": 88375,
+      "static": 88445,
       "used": 96330,
       "source": "csv"
      },
      "D": {
       "pe": "0",
       "csv": 14000,
-      "static": 20371,
-      "used": 20371,
+      "static": 20441,
+      "used": 20441,
       "source": "static"
      },
      "E": {
       "pe": "2",
       "csv": 52700,
-      "static": 44590,
+      "static": 44660,
       "used": 52700,
       "source": "csv"
      },
      "F": {
       "pe": "0",
       "csv": 80800,
-      "static": 77278,
+      "static": 77348,
       "used": 80800,
       "source": "csv"
      },
      "G": {
       "pe": "3",
       "csv": 109880,
-      "static": 98471,
+      "static": 98541,
       "used": 109880,
       "source": "csv"
      },
      "H": {
       "pe": "2",
       "csv": 45300,
-      "static": 32876,
+      "static": 32946,
       "used": 45300,
       "source": "csv"
      },
      "I": {
       "pe": "2",
       "csv": 75370,
-      "static": 66178,
+      "static": 66248,
       "used": 75370,
       "source": "csv"
      },
      "J": {
       "pe": "3",
       "csv": 107570,
-      "static": 103957,
+      "static": 104167,
       "used": 107570,
       "source": "csv"
      }
@@ -86,7 +86,7 @@
      "used": 11000
     },
     "file": "weird_a.json",
-    "sha256": "a863a70d841eb37807c65eb5848919127c536d3754892bdd7138186aaca01654"
+    "sha256": "79a7b27c8da8c9e8c330376c34789188a4a842bba7f93bf55c37d81ab048b2c1"
    },
    "pes": {
     "0": {
@@ -97,8 +97,8 @@
       "F"
      ],
      "csv": 181930,
-     "static": 170916,
-     "used": 188301,
+     "static": 171126,
+     "used": 188371,
      "static_above_csv": [
       "D"
      ],
@@ -109,7 +109,7 @@
       "C"
      ],
      "csv": 96330,
-     "static": 88375,
+     "static": 88445,
      "used": 96330,
      "static_above_csv": [],
      "source": "csv"
@@ -121,7 +121,7 @@
       "I"
      ],
      "csv": 173370,
-     "static": 143644,
+     "static": 143854,
      "used": 173370,
      "static_above_csv": [],
      "source": "csv"
@@ -132,7 +132,7 @@
       "J"
      ],
      "csv": 217450,
-     "static": 202428,
+     "static": 202708,
      "used": 217450,
      "static_above_csv": [],
      "source": "csv"
@@ -143,7 +143,7 @@
    "minimum_hz": 449150085.44921875,
    "binding": "f_noc",
    "runs": {
-    "VH": {
+    "XH": {
      "clock_hz": 449152000,
      "rule": "flow",
      "cpu_feasible": true,
@@ -186,13 +186,13 @@
       "D": {
        "pe": "0",
        "start": 98130,
-       "finish": 107501,
+       "finish": 107571,
        "phase": 0
       },
       "F": {
        "pe": "0",
-       "start": 118501,
-       "finish": 188301,
+       "start": 118571,
+       "finish": 188371,
        "phase": 0
       },
       "C": {
@@ -261,7 +261,7 @@
       "costs": true
      }
     },
-    "VG": {
+    "XG": {
      "clock_hz": 500000000,
      "rule": "kept",
      "cpu_feasible": true,
@@ -304,13 +304,13 @@
       "D": {
        "pe": "0",
        "start": 98130,
-       "finish": 107501,
+       "finish": 107571,
        "phase": 0
       },
       "F": {
        "pe": "0",
-       "start": 118501,
-       "finish": 188301,
+       "start": 118571,
+       "finish": 188371,
        "phase": 0
       },
       "C": {
@@ -444,105 +444,105 @@
      "NAVC": {
       "pe": "0",
       "csv": 95000,
-      "static": 93348,
+      "static": 93488,
       "used": 95000,
       "source": "csv"
      },
      "BFE1": {
       "pe": "2",
       "csv": 95000,
-      "static": 92765,
+      "static": 92835,
       "used": 95000,
       "source": "csv"
      },
      "BFE2": {
       "pe": "3",
       "csv": 95000,
-      "static": 92765,
+      "static": 92835,
       "used": 95000,
       "source": "csv"
      },
      "BFE3": {
       "pe": "6",
       "csv": 95000,
-      "static": 92765,
+      "static": 92835,
       "used": 95000,
       "source": "csv"
      },
      "BFE4": {
       "pe": "1",
       "csv": 95000,
-      "static": 92765,
+      "static": 92835,
       "used": 95000,
       "source": "csv"
      },
      "BFE5": {
       "pe": "7",
       "csv": 95000,
-      "static": 92765,
+      "static": 92835,
       "used": 95000,
       "source": "csv"
      },
      "BFE6": {
       "pe": "11",
       "csv": 95000,
-      "static": 92765,
+      "static": 92835,
       "used": 95000,
       "source": "csv"
      },
      "BFE7": {
       "pe": "10",
       "csv": 95000,
-      "static": 92765,
+      "static": 92835,
       "used": 95000,
       "source": "csv"
      },
      "BFE8": {
       "pe": "9",
       "csv": 95000,
-      "static": 92765,
+      "static": 92835,
       "used": 95000,
       "source": "csv"
      },
      "FDF1": {
       "pe": "14",
       "csv": 95000,
-      "static": 103242,
-      "used": 103242,
+      "static": 103522,
+      "used": 103522,
       "source": "static"
      },
      "FDF2": {
       "pe": "13",
       "csv": 95000,
-      "static": 103242,
-      "used": 103242,
+      "static": 103522,
+      "used": 103522,
       "source": "static"
      },
      "STPH": {
       "pe": "12",
       "csv": 95000,
-      "static": 96258,
-      "used": 96258,
+      "static": 96398,
+      "used": 96398,
       "source": "static"
      },
      "VOD1": {
       "pe": "4",
       "csv": 95000,
-      "static": 92765,
+      "static": 92835,
       "used": 95000,
       "source": "csv"
      },
      "VOD2": {
       "pe": "5",
       "csv": 95000,
-      "static": 92765,
+      "static": 92835,
       "used": 95000,
       "source": "csv"
      },
      "OBMG": {
       "pe": "15",
       "csv": 95000,
-      "static": 89855,
+      "static": 89925,
       "used": 95000,
       "source": "csv"
      }
@@ -553,7 +553,7 @@
      "used": 11000
     },
     "file": "car_v.json",
-    "sha256": "e2f7ef03a6e10d52da056e977c841f7f39922e7f66f6e5597a68ca630bdabc9d"
+    "sha256": "0c9ff545be2fdb5d8be12cc65baede9e31ec7bc78ed33c31954c9dd3c9253f74"
    },
    "pes": {
     "2": {
@@ -562,7 +562,7 @@
       "FBU1"
      ],
      "csv": 190000,
-     "static": 181955,
+     "static": 182025,
      "used": 190000,
      "static_above_csv": [],
      "source": "csv"
@@ -573,7 +573,7 @@
       "FBU2"
      ],
      "csv": 190000,
-     "static": 181955,
+     "static": 182025,
      "used": 190000,
      "static_above_csv": [],
      "source": "csv"
@@ -583,7 +583,7 @@
       "BFE3"
      ],
      "csv": 95000,
-     "static": 92765,
+     "static": 92835,
      "used": 95000,
      "static_above_csv": [],
      "source": "csv"
@@ -594,7 +594,7 @@
       "FBU4"
      ],
      "csv": 161998,
-     "static": 153955,
+     "static": 154025,
      "used": 161998,
      "static_above_csv": [],
      "source": "csv"
@@ -605,7 +605,7 @@
       "FBU5"
      ],
      "csv": 190000,
-     "static": 181955,
+     "static": 182025,
      "used": 190000,
      "static_above_csv": [],
      "source": "csv"
@@ -616,7 +616,7 @@
       "FBU6"
      ],
      "csv": 190000,
-     "static": 181955,
+     "static": 182025,
      "used": 190000,
      "static_above_csv": [],
      "source": "csv"
@@ -626,7 +626,7 @@
       "BFE7"
      ],
      "csv": 95000,
-     "static": 92765,
+     "static": 92835,
      "used": 95000,
      "static_above_csv": [],
      "source": "csv"
@@ -636,7 +636,7 @@
       "BFE8"
      ],
      "csv": 95000,
-     "static": 92765,
+     "static": 92835,
      "used": 95000,
      "static_above_csv": [],
      "source": "csv"
@@ -647,7 +647,7 @@
       "VOD1"
      ],
      "csv": 190000,
-     "static": 182577,
+     "static": 182647,
      "used": 190000,
      "static_above_csv": [],
      "source": "csv"
@@ -668,7 +668,7 @@
       "VOD2"
      ],
      "csv": 190000,
-     "static": 182577,
+     "static": 182647,
      "used": 190000,
      "static_above_csv": [],
      "source": "csv"
@@ -678,8 +678,8 @@
       "FDF1"
      ],
      "csv": 95000,
-     "static": 103242,
-     "used": 103242,
+     "static": 103522,
+     "used": 103522,
      "static_above_csv": [
       "FDF1"
      ],
@@ -690,8 +690,8 @@
       "FDF2"
      ],
      "csv": 95000,
-     "static": 103242,
-     "used": 103242,
+     "static": 103522,
+     "used": 103522,
      "static_above_csv": [
       "FDF2"
      ],
@@ -702,7 +702,7 @@
       "NAVC"
      ],
      "csv": 95000,
-     "static": 93348,
+     "static": 93488,
      "used": 95000,
      "static_above_csv": [],
      "source": "csv"
@@ -712,7 +712,7 @@
       "OBMG"
      ],
      "csv": 95000,
-     "static": 89855,
+     "static": 89925,
      "used": 95000,
      "static_above_csv": [],
      "source": "csv"
@@ -722,8 +722,8 @@
       "STPH"
      ],
      "csv": 95000,
-     "static": 96258,
-     "used": 96258,
+     "static": 96398,
+     "used": 96398,
      "static_above_csv": [
       "STPH"
      ],
@@ -735,7 +735,7 @@
    "minimum_hz": 441082000.7324219,
    "binding": "f_noc",
    "runs": {
-    "VCV": {
+    "XCV": {
      "clock_hz": 441088000,
      "rule": "flow",
      "cpu_feasible": true,
@@ -880,19 +880,19 @@
       "STPH": {
        "pe": "12",
        "start": 11000,
-       "finish": 96258,
+       "finish": 96398,
        "phase": 3
       },
       "FDF2": {
        "pe": "13",
        "start": 11000,
-       "finish": 110166,
+       "finish": 110446,
        "phase": 2
       },
       "FDF1": {
        "pe": "14",
        "start": 11000,
-       "finish": 107015,
+       "finish": 107295,
        "phase": 2
       },
       "OBMG": {
@@ -984,63 +984,63 @@
      "B": {
       "pe": "0",
       "csv": 37033,
-      "static": 37653,
-      "used": 37653,
+      "static": 37723,
+      "used": 37723,
       "source": "static"
      },
      "C": {
       "pe": "1",
       "csv": 26419,
-      "static": 27036,
-      "used": 27036,
+      "static": 27106,
+      "used": 27106,
       "source": "static"
      },
      "D": {
       "pe": "0",
       "csv": 12145,
-      "static": 12762,
-      "used": 12762,
+      "static": 12832,
+      "used": 12832,
       "source": "static"
      },
      "E": {
       "pe": "2",
       "csv": 39473,
-      "static": 41329,
-      "used": 41329,
+      "static": 41399,
+      "used": 41399,
       "source": "static"
      },
      "F": {
       "pe": "0",
       "csv": 18653,
-      "static": 19270,
-      "used": 19270,
+      "static": 19340,
+      "used": 19340,
       "source": "static"
      },
      "G": {
       "pe": "3",
       "csv": 63175,
-      "static": 63798,
-      "used": 63798,
+      "static": 63868,
+      "used": 63868,
       "source": "static"
      },
      "H": {
       "pe": "2",
       "csv": 13399,
-      "static": 14016,
-      "used": 14016,
+      "static": 14086,
+      "used": 14086,
       "source": "static"
      },
      "I": {
       "pe": "2",
       "csv": 18653,
-      "static": 19270,
-      "used": 19270,
+      "static": 19340,
+      "used": 19340,
       "source": "static"
      },
      "J": {
       "pe": "3",
       "csv": 46396,
-      "static": 44477,
+      "static": 44687,
       "used": 46396,
       "source": "csv"
      }
@@ -1051,7 +1051,7 @@
      "used": 11000
     },
     "file": "wcet_e.json",
-    "sha256": "23c7616402d24def7badf95e31871176d6613bbb2f3ba5ebb8623e75ac342cb7"
+    "sha256": "ae9740ebad2df92910bf375519308d6e3d5c979a45799d1696937af4876dd8cf"
    },
    "pes": {
     "0": {
@@ -1062,8 +1062,8 @@
       "F"
      ],
      "csv": 77148,
-     "static": 81062,
-     "used": 81062,
+     "static": 81272,
+     "used": 81272,
      "static_above_csv": [
       "A",
       "B",
@@ -1077,8 +1077,8 @@
       "C"
      ],
      "csv": 26419,
-     "static": 27036,
-     "used": 27036,
+     "static": 27106,
+     "used": 27106,
      "static_above_csv": [
       "C"
      ],
@@ -1091,8 +1091,8 @@
       "I"
      ],
      "csv": 71525,
-     "static": 74615,
-     "used": 74615,
+     "static": 74825,
+     "used": 74825,
      "static_above_csv": [
       "E",
       "H",
@@ -1106,21 +1106,21 @@
       "J"
      ],
      "csv": 109571,
-     "static": 108275,
-     "used": 110194,
+     "static": 108555,
+     "used": 110264,
      "static_above_csv": [
       "G"
      ],
      "source": "csv"
     }
    },
-   "f_cpu_hz": 220388000.0,
-   "f_noc_hz": 234638214.11132812,
-   "minimum_hz": 234638214.11132812,
+   "f_cpu_hz": 220528000.0,
+   "f_noc_hz": 234779357.91015625,
+   "minimum_hz": 234779357.91015625,
    "binding": "f_noc",
    "runs": {
-    "W5": {
-     "clock_hz": 234656000,
+    "W7": {
+     "clock_hz": 234784000,
      "rule": "flow",
      "cpu_feasible": true,
      "link_schedule_feasible": true,
@@ -1136,15 +1136,15 @@
       "checks": 5,
       "violations": 0,
       "after_request": 0,
-      "margin_min_cycles": 6227,
+      "margin_min_cycles": 6081,
       "holds": true
      },
-     "period_cycles": 117328,
+     "period_cycles": 117392,
      "response_bound": {
-      "cycles": 398380,
+      "cycles": 398572,
       "task": "J",
       "phase": 3,
-      "ms": 1.6977192145097506
+      "ms": 1.6976114215619462
      },
      "tasks": {
       "A": {
@@ -1156,43 +1156,43 @@
       "B": {
        "pe": "0",
        "start": 22377,
-       "finish": 49030,
+       "finish": 49100,
        "phase": 0
       },
       "D": {
        "pe": "0",
-       "start": 60030,
-       "finish": 61792,
+       "start": 60100,
+       "finish": 61932,
        "phase": 0
       },
       "F": {
        "pe": "0",
-       "start": 72792,
-       "finish": 81062,
+       "start": 72932,
+       "finish": 81272,
        "phase": 0
       },
       "C": {
        "pe": "1",
        "start": 11000,
-       "finish": 31531,
+       "finish": 31601,
        "phase": 1
       },
       "E": {
        "pe": "2",
        "start": 11000,
-       "finish": 45202,
+       "finish": 45272,
        "phase": 2
       },
       "H": {
        "pe": "2",
-       "start": 56202,
-       "finish": 55345,
+       "start": 56272,
+       "finish": 55485,
        "phase": 2
       },
       "I": {
        "pe": "2",
-       "start": 66345,
-       "finish": 74615,
+       "start": 66485,
+       "finish": 74825,
        "phase": 2
       },
       "J": {
@@ -1204,7 +1204,7 @@
       "G": {
        "pe": "3",
        "start": 57396,
-       "finish": 117318,
+       "finish": 117388,
        "phase": 1
       }
      },
@@ -1229,7 +1229,7 @@
       ]
      },
      "sim_ns": 10500000,
-     "sim_ns_min": 10197720,
+     "sim_ns_min": 10197612,
      "sim_fits": true,
      "feasible": true,
      "table": {
@@ -1237,7 +1237,7 @@
       "costs": true
      }
     },
-    "W4": {
+    "W6": {
      "clock_hz": 500000000,
      "rule": "kept",
      "cpu_feasible": true,
@@ -1254,7 +1254,7 @@
       "checks": 5,
       "violations": 0,
       "after_request": 0,
-      "margin_min_cycles": 138899,
+      "margin_min_cycles": 138689,
       "holds": true
      },
      "period_cycles": 250000,
@@ -1274,43 +1274,43 @@
       "B": {
        "pe": "0",
        "start": 22377,
-       "finish": 49030,
+       "finish": 49100,
        "phase": 0
       },
       "D": {
        "pe": "0",
-       "start": 60030,
-       "finish": 61792,
+       "start": 60100,
+       "finish": 61932,
        "phase": 0
       },
       "F": {
        "pe": "0",
-       "start": 72792,
-       "finish": 81062,
+       "start": 72932,
+       "finish": 81272,
        "phase": 0
       },
       "C": {
        "pe": "1",
        "start": 11000,
-       "finish": 31531,
+       "finish": 31601,
        "phase": 1
       },
       "E": {
        "pe": "2",
        "start": 11000,
-       "finish": 45202,
+       "finish": 45272,
        "phase": 2
       },
       "H": {
        "pe": "2",
-       "start": 56202,
-       "finish": 55345,
+       "start": 56272,
+       "finish": 55485,
        "phase": 2
       },
       "I": {
        "pe": "2",
-       "start": 66345,
-       "finish": 74615,
+       "start": 66485,
+       "finish": 74825,
        "phase": 2
       },
       "J": {
@@ -1322,7 +1322,7 @@
       "G": {
        "pe": "3",
        "start": 57396,
-       "finish": 117318,
+       "finish": 117388,
        "phase": 1
       }
      },
@@ -1420,105 +1420,105 @@
      "NAVC": {
       "pe": "0",
       "csv": 95000,
-      "static": 95018,
-      "used": 95018,
+      "static": 95158,
+      "used": 95158,
       "source": "static"
      },
      "BFE1": {
       "pe": "2",
       "csv": 95000,
-      "static": 93713,
+      "static": 93783,
       "used": 95000,
       "source": "csv"
      },
      "BFE2": {
       "pe": "3",
       "csv": 95000,
-      "static": 93713,
+      "static": 93783,
       "used": 95000,
       "source": "csv"
      },
      "BFE3": {
       "pe": "4",
       "csv": 95000,
-      "static": 93713,
+      "static": 93783,
       "used": 95000,
       "source": "csv"
      },
      "BFE4": {
       "pe": "1",
       "csv": 95000,
-      "static": 93713,
+      "static": 93783,
       "used": 95000,
       "source": "csv"
      },
      "BFE5": {
       "pe": "7",
       "csv": 95000,
-      "static": 93713,
+      "static": 93783,
       "used": 95000,
       "source": "csv"
      },
      "BFE6": {
       "pe": "11",
       "csv": 95000,
-      "static": 93713,
+      "static": 93783,
       "used": 95000,
       "source": "csv"
      },
      "BFE7": {
       "pe": "5",
       "csv": 95000,
-      "static": 93713,
+      "static": 93783,
       "used": 95000,
       "source": "csv"
      },
      "BFE8": {
       "pe": "6",
       "csv": 95000,
-      "static": 93713,
+      "static": 93783,
       "used": 95000,
       "source": "csv"
      },
      "FDF1": {
       "pe": "19",
       "csv": 95000,
-      "static": 106356,
-      "used": 106356,
+      "static": 106636,
+      "used": 106636,
       "source": "static"
      },
      "FDF2": {
       "pe": "18",
       "csv": 95000,
-      "static": 106356,
-      "used": 106356,
+      "static": 106636,
+      "used": 106636,
       "source": "static"
      },
      "STPH": {
       "pe": "17",
       "csv": 95000,
-      "static": 97928,
-      "used": 97928,
+      "static": 98068,
+      "used": 98068,
       "source": "static"
      },
      "VOD1": {
       "pe": "12",
       "csv": 95000,
-      "static": 93713,
+      "static": 93783,
       "used": 95000,
       "source": "csv"
      },
      "VOD2": {
       "pe": "8",
       "csv": 95000,
-      "static": 93713,
+      "static": 93783,
       "used": 95000,
       "source": "csv"
      },
      "OBMG": {
       "pe": "15",
       "csv": 95000,
-      "static": 90803,
+      "static": 90873,
       "used": 95000,
       "source": "csv"
      },
@@ -1532,69 +1532,69 @@
      "B": {
       "pe": "14",
       "csv": 58600,
-      "static": 57313,
+      "static": 57383,
       "used": 58600,
       "source": "csv"
      },
      "C": {
       "pe": "10",
       "csv": 96330,
-      "static": 95043,
+      "static": 95113,
       "used": 96330,
       "source": "csv"
      },
      "D": {
       "pe": "14",
       "csv": 14000,
-      "static": 12713,
+      "static": 12783,
       "used": 14000,
       "source": "csv"
      },
      "E": {
       "pe": "13",
       "csv": 52700,
-      "static": 54309,
-      "used": 54309,
+      "static": 54379,
+      "used": 54379,
       "source": "static"
      },
      "F": {
       "pe": "14",
       "csv": 80800,
-      "static": 79513,
+      "static": 79583,
       "used": 80800,
       "source": "csv"
      },
      "G": {
       "pe": "9",
       "csv": 109880,
-      "static": 108593,
+      "static": 108663,
       "used": 109880,
       "source": "csv"
      },
      "H": {
       "pe": "13",
       "csv": 45300,
-      "static": 44013,
+      "static": 44083,
       "used": 45300,
       "source": "csv"
      },
      "I": {
       "pe": "13",
       "csv": 75370,
-      "static": 74083,
+      "static": 74153,
       "used": 75370,
       "source": "csv"
      },
      "J": {
       "pe": "9",
       "csv": 107570,
-      "static": 111793,
-      "used": 111793,
+      "static": 112003,
+      "used": 112003,
       "source": "static"
      }
     },
     "file": "carv_e.json",
-    "sha256": "d198619e24f835e34592399170784a2e5c315ff88de1fc771b31f618c3d89512"
+    "sha256": "31f5b9f5e44ca960889cb20911685b7475821f67b763c08e8bd4256bbc8f6bb1"
    },
    "pes": {
     "14": {
@@ -1605,7 +1605,7 @@
       "F"
      ],
      "csv": 181930,
-     "static": 173107,
+     "static": 173317,
      "used": 181930,
      "static_above_csv": [],
      "source": "csv"
@@ -1616,7 +1616,7 @@
       "FBU1"
      ],
      "csv": 190000,
-     "static": 183129,
+     "static": 183199,
      "used": 190000,
      "static_above_csv": [],
      "source": "csv"
@@ -1627,7 +1627,7 @@
       "FBU2"
      ],
      "csv": 190000,
-     "static": 183129,
+     "static": 183199,
      "used": 190000,
      "static_above_csv": [],
      "source": "csv"
@@ -1637,7 +1637,7 @@
       "BFE3"
      ],
      "csv": 95000,
-     "static": 93713,
+     "static": 93783,
      "used": 95000,
      "static_above_csv": [],
      "source": "csv"
@@ -1648,7 +1648,7 @@
       "FBU4"
      ],
      "csv": 161998,
-     "static": 155129,
+     "static": 155199,
      "used": 161998,
      "static_above_csv": [],
      "source": "csv"
@@ -1659,7 +1659,7 @@
       "FBU5"
      ],
      "csv": 190000,
-     "static": 183129,
+     "static": 183199,
      "used": 190000,
      "static_above_csv": [],
      "source": "csv"
@@ -1670,7 +1670,7 @@
       "FBU6"
      ],
      "csv": 190000,
-     "static": 183129,
+     "static": 183199,
      "used": 190000,
      "static_above_csv": [],
      "source": "csv"
@@ -1680,7 +1680,7 @@
       "BFE7"
      ],
      "csv": 95000,
-     "static": 93713,
+     "static": 93783,
      "used": 95000,
      "static_above_csv": [],
      "source": "csv"
@@ -1690,7 +1690,7 @@
       "BFE8"
      ],
      "csv": 95000,
-     "static": 93713,
+     "static": 93783,
      "used": 95000,
      "static_above_csv": [],
      "source": "csv"
@@ -1700,7 +1700,7 @@
       "C"
      ],
      "csv": 96330,
-     "static": 95043,
+     "static": 95113,
      "used": 96330,
      "static_above_csv": [],
      "source": "csv"
@@ -1712,8 +1712,8 @@
       "I"
      ],
      "csv": 173370,
-     "static": 172405,
-     "used": 174979,
+     "static": 172615,
+     "used": 175049,
      "static_above_csv": [
       "E"
      ],
@@ -1725,7 +1725,7 @@
       "VOD1"
      ],
      "csv": 190000,
-     "static": 183751,
+     "static": 183821,
      "used": 190000,
      "static_above_csv": [],
      "source": "csv"
@@ -1746,7 +1746,7 @@
       "VOD2"
      ],
      "csv": 190000,
-     "static": 183751,
+     "static": 183821,
      "used": 190000,
      "static_above_csv": [],
      "source": "csv"
@@ -1756,8 +1756,8 @@
       "FDF1"
      ],
      "csv": 95000,
-     "static": 106356,
-     "used": 106356,
+     "static": 106636,
+     "used": 106636,
      "static_above_csv": [
       "FDF1"
      ],
@@ -1768,8 +1768,8 @@
       "FDF2"
      ],
      "csv": 95000,
-     "static": 106356,
-     "used": 106356,
+     "static": 106636,
+     "used": 106636,
      "static_above_csv": [
       "FDF2"
      ],
@@ -1781,8 +1781,8 @@
       "J"
      ],
      "csv": 217450,
-     "static": 220386,
-     "used": 221673,
+     "static": 220666,
+     "used": 221883,
      "static_above_csv": [
       "J"
      ],
@@ -1793,8 +1793,8 @@
       "NAVC"
      ],
      "csv": 95000,
-     "static": 95018,
-     "used": 95018,
+     "static": 95158,
+     "used": 95158,
      "static_above_csv": [
       "NAVC"
      ],
@@ -1805,7 +1805,7 @@
       "OBMG"
      ],
      "csv": 95000,
-     "static": 90803,
+     "static": 90873,
      "used": 95000,
      "static_above_csv": [],
      "source": "csv"
@@ -1815,37 +1815,37 @@
       "STPH"
      ],
      "csv": 95000,
-     "static": 97928,
-     "used": 97928,
+     "static": 98068,
+     "used": 98068,
      "static_above_csv": [
       "STPH"
      ],
      "source": "static"
     }
    },
-   "f_cpu_hz": 443346000.0,
-   "f_noc_hz": 457595825.1953125,
-   "minimum_hz": 457595825.1953125,
+   "f_cpu_hz": 443766000.0,
+   "f_noc_hz": 458015441.89453125,
+   "minimum_hz": 458015441.89453125,
    "binding": "f_noc",
    "runs": {
-    "VMA": {
-     "clock_hz": 457600000,
+    "XMA": {
+     "clock_hz": 458016000,
      "rule": "flow",
      "cpu_feasible": true,
      "apps": {
       "CARV": {
-       "period_cycles": 228800,
+       "period_cycles": 229008,
        "response_bound": {
-        "cycles": 1010200,
+        "cycles": 1011032,
         "task": "OBMG",
         "phase": 4,
-        "ms": 2.2076048951048954
+        "ms": 2.2074163348005307
        },
        "tasks": {
         "NAVC": {
          "pe": "0",
          "start": 11000,
-         "finish": 95018,
+         "finish": 95158,
          "phase": 1
         },
         "FBU4": {
@@ -1965,19 +1965,19 @@
         "STPH": {
          "pe": "17",
          "start": 11000,
-         "finish": 97928,
+         "finish": 98068,
          "phase": 3
         },
         "FDF2": {
          "pe": "18",
          "start": 11000,
-         "finish": 114724,
+         "finish": 115004,
          "phase": 2
         },
         "FDF1": {
          "pe": "19",
          "start": 11000,
-         "finish": 110851,
+         "finish": 111131,
          "phase": 2
         }
        },
@@ -2040,24 +2040,24 @@
        }
       },
       "E": {
-       "period_cycles": 228800,
+       "period_cycles": 229008,
        "response_bound": {
-        "cycles": 802066,
+        "cycles": 802900,
         "task": "J",
         "phase": 3,
-        "ms": 1.7527666083916085
+        "ms": 1.7529955285404877
        },
        "tasks": {
         "J": {
          "pe": "9",
          "start": 11000,
-         "finish": 115666,
+         "finish": 115876,
          "phase": 3
         },
         "G": {
          "pe": "9",
-         "start": 126666,
-         "finish": 228797,
+         "start": 126876,
+         "finish": 229007,
          "phase": 1
         },
         "C": {
@@ -2069,19 +2069,19 @@
         "E": {
          "pe": "13",
          "start": 11000,
-         "finish": 54309,
+         "finish": 54379,
          "phase": 2
         },
         "H": {
          "pe": "13",
-         "start": 65309,
-         "finish": 99609,
+         "start": 65379,
+         "finish": 99679,
          "phase": 2
         },
         "I": {
          "pe": "13",
-         "start": 110609,
-         "finish": 174979,
+         "start": 110679,
+         "finish": 175049,
          "phase": 2
         },
         "A": {
@@ -2144,12 +2144,12 @@
       "checks": 21,
       "violations": 0,
       "after_request": 0,
-      "margin_min_cycles": 11526,
+      "margin_min_cycles": 11734,
       "holds": true
      },
-     "period_cycles": 228800,
+     "period_cycles": 229008,
      "sim_ns": 11500000,
-     "sim_ns_min": 11207605,
+     "sim_ns_min": 11207417,
      "sim_fits": true,
      "feasible": true,
      "table": {
@@ -2166,232 +2166,232 @@
      "TPMS": {
       "pe": "3",
       "csv": 477668,
-      "static": 474662,
+      "static": 474732,
       "used": 477668,
       "source": "csv"
      },
      "VIBS": {
       "pe": "3",
       "csv": 151000,
-      "static": 147992,
+      "static": 148062,
       "used": 151000,
       "source": "csv"
      },
      "SPES": {
       "pe": "1",
       "csv": 151000,
-      "static": 152974,
-      "used": 152974,
+      "static": 153044,
+      "used": 153044,
       "source": "static"
      },
      "POSI": {
       "pe": "8",
       "csv": 711000,
-      "static": 712974,
-      "used": 712974,
+      "static": 713044,
+      "used": 713044,
       "source": "static"
      },
      "USOS": {
       "pe": "4",
       "csv": 104332,
-      "static": 101322,
+      "static": 101392,
       "used": 104332,
       "source": "csv"
      },
      "FBU1": {
       "pe": "11",
       "csv": 67000,
-      "static": 63992,
+      "static": 64062,
       "used": 67000,
       "source": "csv"
      },
      "FBU2": {
       "pe": "15",
       "csv": 67000,
-      "static": 63992,
+      "static": 64062,
       "used": 67000,
       "source": "csv"
      },
      "FBU3": {
       "pe": "5",
       "csv": 67000,
-      "static": 68974,
-      "used": 68974,
+      "static": 69044,
+      "used": 69044,
       "source": "static"
      },
      "FBU4": {
       "pe": "7",
       "csv": 48332,
-      "static": 45322,
+      "static": 45392,
       "used": 48332,
       "source": "csv"
      },
      "FBU5": {
       "pe": "14",
       "csv": 67000,
-      "static": 63992,
+      "static": 64062,
       "used": 67000,
       "source": "csv"
      },
      "FBU6": {
       "pe": "13",
       "csv": 67000,
-      "static": 63992,
+      "static": 64062,
       "used": 67000,
       "source": "csv"
      },
      "FBU7": {
       "pe": "12",
       "csv": 67000,
-      "static": 63992,
+      "static": 64062,
       "used": 67000,
       "source": "csv"
      },
      "FBU8": {
       "pe": "6",
       "csv": 67000,
-      "static": 68974,
-      "used": 68974,
+      "static": 69044,
+      "used": 69044,
       "source": "static"
      },
      "STAC": {
       "pe": "3",
       "csv": 151000,
-      "static": 168470,
-      "used": 168470,
+      "static": 168750,
+      "used": 168750,
       "source": "static"
      },
      "TPRC": {
       "pe": "0",
       "csv": 1411000,
-      "static": 1408005,
+      "static": 1408145,
       "used": 1411000,
       "source": "csv"
      },
      "DIRC": {
       "pe": "8",
       "csv": 151000,
-      "static": 148005,
+      "static": 148145,
       "used": 151000,
       "source": "csv"
      },
      "NAVC": {
       "pe": "8",
       "csv": 151000,
-      "static": 183740,
-      "used": 183740,
+      "static": 184160,
+      "used": 184160,
       "source": "static"
      },
      "OBDB": {
       "pe": "4",
       "csv": 711000,
-      "static": 723326,
-      "used": 723326,
+      "static": 723536,
+      "used": 723536,
       "source": "static"
      },
      "BFE1": {
       "pe": "11",
       "csv": 67000,
-      "static": 69000,
-      "used": 69000,
+      "static": 69140,
+      "used": 69140,
       "source": "static"
      },
      "BFE2": {
       "pe": "15",
       "csv": 67000,
-      "static": 69000,
-      "used": 69000,
+      "static": 69140,
+      "used": 69140,
       "source": "static"
      },
      "BFE3": {
       "pe": "9",
       "csv": 67000,
-      "static": 69000,
-      "used": 69000,
+      "static": 69140,
+      "used": 69140,
       "source": "static"
      },
      "BFE4": {
       "pe": "7",
       "csv": 67000,
-      "static": 69000,
-      "used": 69000,
+      "static": 69140,
+      "used": 69140,
       "source": "static"
      },
      "BFE5": {
       "pe": "14",
       "csv": 67000,
-      "static": 69000,
-      "used": 69000,
+      "static": 69140,
+      "used": 69140,
       "source": "static"
      },
      "BFE6": {
       "pe": "13",
       "csv": 67000,
-      "static": 69000,
-      "used": 69000,
+      "static": 69140,
+      "used": 69140,
       "source": "static"
      },
      "BFE7": {
       "pe": "12",
       "csv": 67000,
-      "static": 69000,
-      "used": 69000,
+      "static": 69140,
+      "used": 69140,
       "source": "static"
      },
      "BFE8": {
       "pe": "10",
       "csv": 67000,
-      "static": 69000,
-      "used": 69000,
+      "static": 69140,
+      "used": 69140,
       "source": "static"
      },
      "FDF1": {
       "pe": "9",
       "csv": 67000,
-      "static": 84632,
-      "used": 84632,
+      "static": 84982,
+      "used": 84982,
       "source": "static"
      },
      "FDF2": {
       "pe": "10",
       "csv": 67000,
-      "static": 84632,
-      "used": 84632,
+      "static": 84982,
+      "used": 84982,
       "source": "static"
      },
      "STPH": {
       "pe": "9",
       "csv": 67000,
-      "static": 74344,
-      "used": 74344,
+      "static": 74554,
+      "used": 74554,
       "source": "static"
      },
      "THRC": {
       "pe": "2",
       "csv": 151000,
-      "static": 153349,
-      "used": 153349,
+      "static": 153559,
+      "used": 153559,
       "source": "static"
      },
      "VOD1": {
       "pe": "5",
       "csv": 67000,
-      "static": 69000,
-      "used": 69000,
+      "static": 69140,
+      "used": 69140,
       "source": "static"
      },
      "VOD2": {
       "pe": "6",
       "csv": 67000,
-      "static": 69000,
-      "used": 69000,
+      "static": 69140,
+      "used": 69140,
       "source": "static"
      },
      "OBMG": {
       "pe": "4",
       "csv": 1411000,
-      "static": 1428632,
-      "used": 1428632,
+      "static": 1428982,
+      "used": 1428982,
       "source": "static"
      }
     },
@@ -2401,7 +2401,7 @@
      "used": 11000
     },
     "file": "car_full.json",
-    "sha256": "390624704f2dc3ec4527c2a6b2455acaa00cdad54e73bb9eececa97613e201ce"
+    "sha256": "907a491a78b284b3f866cbaef744ea9a83b9eac87bb02dd35ee42c121cbf33a5"
    },
    "pes": {
     "11": {
@@ -2410,8 +2410,8 @@
       "FBU1"
      ],
      "csv": 134000,
-     "static": 132992,
-     "used": 136000,
+     "static": 133202,
+     "used": 136140,
      "static_above_csv": [
       "BFE1"
      ],
@@ -2423,8 +2423,8 @@
       "FBU2"
      ],
      "csv": 134000,
-     "static": 132992,
-     "used": 136000,
+     "static": 133202,
+     "used": 136140,
      "static_above_csv": [
       "BFE2"
      ],
@@ -2437,8 +2437,8 @@
       "STPH"
      ],
      "csv": 201000,
-     "static": 227976,
-     "used": 227976,
+     "static": 228676,
+     "used": 228676,
      "static_above_csv": [
       "BFE3",
       "FDF1",
@@ -2452,8 +2452,8 @@
       "FBU4"
      ],
      "csv": 115332,
-     "static": 114322,
-     "used": 117332,
+     "static": 114532,
+     "used": 117472,
      "static_above_csv": [
       "BFE4"
      ],
@@ -2465,8 +2465,8 @@
       "FBU5"
      ],
      "csv": 134000,
-     "static": 132992,
-     "used": 136000,
+     "static": 133202,
+     "used": 136140,
      "static_above_csv": [
       "BFE5"
      ],
@@ -2478,8 +2478,8 @@
       "FBU6"
      ],
      "csv": 134000,
-     "static": 132992,
-     "used": 136000,
+     "static": 133202,
+     "used": 136140,
      "static_above_csv": [
       "BFE6"
      ],
@@ -2491,8 +2491,8 @@
       "FBU7"
      ],
      "csv": 134000,
-     "static": 132992,
-     "used": 136000,
+     "static": 133202,
+     "used": 136140,
      "static_above_csv": [
       "BFE7"
      ],
@@ -2504,8 +2504,8 @@
       "FDF2"
      ],
      "csv": 134000,
-     "static": 153632,
-     "used": 153632,
+     "static": 154122,
+     "used": 154122,
      "static_above_csv": [
       "BFE8",
       "FDF2"
@@ -2519,8 +2519,8 @@
       "POSI"
      ],
      "csv": 1013000,
-     "static": 1044719,
-     "used": 1047714,
+     "static": 1045349,
+     "used": 1048204,
      "static_above_csv": [
       "NAVC",
       "POSI"
@@ -2533,8 +2533,8 @@
       "VOD1"
      ],
      "csv": 134000,
-     "static": 137974,
-     "used": 137974,
+     "static": 138184,
+     "used": 138184,
      "static_above_csv": [
       "FBU3",
       "VOD1"
@@ -2547,8 +2547,8 @@
       "VOD2"
      ],
      "csv": 134000,
-     "static": 137974,
-     "used": 137974,
+     "static": 138184,
+     "used": 138184,
      "static_above_csv": [
       "FBU8",
       "VOD2"
@@ -2562,8 +2562,8 @@
       "USOS"
      ],
      "csv": 2226332,
-     "static": 2253280,
-     "used": 2256290,
+     "static": 2253910,
+     "used": 2256850,
      "static_above_csv": [
       "OBDB",
       "OBMG"
@@ -2575,8 +2575,8 @@
       "SPES"
      ],
      "csv": 151000,
-     "static": 152974,
-     "used": 152974,
+     "static": 153044,
+     "used": 153044,
      "static_above_csv": [
       "SPES"
      ],
@@ -2589,8 +2589,8 @@
       "VIBS"
      ],
      "csv": 779668,
-     "static": 791124,
-     "used": 797138,
+     "static": 791544,
+     "used": 797418,
      "static_above_csv": [
       "STAC"
      ],
@@ -2601,8 +2601,8 @@
       "THRC"
      ],
      "csv": 151000,
-     "static": 153349,
-     "used": 153349,
+     "static": 153559,
+     "used": 153559,
      "static_above_csv": [
       "THRC"
      ],
@@ -2613,23 +2613,23 @@
       "TPRC"
      ],
      "csv": 1411000,
-     "static": 1408005,
+     "static": 1408145,
      "used": 1411000,
      "static_above_csv": [],
      "source": "csv"
     }
    },
-   "f_cpu_hz": 477952000.0,
-   "f_noc_hz": 526056421.875,
-   "minimum_hz": 526056421.875,
+   "f_cpu_hz": 479352000.0,
+   "f_noc_hz": 526617207.2753906,
+   "minimum_hz": 526617207.2753906,
    "binding": "f_noc",
    "runs": {
-    "CF6": {
-     "clock_hz": 526080000,
+    "CF7": {
+     "clock_hz": 526656000,
      "rule": "flow",
      "cpu_feasible": true,
-     "period_cycles": 131520,
-     "hyper_cycles": 6576000,
+     "period_cycles": 131664,
+     "hyper_cycles": 6583200,
      "periodic_from_hyperperiod": 0,
      "link_schedule_feasible": true,
      "packets_between_pes": 347,
@@ -2644,53 +2644,53 @@
       "checks": 347,
       "violations": 0,
       "after_request": 0,
-      "margin_min_cycles": 2940,
+      "margin_min_cycles": 2944,
       "holds": true
      },
      "chains": 34,
      "packets_per_hyperperiod": 347,
      "data_age": {
-      "TPMS-STAC-TPRC": 11396000,
-      "TPMS-STAC-THRC": 4767549,
-      "VIBS-STAC-TPRC": 8765600,
-      "VIBS-STAC-THRC": 1479549,
-      "SPES-NAVC-DIRC": 1972782,
-      "SPES-NAVC-THRC": 1479549,
-      "SPES-STAC-TPRC": 8765600,
-      "SPES-STAC-THRC": 1479549,
-      "POSI-NAVC-DIRC": 6294974,
-      "POSI-NAVC-THRC": 6082749,
-      "POSI-OBMG-OBDB-NAVC-DIRC": 14975294,
-      "POSI-OBMG-OBDB-NAVC-THRC": 14631549,
-      "USOS-OBMG-OBDB-NAVC-DIRC": 12344894,
-      "USOS-OBMG-OBDB-NAVC-THRC": 12001149,
-      "FBU1-BFE1-FDF1-STPH-OBMG-OBDB-NAVC-DIRC": 12739454,
-      "FBU1-BFE1-FDF1-STPH-OBMG-OBDB-NAVC-THRC": 12395709,
-      "FBU2-BFE2-FDF1-STPH-OBMG-OBDB-NAVC-DIRC": 12739454,
-      "FBU2-BFE2-FDF1-STPH-OBMG-OBDB-NAVC-THRC": 12395709,
-      "FBU3-VOD1-NAVC-DIRC": 1955436,
-      "FBU3-VOD1-NAVC-THRC": 1479549,
-      "FBU3-BFE3-FDF1-STPH-OBMG-OBDB-NAVC-DIRC": 12739454,
-      "FBU3-BFE3-FDF1-STPH-OBMG-OBDB-NAVC-THRC": 12395709,
-      "FBU4-BFE4-FDF1-STPH-OBMG-OBDB-NAVC-DIRC": 12739454,
-      "FBU4-BFE4-FDF1-STPH-OBMG-OBDB-NAVC-THRC": 12395709,
-      "FBU5-BFE5-FDF2-STPH-OBMG-OBDB-NAVC-DIRC": 12739454,
-      "FBU5-BFE5-FDF2-STPH-OBMG-OBDB-NAVC-THRC": 12395709,
-      "FBU6-BFE6-FDF2-STPH-OBMG-OBDB-NAVC-DIRC": 12739454,
-      "FBU6-BFE6-FDF2-STPH-OBMG-OBDB-NAVC-THRC": 12395709,
-      "FBU7-BFE7-FDF2-STPH-OBMG-OBDB-NAVC-DIRC": 12739454,
-      "FBU7-BFE7-FDF2-STPH-OBMG-OBDB-NAVC-THRC": 12395709,
-      "FBU8-VOD2-NAVC-DIRC": 1955436,
-      "FBU8-VOD2-NAVC-THRC": 1479549,
-      "FBU8-BFE8-FDF2-STPH-OBMG-OBDB-NAVC-DIRC": 12739454,
-      "FBU8-BFE8-FDF2-STPH-OBMG-OBDB-NAVC-THRC": 12395709
+      "TPMS-STAC-TPRC": 11406800,
+      "TPMS-STAC-THRC": 4772799,
+      "VIBS-STAC-TPRC": 8773520,
+      "VIBS-STAC-THRC": 1481199,
+      "SPES-NAVC-DIRC": 1974930,
+      "SPES-NAVC-THRC": 1481199,
+      "SPES-STAC-TPRC": 8773520,
+      "SPES-STAC-THRC": 1481199,
+      "POSI-NAVC-DIRC": 6301874,
+      "POSI-NAVC-THRC": 6089439,
+      "POSI-OBMG-OBDB-NAVC-DIRC": 14991698,
+      "POSI-OBMG-OBDB-NAVC-THRC": 14647599,
+      "USOS-OBMG-OBDB-NAVC-DIRC": 12358418,
+      "USOS-OBMG-OBDB-NAVC-THRC": 12014319,
+      "FBU1-BFE1-FDF1-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+      "FBU1-BFE1-FDF1-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+      "FBU2-BFE2-FDF1-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+      "FBU2-BFE2-FDF1-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+      "FBU3-VOD1-NAVC-DIRC": 1957584,
+      "FBU3-VOD1-NAVC-THRC": 1481199,
+      "FBU3-BFE3-FDF1-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+      "FBU3-BFE3-FDF1-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+      "FBU4-BFE4-FDF1-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+      "FBU4-BFE4-FDF1-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+      "FBU5-BFE5-FDF2-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+      "FBU5-BFE5-FDF2-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+      "FBU6-BFE6-FDF2-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+      "FBU6-BFE6-FDF2-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+      "FBU7-BFE7-FDF2-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+      "FBU7-BFE7-FDF2-STPH-OBMG-OBDB-NAVC-THRC": 12409311,
+      "FBU8-VOD2-NAVC-DIRC": 1957584,
+      "FBU8-VOD2-NAVC-THRC": 1481199,
+      "FBU8-BFE8-FDF2-STPH-OBMG-OBDB-NAVC-DIRC": 12753410,
+      "FBU8-BFE8-FDF2-STPH-OBMG-OBDB-NAVC-THRC": 12409311
      },
      "data_age_max": {
       "chain": "POSI-OBMG-OBDB-NAVC-DIRC",
-      "cycles": 14975294,
-      "ms": 28.46581128345499
+      "cycles": 14991698,
+      "ms": 28.46582589014461
      },
-     "sim_ns_min": 31465812,
+     "sim_ns_min": 31465826,
      "sim_ns": 64000000,
      "sim_fits": true,
      "feasible": true,
@@ -2706,15 +2706,15 @@
     "phases_per_hyperperiod": 50,
     "flows": 38,
     "flows_on_one_pe": 18,
-    "p_min_cycles": 119488,
-    "f_cpu_hz": 477952000.0,
-    "utilization_bound_cycles": 113988,
-    "utilization_bound_hz": 455952000.0,
-    "f_cpu_phase_hz": 9025160000.0,
+    "p_min_cycles": 119838,
+    "f_cpu_hz": 479352000.0,
+    "utilization_bound_cycles": 114338,
+    "utilization_bound_hz": 457352000.0,
+    "f_cpu_phase_hz": 9027400000.0,
     "data_age_max_at_minimum": {
      "chain": "POSI-OBMG-OBDB-NAVC-DIRC",
-     "cycles": 14974628,
-     "ms": 28.46582111216623
+     "cycles": 14990588,
+     "ms": 28.4658150035739
     }
    }
   }

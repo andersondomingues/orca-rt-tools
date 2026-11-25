@@ -73,7 +73,7 @@ def test_multirate_deadlines_at_the_release_of_the_reader():
                                                   os.path.join(c, "car-full-ONTO-hermes4x4.map"),
                                                   os.path.join(ARCH, "hermes-4x4.gml"),
                                                   os.path.join(COSTS, "car_full.json"))
-    f = 526080000
+    f = 526656000
     a = search.schedule_at(g, noc, entries, appname, f, search_config(f))
     assert a is not None and a["schedule"] is not None and not a["skipped"]
     inst = instantiator.createInstance(g, noc, f)

@@ -89,7 +89,7 @@ MESH    ?= 4x4
 # toolchain in use
 HEAP    ?= 44624
 IN_FLIGHT ?= 2
-F_CLK   ?= 526080000
+F_CLK   ?= 526656000
 # t(v) = max(CSV, static t(v) of the image, experiments/wcet costs/tt) in the link schedule of car_full_tt.h
 TT_COSTS ?= ../wcet/costs/tt/car_full.json
 PHASE_NS ?= 250000
@@ -98,9 +98,9 @@ LOG     ?= logs/CF.events.txt
 REF     ?= reference_CF.json
 OUTDIR  ?= $(BUILD)/results_CF
 
-.PHONY: all app generate run check ucx ucx-check build sim analyze check-run check-cf2 check-cf4 check-cf5 check-cf6 clean
+.PHONY: all app generate run check ucx ucx-check build sim analyze check-run check-cf2 check-cf4 check-cf5 check-cf6 check-cf7 clean
 
-all: app run check ucx-check analyze check-run check-cf2 check-cf4 check-cf5 check-cf6
+all: app run check ucx-check analyze check-run check-cf2 check-cf4 check-cf5 check-cf6 check-cf7
 
 app:
 	$(RUN) generate --config config.json --apps $(APPS) --check
@@ -158,6 +158,12 @@ check-cf5:
 check-cf6:
 	$(MAKE) --no-print-directory analyze check-run LOG=logs/CF6.events.txt REF=reference_CF6.json \
 		OUTDIR=$(BUILD)/results_CF6
+
+# CF7: car_full of round r12 (commit 524ca79: as CF6 with the critical section around the queue of a task, lib/noc.c),
+# 526.656 MHz, the clock of the flow with the static costs of that image, 64 ms
+check-cf7:
+	$(MAKE) --no-print-directory analyze check-run LOG=logs/CF7.events.txt REF=reference_CF7.json \
+		OUTDIR=$(BUILD)/results_CF7
 
 clean:
 	rm -rf $(BUILD)

@@ -1,0 +1,5 @@
+app=APP-DES name=str2rts_des mesh=4x4
+f_clk_hz=725768000 release_ns=2000000 sim_ns=85000000 tick_cycles=default
+max_tasks=31 max_pkt_queue_slots=16 noc_tt_slots=default ram_bytes=262144
+heap=181536 demand_worst_pe=96516 margin=85004 fits=True
+image text=30028 data=47380 bss=184736

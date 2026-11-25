@@ -14,8 +14,11 @@ void ucx_free(void *ptr);
 #define malloc(n) ucx_malloc(n)
 #define free(p)   ucx_free(p)
 
-void _di(void);
-void _ei(void);
+/* as arch/riscv/hf-riscv-e/hal.h: _interrupt_set returns the state before the call (lib/noc.c keeps the
+ * state of its caller around the queue of a task) */
+int32_t _interrupt_set(int32_t s);
+#define _di() _interrupt_set(0)
+#define _ei() _interrupt_set(1)
 
 extern volatile uint32_t host_irq_mask;
 #define IRQ_MASK  host_irq_mask

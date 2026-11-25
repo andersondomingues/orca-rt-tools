@@ -1,0 +1,21 @@
+repo_commit=524ca794eaafd91a9d178bf3bfc14534dbe750a1
+repo_state=archive
+repo_tag=none
+src_sha256=40db5757bc83da8b216b23cb55cd0006c1dcbd5f232e0a2fc35a8a761fd35d6b
+sim_ns=20000000 monitor=1
+app=weird_a mesh=2x2 generics=-gCLOCK_HALF_PERIOD_FS=1113208 -gRELEASE_CYCLES=224576 -gWARMUP_CYCLES=1347456 -gRELEASE_MASK=15
+vsim=Questa Sim-64 vsim 2025.3 Simulator 2025.09 Sep 15 2025
+gcc=riscv64-elf-gcc (Arch Linux Repositories) 12.2.0
+date=2026-11-19T01:35:07Z
+f_clk_hz=449152000
+f_tick_hz=2000
+clock_half_period_fs=1113208
+clock_hz_exact=449152359.667
+release_cycles=224576
+warmup_cycles=1347456
+isr=no_nesting
+crt0=guard_readback
+injection=tt
+costs=max_csv_static costs_file=weird_a.json costs_sha256=79a7b27c8da8c9e8c330376c34789188a4a842bba7f93bf55c37d81ab048b2c1
+release=tick
+deadline=tick

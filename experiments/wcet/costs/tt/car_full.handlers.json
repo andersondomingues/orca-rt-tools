@@ -3,7 +3,7 @@
  "image": {
   "file": "car_full.elf",
   "kind": "elf",
-  "sha256": "a84ad666ab192cc3e6230755f0d6f5bf195a6087a4654fa5a60fd044d00dffbd"
+  "sha256": "5775d95292f27fabf3e696e885ae87dc5fbb338a9255cdf025b2e917f39c1b39"
  },
  "inject": 622,
  "receive": 4803,

@@ -1,0 +1,25 @@
+repo_commit=unknown
+repo_state=nogit
+repo_tag=none
+src_sha256=3881409666de9b71f4e90d1d2d1f46612e434b72861147e20a0ea0aaa95510b9
+sim_ns=37000000 monitor=1
+app=str2rts_firbank mesh=4x4 generics=-gCLOCK_HALF_PERIOD_FS=856305 -gRELEASE_CYCLES=1167808 -gWARMUP_CYCLES=1751712 -gNOC_DIM_X=4 -gNOC_DIM_Y=4 -gRELEASE_MASK=65535 -gRAM_MSIZE=262144
+vsim=Questa Sim-64 vsim 2025.3 Simulator 2025.09 Sep 15 2025
+gcc=riscv64-elf-gcc (Arch Linux Repositories) 12.2.0
+date=2026-11-23T22:23:01Z
+f_clk_hz=583904000
+f_tick_hz=500
+clock_half_period_fs=856305
+clock_hz_exact=583904099.591
+release_cycles=1167808
+warmup_cycles=1751712
+max_tasks=29
+max_pkt_queue_slots=32
+noc_tt_slots=16
+ram_bytes=262144
+isr=no_nesting
+crt0=guard_readback
+injection=tt
+costs=max_csv_static costs_file=str2rts_firbank.json costs_sha256=9fbba9d148fbb9d43cc783fe4fef36fedecb8db914ff5b178323c2dddf43a63a
+release=tick
+deadline=tick

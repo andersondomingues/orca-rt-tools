@@ -1,0 +1,21 @@
+repo_commit=524ca794eaafd91a9d178bf3bfc14534dbe750a1
+repo_state=archive
+repo_tag=none
+src_sha256=40db5757bc83da8b216b23cb55cd0006c1dcbd5f232e0a2fc35a8a761fd35d6b
+sim_ns=10500000 monitor=1
+app=wcet_e mesh=2x2 generics=-gRELEASE_MASK=15
+vsim=Questa Sim-64 vsim 2025.3 Simulator 2025.09 Sep 15 2025
+gcc=riscv64-elf-gcc (Arch Linux Repositories) 12.2.0
+date=2026-11-19T01:45:50Z
+f_clk_hz=500000000
+f_tick_hz=2000
+clock_half_period_fs=1000000
+clock_hz_exact=500000000.000
+release_cycles=250000
+warmup_cycles=1500000
+isr=no_nesting
+crt0=guard_readback
+injection=tt
+costs=max_csv_static costs_file=wcet_e.json costs_sha256=ae9740ebad2df92910bf375519308d6e3d5c979a45799d1696937af4876dd8cf
+release=tick
+deadline=tick

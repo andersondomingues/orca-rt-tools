@@ -201,6 +201,35 @@ def _yield_section(an, fname, kernel):
     return {"head": head.cycles, "tail": tail.cycles, "cycles": head.cycles + kernel["yield_switch"] + tail.cycles}
 
 
+# critical sections of lib/noc.c around the queue of a task: function -> the queue routine that
+# it calls between _interrupt_set(0) and the _interrupt_set that restores the state
+QUEUE_SECTIONS = {"ucx_noc_receive": "ucx_queue_dequeue", "ucx_noc_send": "ucx_queue_enqueue"}
+
+
+def _calls(an, fname, callee):
+    cfg = an.cfg(fname)
+    return any(blk.term == "call" and blk.callee == callee for blk in cfg.blocks.values())
+
+
+def _queue_section(an, fname):
+    """Cycles with interrupts disabled of the critical section of `fname`
+    (ucx_noc_receive or the local branch of ucx_noc_send, lib/noc.c)
+    around the queue of a task: the call of _interrupt_set that disables
+    interrupts, the path from its return to the call of _interrupt_set
+    that restores the state (with ucx_queue_dequeue or ucx_queue_enqueue),
+    and that call. Each call counts whole, so the value bounds the section
+    from above. None for an image without the section (the images up to
+    tag r11-rc9, and ucx_noc_send of an image built with UCX_NOC_LATEST,
+    which does not call ucx_queue_enqueue)."""
+    if not (an.img.has_function(fname) and _calls(an, fname, "_interrupt_set")
+            and _calls(an, fname, QUEUE_SECTIONS[fname])):
+        return None
+    di = an.function("_interrupt_set").cycles
+    env = ENV0.with_(noreturn={"_interrupt_set"}, overrides={"_interrupt_set": 0})
+    body = an.function(fname, env=env, start=_resume_start(an, fname, "_interrupt_set"))
+    return 2 * di + body.cycles
+
+
 def sections(an, kernel, extra=()):
     """Sections with interrupts disabled outside the interrupt handlers
     (cycles of the longest path of each):
@@ -210,6 +239,7 @@ def sections(an, kernel, extra=()):
     | yield | ucx_task_yield up to the jump of longjmp (yield_save) and the longest resume of the next task: its return from yield (yield_resume) or, for a task that the tick preempted, the return through dispatch, irq0_handler, irq_handler and _isr (at most tick - tick_dispatch_save) |
     | ucx_phase_wait | lib/tick_release.c: _di, the test of the phase, the yield, and the test after the return up to _ei (_yield_section) |
     | tt_insert | lib/noc_tt.c (ucx_noc_send_at between _di and _ei): the insertion into the queue, the injection when the instant has passed, and the calls of _interrupt_set around it |
+    | ucx_noc_receive, ucx_noc_send | lib/noc.c: the dequeue of ucx_noc_receive and the local enqueue of ucx_noc_send between _interrupt_set(0) and the restore of the state (_queue_section); only in an image that has the section |
     | `extra` | functions of the application (`{"function": f, "yield": bool}`): with yield as ucx_phase_wait, else the whole function |
 
     Returns {"yield_switch", "sections": {name: cycles}, "parts", "max", "tail"}:
@@ -235,6 +265,10 @@ def sections(an, kernel, extra=()):
     di = an.function("_interrupt_set").cycles
     for f in whole:
         out[f] = an.function(f).cycles + (2 * di if f == "tt_insert" else 0)
+    for f in QUEUE_SECTIONS:
+        c = _queue_section(an, f)
+        if c is not None:
+            out[f] = c
     return {"yield_switch": k["yield_switch"], "sections": out, "parts": parts, "max": max(out.values()),
             "tail": tail}
 

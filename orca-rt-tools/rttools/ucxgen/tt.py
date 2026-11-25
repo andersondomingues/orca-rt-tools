@@ -32,6 +32,11 @@ import re
 from rttools.modules.routing import router
 
 TIMER_STEP = 16
+# struct ucx_tt_at of include/lib/noc_tt.h: `ticks` in 16 bits; `count` (a step below the P / 16 steps of a
+# tick) in 16 bits when the tick has at most 65536 steps and in 32 bits when it has more, the width of TIMER1
+# and of its compare register (hw/peripherals/peripherals_minimal.vhd)
+MAX_TICKS = 0xFFFF
+MAX_COUNT = 0xFFFFFFFF
 MAX_SLOTS = 8          # NOC_TT_SLOTS of lib/noc_tt.c (default of the kernel; a table that needs more says so
                        # in its line "Queue:", from which experiments/exp23/simulate.sh sets the build)
 
@@ -76,6 +81,9 @@ def _rows(attempt, period_of, phase_start_of, job_start_of):
         if off < 0:
             raise TTError(f"packet {p['name']}: instant {s} before the start {base} of the phase of its source job")
         s16 = ceil_step(off)
+        if s16 // P > MAX_TICKS or (s16 % P) // TIMER_STEP > MAX_COUNT:
+            raise TTError(f"packet {p['name']}: instant {s16} cycles after the phase of its source job, {P} cycles per "
+                          f"tick: the table holds {MAX_TICKS} ticks and step {MAX_COUNT} of TIMER1")
         out.append({"flow": p["flow"], "k": k, "source": p["source"], "target": p["target"],
                     "src": str(p["path"][0]["data"]["label"])[2:], "dst": str(p["path"][-1]["data"]["label"])[:-2],
                     "release": p["min_start"], "deadline": p["abs_deadline"], "occupancy": p["net_time"],

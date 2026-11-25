@@ -3,7 +3,7 @@
  "image": {
   "file": "wcet_e.elf",
   "kind": "elf",
-  "sha256": "a9530a64f077e7c4a47fb4cce34d51d77408e8c7805164045f274a7c3b95dcac"
+  "sha256": "951e17d97dcd690aa78db0a03cfb74354871c08c98d531e49c00d435cbbe76b9"
  },
  "inject": 622,
  "receive": 3873,

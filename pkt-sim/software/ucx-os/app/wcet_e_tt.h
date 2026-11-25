@@ -4,13 +4,13 @@
  * (orca-rt-tools). Do not edit: change the inputs and run the generator
  * again.
  *
- *   python -m rttools.ucxgen tt wcet-e.csv wcet-e-ONTO-hermes2x2.map --arch hermes-2x2.gml --name wcet_e --clock 234656000 --clock 500000000 --costs wcet_e.json
+ *   python -m rttools.ucxgen tt wcet-e.csv wcet-e-ONTO-hermes2x2.map --arch hermes-2x2.gml --name wcet_e --clock 234784000 --clock 500000000 --costs wcet_e.json
  *
  * Input: wcet-e.csv (sha256 5d38a7884e2e791fc848722cc003570cedf16cf310492c94163ea5b81ea61f24)
  * Input: wcet-e-ONTO-hermes2x2.map (sha256 1290bf43b88419d1e9ca087590124bc07c320e3cbbd98eee0143b0564241f8a5)
  * Input: hermes-2x2.gml (sha256 7f5b99836ef8b0644c57f3b4403f1f1798e5b947e5afc6aa08ea7ced18960759)
- * Input: wcet_e.json (sha256 23c7616402d24def7badf95e31871176d6613bbb2f3ba5ebb8623e75ac342cb7)
- * Input: wcet_e.handlers.json (sha256 a3b63f96f123bdf082efcf598e2f80c34c91f2007ec4ecaceafbe55ffd98ad1f)
+ * Input: wcet_e.json (sha256 ae9740ebad2df92910bf375519308d6e3d5c979a45799d1696937af4876dd8cf)
+ * Input: wcet_e.handlers.json (sha256 e3a112203e6a1bac04c8773ba83753aeb66e85cd885c533239431a6a8a8ce6d8)
  *
  * Link schedule of each clock below: AGS (rttools/modules/backend/ags, the
  * parameters of the command line of rttools) on the packets of one
@@ -27,23 +27,23 @@
  * that reads the packet (rttools/modules/instances/release.py,
  * rttools/bench_t/multirate.py).
  *
- * Costs: max(CSV, static) wcet_e.json sha256 23c7616402d24def7badf95e31871176d6613bbb2f3ba5ebb8623e75ac342cb7
+ * Costs: max(CSV, static) wcet_e.json sha256 ae9740ebad2df92910bf375519308d6e3d5c979a45799d1696937af4876dd8cf
  * Deadline: tick (tick of the release of the job that reads each packet; finish of each job with the handlers of the packet events of its PE)
  */
-#if F_CPU == 234656000
-/* 234656000 Hz: 5 packets between PEs in a hyperperiod of 117328 cycles, 117328 cycles per tick; at most 2 packets wait for their instant on one PE */
+#if F_CPU == 234784000
+/* 234784000 Hz: 5 packets between PEs in a hyperperiod of 117392 cycles, 117392 cycles per tick; at most 2 packets wait for their instant on one PE */
 static const struct ucx_tt_at TT_AT[12] = {
   {0, 0},   /* no flow 0 */
-  {0, 712},   /* f1 A->C: s 11377, s16 11392, r 11377, a 117328, o 15533 */
+  {0, 712},   /* f1 A->C: s 11377, s16 11392, r 11377, a 117392, o 15533 */
   {0, 0},   /* f2 A->B: same PE */
   {0, 0},   /* f3 B->D: same PE */
-  {0, 1971},   /* f4 C->E: s 31531, s16 31536, r 31531, a 117328, o 15551 */
+  {0, 1976},   /* f4 C->E: s 31601, s16 31616, r 31601, a 117392, o 15551 */
   {0, 0},   /* f5 D->F: same PE */
-  {0, 5067},   /* f6 F->G: s 81062, s16 81072, r 81062, a 117328, o 16946 */
+  {0, 5080},   /* f6 F->G: s 81272, s16 81280, r 81272, a 117392, o 16946 */
   {0, 0},   /* f7 E->I: same PE */
   {0, 0},   /* f8 E->H: same PE */
-  {0, 6164},   /* f9 I->J: s 98615, s16 98624, r 74615, a 117328, o 16643 */
-  {0, 3460},   /* f10 H->J: s 55345, s16 55360, r 55345, a 117328, o 17450 */
+  {0, 6177},   /* f9 I->J: s 98825, s16 98832, r 74825, a 117392, o 16643 */
+  {0, 3468},   /* f10 H->J: s 55485, s16 55488, r 55485, a 117392, o 17450 */
   {0, 0},   /* f11 G->J: same PE */
 };
 #elif F_CPU == 500000000
@@ -53,13 +53,13 @@ static const struct ucx_tt_at TT_AT[12] = {
   {0, 712},   /* f1 A->C: s 11377, s16 11392, r 11377, a 250000, o 15533 */
   {0, 0},   /* f2 A->B: same PE */
   {0, 0},   /* f3 B->D: same PE */
-  {0, 1971},   /* f4 C->E: s 31531, s16 31536, r 31531, a 250000, o 15551 */
+  {0, 1976},   /* f4 C->E: s 31601, s16 31616, r 31601, a 250000, o 15551 */
   {0, 0},   /* f5 D->F: same PE */
-  {0, 5067},   /* f6 F->G: s 81062, s16 81072, r 81062, a 250000, o 16946 */
+  {0, 5080},   /* f6 F->G: s 81272, s16 81280, r 81272, a 250000, o 16946 */
   {0, 0},   /* f7 E->I: same PE */
   {0, 0},   /* f8 E->H: same PE */
-  {0, 6164},   /* f9 I->J: s 98615, s16 98624, r 74615, a 250000, o 16643 */
-  {0, 3460},   /* f10 H->J: s 55345, s16 55360, r 55345, a 250000, o 17450 */
+  {0, 6177},   /* f9 I->J: s 98825, s16 98832, r 74825, a 250000, o 16643 */
+  {0, 3468},   /* f10 H->J: s 55485, s16 55488, r 55485, a 250000, o 17450 */
   {0, 0},   /* f11 G->J: same PE */
 };
 #else

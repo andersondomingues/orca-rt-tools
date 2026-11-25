@@ -90,11 +90,11 @@ def test_round_robin_moves_usos_by_a_phase():
 
 
 def test_table_bounds_every_job():
-    """CAR-full with the costs of the image of this tree at P_min = 119,488
-    cycles (f_CPU = 477.952 MHz, the smallest phase of the CPU test): for random work of every task (30 to 100 % of c(v) less its
+    """CAR-full with the costs of the image of this tree at P_min = 119,838
+    cycles (f_CPU = 479.352 MHz, the smallest phase of the CPU test): for random work of every task (30 to 100 % of c(v) less its
     events) on every PE, no job ends after its F with the table; without
     it, jobs do."""
-    spec, sched = model(os.path.join(COSTS, "car_full.json"), 119488)
+    spec, sched = model(os.path.join(COSTS, "car_full.json"), 119838)
     assert sched.feasible
     rr = table = 0
     for node, ts in spec.orders.items():
@@ -114,7 +114,7 @@ def test_tick_table_of_the_image():
         text = f.read()
     clock = int(re.search(r"#if F_CPU == (\d+)", text).group(1))
     P = int(re.search(r"(\d+) cycles per tick", text).group(1))
-    assert (clock, P) == (526080000, 131520)
+    assert (clock, P) == (526656000, 131664)
     rows = re.findall(r"\{([0-9, ]+)\},   /\* node (\d+) \*/", text)
     spec, sched = model(os.path.join(COSTS, "car_full.json"), P, handlers=True)
     own = sched.tick_owners()

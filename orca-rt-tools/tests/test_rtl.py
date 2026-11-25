@@ -55,9 +55,10 @@ def test_rtl(name, tmp_path):
         for m in (0, 2, 3):
             assert f"PASS tb_cpu_irq GUARD MODE={m}" in r.stdout, out[-4000:]
     if name == "tb_timer1_ocr":
-        # steps 1, 5 and 15 of a tick of 16 steps, and step 0
-        assert r.stdout.count("PASS tb_timer1_ocr") == 4, out[-4000:]
-        for o in (1, 5, 15):
+        # steps 1, 5 and 15 of a tick of 16 steps, step 0, and step 66000 of a tick of 70001 steps
+        # (TIMER1, its CTC and its OCR hold 32 bits)
+        assert r.stdout.count("PASS tb_timer1_ocr") == 5, out[-4000:]
+        for o in (1, 5, 15, 66000):
             assert f"{16 * o} cycles after the tick" in r.stdout, out[-4000:]
     if name == "tb_manycore_pe":
         # the printed iteration markers have the format of the trace parser

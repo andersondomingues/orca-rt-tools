@@ -65,8 +65,13 @@ void ucx_free(void *ptr)
 	host_live_blocks--;
 }
 
-void _di(void) { host_irq_enabled = 0; }
-void _ei(void) { host_irq_enabled = 1; }
+int32_t _interrupt_set(int32_t s)
+{
+	int32_t before = host_irq_enabled;
+
+	host_irq_enabled = s;
+	return before;
+}
 
 /* interrupt entry and return of _isr (arch/riscv/hf-riscv-e/crt0.s): the
  * core disables interrupts on entry and the return enables them; a handler

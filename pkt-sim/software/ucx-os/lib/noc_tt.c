@@ -46,16 +46,37 @@
 #define TT_DDMA_IDLE		0x01
 #define TT_DDMA_HANDSHAKE	0x40
 
+/* The step of TIMER1 has the type of the table (ucx_tt_step_t of
+ * include/lib/noc_tt.h): 16 bits when the tick of the build has at most
+ * 65536 steps, 32 bits when it has more. With the 32-bit step the entry
+ * keeps its 24 bytes: the size of a packet, at most
+ * (sizeof(noc_packet_t) + 65535 + 3) / 4 flits, takes the 16 bits next to
+ * the port. TT_STEP_NOW reads the step of TIMER1 in that type. */
 struct tt_entry_s {
 	uint32_t tick;			/* tick of the instant */
+#ifdef UCX_TT_STEP32
+	uint32_t count;			/* step of TIMER1 in that tick */
+	uint16_t tag;
+	uint16_t target_cpu;
+	uint16_t target_port;
+	uint16_t flits;			/* DDMA_SEND_SIZE_IN of the packet */
+	uint32_t xy;			/* DDMA_SEND_DEST_IN of the target */
+#else
 	uint16_t count;			/* step of TIMER1 in that tick */
 	uint16_t tag;
 	uint16_t target_cpu;
 	uint16_t target_port;
 	uint32_t xy;			/* DDMA_SEND_DEST_IN of the target */
 	uint32_t flits;			/* DDMA_SEND_SIZE_IN of the packet */
+#endif
 	noc_packet_t *pkt;
 };
+
+#ifdef UCX_TT_STEP32
+#define TT_STEP_NOW()	TIMER1
+#else
+#define TT_STEP_NOW()	(TIMER1 & 0xffff)
+#endif
 
 /* ring of the pending injections in the order of their instants: entry i
  * of the queue is tt_queue[(tt_head + i) & TT_MASK] */
@@ -103,7 +124,7 @@ static void tt_arm(void)
 {
 	struct tt_entry_s *e = &tt_queue[tt_head];
 
-	if (tt_count && (e->tick < tt_tick || (e->tick == tt_tick && e->count <= (TIMER1 & 0xffff)))
+	if (tt_count && (e->tick < tt_tick || (e->tick == tt_tick && e->count <= TT_STEP_NOW()))
 		&& tt_inject(e)) {
 		tt_head = (tt_head + 1) & TT_MASK;
 		tt_count--;
